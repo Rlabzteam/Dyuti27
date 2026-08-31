@@ -9,7 +9,7 @@ export const HeroBanner: React.FC = () => {
 
   return (
     <section
-      className="relative min-h-[100svh] flex flex-col items-center justify-start pt-28 sm:pt-32 lg:pt-36 overflow-hidden bg-[#030C22] text-white"
+      className="relative min-h-[100svh] flex flex-col items-center justify-start pt-16 sm:pt-20 lg:pt-22 overflow-hidden bg-[#030C22] text-white"
       aria-label="DYUTI 2027 National Conference Hero"
     >
       {/* ── KOCHI NIGHTSCAPE BACKGROUND ── */}
