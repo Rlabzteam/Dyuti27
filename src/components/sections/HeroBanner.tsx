@@ -41,10 +41,10 @@ export const HeroBanner: React.FC = () => {
 
         {/* Clean Unboxed Title Block */}
         <div className="mb-8 flex flex-col items-center gap-3">
-          <span className="text-sm sm:text-base font-sans uppercase tracking-[0.22em] text-[#38BDF8] font-black drop-shadow-md">
+          <span className="text-sm sm:text-base md:text-lg font-sans uppercase tracking-[0.25em] text-[#38BDF8] font-black drop-shadow-md">
             National Conference on Social Work
           </span>
-          <h1 className="font-heading font-black text-[3.5rem] sm:text-[4.5rem] md:text-[5.5rem] lg:text-[6rem] text-white leading-none tracking-tight m-0 drop-shadow-xl">
+          <h1 className="font-heading font-black text-[4.5rem] sm:text-[6.5rem] md:text-[7.5rem] lg:text-[8.5rem] xl:text-[9.5rem] text-white leading-none tracking-tight m-0 drop-shadow-2xl">
             DYUTI 2027
           </h1>
         </div>
