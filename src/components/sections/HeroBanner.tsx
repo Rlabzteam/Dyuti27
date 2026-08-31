@@ -39,16 +39,14 @@ export const HeroBanner: React.FC = () => {
           <span>25 Years of Internationalism &bull; Kochi, Kerala</span>
         </div>
 
-        {/* Dynamic Asymmetric Logo/Branding Block */}
-        <div className="mb-10 p-1.5 bg-gradient-to-br from-[#071A33] via-slate-800 to-transparent rounded-asymmetric-lg shadow-[0_20px_50px_rgba(7, 26, 51,0.3)]">
-          <div className="bg-[#030C22]/95 backdrop-blur-md rounded-asymmetric-lg px-8 py-6 border border-white/10 flex flex-col items-center gap-2">
-            <span className="text-[11px] sm:text-[12px] font-sans uppercase tracking-[0.2em] text-[#38BDF8] font-black">
-              National Conference on Social Work
-            </span>
-            <h1 className="font-heading font-black text-[2.75rem] sm:text-[3.5rem] lg:text-[4rem] text-white leading-none tracking-tight m-0">
-              DYUTI 2027
-            </h1>
-          </div>
+        {/* Clean Unboxed Title Block */}
+        <div className="mb-8 flex flex-col items-center gap-3">
+          <span className="text-sm sm:text-base font-sans uppercase tracking-[0.22em] text-[#38BDF8] font-black drop-shadow-md">
+            National Conference on Social Work
+          </span>
+          <h1 className="font-heading font-black text-[3.5rem] sm:text-[4.5rem] md:text-[5.5rem] lg:text-[6rem] text-white leading-none tracking-tight m-0 drop-shadow-xl">
+            DYUTI 2027
+          </h1>
         </div>
 
         {/* Subtitle */}
