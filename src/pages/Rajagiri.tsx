@@ -115,16 +115,31 @@ export const Rajagiri: React.FC = () => {
             {activeTab === 'legacy' ? (
               /* Tab 1: Legacy Content */
               <div className="space-y-8 relative z-10 animate-fadeIn">
-                <div className="space-y-4">
-                  <div className="inline-flex items-center px-4 py-1 rounded-full bg-white/15 border border-white/25 text-[#38BDF8] text-xs font-mono font-black uppercase tracking-[0.18em]">
-                    <span>Autonomous Institution (2014 &ndash; 2030)</span>
+                
+                {/* Top Header Row with RCSS Logo */}
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-white/15">
+                  <div className="space-y-4 max-w-3xl">
+                    <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs font-sans font-black uppercase tracking-[0.18em]">
+                      <span>Autonomous Institution (2014 &ndash; 2030)</span>
+                    </div>
+
+                    <h2 className="text-[2.25rem] sm:text-[3rem] font-heading font-black text-white leading-tight tracking-tight">
+                      A Legacy of Distinction &amp; Social Commitment
+                    </h2>
+
+                    <div className="w-20 h-1.5 bg-white/40 rounded-full" />
                   </div>
 
-                  <h2 className="text-[2.25rem] sm:text-[3rem] font-heading font-black text-white leading-tight tracking-tight">
-                    A Legacy of Distinction &amp; Social Commitment
-                  </h2>
-
-                  <div className="w-20 h-1.5 bg-[#38BDF8] rounded-full" />
+                  {/* RCSS Official Logo Card */}
+                  <div className="shrink-0 flex lg:justify-end">
+                    <div className="p-4 rounded-[22px] bg-white shadow-2xl border border-white/30 max-w-[240px] sm:max-w-[260px] transition-transform duration-300 hover:scale-[1.03]">
+                      <img
+                        src="/images/rcss_green_logo.png"
+                        alt="RCSS — Rajagiri College of Social Sciences (Autonomous) Official Crest Seal"
+                        className="w-full h-auto object-contain"
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="space-y-4 text-[16px] sm:text-[17.5px] text-slate-100 leading-relaxed font-sans font-medium max-w-4xl">
@@ -132,19 +147,19 @@ export const Rajagiri: React.FC = () => {
                     Rajagiri College of Social Sciences (Autonomous) was established as a pioneer institution in Social Work education in the state of Kerala. Managed by the Carmelites of Mary Immaculate (CMI) congregation, the college has established a benchmark of academic excellence, holistic training, and evidence-based research.
                   </p>
                   <p className="m-0">
-                    The term &ldquo;Rajagiri&rdquo; translates to &ldquo;Hill of the King,&rdquo; symbolizing the heights of learning and developmental yearning. True to its acronym <strong className="text-[#38BDF8] font-black">DYUTI</strong> (&ldquo;Spark of Life&rdquo;), the institution fosters developmental dialogues that bridge academic theory with transformative field practice.
+                    The term &ldquo;Rajagiri&rdquo; translates to &ldquo;Hill of the King,&rdquo; symbolizing the heights of learning and developmental yearning. True to its acronym <strong className="text-white font-black">DYUTI</strong> (&ldquo;Spark of Life&rdquo;), the institution fosters developmental dialogues that bridge academic theory with transformative field practice.
                   </p>
                 </div>
 
                 {/* Accreditation Highlights Grid */}
                 <div className="pt-8 border-t border-white/20">
-                  <h4 className="text-xs font-mono font-black uppercase tracking-[0.2em] text-[#38BDF8] mb-4">
+                  <h4 className="text-xs font-mono font-black uppercase tracking-[0.2em] text-white mb-4">
                     Key Institutional Accreditations &amp; Recognitions
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
                     {highlights.map((item, idx) => (
                       <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-white/10 border border-white/15 text-[14px] text-slate-100 font-sans font-medium">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#38BDF8] mt-1.5 shrink-0 shadow-xs" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-white/40 mt-1.5 shrink-0 shadow-xs" />
                         <span>{item}</span>
                       </div>
                     ))}
