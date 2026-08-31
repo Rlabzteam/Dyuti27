@@ -35,13 +35,13 @@ export const HeroBanner: React.FC = () => {
       <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-8 max-w-5xl mx-auto">
 
         {/* Eyebrow pill in white */}
-        <div className="inline-flex items-center px-6 py-2.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-sans font-black uppercase tracking-[0.22em] mb-5 backdrop-blur-md shadow-md">
+        <div className="inline-flex items-center px-6 py-2.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-sans font-black uppercase tracking-[0.22em] mb-8 sm:mb-10 backdrop-blur-md shadow-md">
           <span>25 Years of Internationalism &bull; Kochi, Kerala</span>
         </div>
 
-        {/* Clean Unboxed Title Block in Crisp White */}
-        <div className="mb-5 flex flex-col items-center gap-2">
-          <span className="text-sm sm:text-base md:text-lg font-sans uppercase tracking-[0.25em] text-white font-black drop-shadow-md">
+        {/* Clean Unboxed Title Block in Crisp White with Generous Line Spacing */}
+        <div className="mb-8 sm:mb-12 flex flex-col items-center gap-6 sm:gap-8">
+          <span className="text-sm sm:text-base md:text-lg font-sans uppercase tracking-[0.28em] text-white font-black drop-shadow-md">
             National Conference on Social Work
           </span>
           <h1 className="font-heading font-black text-[4.5rem] sm:text-[6.5rem] md:text-[7.5rem] lg:text-[8.5rem] xl:text-[9.5rem] text-white leading-none tracking-tight m-0 drop-shadow-2xl">
@@ -50,7 +50,7 @@ export const HeroBanner: React.FC = () => {
         </div>
 
         {/* Subtitle */}
-        <p className="font-sans text-[15px] sm:text-[17.5px] lg:text-[19px] text-slate-100 max-w-3xl leading-relaxed mb-8 font-medium">
+        <p className="font-sans text-[15px] sm:text-[17.5px] lg:text-[19px] text-slate-100 max-w-3xl leading-relaxed mb-12 sm:mb-16 font-medium">
           Empowering Communities through Innovation, Inclusion, and Partnership. Curated by the{' '}
           <strong className="text-white font-extrabold">Department of Social Work</strong>, Rajagiri
           College of Social Sciences (Autonomous).
