@@ -33,9 +33,9 @@ export const Rajagiri: React.FC = () => {
         {/* Centered Hero Content */}
         <div className="relative z-10 py-18 sm:py-28 lg:py-32 px-4 sm:px-8 text-center max-w-5xl mx-auto flex flex-col items-center justify-center space-y-6 sm:space-y-8">
           
-          {/* Eyebrow Annotation Badge */}
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/20 border border-white/30 backdrop-blur-md shadow-md">
-            <span className="text-xs sm:text-sm font-mono font-black uppercase tracking-[0.22em] text-[#38BDF8]">
+          {/* Eyebrow Annotation Badge in Crisp White */}
+          <div className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/15 border border-white/25 backdrop-blur-md shadow-md">
+            <span className="text-xs sm:text-sm font-sans font-black uppercase tracking-[0.22em] text-white">
               Host Institution Profile &amp; Heritage
             </span>
           </div>
@@ -45,7 +45,7 @@ export const Rajagiri: React.FC = () => {
             <h1 className="font-heading font-black text-3xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-white leading-tight mb-3">
               Rajagiri College of Social Sciences
             </h1>
-            <p className="text-lg sm:text-2xl font-sans font-bold text-[#38BDF8] tracking-wide m-0">
+            <p className="text-lg sm:text-2xl font-sans font-bold text-white tracking-wide m-0">
               (Autonomous) &bull; Kalamassery, Kochi
             </p>
           </div>
@@ -62,13 +62,13 @@ export const Rajagiri: React.FC = () => {
             <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
               Established in 1955
             </span>
-            <span className="px-4 py-1.5 rounded-full bg-[#38BDF8] text-slate-950 text-xs sm:text-sm font-black shadow-md">
+            <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
               NAAC A++ Accredited (3.83 CGPA)
             </span>
-            <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-[#38BDF8] text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
+            <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
               Ranked #12 in India (NIRF 2025)
             </span>
-            <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-[#38BDF8] text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
+            <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
               #1 in Kerala (KIRF 2025)
             </span>
           </div>
