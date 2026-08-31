@@ -32,15 +32,15 @@ export const HeroBanner: React.FC = () => {
       </div>
 
       {/* ── CENTRED HERO CONTENT ── */}
-      <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-8 max-w-5xl mx-auto">
+      <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-8 max-w-5xl mx-auto pt-12 sm:pt-16 lg:pt-20 pb-10 -mt-12 sm:-mt-20 lg:-mt-28">
 
         {/* Eyebrow pill */}
-        <div className="inline-flex items-center px-6 py-2.5 rounded-full bg-[#38BDF8] text-slate-950 text-xs sm:text-sm font-sans font-black uppercase tracking-[0.22em] mb-8 shadow-lg">
+        <div className="inline-flex items-center px-6 py-2.5 rounded-full bg-[#38BDF8] text-slate-950 text-xs sm:text-sm font-sans font-black uppercase tracking-[0.22em] mb-5 shadow-lg">
           <span>25 Years of Internationalism &bull; Kochi, Kerala</span>
         </div>
 
         {/* Clean Unboxed Title Block */}
-        <div className="mb-8 flex flex-col items-center gap-3">
+        <div className="mb-5 flex flex-col items-center gap-2">
           <span className="text-sm sm:text-base md:text-lg font-sans uppercase tracking-[0.25em] text-[#38BDF8] font-black drop-shadow-md">
             National Conference on Social Work
           </span>
@@ -50,7 +50,7 @@ export const HeroBanner: React.FC = () => {
         </div>
 
         {/* Subtitle */}
-        <p className="font-sans text-[15px] sm:text-[17.5px] lg:text-[19px] text-slate-100 max-w-3xl leading-relaxed mb-12 font-medium">
+        <p className="font-sans text-[15px] sm:text-[17.5px] lg:text-[19px] text-slate-100 max-w-3xl leading-relaxed mb-8 font-medium">
           Empowering Communities through Innovation, Inclusion, and Partnership. Curated by the{' '}
           <strong className="text-white font-extrabold">Department of Social Work</strong>, Rajagiri
           College of Social Sciences (Autonomous).
