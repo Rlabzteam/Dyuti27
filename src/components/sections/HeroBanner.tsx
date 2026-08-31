@@ -34,14 +34,14 @@ export const HeroBanner: React.FC = () => {
       {/* ── CENTRED HERO CONTENT (HIGH TOP ALIGNMENT) ── */}
       <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-8 max-w-5xl mx-auto">
 
-        {/* Eyebrow pill */}
-        <div className="inline-flex items-center px-6 py-2.5 rounded-full bg-[#38BDF8] text-slate-950 text-xs sm:text-sm font-sans font-black uppercase tracking-[0.22em] mb-5 shadow-lg">
+        {/* Eyebrow pill in white */}
+        <div className="inline-flex items-center px-6 py-2.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-sans font-black uppercase tracking-[0.22em] mb-5 backdrop-blur-md shadow-md">
           <span>25 Years of Internationalism &bull; Kochi, Kerala</span>
         </div>
 
-        {/* Clean Unboxed Title Block */}
+        {/* Clean Unboxed Title Block in Crisp White */}
         <div className="mb-5 flex flex-col items-center gap-2">
-          <span className="text-sm sm:text-base md:text-lg font-sans uppercase tracking-[0.25em] text-[#38BDF8] font-black drop-shadow-md">
+          <span className="text-sm sm:text-base md:text-lg font-sans uppercase tracking-[0.25em] text-white font-black drop-shadow-md">
             National Conference on Social Work
           </span>
           <h1 className="font-heading font-black text-[4.5rem] sm:text-[6.5rem] md:text-[7.5rem] lg:text-[8.5rem] xl:text-[9.5rem] text-white leading-none tracking-tight m-0 drop-shadow-2xl">
