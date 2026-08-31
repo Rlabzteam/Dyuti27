@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --editorial-deepnavy: #071A33;
+  --editorial-navy: #12345B;
+  --editorial-offwhite: #FDFBF7; /* Updated to warm off-white */
+  --editorial-white: #FFFFFF;
+  --editorial-softblue: #E8F0F7;
+  --editorial-border: #E5E7EB;
+  --editorial-muted: #4B5563; /* Darker grey for light contrast */
+  --editorial-text: #1E293B; /* Dark slate text */
+  --editorial-blue: #2563EB;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(7, 26, 51, 0.15);
+    border-color: rgba(7, 26, 51, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(7, 26, 51, 0.3);
+    border-color: rgba(7, 26, 51, 0.5);
+  }
+}
+
+.animate-pulseGlow {
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+/* Glassmorphism Styles (Updated for Light Theme High-Contrast) */
+.glass-card {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(7, 26, 51, 0.08);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.glass-card-hover:hover {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(7, 26, 51, 0.25);
+  box-shadow: 0 12px 30px rgba(7, 26, 51, 0.08);
+}
+
+.glass-navbar {
+  background: #071A33 !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Neon glow border classes for light modes */
+.neon-glow-cyan {
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.08);
+}
+
+.neon-glow-lime {
+  box-shadow: 0 0 20px rgba(7, 26, 51, 0.08);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FDFBF7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #071A33;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1C082B;
+}
+
+@layer utilities {
+  /* Bouncing ball and ripple definitions */
+  @keyframes scrollBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes rippleWave {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+
+  .animate-scroll-bounce {
+    animation: scrollBounce 2.4s ease-in-out infinite;
+  }
+
+  .animate-ripple-wave {
+    animation: rippleWave 2s ease-out infinite;
+  }
+
+  /* Circle Fill Expand Hover Transition Buttons */
+  .btn-circle-fill {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+  }
+
+  .btn-circle-fill::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background-color: rgba(7, 26, 51, 0.08); /* Dark plum overlay */
+    z-index: -1;
+    transform: translate(-50%, -50%);
+    transition: clip-path 0.55s cubic-bezier(0.25, 1, 0.5, 1);
+    clip-path: circle(0% at 50% 50%);
+  }
+
+  .btn-circle-fill-dark::before {
+    background-color: rgba(255, 255, 255, 0.15); /* Light overlay */
+  }
+
+  .btn-circle-fill:hover::before {
+    clip-path: circle(100% at 50% 50%);
+  }
+
+  .btn-circle-fill:hover {
+    transform: translateY(-2px);
+  }
+  
+  .btn-circle-fill:active {
+    transform: translateY(0);
+  }
+
+  /* Asymmetric rounded corners matching icswhmh design details */
+  .rounded-asymmetric-lg {
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 0px;
+  }
+
+  .rounded-asymmetric-md {
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 0px;
+  }
+}
+
+/* Custom marquee animations */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee2 {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@layer utilities {
+  .animate-marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 35s linear infinite;
+  }
+
+  .animate-marquee2 {
+    display: flex;
+    width: max-content;
+    animation: marquee2 35s linear infinite;
+  }
+
+  .group:hover .animate-marquee,
+  .group:hover .animate-marquee2 {
+    animation-play-state: paused;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
