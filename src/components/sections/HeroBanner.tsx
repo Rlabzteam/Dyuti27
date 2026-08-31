@@ -9,7 +9,7 @@ export const HeroBanner: React.FC = () => {
 
   return (
     <section
-      className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-hidden bg-[#030C22] text-white"
+      className="relative min-h-[100svh] flex flex-col items-center justify-start pt-28 sm:pt-32 lg:pt-36 overflow-hidden bg-[#030C22] text-white"
       aria-label="DYUTI 2027 National Conference Hero"
     >
       {/* ── KOCHI NIGHTSCAPE BACKGROUND ── */}
@@ -31,8 +31,8 @@ export const HeroBanner: React.FC = () => {
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#030C22] to-transparent" />
       </div>
 
-      {/* ── CENTRED HERO CONTENT ── */}
-      <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-8 max-w-5xl mx-auto pt-12 sm:pt-16 lg:pt-20 pb-10 -mt-12 sm:-mt-20 lg:-mt-28">
+      {/* ── CENTRED HERO CONTENT (HIGH TOP ALIGNMENT) ── */}
+      <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-8 max-w-5xl mx-auto">
 
         {/* Eyebrow pill */}
         <div className="inline-flex items-center px-6 py-2.5 rounded-full bg-[#38BDF8] text-slate-950 text-xs sm:text-sm font-sans font-black uppercase tracking-[0.22em] mb-5 shadow-lg">
