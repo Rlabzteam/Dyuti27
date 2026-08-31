@@ -125,7 +125,7 @@ export const Accommodation: React.FC = () => {
                   {/* Left Number & Area Title (5 cols) */}
                   <div className="lg:col-span-5">
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="font-mono text-sm sm:text-base font-black text-[#38BDF8] tabular-nums">
+                      <span className="font-mono text-sm sm:text-base font-black text-white tabular-nums">
                         {area.number}
                       </span>
                       <span className="w-6 h-px bg-white/25" />
@@ -142,7 +142,7 @@ export const Accommodation: React.FC = () => {
                       <span className="inline-flex items-center text-xs font-mono font-bold text-white bg-white/15 border border-white/25 px-3.5 py-1.5 rounded-full shadow-xs">
                         <span>{area.distance}</span>
                       </span>
-                      <span className="inline-flex items-center text-xs font-mono font-black text-slate-950 bg-[#38BDF8] px-3.5 py-1.5 rounded-full shadow-xs">
+                      <span className="inline-flex items-center text-xs font-mono font-black text-white bg-white/20 border border-white/30 px-3.5 py-1.5 rounded-full shadow-xs">
                         <span>{area.duration}</span>
                       </span>
                     </div>
@@ -155,7 +155,7 @@ export const Accommodation: React.FC = () => {
                     </p>
 
                     <div className="p-4 sm:p-5 rounded-[20px] bg-white/10 border border-white/15 text-xs sm:text-sm text-slate-100 font-sans">
-                      <strong className="text-[#38BDF8] block font-mono text-xs uppercase tracking-wider mb-1 font-black">
+                      <strong className="text-white block font-mono text-xs uppercase tracking-wider mb-1 font-black">
                         Transit Recommendations
                       </strong>
                       <span>{area.transit}</span>

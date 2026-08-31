@@ -8,7 +8,7 @@ export const Travel: React.FC = () => {
 
         {/* ── PAGE HEADER ── */}
         <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
-          <div className="inline-flex items-center px-5 py-2 rounded-full bg-[#38BDF8] text-slate-950 text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] mb-6 shadow-md">
+          <div className="inline-flex items-center px-5 py-2 rounded-full bg-[#071A33] text-white text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] mb-6 shadow-md">
             <span>Venue &amp; Logistics</span>
           </div>
 
@@ -26,7 +26,7 @@ export const Travel: React.FC = () => {
         {/* ── ROUTE 01: FROM COCHIN INTERNATIONAL AIRPORT (COK) (Asymmetric Curved Leaf Shape) ── */}
         <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-8 sm:p-12 lg:p-14 mb-16 lg:mb-20 shadow-2xl border border-white/20 overflow-hidden relative">
           <div className="mb-8 pb-6 border-b border-white/15">
-            <span className="inline-flex items-center px-4 py-1 rounded-full bg-[#38BDF8] text-slate-950 text-xs font-mono font-black uppercase tracking-widest mb-2 shadow-sm">
+            <span className="inline-flex items-center px-4 py-1 rounded-full bg-white/20 text-white text-xs font-mono font-black uppercase tracking-widest mb-2 shadow-sm">
               Route 01
             </span>
             <h3 className="font-heading text-[1.75rem] sm:text-[2.1rem] font-extrabold text-white m-0 leading-tight">
@@ -41,34 +41,34 @@ export const Travel: React.FC = () => {
 
               {/* Kochi Metro Recommended */}
               <div className="p-6 rounded-[20px] bg-white/10 border border-white/15">
-                <div className="mb-2 text-[#38BDF8] font-bold text-sm font-sans flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#38BDF8] shrink-0 shadow-xs" />
+                <div className="mb-2 text-white font-bold text-sm font-sans flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-white shrink-0 shadow-xs" />
                   <span>By Kochi Metro (Recommended)</span>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-100 leading-relaxed m-0 font-sans font-medium">
-                  For a fast, traffic-free trip, board the Kochi Metro from <strong className="text-[#38BDF8] font-black">Aluva Station to Kalamassery Town Station</strong> (the closest metro stop to Rajagiri). The campus is just <strong className="text-[#38BDF8] font-black">200 meters from the station</strong> (a short 3-min walk or quick auto-rickshaw).
+                  For a fast, traffic-free trip, board the Kochi Metro from <strong className="text-white font-black">Aluva Station to Kalamassery Town Station</strong> (the closest metro stop to Rajagiri). The campus is just <strong className="text-white font-black">200 meters from the station</strong> (a short 3-min walk or quick auto-rickshaw).
                 </p>
               </div>
 
               {/* Taxi / Car */}
               <div className="p-6 rounded-[20px] bg-white/10 border border-white/15">
                 <div className="mb-2 text-white font-bold text-sm font-sans flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 shrink-0 shadow-xs" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-white/60 shrink-0 shadow-xs" />
                   <span>By Taxi / Prepaid Cab</span>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-100 leading-relaxed m-0 font-sans font-medium">
-                  <strong className="text-white font-extrabold">Direct Airport Pickup:</strong> 24/7 prepaid taxi counters and app-based cabs (Uber / Ola) are available at the arrival terminal. The journey directly to Rajagiri College of Social Sciences, Kalamassery takes approximately <strong className="text-[#38BDF8] font-black">25–35 minutes (22 km)</strong> along NH 544.
+                  <strong className="text-white font-extrabold">Direct Airport Pickup:</strong> 24/7 prepaid taxi counters and app-based cabs (Uber / Ola) are available at the arrival terminal. The journey directly to Rajagiri College of Social Sciences, Kalamassery takes approximately <strong className="text-white font-black">25–35 minutes (22 km)</strong> along NH 544.
                 </p>
               </div>
 
               {/* Public Bus */}
               <div className="p-6 rounded-[20px] bg-white/10 border border-white/15">
                 <div className="mb-2 text-white font-bold text-sm font-sans flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 shrink-0 shadow-xs" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-white/60 shrink-0 shadow-xs" />
                   <span>By Public Bus &amp; Feeder</span>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-100 leading-relaxed m-0 font-sans font-medium">
-                  Take an airport feeder bus or auto to <strong className="text-white font-extrabold">Aluva Private Bus Stand</strong>. Board any bus toward Ernakulam and alight at the <strong className="text-[#38BDF8] font-black">Municipal Town Hall / Rajagiri Hill stop</strong>.
+                  Take an airport feeder bus or auto to <strong className="text-white font-extrabold">Aluva Private Bus Stand</strong>. Board any bus toward Ernakulam and alight at the <strong className="text-white font-black">Municipal Town Hall / Rajagiri Hill stop</strong>.
                 </p>
               </div>
 
@@ -94,7 +94,7 @@ export const Travel: React.FC = () => {
         {/* ── ROUTE 02: FROM ERNAKULAM SOUTH / NORTH RAILWAY STATIONS (Asymmetric Inverted Leaf Shape) ── */}
         <div className="rounded-[28px] sm:rounded-[36px] rounded-tr-[56px] sm:rounded-tr-[72px] rounded-bl-[56px] sm:rounded-bl-[72px] bg-gradient-to-br from-[#0a2540] via-[#123962] to-[#051424] text-white p-8 sm:p-12 lg:p-14 mb-20 lg:mb-28 shadow-2xl border border-white/20 overflow-hidden relative">
           <div className="mb-8 pb-6 border-b border-white/15">
-            <span className="inline-flex items-center px-4 py-1 rounded-full bg-[#38BDF8] text-slate-950 text-xs font-mono font-black uppercase tracking-widest mb-2 shadow-sm">
+            <span className="inline-flex items-center px-4 py-1 rounded-full bg-white/20 text-white text-xs font-mono font-black uppercase tracking-widest mb-2 shadow-sm">
               Route 02
             </span>
             <h3 className="font-heading text-[1.75rem] sm:text-[2.1rem] font-extrabold text-white m-0 leading-tight">
@@ -109,12 +109,12 @@ export const Travel: React.FC = () => {
 
               {/* Kochi Metro */}
               <div className="p-6 rounded-[20px] bg-white/10 border border-white/15">
-                <div className="mb-2 text-[#38BDF8] font-bold text-sm font-sans flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#38BDF8] shrink-0 shadow-xs" />
+                <div className="mb-2 text-white font-bold text-sm font-sans flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-white shrink-0 shadow-xs" />
                   <span>By Kochi Metro (Direct)</span>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-100 leading-relaxed m-0 font-sans font-medium">
-                  Board the Kochi Metro directly at <strong className="text-[#38BDF8] font-black">Ernakulam South Station</strong> and ride north to <strong className="text-[#38BDF8] font-black">Kalamassery Town Station</strong> (approx. 20–25 minutes). Walk 200m or take a quick auto to the college entrance.
+                  Board the Kochi Metro directly at <strong className="text-white font-black">Ernakulam South Station</strong> and ride north to <strong className="text-white font-black">Kalamassery Town Station</strong> (approx. 20–25 minutes). Walk 200m or take a quick auto to the college entrance.
                 </p>
               </div>
 

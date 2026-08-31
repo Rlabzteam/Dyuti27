@@ -145,7 +145,7 @@ export const CallForPapers: React.FC = () => {
                   >
                     <div className="flex items-center gap-4 sm:gap-6 flex-1 pr-4">
                       {/* Track Number Badge */}
-                      <span className="font-mono text-base sm:text-lg font-black px-4 py-2 rounded-2xl bg-white/15 border border-white/25 text-[#38BDF8] shrink-0 shadow-sm">
+                      <span className="font-mono text-base sm:text-lg font-black px-4 py-2 rounded-2xl bg-white/15 border border-white/25 text-white shrink-0 shadow-sm">
                         {trackNum}
                       </span>
 
@@ -160,7 +160,7 @@ export const CallForPapers: React.FC = () => {
                     </div>
 
                     {/* Toggle Arrow */}
-                    <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-[#38BDF8] shrink-0 transition-transform duration-300">
+                    <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white shrink-0 transition-transform duration-300">
                       {isOpen ? (
                         <ChevronUp className="w-5 h-5" />
                       ) : (
@@ -172,7 +172,7 @@ export const CallForPapers: React.FC = () => {
                   {/* Accordion Body Content */}
                   {isOpen && (
                     <div className="p-6 sm:p-8 bg-gradient-to-br from-[#040e1c] via-[#071A33] to-[#0b2952] animate-fadeIn">
-                      <h5 className="text-xs font-mono font-black uppercase tracking-[0.2em] text-[#38BDF8] mb-5">
+                      <h5 className="text-xs font-mono font-black uppercase tracking-[0.2em] text-white mb-5">
                         Focus Areas &amp; Research Sub-Topics
                       </h5>
 
@@ -182,7 +182,7 @@ export const CallForPapers: React.FC = () => {
                             key={topicIdx}
                             className="flex items-start gap-3.5 p-4 rounded-xl bg-white/10 border border-white/15 text-slate-100 text-sm font-sans font-medium leading-relaxed hover:bg-white/15 transition-colors"
                           >
-                            <span className="w-2.5 h-2.5 rounded-full bg-[#38BDF8] mt-1.5 shrink-0 shadow-xs" />
+                            <span className="w-2.5 h-2.5 rounded-full bg-white/40 mt-1.5 shrink-0 shadow-xs" />
                             <span>{topic}</span>
                           </div>
                         ))}
@@ -201,11 +201,11 @@ export const CallForPapers: React.FC = () => {
           {/* Submission Guidelines (6 cols - Asymmetric Curved Leaf Shape) */}
           <div className="lg:col-span-6 rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-8 sm:p-10 lg:p-12 shadow-2xl border border-white/20 flex flex-col justify-between overflow-hidden relative">
             {/* Ambient Background Glow */}
-            <div className="absolute top-0 right-0 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 w-72 h-72 bg-white/5 rounded-full blur-3xl pointer-events-none" />
 
             <div className="space-y-6 relative z-10">
               <div>
-                <div className="inline-flex items-center px-5 py-2 rounded-full bg-[#38BDF8] text-slate-950 text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] mb-4 shadow-md">
+                <div className="inline-flex items-center px-5 py-2 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] mb-4 shadow-md">
                   <span>Submission Protocol</span>
                 </div>
                 <h3 className="font-heading font-black text-2xl sm:text-3xl text-white tracking-tight m-0">
@@ -213,30 +213,30 @@ export const CallForPapers: React.FC = () => {
                 </h3>
               </div>
 
-              <div className="w-16 h-1 bg-[#38BDF8] rounded-full" />
+              <div className="w-16 h-1 bg-white/40 rounded-full" />
 
               {/* 4 Numbered Steps */}
               <div className="space-y-4 pt-2">
                 <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/10 border border-white/15 transition-all hover:bg-white/15">
-                  <span className="font-mono text-xs font-black px-3 py-1 rounded-full bg-[#38BDF8] text-slate-950 shrink-0 shadow-sm">
+                  <span className="font-mono text-xs font-black px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white shrink-0 shadow-sm">
                     01
                   </span>
                   <span className="text-xs sm:text-sm text-slate-100 font-sans font-medium leading-relaxed">
-                    The abstract should be <strong className="text-[#38BDF8] font-black">within 300 words</strong> of text including the title and keywords (MS Word document).
+                    The abstract should be <strong className="text-white font-black">within 300 words</strong> of text including the title and keywords (MS Word document).
                   </span>
                 </div>
 
                 <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/10 border border-white/15 transition-all hover:bg-white/15">
-                  <span className="font-mono text-xs font-black px-3 py-1 rounded-full bg-[#38BDF8] text-slate-950 shrink-0 shadow-sm">
+                  <span className="font-mono text-xs font-black px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white shrink-0 shadow-sm">
                     02
                   </span>
                   <span className="text-xs sm:text-sm text-slate-100 font-sans font-medium leading-relaxed">
-                    The text should be arranged according to the following headlines: <strong className="text-[#38BDF8] font-black">Objectives, Design, Model, Result, and Conclusion</strong>.
+                    The text should be arranged according to the following headlines: <strong className="text-white font-black">Objectives, Design, Model, Result, and Conclusion</strong>.
                   </span>
                 </div>
 
                 <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/10 border border-white/15 transition-all hover:bg-white/15">
-                  <span className="font-mono text-xs font-black px-3 py-1 rounded-full bg-[#38BDF8] text-slate-950 shrink-0 shadow-sm">
+                  <span className="font-mono text-xs font-black px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white shrink-0 shadow-sm">
                     03
                   </span>
                   <span className="text-xs sm:text-sm text-slate-100 font-sans font-medium leading-relaxed">
@@ -245,11 +245,11 @@ export const CallForPapers: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/10 border border-white/15 transition-all hover:bg-white/15">
-                  <span className="font-mono text-xs font-black px-3 py-1 rounded-full bg-[#38BDF8] text-slate-950 shrink-0 shadow-sm">
+                  <span className="font-mono text-xs font-black px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white shrink-0 shadow-sm">
                     04
                   </span>
                   <span className="text-xs sm:text-sm text-slate-100 font-sans font-medium leading-relaxed">
-                    It is essential that you specify the <strong className="text-[#38BDF8] font-black">Theme and Subtheme</strong> to which your abstract pertains when submitting it.
+                    It is essential that you specify the <strong className="text-white font-black">Theme and Subtheme</strong> to which your abstract pertains when submitting it.
                   </span>
                 </div>
               </div>
@@ -259,11 +259,11 @@ export const CallForPapers: React.FC = () => {
           {/* Publication Opportunities (6 cols - Asymmetric Inverted Leaf Shape) */}
           <div className="lg:col-span-6 rounded-[28px] sm:rounded-[36px] rounded-tr-[56px] sm:rounded-tr-[72px] rounded-bl-[56px] sm:rounded-bl-[72px] bg-gradient-to-br from-[#0a2540] via-[#123962] to-[#051424] text-white p-8 sm:p-10 lg:p-12 shadow-2xl border border-white/20 flex flex-col justify-between overflow-hidden relative">
             {/* Ambient Background Glow */}
-            <div className="absolute bottom-0 left-0 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-72 h-72 bg-white/5 rounded-full blur-3xl pointer-events-none" />
 
             <div className="space-y-6 relative z-10">
               <div>
-                <div className="inline-flex items-center px-5 py-2 rounded-full bg-[#38BDF8] text-slate-950 text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] mb-4 shadow-md">
+                <div className="inline-flex items-center px-5 py-2 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] mb-4 shadow-md">
                   <span>Peer Review &amp; Formats</span>
                 </div>
                 <h3 className="font-heading font-black text-2xl sm:text-3xl text-white tracking-tight m-0">
@@ -271,18 +271,18 @@ export const CallForPapers: React.FC = () => {
                 </h3>
               </div>
 
-              <div className="w-16 h-1 bg-[#38BDF8] rounded-full" />
+              <div className="w-16 h-1 bg-white/40 rounded-full" />
 
               {/* Scopus Highlight Box */}
-              <div className="p-6 rounded-[20px] bg-[#38BDF8] text-slate-950 shadow-xl border border-cyan-300">
-                <p className="text-xs sm:text-sm font-sans font-extrabold leading-relaxed m-0 text-slate-950">
-                  Selected papers presented at the conference will be published as <span className="underline decoration-slate-900/40 underline-offset-4 font-black">Scopus-indexed book chapters / peer-reviewed conference volumes</span> following double-blind peer review.
+              <div className="p-6 rounded-[20px] bg-white/10 text-white shadow-xl border border-white/20">
+                <p className="text-xs sm:text-sm font-sans font-extrabold leading-relaxed m-0 text-white">
+                  Selected papers presented at the conference will be published as <span className="underline decoration-white/40 underline-offset-4 font-black">Scopus-indexed book chapters / peer-reviewed conference volumes</span> following double-blind peer review.
                 </p>
               </div>
 
               <div className="space-y-4 pt-2">
                 <div className="p-5 rounded-2xl bg-white/10 border border-white/15 space-y-1.5">
-                  <span className="text-[#38BDF8] block font-mono text-xs uppercase tracking-wider font-black">
+                  <span className="text-white block font-mono text-xs uppercase tracking-wider font-black">
                     Presentation Formats
                   </span>
                   <p className="text-xs sm:text-sm text-slate-100 font-sans font-medium leading-relaxed m-0">

@@ -33,7 +33,7 @@ export const MajorSubThemes: React.FC = () => {
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-slate-300">
           <div>
             <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#071A33] text-white text-xs font-mono font-black uppercase tracking-[0.2em] mb-4 shadow-md">
-              <Layers className="w-3.5 h-3.5 mr-2 text-[#38BDF8]" />
+              <Layers className="w-3.5 h-3.5 mr-2 text-white" />
               <span>Eight Conference Sub-Themes</span>
             </div>
 
@@ -83,7 +83,7 @@ export const MajorSubThemes: React.FC = () => {
                 >
                   <div className="flex items-center gap-4 sm:gap-6 flex-1 pr-4">
                     {/* Track Number Badge */}
-                    <span className="font-mono text-base sm:text-lg font-black px-4 py-2 rounded-2xl bg-white/15 border border-white/25 text-[#38BDF8] shrink-0 shadow-sm">
+                    <span className="font-mono text-base sm:text-lg font-black px-4 py-2 rounded-2xl bg-white/15 border border-white/25 text-white shrink-0 shadow-sm">
                       {trackNum}
                     </span>
 
@@ -98,7 +98,7 @@ export const MajorSubThemes: React.FC = () => {
                   </div>
 
                   {/* Toggle Arrow */}
-                  <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-[#38BDF8] shrink-0 transition-transform duration-300">
+                  <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white shrink-0 transition-transform duration-300">
                     {isOpen ? (
                       <ChevronUp className="w-5 h-5" />
                     ) : (
@@ -110,7 +110,7 @@ export const MajorSubThemes: React.FC = () => {
                 {/* Accordion Body Content */}
                 {isOpen && (
                   <div className="p-6 sm:p-8 bg-gradient-to-br from-[#040e1c] via-[#071A33] to-[#0b2952] animate-fadeIn">
-                    <h4 className="text-xs font-mono font-black uppercase tracking-[0.2em] text-[#38BDF8] mb-5">
+                    <h4 className="text-xs font-mono font-black uppercase tracking-[0.2em] text-white mb-5">
                       Focus Areas &amp; Research Sub-Topics
                     </h4>
 
@@ -118,10 +118,10 @@ export const MajorSubThemes: React.FC = () => {
                       {theme.topics.map((topic, topicIdx) => (
                         <div
                           key={topicIdx}
-                          className="flex items-start gap-3.5 p-4 rounded-xl bg-white/10 border border-white/15 text-slate-100 text-sm font-sans font-medium leading-relaxed hover:bg-white/15 transition-colors"
+                          className="p-4 rounded-[16px] bg-white/10 border border-white/15 flex items-start gap-3 text-sm text-slate-100 font-sans font-medium"
                         >
-                          <span className="w-2.5 h-2.5 rounded-full bg-[#38BDF8] mt-1.5 shrink-0 shadow-xs" />
-                          <span>{topic}</span>
+                          <span className="w-2.5 h-2.5 rounded-full bg-white/40 mt-1.5 shrink-0 shadow-xs" />
+                          <span className="leading-snug">{topic}</span>
                         </div>
                       ))}
                     </div>

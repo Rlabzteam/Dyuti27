@@ -90,7 +90,7 @@ export const Attractions: React.FC = () => {
                   }`}
                 >
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="font-mono text-xs font-black px-4 py-1.5 rounded-full bg-[#38BDF8] text-slate-950 uppercase tracking-widest shadow-xs">
+                    <span className="font-mono text-xs font-black px-4 py-1.5 rounded-full bg-white/20 border border-white/30 text-white uppercase tracking-widest shadow-xs">
                       Destination {String(idx + 1).padStart(2, '0')}
                     </span>
                     <span className="w-6 h-px bg-white/25" />
@@ -115,7 +115,7 @@ export const Attractions: React.FC = () => {
         {/* ── QUICK TOURISM GUIDES & EXTERNAL RESOURCES (Deep Navy Card) ── */}
         <div className="rounded-[28px] sm:rounded-[36px] rounded-tr-[56px] sm:rounded-tr-[72px] rounded-bl-[56px] sm:rounded-bl-[72px] p-8 sm:p-12 lg:p-14 bg-gradient-to-br from-[#071A33] via-[#0b2952] to-[#040e1c] text-white border border-white/20 shadow-2xl">
           <div className="mb-8">
-            <span className="inline-flex items-center px-4 py-1 rounded-full bg-[#38BDF8] text-slate-950 text-xs font-mono font-black uppercase tracking-[0.18em] mb-3 shadow-xs">
+            <span className="inline-flex items-center px-4 py-1 rounded-full bg-white/15 border border-white/25 text-white text-xs font-mono font-black uppercase tracking-[0.18em] mb-3 shadow-xs">
               Kerala Tourism Portals
             </span>
             <h3 className="font-heading text-2xl sm:text-3xl text-white font-extrabold m-0">
@@ -133,12 +133,12 @@ export const Attractions: React.FC = () => {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 rounded-[18px] bg-white/10 border border-white/15 hover:bg-white/20 hover:border-[#38BDF8] transition-all flex items-center justify-between group shadow-sm"
+                className="p-5 rounded-[18px] bg-white/10 border border-white/15 hover:bg-white/20 hover:border-white/40 transition-all flex items-center justify-between group shadow-sm"
               >
                 <span className="text-xs sm:text-sm font-sans font-medium text-slate-100 group-hover:text-white transition-colors leading-snug">
                   {link.label}
                 </span>
-                <ExternalLink className="w-4 h-4 text-[#38BDF8] group-hover:scale-110 shrink-0 ml-3 transition-transform" />
+                <ExternalLink className="w-4 h-4 text-white group-hover:scale-110 shrink-0 ml-3 transition-transform" />
               </a>
             ))}
           </div>
