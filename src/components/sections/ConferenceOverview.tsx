@@ -64,22 +64,46 @@ export const ConferenceOverview: React.FC = () => {
               </div>
             </div>
 
-            {/* Acronym Expansion Box (Crisp White Bordered Card) */}
-            <div className="bg-white/10 text-white rounded-[20px] p-6 sm:p-7 shadow-lg border border-white/20">
-              <p className="text-lg sm:text-xl font-heading font-black leading-snug">
-                <span className="text-white tracking-wide underline decoration-white/30 underline-offset-4">DYUTI</span> &mdash;{' '}
-                <span>D</span>evelopmental{' '}
-                <span>Y</span>earnings for a{' '}
-                <span>U</span>nited and{' '}
-                <span>T</span>ransformed{' '}
-                <span>I</span>ndia
-              </p>
-            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-2">
+              {/* Left Column: Acronym & Narrative (8 cols) */}
+              <div className="lg:col-span-7 space-y-6">
+                {/* Acronym Expansion Box (Crisp White Bordered Card) */}
+                <div className="bg-white/10 text-white rounded-[20px] p-6 sm:p-7 shadow-lg border border-white/20">
+                  <p className="text-lg sm:text-xl font-heading font-black leading-snug">
+                    <span className="text-white tracking-wide underline decoration-white/30 underline-offset-4">DYUTI</span> &mdash;{' '}
+                    <span>D</span>evelopmental{' '}
+                    <span>Y</span>earnings for a{' '}
+                    <span>U</span>nited and{' '}
+                    <span>T</span>ransformed{' '}
+                    <span>I</span>ndia
+                  </p>
+                </div>
 
-            {/* Legacy Paragraph */}
-            <p className="text-[16px] sm:text-[17.5px] text-slate-100 leading-[1.8] font-sans font-medium">
-              Rajagiri with its vision of &lsquo;becoming a centre of excellence in learning for enriching and fulfilling LIFE&rsquo; has been regularly providing an annual forum for deliberations on vital issues of development from a Rights perspective. This annual series of deliberation (started in 1998) is named DYUTI meaning &lsquo;Spark of Life&rsquo;. DYUTI 2027 is the 26th in its series.
-            </p>
+                {/* Legacy Paragraph */}
+                <p className="text-[16px] sm:text-[17.5px] text-slate-100 leading-[1.8] font-sans font-medium">
+                  Rajagiri with its vision of &lsquo;becoming a centre of excellence in learning for enriching and fulfilling LIFE&rsquo; has been regularly providing an annual forum for deliberations on vital issues of development from a Rights perspective. This annual series of deliberation (started in 1998) is named DYUTI meaning &lsquo;Spark of Life&rsquo;. DYUTI 2027 is the 26th in its series.
+                </p>
+              </div>
+
+              {/* Right Column: Uploaded DYUTI Artwork (5 cols) */}
+              <div className="lg:col-span-5 flex justify-center lg:justify-end">
+                <div className="rounded-[24px] bg-white p-3.5 shadow-2xl border border-white/30 max-w-[340px] w-full transition-transform duration-300 hover:scale-[1.02]">
+                  <img
+                    src="/images/dyuti_let_me_change.jpg"
+                    alt="DYUTI — Let Me Change Official Emblem Artwork"
+                    className="w-full h-auto rounded-[18px] object-contain bg-white"
+                  />
+                  <div className="text-center pt-2.5 pb-1">
+                    <span className="text-slate-900 font-sans text-xs font-black uppercase tracking-wider block">
+                      DYUTI Motto Artwork
+                    </span>
+                    <span className="text-slate-500 font-sans text-[11px] font-medium block">
+                      &ldquo;Let me change...&rdquo; &bull; Spark of Life
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
