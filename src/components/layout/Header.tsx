@@ -48,7 +48,7 @@ export const Header: React.FC = () => {
         {/* ── 1. MAIN NAVIGATION BAR (STANDALONE STADIUM PILL: SHAPE NEVER CHANGES) ── */}
         <div
           className={cn(
-            'w-full bg-[#071A33] text-white rounded-full border border-white/20 px-4 sm:px-8 lg:px-10 h-[64px] sm:h-[72px] flex items-center justify-between gap-4 transition-all duration-300 shadow-[0_8px_30px_rgba(7,26,51,0.25)] relative z-20 backdrop-blur-md',
+            'w-full bg-[#071A33] text-white rounded-full border border-white/20 px-4 sm:px-8 lg:px-10 h-[72px] sm:h-[84px] lg:h-[88px] flex items-center justify-between gap-4 transition-all duration-300 shadow-[0_8px_30px_rgba(7,26,51,0.25)] relative z-20 backdrop-blur-md',
             isScrolled && 'shadow-[0_14px_40px_rgba(7,26,51,0.38)] bg-[#071A33]/95 border-white/25'
           )}
         >
@@ -56,11 +56,11 @@ export const Header: React.FC = () => {
           <div className="flex items-center gap-3 shrink-0">
             <Link
               to="/"
-              className="flex items-center gap-2.5 sm:gap-3 group focus-visible:outline-none shrink-0"
+              className="flex items-center gap-2.5 sm:gap-3.5 group focus-visible:outline-none shrink-0"
               aria-label="DYUTI 2027 — Return to Homepage"
             >
               {/* Circular White Badge housing Logo */}
-              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-white p-1 shadow-md flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 border border-slate-200">
+              <div className="h-11 w-11 sm:h-13 sm:w-13 lg:h-14 lg:w-14 rounded-full bg-white p-1.5 shadow-md flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 border border-slate-200">
                 <img
                   src="https://dyuti.in/assets/images/dyutilogoog.jpg"
                   alt="DYUTI Emblem"
@@ -68,10 +68,10 @@ export const Header: React.FC = () => {
                 />
               </div>
               <div className="flex flex-col leading-none">
-                <span className="font-heading font-black text-[1.2rem] sm:text-[1.35rem] tracking-tight leading-none text-white transition-colors">
+                <span className="font-heading font-black text-[1.25rem] sm:text-[1.45rem] tracking-tight leading-none text-white transition-colors">
                   DYUTI
                 </span>
-                <span className="font-sans text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-extrabold leading-none mt-1 text-[#d4af37]">
+                <span className="font-sans text-[9px] sm:text-[10.5px] uppercase tracking-[0.2em] font-extrabold leading-none mt-1 text-[#d4af37]">
                   2027 &middot; Kochi
                 </span>
               </div>
@@ -91,7 +91,7 @@ export const Header: React.FC = () => {
                     end={item.exact}
                     className={({ isActive }) =>
                       cn(
-                        'relative px-3.5 py-1.5 text-[14px] lg:text-[14.5px] 2xl:text-[15px] font-sans font-semibold transition-all duration-200 whitespace-nowrap focus-visible:outline-none',
+                        'relative px-4 py-2 text-[14px] lg:text-[15px] 2xl:text-[15.5px] font-sans font-semibold transition-all duration-200 whitespace-nowrap focus-visible:outline-none',
                         isActive
                           ? 'text-[#d4af37] font-bold border-b-2 border-[#d4af37] pb-1'
                           : 'text-white/90 hover:text-[#d4af37]'
@@ -111,10 +111,10 @@ export const Header: React.FC = () => {
               href={REGISTRATION_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group h-[38px] sm:h-[42px] px-6 sm:px-8 inline-flex items-center gap-1.5 text-[13px] sm:text-[14px] font-sans font-bold bg-white text-[#071A33] hover:bg-slate-100 rounded-full transition-all duration-200 shadow-sm focus-visible:outline-none hover:scale-105"
+              className="group h-[42px] sm:h-[46px] px-7 sm:px-9 inline-flex items-center gap-2 text-[13.5px] sm:text-[15px] font-sans font-bold bg-white text-[#071A33] hover:bg-slate-100 rounded-full transition-all duration-200 shadow-sm focus-visible:outline-none hover:scale-105"
             >
               <span>Register</span>
-              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
             </a>
           </div>
 
@@ -124,7 +124,7 @@ export const Header: React.FC = () => {
               href={REGISTRATION_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3.5 h-8 inline-flex items-center text-[12px] font-sans font-bold bg-white text-slate-950 hover:bg-slate-100 rounded-full focus-visible:outline-none shadow-xs"
+              className="px-4 h-9 inline-flex items-center text-[12.5px] font-sans font-bold bg-white text-slate-950 hover:bg-slate-100 rounded-full focus-visible:outline-none shadow-xs"
             >
               Register
             </a>
@@ -133,7 +133,7 @@ export const Header: React.FC = () => {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-expanded={isMobileMenuOpen}
               aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-              className="w-8 h-8 flex items-center justify-center text-white border border-white/30 rounded-full bg-white/10 shadow-xs focus-visible:outline-none hover:bg-white/20 transition-colors"
+              className="w-9 h-9 flex items-center justify-center text-white border border-white/30 rounded-full bg-white/10 shadow-xs focus-visible:outline-none hover:bg-white/20 transition-colors"
             >
               {isMobileMenuOpen ? (
                 <X className="w-4 h-4 text-white" />
