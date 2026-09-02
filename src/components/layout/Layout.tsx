@@ -3,6 +3,7 @@ import { Outlet, Link } from 'react-router-dom';
 import { ArrowUp, HelpCircle, X, CheckCircle2 } from 'lucide-react';
 import { Header } from './Header';
 import { TopHeaderBanner } from './TopHeaderBanner';
+import { MarqueeAnnouncement } from '../sections/MarqueeAnnouncement';
 import { Footer } from './Footer';
 
 export const Layout: React.FC = () => {
@@ -54,8 +55,11 @@ export const Layout: React.FC = () => {
       {/* 00 — Top Branding Banner */}
       <TopHeaderBanner />
 
-      {/* 01 — Unified Framed Header (Navbar + Announcement, like icswhmh.com) */}
+      {/* 01 — Sticky Navigation Bar (Rectangle with curved sides) */}
       <Header />
+
+      {/* 02 — Announcement Bar (Under navbar, scrolls away when scrolled below) */}
+      <MarqueeAnnouncement />
 
       {/* 03 — Main Page Content */}
       <main className="flex-grow">

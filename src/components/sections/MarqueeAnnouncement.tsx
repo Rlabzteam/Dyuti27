@@ -4,68 +4,74 @@ const REGISTRATION_URL = 'https://forms.gle/XTZZmXS1tjkvfm9u6';
 
 /**
  * Official Registration Announcement Marquee Bar
- * Positioned under the navigation bar.
- * Exact content & link from dyuti.in:
- * "REGISTER NOW - CLICK HERE FOR ONLINE REGISTRATION Registration begins from 10th August 2026, at Rajagiri College Of Social Sciences(Autonomous) Kalamassery."
+ * Positioned under the navigation bar within the max-w-7xl frame.
+ * Non-sticky, so when scrolled below it naturally moves out of view.
  */
 export const MarqueeAnnouncement: React.FC = () => {
   return (
-    <div className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-1.5 pb-2.5 sm:pb-3.5 relative z-30 select-none">
+    <div className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-2.5 mb-1.5 select-none">
       <aside
-        className="bg-[#071A33] text-white rounded-xl sm:rounded-full border border-white/15 shadow-md overflow-hidden py-2 sm:py-2.5 relative"
+        className="w-full bg-white text-slate-900 rounded-xl sm:rounded-full border border-slate-200/90 shadow-sm py-1.5 sm:py-2 flex items-center overflow-hidden"
         aria-label="Conference Announcement Ticker"
       >
-        <div className="flex items-center">
-          {/* Left Badge Indicator */}
-          <div className="hidden sm:flex items-center gap-2 pl-4 sm:pl-6 pr-3.5 py-0.5 bg-[#071A33] z-10 shrink-0 border-r border-white/15">
-            <span className="font-sans text-[10.5px] sm:text-[11px] font-bold tracking-[0.16em] uppercase text-[#93C5FD]">
-              Announcement
-            </span>
+        {/* Left Static Announcement Label */}
+        <div className="flex items-center gap-1.5 pl-3.5 sm:pl-6 pr-3.5 py-0.5 bg-white z-10 shrink-0 border-r border-slate-200">
+          <span className="font-sans text-[11px] sm:text-[12.5px] font-extrabold text-slate-900 whitespace-nowrap">
+            Important Announcement:
+          </span>
+        </div>
+
+        {/* Scrolling Marquee Ticker with edge gradient mask */}
+        <div className="relative flex overflow-x-hidden flex-1 group [mask-image:linear-gradient(to_right,transparent,black_12px,black_calc(100%-12px),transparent)]">
+          <div className="animate-marquee whitespace-nowrap flex items-center py-0.5">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="flex items-center mx-4 sm:mx-6">
+                <span className="font-sans text-xs sm:text-[13px] font-medium text-slate-800">
+                  Registration begins from 10th August 2026, at Rajagiri College Of Social Sciences(Autonomous) Kalamassery.
+                </span>
+                <span className="mx-3 text-slate-400 font-bold">&bull;</span>
+                <a
+                  href={REGISTRATION_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-sans text-xs sm:text-[13px] font-bold text-amber-600 hover:text-amber-700 underline transition-colors shrink-0"
+                >
+                  REGISTER NOW - CLICK HERE FOR ONLINE REGISTRATION
+                </a>
+                <span className="mx-3 text-slate-400 font-bold">&bull;</span>
+                <span className="font-sans text-xs sm:text-[13px] font-medium text-slate-800">
+                  Abstract submission deadline: <strong className="text-slate-950 font-semibold">25 Sep 2026</strong>
+                </span>
+                <span className="mx-4 text-slate-400 font-bold">&bull;</span>
+              </div>
+            ))}
           </div>
 
-          {/* Marquee Track with CSS Animation and smooth fade edge mask */}
-          <div className="relative flex overflow-x-hidden flex-1 group [mask-image:linear-gradient(to_right,transparent,black_16px,black_calc(100%-16px),transparent)]">
-            <div className="animate-marquee whitespace-nowrap flex items-center py-0.5">
-              {/* Duplicated for seamless infinite loop */}
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="flex items-center mx-6 sm:mx-8">
-                  <a
-                    href={REGISTRATION_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-sans text-xs sm:text-sm font-bold text-[#F59E0B] hover:text-[#FCD34D] uppercase tracking-wider underline mr-3 transition-colors shrink-0"
-                  >
-                    REGISTER NOW - CLICK HERE FOR ONLINE REGISTRATION
-                  </a>
-                  <span className="font-sans text-xs sm:text-sm font-medium tracking-wide text-white/95">
-                    Registration begins from 10th August 2026, at Rajagiri College Of Social Sciences(Autonomous) Kalamassery.
-                  </span>
-                  <span className="mx-6 sm:mx-8 text-white/30 font-bold">&bull;</span>
-                </div>
-              ))}
-            </div>
-
-            <div
-              className="absolute top-0 animate-marquee2 whitespace-nowrap flex items-center py-0.5"
-              aria-hidden="true"
-            >
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="flex items-center mx-6 sm:mx-8">
-                  <a
-                    href={REGISTRATION_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-sans text-xs sm:text-sm font-bold text-[#F59E0B] hover:text-[#FCD34D] uppercase tracking-wider underline mr-3 transition-colors shrink-0"
-                  >
-                    REGISTER NOW - CLICK HERE FOR ONLINE REGISTRATION
-                  </a>
-                  <span className="font-sans text-xs sm:text-sm font-medium tracking-wide text-white/95">
-                    Registration begins from 10th August 2026, at Rajagiri College Of Social Sciences(Autonomous) Kalamassery.
-                  </span>
-                  <span className="mx-6 sm:mx-8 text-white/30 font-bold">&bull;</span>
-                </div>
-              ))}
-            </div>
+          <div
+            className="absolute top-0 animate-marquee2 whitespace-nowrap flex items-center py-0.5"
+            aria-hidden="true"
+          >
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="flex items-center mx-4 sm:mx-6">
+                <span className="font-sans text-xs sm:text-[13px] font-medium text-slate-800">
+                  Registration begins from 10th August 2026, at Rajagiri College Of Social Sciences(Autonomous) Kalamassery.
+                </span>
+                <span className="mx-3 text-slate-400 font-bold">&bull;</span>
+                <a
+                  href={REGISTRATION_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-sans text-xs sm:text-[13px] font-bold text-amber-600 hover:text-amber-700 underline transition-colors shrink-0"
+                >
+                  REGISTER NOW - CLICK HERE FOR ONLINE REGISTRATION
+                </a>
+                <span className="mx-3 text-slate-400 font-bold">&bull;</span>
+                <span className="font-sans text-xs sm:text-[13px] font-medium text-slate-800">
+                  Abstract submission deadline: <strong className="text-slate-950 font-semibold">25 Sep 2026</strong>
+                </span>
+                <span className="mx-4 text-slate-400 font-bold">&bull;</span>
+              </div>
+            ))}
           </div>
         </div>
       </aside>
