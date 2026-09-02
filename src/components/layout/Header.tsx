@@ -46,10 +46,10 @@ export const Header: React.FC = () => {
       role="banner"
     >
       {/* ── RECTANGLE WITH CURVED SIDES (PILL / STADIUM SHAPE) ── */}
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pointer-events-auto">
+      <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 pointer-events-auto">
         <div
           className={cn(
-            'w-full bg-[#071A33] text-white rounded-full border border-white/20 px-4 sm:px-6 lg:px-8 h-[64px] sm:h-[72px] flex items-center justify-between gap-4 transition-all duration-300 shadow-[0_8px_30px_rgba(7,26,51,0.25)]',
+            'w-full bg-[#071A33] text-white rounded-full border border-white/20 px-4 sm:px-8 lg:px-10 h-[66px] sm:h-[74px] flex items-center justify-between gap-4 transition-all duration-300 shadow-[0_8px_30px_rgba(7,26,51,0.25)]',
             isScrolled && 'shadow-[0_14px_40px_rgba(7,26,51,0.38)] backdrop-blur-md bg-[#071A33]/95 border-white/25'
           )}
         >
@@ -82,9 +82,9 @@ export const Header: React.FC = () => {
           {/* Center: Desktop Navigation Links with Amber Active Indicator */}
           <nav
             aria-label="Main Navigation"
-            className="hidden lg:flex items-center justify-center flex-1 mx-2 lg:mx-4"
+            className="hidden lg:flex items-center justify-center flex-1 mx-4 lg:mx-6"
           >
-            <ul className="flex items-center gap-2 lg:gap-3 2xl:gap-5 list-none m-0 p-0">
+            <ul className="flex items-center gap-3 lg:gap-4 2xl:gap-6 list-none m-0 p-0">
               {navLinks.map((item) => (
                 <li key={item.path}>
                   <NavLink
@@ -92,7 +92,7 @@ export const Header: React.FC = () => {
                     end={item.exact}
                     className={({ isActive }) =>
                       cn(
-                        'relative px-2.5 py-1 text-[13px] lg:text-[13.5px] 2xl:text-[14px] font-sans font-semibold transition-all duration-200 whitespace-nowrap focus-visible:outline-none',
+                        'relative px-3 py-1.5 text-[13.5px] lg:text-[14px] 2xl:text-[14.5px] font-sans font-semibold transition-all duration-200 whitespace-nowrap focus-visible:outline-none',
                         isActive
                           ? 'text-amber-300 font-bold border-b-2 border-amber-400 pb-1'
                           : 'text-white/90 hover:text-amber-300'

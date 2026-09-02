@@ -4,12 +4,12 @@ const REGISTRATION_URL = 'https://forms.gle/XTZZmXS1tjkvfm9u6';
 
 /**
  * Official Registration Announcement Marquee Bar
- * Positioned under the navigation bar within the max-w-7xl frame.
+ * Positioned under the navigation bar within the max-w-[1440px] frame.
  * Non-sticky, so when scrolled below it naturally moves out of view.
  */
 export const MarqueeAnnouncement: React.FC = () => {
   return (
-    <div className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-2.5 mb-1.5 select-none">
+    <div className="w-full max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 mt-2.5 mb-1.5 select-none">
       <aside
         className="w-full bg-white text-slate-900 rounded-xl sm:rounded-full border border-slate-200/90 shadow-sm py-1.5 sm:py-2 flex items-center overflow-hidden"
         aria-label="Conference Announcement Ticker"
