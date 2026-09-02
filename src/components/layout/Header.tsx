@@ -45,11 +45,11 @@ export const Header: React.FC = () => {
       className="sticky top-2 sm:top-3.5 z-50 w-full pointer-events-none transition-all duration-300"
       role="banner"
     >
-      {/* ── RECTANGLE WITH CURVED SIDES (PILL / STADIUM SHAPE) ── */}
-      <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 pointer-events-auto">
+      <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 pointer-events-auto flex flex-col items-center">
+        {/* ── 1. NAVIGATION BAR (SHAPE NEVER CHANGES: ALWAYS A CURVED-SIDE RECTANGLE PILL) ── */}
         <div
           className={cn(
-            'w-full bg-[#071A33] text-white rounded-full border border-white/20 px-4 sm:px-8 lg:px-10 h-[66px] sm:h-[74px] flex items-center justify-between gap-4 transition-all duration-300 shadow-[0_8px_30px_rgba(7,26,51,0.25)]',
+            'w-full bg-[#071A33] text-white rounded-full border border-white/20 px-4 sm:px-8 lg:px-10 h-[66px] sm:h-[74px] flex items-center justify-between gap-4 transition-all duration-300 shadow-[0_8px_30px_rgba(7,26,51,0.25)] relative z-20',
             isScrolled && 'shadow-[0_14px_40px_rgba(7,26,51,0.38)] backdrop-blur-md bg-[#071A33]/95 border-white/25'
           )}
         >
@@ -145,10 +145,83 @@ export const Header: React.FC = () => {
           </div>
         </div>
 
+        {/* ── 2. LOWER SECTION: ANNOUNCEMENT TICKER (STICKED DIRECTLY UNDER NAVBAR, SLIGHTLY SHORTER LENGTH) ── */}
+        <div
+          className={cn(
+            'w-[92%] sm:w-[94%] max-w-[1300px] mx-auto transition-all duration-300 ease-in-out z-10 select-none overflow-hidden',
+            isScrolled
+              ? 'max-h-0 opacity-0 -translate-y-2 pointer-events-none mt-0'
+              : 'max-h-14 opacity-100 translate-y-0 -mt-1 sm:-mt-1'
+          )}
+        >
+          <div className="w-full bg-white text-slate-900 rounded-full border border-slate-200/90 shadow-md py-1 sm:py-1.5 flex items-center overflow-hidden">
+            {/* Left Static Announcement Label */}
+            <div className="flex items-center gap-1.5 pl-4 sm:pl-6 pr-3.5 py-0.5 bg-white z-10 shrink-0 border-r border-slate-200">
+              <span className="font-sans text-[11px] sm:text-[12px] font-extrabold text-slate-900 whitespace-nowrap">
+                Important Announcement:
+              </span>
+            </div>
+
+            {/* Scrolling Marquee Ticker with edge gradient mask */}
+            <div className="relative flex overflow-x-hidden flex-1 group [mask-image:linear-gradient(to_right,transparent,black_14px,black_calc(100%-14px),transparent)]">
+              <div className="animate-marquee whitespace-nowrap flex items-center py-0.5">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="flex items-center mx-4 sm:mx-6">
+                    <span className="font-sans text-xs sm:text-[13px] font-medium text-slate-800">
+                      Registration begins from 10th August 2026, at Rajagiri College Of Social Sciences(Autonomous) Kalamassery.
+                    </span>
+                    <span className="mx-3 text-slate-400 font-bold">&bull;</span>
+                    <a
+                      href={REGISTRATION_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-sans text-xs sm:text-[13px] font-bold text-amber-600 hover:text-amber-700 underline transition-colors shrink-0"
+                    >
+                      REGISTER NOW - CLICK HERE FOR ONLINE REGISTRATION
+                    </a>
+                    <span className="mx-3 text-slate-400 font-bold">&bull;</span>
+                    <span className="font-sans text-xs sm:text-[13px] font-medium text-slate-800">
+                      Abstract submission deadline: <strong className="text-slate-950 font-semibold">25 Sep 2026</strong>
+                    </span>
+                    <span className="mx-4 text-slate-400 font-bold">&bull;</span>
+                  </div>
+                ))}
+              </div>
+
+              <div
+                className="absolute top-0 animate-marquee2 whitespace-nowrap flex items-center py-0.5"
+                aria-hidden="true"
+              >
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="flex items-center mx-4 sm:mx-6">
+                    <span className="font-sans text-xs sm:text-[13px] font-medium text-slate-800">
+                      Registration begins from 10th August 2026, at Rajagiri College Of Social Sciences(Autonomous) Kalamassery.
+                    </span>
+                    <span className="mx-3 text-slate-400 font-bold">&bull;</span>
+                    <a
+                      href={REGISTRATION_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-sans text-xs sm:text-[13px] font-bold text-amber-600 hover:text-amber-700 underline transition-colors shrink-0"
+                    >
+                      REGISTER NOW - CLICK HERE FOR ONLINE REGISTRATION
+                    </a>
+                    <span className="mx-3 text-slate-400 font-bold">&bull;</span>
+                    <span className="font-sans text-xs sm:text-[13px] font-medium text-slate-800">
+                      Abstract submission deadline: <strong className="text-slate-950 font-semibold">25 Sep 2026</strong>
+                    </span>
+                    <span className="mx-4 text-slate-400 font-bold">&bull;</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* ── MOBILE DRAWER ── */}
         {isMobileMenuOpen && (
           <div
-            className="xl:hidden mt-2 bg-[#071A33] border border-white/20 text-white rounded-2xl px-4 py-4 space-y-1.5 shadow-2xl animate-slideDown pointer-events-auto"
+            className="w-full xl:hidden mt-2 bg-[#071A33] border border-white/20 text-white rounded-2xl px-4 py-4 space-y-1.5 shadow-2xl animate-slideDown pointer-events-auto"
             role="dialog"
             aria-modal="true"
             aria-label="Navigation menu"
