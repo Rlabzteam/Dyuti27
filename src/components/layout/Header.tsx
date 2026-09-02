@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { CONFERENCE_DATA } from '@/data/conference';
 
 const REGISTRATION_URL = 'https://forms.gle/XTZZmXS1tjkvfm9u6';
 
@@ -46,11 +45,11 @@ export const Header: React.FC = () => {
       role="banner"
     >
       <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 pointer-events-auto flex flex-col items-center">
-        {/* ── 1. NAVIGATION BAR (SHAPE NEVER CHANGES: ALWAYS A CURVED-SIDE RECTANGLE PILL) ── */}
+        {/* ── 1. MAIN NAVIGATION BAR (STANDALONE STADIUM PILL: SHAPE NEVER CHANGES) ── */}
         <div
           className={cn(
-            'w-full bg-[#071A33] text-white rounded-full border border-white/20 px-4 sm:px-8 lg:px-10 h-[66px] sm:h-[74px] flex items-center justify-between gap-4 transition-all duration-300 shadow-[0_8px_30px_rgba(7,26,51,0.25)] relative z-20',
-            isScrolled && 'shadow-[0_14px_40px_rgba(7,26,51,0.38)] backdrop-blur-md bg-[#071A33]/95 border-white/25'
+            'w-full bg-[#071A33] text-white rounded-full border border-white/20 px-4 sm:px-8 lg:px-10 h-[64px] sm:h-[72px] flex items-center justify-between gap-4 transition-all duration-300 shadow-[0_8px_30px_rgba(7,26,51,0.25)] relative z-20 backdrop-blur-md',
+            isScrolled && 'shadow-[0_14px_40px_rgba(7,26,51,0.38)] bg-[#071A33]/95 border-white/25'
           )}
         >
           {/* Left: Circular White Logo Badge + Title */}
@@ -72,14 +71,14 @@ export const Header: React.FC = () => {
                 <span className="font-heading font-black text-[1.2rem] sm:text-[1.35rem] tracking-tight leading-none text-white transition-colors">
                   DYUTI
                 </span>
-                <span className="font-sans text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-extrabold leading-none mt-1 text-amber-300">
+                <span className="font-sans text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-extrabold leading-none mt-1 text-[#d4af37]">
                   2027 &middot; Kochi
                 </span>
               </div>
             </Link>
           </div>
 
-          {/* Center: Desktop Navigation Links with Amber Active Indicator */}
+          {/* Center: Desktop Navigation Links with Gold Active Indicator */}
           <nav
             aria-label="Main Navigation"
             className="hidden lg:flex items-center justify-center flex-1 mx-4 lg:mx-6"
@@ -94,8 +93,8 @@ export const Header: React.FC = () => {
                       cn(
                         'relative px-3 py-1.5 text-[13.5px] lg:text-[14px] 2xl:text-[14.5px] font-sans font-semibold transition-all duration-200 whitespace-nowrap focus-visible:outline-none',
                         isActive
-                          ? 'text-amber-300 font-bold border-b-2 border-amber-400 pb-1'
-                          : 'text-white/90 hover:text-amber-300'
+                          ? 'text-[#d4af37] font-bold border-b-2 border-[#d4af37] pb-1'
+                          : 'text-white/90 hover:text-[#d4af37]'
                       )
                     }
                   >
@@ -145,45 +144,45 @@ export const Header: React.FC = () => {
           </div>
         </div>
 
-        {/* ── 2. LOWER SECTION: ANNOUNCEMENT TICKER (STICKED DIRECTLY UNDER NAVBAR, SLIGHTLY SHORTER LENGTH) ── */}
+        {/* ── 2. ATTACHED ANNOUNCEMENT BAR (NARROWER LENGTH, ATTACHED RECTANGLE WITH ROUNDED BOTTOM) ── */}
         <div
           className={cn(
-            'w-[92%] sm:w-[94%] max-w-[1300px] mx-auto transition-all duration-300 ease-in-out z-10 select-none overflow-hidden',
+            'w-[86%] sm:w-[90%] max-w-[1240px] mx-auto transition-all duration-300 ease-in-out z-10 select-none overflow-hidden -mt-2.5 sm:-mt-3',
             isScrolled
-              ? 'max-h-0 opacity-0 -translate-y-2 pointer-events-none mt-0'
-              : 'max-h-14 opacity-100 translate-y-0 -mt-1 sm:-mt-1'
+              ? 'max-h-0 opacity-0 -translate-y-3 pointer-events-none'
+              : 'max-h-14 opacity-100 translate-y-0'
           )}
         >
-          <div className="w-full bg-white text-slate-900 rounded-full border border-slate-200/90 shadow-md py-1 sm:py-1.5 flex items-center overflow-hidden">
-            {/* Left Static Announcement Label */}
-            <div className="flex items-center gap-1.5 pl-4 sm:pl-6 pr-3.5 py-0.5 bg-white z-10 shrink-0 border-r border-slate-200">
-              <span className="font-sans text-[11px] sm:text-[12px] font-extrabold text-slate-900 whitespace-nowrap">
-                Important Announcement:
-              </span>
-            </div>
-
-            {/* Scrolling Marquee Ticker with edge gradient mask */}
-            <div className="relative flex overflow-x-hidden flex-1 group [mask-image:linear-gradient(to_right,transparent,black_14px,black_calc(100%-14px),transparent)]">
+          <div className="w-full bg-[#051326]/95 text-white border-x border-b border-white/20 rounded-b-2xl sm:rounded-b-3xl pt-3.5 sm:pt-4 pb-1.5 sm:pb-2 px-4 sm:px-6 shadow-[0_8px_20px_rgba(0,0,0,0.2)] backdrop-blur-md flex items-center overflow-hidden">
+            <div className="relative flex overflow-x-hidden w-full group [mask-image:linear-gradient(to_right,transparent,black_20px,black_calc(100%-20px),transparent)]">
               <div className="animate-marquee whitespace-nowrap flex items-center py-0.5">
-                {[...Array(4)].map((_, i) => (
-                  <div key={i} className="flex items-center mx-4 sm:mx-6">
-                    <span className="font-sans text-xs sm:text-[13px] font-medium text-slate-800">
-                      Registration begins from 10th August 2026, at Rajagiri College Of Social Sciences(Autonomous) Kalamassery.
+                {[...Array(3)].map((_, i) => (
+                  <div key={i} className="flex items-center mx-4 sm:mx-6 text-[12px] sm:text-[13px] font-sans font-normal text-white/90">
+                    <span className="font-extrabold text-[#d4af37] uppercase tracking-wider mr-1.5 whitespace-nowrap">
+                      Important Announcement:
                     </span>
-                    <span className="mx-3 text-slate-400 font-bold">&bull;</span>
+                    <span>
+                      The International Conference on Social Work (DYUTI 2027) &mdash; Registration begins from{' '}
+                      <strong className="text-[#d4af37] font-bold">10th August 2026</strong> at Rajagiri College Of Social Sciences (Autonomous) Kalamassery.
+                    </span>
+                    <span className="mx-3.5 text-white/40 font-bold">&bull;</span>
                     <a
                       href={REGISTRATION_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-sans text-xs sm:text-[13px] font-bold text-amber-600 hover:text-amber-700 underline transition-colors shrink-0"
+                      className="font-bold text-[#d4af37] hover:text-amber-200 underline decoration-[#d4af37]/70 underline-offset-2 transition-colors shrink-0"
                     >
-                      REGISTER NOW - CLICK HERE FOR ONLINE REGISTRATION
+                      REGISTER NOW &mdash; CLICK HERE FOR ONLINE REGISTRATION
                     </a>
-                    <span className="mx-3 text-slate-400 font-bold">&bull;</span>
-                    <span className="font-sans text-xs sm:text-[13px] font-medium text-slate-800">
-                      Abstract submission deadline: <strong className="text-slate-950 font-semibold">25 Sep 2026</strong>
+                    <span className="mx-3.5 text-white/40 font-bold">&bull;</span>
+                    <span>
+                      Extended Abstract Submission Deadline: <strong className="text-white font-bold">25 September 2026</strong>
                     </span>
-                    <span className="mx-4 text-slate-400 font-bold">&bull;</span>
+                    <span className="mx-3.5 text-white/40 font-bold">&bull;</span>
+                    <span className="text-white/80 font-medium">
+                      Kochi, Kerala, India
+                    </span>
+                    <span className="mx-3.5 text-white/40 font-bold">&bull;</span>
                   </div>
                 ))}
               </div>
@@ -192,25 +191,33 @@ export const Header: React.FC = () => {
                 className="absolute top-0 animate-marquee2 whitespace-nowrap flex items-center py-0.5"
                 aria-hidden="true"
               >
-                {[...Array(4)].map((_, i) => (
-                  <div key={i} className="flex items-center mx-4 sm:mx-6">
-                    <span className="font-sans text-xs sm:text-[13px] font-medium text-slate-800">
-                      Registration begins from 10th August 2026, at Rajagiri College Of Social Sciences(Autonomous) Kalamassery.
+                {[...Array(3)].map((_, i) => (
+                  <div key={i} className="flex items-center mx-4 sm:mx-6 text-[12px] sm:text-[13px] font-sans font-normal text-white/90">
+                    <span className="font-extrabold text-[#d4af37] uppercase tracking-wider mr-1.5 whitespace-nowrap">
+                      Important Announcement:
                     </span>
-                    <span className="mx-3 text-slate-400 font-bold">&bull;</span>
+                    <span>
+                      The International Conference on Social Work (DYUTI 2027) &mdash; Registration begins from{' '}
+                      <strong className="text-[#d4af37] font-bold">10th August 2026</strong> at Rajagiri College Of Social Sciences (Autonomous) Kalamassery.
+                    </span>
+                    <span className="mx-3.5 text-white/40 font-bold">&bull;</span>
                     <a
                       href={REGISTRATION_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-sans text-xs sm:text-[13px] font-bold text-amber-600 hover:text-amber-700 underline transition-colors shrink-0"
+                      className="font-bold text-[#d4af37] hover:text-amber-200 underline decoration-[#d4af37]/70 underline-offset-2 transition-colors shrink-0"
                     >
-                      REGISTER NOW - CLICK HERE FOR ONLINE REGISTRATION
+                      REGISTER NOW &mdash; CLICK HERE FOR ONLINE REGISTRATION
                     </a>
-                    <span className="mx-3 text-slate-400 font-bold">&bull;</span>
-                    <span className="font-sans text-xs sm:text-[13px] font-medium text-slate-800">
-                      Abstract submission deadline: <strong className="text-slate-950 font-semibold">25 Sep 2026</strong>
+                    <span className="mx-3.5 text-white/40 font-bold">&bull;</span>
+                    <span>
+                      Extended Abstract Submission Deadline: <strong className="text-white font-bold">25 September 2026</strong>
                     </span>
-                    <span className="mx-4 text-slate-400 font-bold">&bull;</span>
+                    <span className="mx-3.5 text-white/40 font-bold">&bull;</span>
+                    <span className="text-white/80 font-medium">
+                      Kochi, Kerala, India
+                    </span>
+                    <span className="mx-3.5 text-white/40 font-bold">&bull;</span>
                   </div>
                 ))}
               </div>
@@ -250,4 +257,3 @@ export const Header: React.FC = () => {
     </header>
   );
 };
-
