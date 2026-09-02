@@ -16,63 +16,65 @@ export const Rajagiri: React.FC = () => {
   return (
     <div className="bg-[#FDFBF7] text-slate-800 min-h-screen">
       
-      {/* ── FULL-WIDTH HERO BANNER (EXTENDS TO BOTH SIDES, NO LOGO) ── */}
-      <div className="relative w-full overflow-hidden mb-16 lg:mb-24 bg-[#071A33] text-white border-b border-[#123962] shadow-2xl">
-        
-        {/* Blurred Background Building Photo (Exact Uploaded Photo - Extends Edge-to-Edge) */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/images/rajagiri_building_main.jpg"
-            alt="Rajagiri College of Social Sciences Main Building Campus"
-            className="w-full h-full object-cover filter blur-[5px] scale-105 brightness-[0.45]"
-          />
-          {/* Gradient Overlay for high contrast */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#071A33]/75 via-[#071A33]/55 to-[#071A33]/85" />
-        </div>
-
-        {/* Centered Hero Content */}
-        <div className="relative z-10 py-18 sm:py-28 lg:py-32 px-4 sm:px-8 text-center max-w-5xl mx-auto flex flex-col items-center justify-center space-y-6 sm:space-y-8">
+      {/* ── HERO BANNER (ALIGNED TO NAVIGATION BAR LENGTH) ── */}
+      <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pt-3 sm:pt-5 mb-16 lg:mb-24">
+        <div className="relative w-full overflow-hidden rounded-[28px] sm:rounded-[36px] bg-[#071A33] text-white border border-white/20 shadow-2xl">
           
-          {/* Eyebrow Annotation Badge in Crisp White */}
-          <div className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/15 border border-white/25 backdrop-blur-md shadow-md">
-            <span className="text-xs sm:text-sm font-sans font-black uppercase tracking-[0.22em] text-white">
-              Host Institution Profile &amp; Heritage
-            </span>
+          {/* Blurred Background Building Photo (Exact Uploaded Photo - Aligned to Navbar Length) */}
+          <div className="absolute inset-0 z-0">
+            <img
+              src="/images/rajagiri_building_main.jpg"
+              alt="Rajagiri College of Social Sciences Main Building Campus"
+              className="w-full h-full object-cover filter blur-[5px] scale-105 brightness-[0.45]"
+            />
+            {/* Gradient Overlay for high contrast */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#071A33]/75 via-[#071A33]/55 to-[#071A33]/85" />
           </div>
 
-          {/* Centered College Title */}
-          <div>
-            <h1 className="font-heading font-black text-3xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-white leading-tight mb-3">
-              Rajagiri College of Social Sciences
-            </h1>
-            <p className="text-lg sm:text-2xl font-sans font-bold text-white tracking-wide m-0">
-              (Autonomous) &bull; Kalamassery, Kochi
-            </p>
-          </div>
+          {/* Centered Hero Content */}
+          <div className="relative z-10 py-16 sm:py-24 lg:py-28 px-4 sm:px-8 text-center max-w-5xl mx-auto flex flex-col items-center justify-center space-y-6 sm:space-y-8">
+            
+            {/* Eyebrow Annotation Badge in Crisp White */}
+            <div className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/15 border border-white/25 backdrop-blur-md shadow-md">
+              <span className="text-xs sm:text-sm font-sans font-black uppercase tracking-[0.22em] text-white">
+                Host Institution Profile &amp; Heritage
+              </span>
+            </div>
 
-          {/* Motto */}
-          <div className="inline-block border-y border-white/20 py-3.5 px-8 sm:px-12 my-2 backdrop-blur-xs">
-            <p className="text-base sm:text-xl md:text-2xl font-heading font-bold text-slate-100 italic tracking-wider m-0">
-              &ldquo;Relentlessly Towards Excellence&rdquo;
-            </p>
-          </div>
+            {/* Centered College Title */}
+            <div>
+              <h1 className="font-heading font-black text-3xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-white leading-tight mb-3">
+                Rajagiri College of Social Sciences
+              </h1>
+              <p className="text-lg sm:text-2xl font-sans font-bold text-white tracking-wide m-0">
+                (Autonomous) &bull; Kalamassery, Kochi
+              </p>
+            </div>
 
-          {/* Centered Accreditation Badges */}
-          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 pt-2">
-            <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
-              Established in 1955
-            </span>
-            <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
-              NAAC A++ Accredited (3.83 CGPA)
-            </span>
-            <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
-              Ranked #12 in India (NIRF 2025)
-            </span>
-            <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
-              #1 in Kerala (KIRF 2025)
-            </span>
-          </div>
+            {/* Motto */}
+            <div className="inline-block border-y border-white/20 py-3.5 px-8 sm:px-12 my-2 backdrop-blur-xs">
+              <p className="text-base sm:text-xl md:text-2xl font-heading font-bold text-slate-100 italic tracking-wider m-0">
+                &ldquo;Relentlessly Towards Excellence&rdquo;
+              </p>
+            </div>
 
+            {/* Centered Accreditation Badges */}
+            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 pt-2">
+              <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
+                Established in 1955
+              </span>
+              <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
+                NAAC A++ Accredited (3.83 CGPA)
+              </span>
+              <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
+                Ranked #12 in India (NIRF 2025)
+              </span>
+              <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
+                #1 in Kerala (KIRF 2025)
+              </span>
+            </div>
+
+          </div>
         </div>
       </div>
 
