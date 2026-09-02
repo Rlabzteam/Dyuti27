@@ -44,7 +44,7 @@ export const Header: React.FC = () => {
       className="sticky top-2 sm:top-3.5 z-50 w-full pointer-events-none transition-all duration-300"
       role="banner"
     >
-      <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 pointer-events-auto flex flex-col items-center">
+      <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pointer-events-auto flex flex-col items-center">
         {/* ── 1. MAIN NAVIGATION BAR (STANDALONE STADIUM PILL: SHAPE NEVER CHANGES) ── */}
         <div
           className={cn(
@@ -81,9 +81,9 @@ export const Header: React.FC = () => {
           {/* Center: Desktop Navigation Links with Gold Active Indicator */}
           <nav
             aria-label="Main Navigation"
-            className="hidden lg:flex items-center justify-center flex-1 mx-4 lg:mx-6"
+            className="hidden lg:flex items-center justify-center flex-1 mx-4 lg:mx-8"
           >
-            <ul className="flex items-center gap-3 lg:gap-4 2xl:gap-6 list-none m-0 p-0">
+            <ul className="flex items-center gap-3 lg:gap-5 xl:gap-7 2xl:gap-8 list-none m-0 p-0">
               {navLinks.map((item) => (
                 <li key={item.path}>
                   <NavLink
@@ -91,7 +91,7 @@ export const Header: React.FC = () => {
                     end={item.exact}
                     className={({ isActive }) =>
                       cn(
-                        'relative px-3 py-1.5 text-[13.5px] lg:text-[14px] 2xl:text-[14.5px] font-sans font-semibold transition-all duration-200 whitespace-nowrap focus-visible:outline-none',
+                        'relative px-3.5 py-1.5 text-[14px] lg:text-[14.5px] 2xl:text-[15px] font-sans font-semibold transition-all duration-200 whitespace-nowrap focus-visible:outline-none',
                         isActive
                           ? 'text-[#d4af37] font-bold border-b-2 border-[#d4af37] pb-1'
                           : 'text-white/90 hover:text-[#d4af37]'
@@ -111,7 +111,7 @@ export const Header: React.FC = () => {
               href={REGISTRATION_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group h-[38px] sm:h-[42px] px-6 sm:px-7 inline-flex items-center gap-1.5 text-[13px] sm:text-[14px] font-sans font-bold bg-white text-[#071A33] hover:bg-slate-100 rounded-full transition-all duration-200 shadow-sm focus-visible:outline-none hover:scale-105"
+              className="group h-[38px] sm:h-[42px] px-6 sm:px-8 inline-flex items-center gap-1.5 text-[13px] sm:text-[14px] font-sans font-bold bg-white text-[#071A33] hover:bg-slate-100 rounded-full transition-all duration-200 shadow-sm focus-visible:outline-none hover:scale-105"
             >
               <span>Register</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -147,7 +147,7 @@ export const Header: React.FC = () => {
         {/* ── 2. ATTACHED ANNOUNCEMENT BAR (NARROWER LENGTH, ATTACHED RECTANGLE WITH ROUNDED BOTTOM) ── */}
         <div
           className={cn(
-            'w-[86%] sm:w-[90%] max-w-[1240px] mx-auto transition-all duration-300 ease-in-out z-10 select-none overflow-hidden -mt-2.5 sm:-mt-3',
+            'w-[88%] sm:w-[91%] max-w-[1500px] mx-auto transition-all duration-300 ease-in-out z-10 select-none overflow-hidden -mt-2.5 sm:-mt-3',
             isScrolled
               ? 'max-h-0 opacity-0 -translate-y-3 pointer-events-none'
               : 'max-h-14 opacity-100 translate-y-0'
