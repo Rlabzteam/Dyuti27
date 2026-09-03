@@ -102,11 +102,10 @@ export const ImportantDatesTimeline: React.FC = () => {
               <div key={idx} className="flex flex-col group">
                 <div className="flex items-center gap-3 mb-6 pl-2">
                   <div
-                    className={`w-8 h-8 rounded-lg shrink-0 flex items-center justify-center font-mono text-xs font-black transition-all duration-300 group-hover:scale-110 ${
-                      step.isHighlight
+                    className={`w-8 h-8 rounded-lg shrink-0 flex items-center justify-center font-mono text-xs font-black transition-all duration-300 group-hover:scale-110 ${step.isHighlight
                         ? 'bg-[#071A33] text-amber-300 ring-4 ring-[#071A33]/25 animate-pulseGlow'
                         : 'bg-slate-200 text-slate-900 border border-slate-300 group-hover:border-[#071A33] group-hover:text-[#071A33]'
-                    }`}
+                      }`}
                   >
                     {step.number}
                   </div>
@@ -117,11 +116,10 @@ export const ImportantDatesTimeline: React.FC = () => {
 
                 {/* Unique Asymmetric Curved Leaf Shape Card */}
                 <div
-                  className={`rounded-[24px] rounded-tl-[48px] rounded-br-[48px] p-6 transition-all duration-300 flex flex-col justify-between min-h-[230px] border border-white/20 text-white shadow-xl ${
-                    step.isHighlight
+                  className={`rounded-[24px] rounded-tl-[48px] rounded-br-[48px] p-6 transition-all duration-300 flex flex-col justify-between min-h-[230px] border border-white/20 text-white shadow-xl ${step.isHighlight
                       ? 'bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] ring-2 ring-amber-400/50 shadow-[#071A33]/25'
                       : 'bg-gradient-to-br from-[#0a2540] via-[#123962] to-[#051424] hover:scale-[1.03]'
-                  }`}
+                    }`}
                 >
                   <div>
                     <div className="mb-2.5">
@@ -152,22 +150,20 @@ export const ImportantDatesTimeline: React.FC = () => {
             <div key={idx} className="relative group">
               {/* Stepper Node */}
               <div
-                className={`absolute -left-[29px] sm:-left-[33px] top-4 w-7 h-7 rounded-lg flex items-center justify-center font-mono text-[10px] font-black transition-transform duration-300 group-hover:scale-110 ${
-                  step.isHighlight
+                className={`absolute -left-[29px] sm:-left-[33px] top-4 w-7 h-7 rounded-lg flex items-center justify-center font-mono text-[10px] font-black transition-transform duration-300 group-hover:scale-110 ${step.isHighlight
                     ? 'bg-[#071A33] text-amber-300 ring-4 ring-[#071A33]/25'
                     : 'bg-[#071A33] text-white border border-white/20'
-                }`}
+                  }`}
               >
                 {step.number}
               </div>
 
               {/* Unique Asymmetric Curved Leaf Shape Card */}
               <div
-                className={`rounded-[24px] rounded-tl-[44px] rounded-br-[44px] p-5 sm:p-6 text-white border border-white/20 transition-all duration-300 shadow-xl ${
-                  step.isHighlight
+                className={`rounded-[24px] rounded-tl-[44px] rounded-br-[44px] p-5 sm:p-6 text-white border border-white/20 transition-all duration-300 shadow-xl ${step.isHighlight
                     ? 'bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] ring-2 ring-amber-400/50'
                     : 'bg-gradient-to-br from-[#0a2540] via-[#123962] to-[#051424]'
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-3 mb-2">
                   <span className="font-mono text-[12px] font-black uppercase tracking-wider text-amber-300 bg-white/15 px-3 py-0.5 rounded-full border border-white/20">
