@@ -16,9 +16,9 @@ export const Rajagiri: React.FC = () => {
   return (
     <div className="bg-[#FDFBF7] text-slate-800 min-h-screen">
       
-      {/* ── HERO BANNER (ALIGNED TO NAVIGATION BAR LENGTH) ── */}
-      <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pt-3 sm:pt-5 mb-16 lg:mb-24">
-        <div className="relative w-full overflow-hidden rounded-[28px] sm:rounded-[36px] bg-slate-950 text-white border border-slate-700/50 shadow-2xl">
+      {/* ── HERO BANNER (ALIGNED TO NAVIGATION BAR LENGTH & INCREASED HEIGHT) ── */}
+      <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pt-3 sm:pt-5 mb-14 lg:mb-20">
+        <div className="relative w-full min-h-[420px] sm:min-h-[480px] lg:min-h-[540px] flex flex-col items-center justify-center overflow-hidden rounded-[28px] sm:rounded-[36px] bg-slate-950 text-white border border-slate-700/50 shadow-2xl">
           
           {/* Background Building Photo without blue tint */}
           <div className="absolute inset-0 z-0">
@@ -28,38 +28,31 @@ export const Rajagiri: React.FC = () => {
               className="w-full h-full object-cover object-center brightness-[0.75]"
             />
             {/* Neutral Dark Gradient Overlay for high contrast without blue color */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-black/75" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/75" />
           </div>
 
           {/* Centered Hero Content */}
-          <div className="relative z-10 py-16 sm:py-24 lg:py-28 px-4 sm:px-8 text-center max-w-5xl mx-auto flex flex-col items-center justify-center space-y-6 sm:space-y-8">
+          <div className="relative z-10 py-12 sm:py-16 lg:py-20 px-4 sm:px-8 text-center max-w-5xl mx-auto flex flex-col items-center justify-center space-y-6 sm:space-y-7">
             
-            {/* Eyebrow Annotation Badge in Crisp White */}
-            <div className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/15 border border-white/25 backdrop-blur-md shadow-md">
-              <span className="text-xs sm:text-sm font-sans font-black uppercase tracking-[0.22em] text-white">
-                Host Institution Profile &amp; Heritage
-              </span>
-            </div>
-
             {/* Centered College Title */}
             <div>
-              <h1 className="font-heading font-black text-3xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-white leading-tight mb-3">
+              <h1 className="font-heading font-black text-3xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-white leading-tight mb-2 sm:mb-3">
                 Rajagiri College of Social Sciences
               </h1>
-              <p className="text-lg sm:text-2xl font-sans font-bold text-white tracking-wide m-0">
+              <p className="text-base sm:text-2xl font-sans font-bold text-white/95 tracking-wide m-0">
                 (Autonomous) &bull; Kalamassery, Kochi
               </p>
             </div>
 
             {/* Motto */}
-            <div className="inline-block border-y border-white/20 py-3.5 px-8 sm:px-12 my-2 backdrop-blur-xs">
+            <div className="inline-block border-y border-white/25 py-2.5 sm:py-3.5 px-8 sm:px-12 my-1 backdrop-blur-xs">
               <p className="text-base sm:text-xl md:text-2xl font-heading font-bold text-slate-100 italic tracking-wider m-0">
                 &ldquo;Relentlessly Towards Excellence&rdquo;
               </p>
             </div>
 
             {/* Centered Accreditation Badges */}
-            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 pt-2">
+            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 pt-1 sm:pt-2">
               <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
                 Established in 1955
               </span>
