@@ -17,7 +17,7 @@ export const Attractions: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
 
         {/* ── PAGE HEADER ── */}
-        <div className="text-center pt-4 sm:pt-6 pb-10 sm:pb-14 mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
           {/* Eyebrow */}
           <div className="flex items-center justify-center gap-2.5 mb-6">
             <span className="w-6 h-0.5 bg-[#071A33]" />
@@ -28,7 +28,7 @@ export const Attractions: React.FC = () => {
           </div>
 
           {/* Main Title */}
-          <h1 className="font-heading font-extrabold text-[#071A33] leading-tight tracking-tight mb-4 text-[2.5rem] sm:text-[3.25rem] lg:text-[4rem]">
+          <h1 className="font-heading font-extrabold text-[#071A33] leading-none tracking-tight mb-6 text-[2.5rem] sm:text-[3.25rem] lg:text-[4rem]">
             Attractions in &amp;
             <span className="block text-slate-850 mt-2 text-[1.85rem] sm:text-[2.5rem] lg:text-[2.75rem] font-bold">
               Around Historic Kochi

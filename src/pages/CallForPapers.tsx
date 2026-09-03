@@ -28,28 +28,29 @@ export const CallForPapers: React.FC = () => {
   ];
 
   return (
-    <div className="pt-2 sm:pt-3 lg:pt-4 pb-20 sm:pb-28 lg:pb-32 bg-[#FDFBF7] text-slate-950 min-h-screen">
+    <div className="pt-8 sm:pt-10 lg:pt-12 pb-20 sm:pb-28 lg:pb-32 bg-[#FDFBF7] text-slate-800 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
 
         {/* ── PAGE HEADER ── */}
-        <div className="text-center pt-4 sm:pt-6 pb-10 sm:pb-14 mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
           <div className="flex items-center justify-center gap-2.5 mb-6">
             <span className="w-6 h-0.5 bg-[#071A33]" />
-            <span className="text-[12px] font-sans font-extrabold uppercase tracking-[0.22em] text-slate-950">
+            <span className="text-[12px] font-sans font-bold uppercase tracking-[0.22em] text-slate-600">
               Scholarly Submissions &amp; Guidelines
             </span>
             <span className="w-6 h-0.5 bg-[#071A33]" />
           </div>
-          <h1 className="font-heading font-black text-slate-950 leading-tight tracking-tight mb-4"
-            style={{ fontSize: 'clamp(3.5rem, 9vw, 7rem)' }}>
+
+          <h1 className="font-heading font-extrabold text-[#071A33] leading-none tracking-tight mb-6 text-[2.5rem] sm:text-[3.25rem] lg:text-[4rem]">
             Call for Papers
-            <span className="block text-slate-950 font-black"
-              style={{ fontSize: 'clamp(2.5rem, 7vw, 5.25rem)' }}>
+            <span className="block text-slate-850 mt-2 text-[1.85rem] sm:text-[2.5rem] lg:text-[2.75rem] font-bold">
               &amp; Submission Guidelines
             </span>
           </h1>
+
           <div className="w-16 h-1 bg-[#071A33] rounded-full mx-auto mb-6" />
-          <p className="text-base sm:text-lg md:text-xl text-slate-900 leading-relaxed font-sans font-medium max-w-2xl mx-auto">
+
+          <p className="text-sm sm:text-base text-slate-650 leading-relaxed font-sans max-w-2xl mx-auto font-normal">
             Abstracts based on original empirical research, theoretical inquiries, and innovative practice models are invited for Oral and Poster Presentations across the 8 conference themes.
           </p>
         </div>

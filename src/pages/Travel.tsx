@@ -8,17 +8,24 @@ export const Travel: React.FC = () => {
 
         {/* ── PAGE HEADER ── */}
         <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
-          <div className="inline-flex items-center px-5 py-2 rounded-full bg-[#071A33] text-white text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] mb-6 shadow-md">
-            <span>Venue &amp; Logistics</span>
+          <div className="flex items-center justify-center gap-2.5 mb-6">
+            <span className="w-6 h-0.5 bg-[#071A33]" />
+            <span className="text-[12px] font-sans font-bold uppercase tracking-[0.22em] text-slate-600">
+              Venue &amp; Logistics
+            </span>
+            <span className="w-6 h-0.5 bg-[#071A33]" />
           </div>
 
-          <h1 className="text-[2.5rem] sm:text-[3.25rem] lg:text-[4rem] font-heading font-extrabold text-[#071A33] leading-none tracking-tight m-0 mb-6">
+          <h1 className="font-heading font-extrabold text-[#071A33] leading-none tracking-tight mb-6 text-[2.5rem] sm:text-[3.25rem] lg:text-[4rem]">
             Transit &amp; Directions
+            <span className="block text-slate-850 mt-2 text-[1.85rem] sm:text-[2.5rem] lg:text-[2.75rem] font-bold">
+              To Rajagiri Hill Campus
+            </span>
           </h1>
 
           <div className="w-16 h-1 bg-[#071A33] rounded-full mx-auto mb-6" />
 
-          <p className="text-sm sm:text-base text-slate-650 font-sans leading-relaxed m-0 font-normal">
+          <p className="text-sm sm:text-base text-slate-650 leading-relaxed font-sans max-w-2xl mx-auto font-normal">
             Located in Kalamassery, Kochi, the Rajagiri Hill Campus is highly accessible via international flights, local railway connections, and the modern Kochi Metro transit network.
           </p>
         </div>
