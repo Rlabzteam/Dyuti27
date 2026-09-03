@@ -23,6 +23,8 @@ export const HeroBanner: React.FC = () => {
               isLoaded ? 'opacity-100' : 'opacity-0'
             }`}
             loading="eager"
+            fetchPriority="high"
+            decoding="async"
             onLoad={() => setIsLoaded(true)}
           />
           {/* Neutral Dark Overlay for high contrast and readability */}

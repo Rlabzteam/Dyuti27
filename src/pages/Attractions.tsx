@@ -51,6 +51,7 @@ export const Attractions: React.FC = () => {
             alt="Artistic Watercolor Panorama of Kochi — Chinese Fishing Nets, Heritage Architecture, Water Metro, and Rajagiri Campus"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             loading="lazy"
+            decoding="async"
           />
         </div>
 
@@ -79,6 +80,7 @@ export const Attractions: React.FC = () => {
                       alt={attraction.title}
                       className="w-full h-[320px] sm:h-[400px] lg:h-[440px] object-cover transition-transform duration-700 group-hover:scale-105"
                       loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 </div>

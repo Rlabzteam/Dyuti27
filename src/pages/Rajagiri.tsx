@@ -26,6 +26,9 @@ export const Rajagiri: React.FC = () => {
               src="/images/rajagiri_building_main.jpg"
               alt="Rajagiri College of Social Sciences Main Building Campus"
               className="w-full h-full object-cover object-center brightness-[0.78]"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
             />
             {/* Neutral Dark Gradient Overlay for high contrast without blue color */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/75" />
@@ -249,6 +252,7 @@ export const Rajagiri: React.FC = () => {
                 alt="Department of Social Work at Rajagiri"
                 className="w-full h-auto max-h-[520px] object-contain rounded-xl shadow-lg hover:scale-105 transition-transform duration-500"
                 loading="lazy"
+                decoding="async"
               />
             </div>
 

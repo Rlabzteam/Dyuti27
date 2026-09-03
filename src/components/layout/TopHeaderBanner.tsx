@@ -27,6 +27,8 @@ export const TopHeaderBanner: React.FC = () => {
             alt="Rajagiri College of Social Sciences (Autonomous)"
             className="h-10 sm:h-12 md:h-16 w-auto object-contain select-none"
             loading="eager"
+            fetchPriority="high"
+            decoding="async"
           />
         </a>
 
@@ -41,6 +43,8 @@ export const TopHeaderBanner: React.FC = () => {
             alt="DYUTI 27 — Social Work for Sustainable Development: Empowering Communities through Innovation, Inclusion, and Partnership"
             className="h-9 sm:h-12 md:h-14 lg:h-16 w-auto max-w-[160px] xs:max-w-[220px] sm:max-w-[340px] md:max-w-[440px] lg:max-w-[540px] object-contain select-none"
             loading="eager"
+            fetchPriority="high"
+            decoding="async"
           />
         </Link>
 
@@ -55,6 +59,7 @@ export const TopHeaderBanner: React.FC = () => {
             alt="DYUTI — let me change..."
             className="h-10 sm:h-12 md:h-16 w-auto object-contain select-none"
             loading="eager"
+            decoding="async"
           />
         </Link>
       </div>

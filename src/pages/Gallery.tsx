@@ -108,6 +108,7 @@ export const Gallery: React.FC = () => {
                 src={photo.imageUrl}
                 alt={photo.title}
                 loading="lazy"
+                decoding="async"
                 onError={(e) => {
                   const target = e.currentTarget;
                   const filename = photo.imageUrl.split('/').pop();
