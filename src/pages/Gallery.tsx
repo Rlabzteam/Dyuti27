@@ -90,50 +90,12 @@ export const Gallery: React.FC = () => {
         {/* ── IMAGE GRID ── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8 mb-20 lg:mb-28">
           {filteredPhotos.map((photo, index) => (
-            <div
+            <GalleryImageCard
               key={photo.id}
-              onClick={() => setSelectedPhotoIndex(index)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  setSelectedPhotoIndex(index);
-                }
-              }}
-              tabIndex={0}
-              role="button"
-              aria-label={`View photo: ${photo.title} (DYUTI ${photo.year})`}
-              className="group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]"
-            >
-              <img
-                src={photo.imageUrl}
-                alt={photo.title}
-                loading="lazy"
-                decoding="async"
-                onError={(e) => {
-                  const target = e.currentTarget;
-                  const filename = photo.imageUrl.split('/').pop();
-                  if (filename && !target.src.startsWith('https://dyuti.in')) {
-                    target.src = `https://dyuti.in/uploads/gallery/${filename}`;
-                  }
-                }}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-
-              {/* Gradient Overlay (Stunning Deep Purple Glow with high contrast text) */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
-                <span className="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">
-                  DYUTI {photo.year} &middot; {photo.category}
-                </span>
-                <h4 className="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">
-                  {photo.title}
-                </h4>
-
-                {/* Floating Zoom Button */}
-                <div className="absolute top-4 right-4 w-9 h-9 rounded-[10px] bg-white/20 backdrop-blur-xs flex items-center justify-center text-white border border-white/25 shadow-subtle">
-                  <ZoomIn className="w-4 h-4" />
-                </div>
-              </div>
-            </div>
+              photo={photo}
+              index={index}
+              onSelect={() => setSelectedPhotoIndex(index)}
+            />
           ))}
         </div>
 
@@ -159,6 +121,73 @@ export const Gallery: React.FC = () => {
           />
         )}
 
+      </div>
+    </div>
+  );
+};
+
+interface GalleryImageCardProps {
+  photo: (typeof CONFERENCE_DATA.gallery)[0];
+  index: number;
+  onSelect: () => void;
+}
+
+const GalleryImageCard: React.FC<GalleryImageCardProps> = ({ photo, onSelect }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  return (
+    <div
+      onClick={onSelect}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onSelect();
+        }
+      }}
+      tabIndex={0}
+      role="button"
+      aria-label={`View photo: ${photo.title} (DYUTI ${photo.year})`}
+      className="group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]"
+    >
+      {/* Pulse Skeleton Placeholder */}
+      {!isLoaded && (
+        <div className="absolute inset-0 bg-slate-800 animate-pulse flex items-center justify-center">
+          <span className="text-[11px] font-mono font-bold text-slate-500 uppercase tracking-widest">Loading...</span>
+        </div>
+      )}
+
+      <img
+        src={photo.imageUrl}
+        alt={photo.title}
+        loading="lazy"
+        decoding="async"
+        onLoad={() => setIsLoaded(true)}
+        onError={(e) => {
+          const target = e.currentTarget;
+          const filename = photo.imageUrl.split('/').pop();
+          if (filename && !target.src.startsWith('https://dyuti.in')) {
+            target.src = `https://dyuti.in/uploads/gallery/${filename}`;
+          }
+        }}
+        className={cn(
+          'absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105',
+          isLoaded ? 'opacity-100' : 'opacity-0'
+        )}
+      />
+
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
+        <span className="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">
+          DYUTI {photo.year} &middot; {photo.category}
+        </span>
+        <h4 className="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">
+          {photo.title}
+        </h4>
+
+        {/* Floating Zoom Button */}
+        <div className="absolute top-4 right-4 w-9 h-9 rounded-[10px] bg-white/20 backdrop-blur-xs flex items-center justify-center text-white border border-white/25 shadow-subtle">
+          <ZoomIn className="w-4 h-4" />
+        </div>
       </div>
     </div>
   );
