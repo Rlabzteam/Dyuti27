@@ -48,8 +48,8 @@ export const Header: React.FC = () => {
         {/* ── 1. MAIN NAVIGATION BAR (STANDALONE STADIUM PILL: SHAPE NEVER CHANGES) ── */}
         <div
           className={cn(
-            'w-full bg-[#071A33] text-white rounded-full border border-white/20 px-4 sm:px-8 lg:px-10 h-[72px] sm:h-[84px] lg:h-[88px] flex items-center justify-between gap-4 transition-all duration-300 shadow-[0_8px_30px_rgba(7,26,51,0.25)] relative z-20 backdrop-blur-md',
-            isScrolled && 'shadow-[0_14px_40px_rgba(7,26,51,0.38)] bg-[#071A33]/95 border-white/25'
+            'w-full bg-gradient-to-r from-[#071A33] via-[#0e2a52] to-[#071A33] text-white rounded-full border border-white/20 px-4 sm:px-8 lg:px-10 h-[72px] sm:h-[84px] lg:h-[88px] flex items-center justify-between gap-4 transition-all duration-300 shadow-[0_8px_30px_rgba(7,26,51,0.3)] relative z-20 backdrop-blur-md',
+            isScrolled && 'shadow-[0_14px_40px_rgba(7,26,51,0.45)] bg-gradient-to-r from-[#071A33]/98 via-[#0e2a52]/98 to-[#071A33]/98 border-white/25'
           )}
         >
           {/* Left: Circular White Logo Badge + Title */}
@@ -153,7 +153,7 @@ export const Header: React.FC = () => {
               : 'max-h-14 opacity-100 translate-y-0'
           )}
         >
-          <div className="w-full bg-[#051326]/95 text-white border-x border-b border-white/20 rounded-b-2xl sm:rounded-b-3xl pt-3.5 sm:pt-4 pb-1.5 sm:pb-2 px-4 sm:px-6 shadow-[0_8px_20px_rgba(0,0,0,0.2)] backdrop-blur-md flex items-center overflow-hidden">
+          <div className="w-full bg-gradient-to-r from-[#071A33] via-[#0e2a52] to-[#071A33] text-white border-x border-b border-white/20 rounded-b-2xl sm:rounded-b-3xl pt-3.5 sm:pt-4 pb-1.5 sm:pb-2 px-4 sm:px-6 shadow-[0_8px_20px_rgba(0,0,0,0.25)] backdrop-blur-md flex items-center overflow-hidden">
             <div className="relative flex overflow-x-hidden w-full group [mask-image:linear-gradient(to_right,transparent,black_20px,black_calc(100%-20px),transparent)]">
               <div className="animate-marquee whitespace-nowrap flex items-center py-0.5">
                 {[...Array(3)].map((_, i) => (
@@ -228,7 +228,7 @@ export const Header: React.FC = () => {
         {/* ── MOBILE DRAWER ── */}
         {isMobileMenuOpen && (
           <div
-            className="w-full xl:hidden mt-2 bg-[#071A33] border border-white/20 text-white rounded-2xl px-4 py-4 space-y-1.5 shadow-2xl animate-slideDown pointer-events-auto"
+            className="w-full xl:hidden mt-2 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] border border-white/20 text-white rounded-2xl px-4 py-4 space-y-1.5 shadow-2xl animate-slideDown pointer-events-auto"
             role="dialog"
             aria-modal="true"
             aria-label="Navigation menu"
