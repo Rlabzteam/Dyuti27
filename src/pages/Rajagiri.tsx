@@ -16,9 +16,9 @@ export const Rajagiri: React.FC = () => {
   return (
     <div className="bg-[#FDFBF7] text-slate-800 min-h-screen">
 
-      {/* ── HERO BANNER (ALIGNED TO NAVIGATION BAR LENGTH & INCREASED HEIGHT) ── */}
-      <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pt-3 sm:pt-5 mb-14 lg:mb-20">
-        <div className="relative w-full min-h-[420px] sm:min-h-[480px] lg:min-h-[540px] flex flex-col items-center justify-center overflow-hidden rounded-[28px] sm:rounded-[36px] bg-slate-950 text-white border border-slate-700/50 shadow-2xl">
+      {/* ── HERO BANNER (INCREASED HEIGHT FOR CAMPUS ARCHITECTURE DISPLAY) ── */}
+      <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pt-3 sm:pt-4 mb-10 sm:mb-12">
+        <div className="relative w-full min-h-[340px] sm:min-h-[420px] lg:min-h-[460px] flex flex-col items-center justify-center overflow-hidden rounded-[28px] sm:rounded-[36px] bg-slate-950 text-white border border-slate-700/50 shadow-2xl">
 
           {/* Background Building Photo without blue tint */}
           <div className="absolute inset-0 z-0">
@@ -32,38 +32,38 @@ export const Rajagiri: React.FC = () => {
           </div>
 
           {/* Centered Hero Content */}
-          <div className="relative z-10 py-12 sm:py-16 lg:py-20 px-4 sm:px-8 text-center max-w-5xl mx-auto flex flex-col items-center justify-center space-y-6 sm:space-y-7">
+          <div className="relative z-10 py-10 sm:py-14 lg:py-16 px-4 sm:px-8 text-center max-w-5xl mx-auto flex flex-col items-center justify-center space-y-4 sm:space-y-6">
 
             {/* Centered College Title */}
             <div>
               <h1 className="font-heading font-black text-3xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-white leading-tight mb-2 sm:mb-3">
                 Rajagiri College of Social Sciences
               </h1>
-              <p className="text-base sm:text-2xl font-sans font-bold text-white/95 tracking-wide m-0">
+              <p className="text-sm sm:text-xl md:text-2xl font-sans font-bold text-white/95 tracking-wide m-0">
                 (Autonomous) &bull; Kalamassery, Kochi
               </p>
             </div>
 
             {/* Motto */}
-            <div className="inline-block border-y border-white/25 py-2.5 sm:py-3.5 px-8 sm:px-12 my-1 backdrop-blur-xs">
-              <p className="text-base sm:text-xl md:text-2xl font-heading font-bold text-slate-100 italic tracking-wider m-0">
+            <div className="inline-block border-y border-white/25 py-2 sm:py-3 px-8 sm:px-12 my-1 backdrop-blur-xs">
+              <p className="text-sm sm:text-lg md:text-xl font-heading font-bold text-slate-100 italic tracking-wider m-0">
                 &ldquo;Relentlessly Towards Excellence&rdquo;
               </p>
             </div>
 
             {/* Centered Accreditation Badges */}
-            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 pt-1 sm:pt-2">
-              <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
+            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 pt-1">
+              <span className="px-3.5 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
                 Established in 1955
               </span>
-              <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
+              <span className="px-3.5 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
                 NAAC A++ Accredited (3.83 CGPA)
               </span>
-              <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
+              <span className="px-3.5 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
                 Ranked #12 in India (NIRF 2025)
               </span>
-              <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
-                #1 in Kerala (KIRF 2025)
+              <span className="px-3.5 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
+                UGC Autonomous (2014 &ndash; 2030)
               </span>
             </div>
 
