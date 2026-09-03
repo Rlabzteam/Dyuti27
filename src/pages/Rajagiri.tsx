@@ -83,7 +83,7 @@ export const Rajagiri: React.FC = () => {
               onClick={() => setActiveTab('legacy')}
               className={`w-full sm:w-1/2 py-3.5 px-6 rounded-full text-xs sm:text-sm font-mono font-black uppercase tracking-wider transition-all duration-300 ${
                 activeTab === 'legacy'
-                  ? 'bg-[#071A33] text-[#38BDF8] shadow-lg scale-105'
+                  ? 'bg-[#071A33] text-amber-300 shadow-lg scale-105'
                   : 'text-slate-700 hover:text-slate-950 hover:bg-slate-300/60'
               }`}
             >
@@ -94,7 +94,7 @@ export const Rajagiri: React.FC = () => {
               onClick={() => setActiveTab('global')}
               className={`w-full sm:w-1/2 py-3.5 px-6 rounded-full text-xs sm:text-sm font-mono font-black uppercase tracking-wider transition-all duration-300 ${
                 activeTab === 'global'
-                  ? 'bg-[#071A33] text-[#38BDF8] shadow-lg scale-105'
+                  ? 'bg-[#071A33] text-amber-300 shadow-lg scale-105'
                   : 'text-slate-700 hover:text-slate-950 hover:bg-slate-300/60'
               }`}
             >
@@ -105,7 +105,7 @@ export const Rajagiri: React.FC = () => {
           {/* Tab Content Display */}
           <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-8 sm:p-12 lg:p-16 shadow-2xl border border-white/20 relative overflow-hidden transition-all duration-500">
             {/* Subtle background ambient glow */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
 
             {activeTab === 'legacy' ? (
               /* Tab 1: Legacy Content */
@@ -165,7 +165,7 @@ export const Rajagiri: React.FC = () => {
               /* Tab 2: Global Standing Content */
               <div className="space-y-8 relative z-10 animate-fadeIn">
                 <div className="space-y-4">
-                  <div className="inline-flex items-center px-4 py-1 rounded-full bg-white/15 border border-white/25 text-[#38BDF8] text-xs font-mono font-black uppercase tracking-[0.18em]">
+                  <div className="inline-flex items-center px-4 py-1 rounded-full bg-white/15 border border-white/25 text-amber-300 text-xs font-mono font-black uppercase tracking-[0.18em]">
                     <span>Global Standing</span>
                   </div>
 
@@ -173,11 +173,11 @@ export const Rajagiri: React.FC = () => {
                     SDG &amp; Global Impact
                   </h2>
 
-                  <div className="w-20 h-1.5 bg-[#38BDF8] rounded-full" />
+                  <div className="w-20 h-1.5 bg-amber-300 rounded-full" />
                 </div>
 
                 {/* Highlight Container Box */}
-                <div className="p-6 sm:p-8 rounded-[20px] bg-[#38BDF8] text-slate-950 shadow-xl border border-cyan-300 max-w-3xl">
+                <div className="p-6 sm:p-8 rounded-[20px] bg-amber-400 text-slate-950 shadow-xl border border-amber-300 max-w-3xl">
                   <span className="text-xs font-mono font-black uppercase tracking-[0.2em] text-slate-900 block mb-1">
                     Times Higher Education Impact Rankings
                   </span>
@@ -188,7 +188,7 @@ export const Rajagiri: React.FC = () => {
 
                 <div className="space-y-4 text-[16px] sm:text-[17.5px] text-slate-100 leading-relaxed font-sans font-medium max-w-4xl">
                   <p className="m-0">
-                    Rajagiri has earned international recognition by being placed in the <strong className="text-[#38BDF8] font-black">601&ndash;800 global band for SDG 3 (Good Health and Well-being)</strong> in the Times Higher Education Impact Rankings 2026.
+                    Rajagiri has earned international recognition by being placed in the <strong className="text-amber-300 font-black">601&ndash;800 global band for SDG 3 (Good Health and Well-being)</strong> in the Times Higher Education Impact Rankings 2026.
                   </p>
                   <p className="m-0">
                     With world-class infrastructure, multidisciplinary academic programmes, dedicated research centres, live labs (extension departments), and a deep commitment to social sustainability, Rajagiri continues to set benchmarks in higher education globally.

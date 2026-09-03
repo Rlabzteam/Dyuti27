@@ -63,13 +63,13 @@ export const SpeakersSection: React.FC = () => {
     >
       {/* Background Glow Ornaments */}
       <div className="absolute top-1/4 -right-24 w-96 h-96 rounded-full bg-[#071A33]/5 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 -left-24 w-96 h-96 rounded-full bg-cyan-600/5 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -left-24 w-96 h-96 rounded-full bg-amber-500/5 blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
 
         {/* ── TOP SECTION ANNOTATION BAR ── */}
         <div className="flex items-center justify-between pb-5 mb-12 sm:mb-16 border-b border-slate-300">
-          <div className="inline-flex items-center px-5 py-2 rounded-full bg-[#38BDF8] text-slate-950 text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] shadow-md">
+          <div className="inline-flex items-center px-5 py-2 rounded-full bg-amber-400 text-slate-950 text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] shadow-md">
             <span>Conference Leadership &bull; Keynotes</span>
           </div>
           <span className="text-[11px] font-sans uppercase tracking-[0.14em] text-slate-800 font-bold hidden sm:inline">

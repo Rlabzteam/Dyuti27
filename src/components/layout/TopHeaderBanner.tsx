@@ -33,7 +33,7 @@ export const TopHeaderBanner: React.FC = () => {
         {/* 2. Center: DYUTI 27 Thematic Framework Banner */}
         <Link
           to="/"
-          className="flex items-center justify-center shrink min-w-0 transition-transform duration-200 hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg p-0.5"
+          className="flex items-center justify-center shrink min-w-0 transition-transform duration-200 hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-lg p-0.5"
           aria-label="DYUTI 27 Conference Theme — Social Work for Sustainable Development"
         >
           <img
@@ -47,7 +47,7 @@ export const TopHeaderBanner: React.FC = () => {
         {/* 3. Right: DYUTI 'let me change...' Graphic */}
         <Link
           to="/"
-          className="flex items-center justify-end shrink-0 transition-transform duration-200 hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg p-0.5"
+          className="flex items-center justify-end shrink-0 transition-transform duration-200 hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-lg p-0.5"
           aria-label="DYUTI — let me change... Home"
         >
           <img

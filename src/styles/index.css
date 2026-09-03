@@ -71,12 +71,23 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Neon glow border classes for light modes */
-.neon-glow-cyan {
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.08);
+/* Custom Text Selection Highlight (Replaces default browser bright blue) */
+::selection {
+  background-color: #071A33;
+  color: #F7C948;
 }
 
-.neon-glow-lime {
+::-moz-selection {
+  background-color: #071A33;
+  color: #F7C948;
+}
+
+/* Glow border classes */
+.neon-glow-gold {
+  box-shadow: 0 0 20px rgba(247, 201, 72, 0.15);
+}
+
+.neon-glow-navy {
   box-shadow: 0 0 20px rgba(7, 26, 51, 0.08);
 }
 

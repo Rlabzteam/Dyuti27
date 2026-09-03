@@ -17,8 +17,8 @@ export const ConferenceMeta: React.FC = () => {
       sub: 'Universities across 30+ countries',
       badge: 'Global',
       bgGradient: 'from-[#0a2540] via-[#123962] to-[#051424]',
-      accentColor: 'text-[#38BDF8]',
-      badgeBg: 'bg-white/15 text-[#38BDF8] border-white/25',
+      accentColor: 'text-amber-300',
+      badgeBg: 'bg-white/15 text-amber-300 border-white/25',
     },
     {
       number: 'NIRF',
@@ -52,7 +52,7 @@ export const ConferenceMeta: React.FC = () => {
         
         {/* Section Annotation */}
         <div className="text-center mb-12 sm:mb-16">
-          <span className="inline-flex items-center px-6 sm:px-8 py-3 rounded-full bg-[#38BDF8] text-slate-950 text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] shadow-md">
+          <span className="inline-flex items-center px-6 sm:px-8 py-3 rounded-full bg-amber-400 text-slate-950 text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] shadow-md">
             Institutional Excellence &amp; Legacy
           </span>
         </div>

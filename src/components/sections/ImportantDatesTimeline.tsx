@@ -54,7 +54,7 @@ export const ImportantDatesTimeline: React.FC = () => {
 
         {/* ── TOP SECTION ANNOTATION BAR ── */}
         <div className="flex items-center justify-between pb-5 mb-12 sm:mb-16 border-b border-slate-300">
-          <div className="inline-flex items-center px-5 py-2 rounded-full bg-[#38BDF8] text-slate-950 text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] shadow-md">
+          <div className="inline-flex items-center px-5 py-2 rounded-full bg-amber-400 text-slate-950 text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] shadow-md">
             <span>Important Dates &bull; Key Milestones</span>
           </div>
           <span className="text-[11px] font-sans uppercase tracking-[0.14em] text-slate-800 font-bold hidden sm:inline">

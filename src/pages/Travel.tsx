@@ -121,7 +121,7 @@ export const Travel: React.FC = () => {
               {/* Taxi / Auto */}
               <div className="p-6 rounded-[20px] bg-white/10 border border-white/15">
                 <div className="mb-2 text-white font-bold text-sm font-sans flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 shrink-0 shadow-xs" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0 shadow-xs" />
                   <span>By Taxi / Auto-Rickshaw</span>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-100 leading-relaxed m-0 font-sans font-medium mb-3">
