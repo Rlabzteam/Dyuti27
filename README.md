@@ -150,12 +150,6 @@ npm run preview
 
 ---
 
-## 🚀 Dual Git Remote Setup
-
-This project is configured with dual-remote synchronization:
-- **Production (Vercel)**: `https://github.com/blessen5/mywebsite`
-- **Official Organization**: `https://github.com/Rlabzteam/Dyuti27`
-
 Running `git push origin main` pushes synchronously to both repositories.
 
 ---
