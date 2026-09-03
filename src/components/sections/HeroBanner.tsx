@@ -13,21 +13,21 @@ export const HeroBanner: React.FC = () => {
         className="relative w-full min-h-[500px] sm:min-h-[580px] lg:min-h-[640px] flex flex-col items-center justify-center overflow-hidden rounded-[28px] sm:rounded-[36px] bg-slate-950 text-white border border-slate-700/50 shadow-2xl"
         aria-label="DYUTI 2027 National Conference Hero"
       >
-        {/* ── KOCHI NIGHTSCAPE BACKGROUND WITHOUT BLUE TINT ── */}
+        {/* ── ARTISTIC KOCHI PANORAMA BACKGROUND FROM ATTRACTIONS ── */}
         <div className="absolute inset-0 z-0">
           {!isLoaded && <div className="absolute inset-0 bg-slate-950" />}
           <img
-            src="/images/dyuti_dark_hero_bg.jpg"
-            alt="Kochi Nightscape"
-            className={`w-full h-full object-cover object-center brightness-[0.8] transition-opacity duration-700 ${
+            src="/images/dyuti27_kochi_watercolor_art.jpg"
+            alt="Artistic Panorama of Kochi — Chinese Fishing Nets, Heritage Architecture, Water Metro, and Rajagiri Campus"
+            className={`w-full h-full object-cover object-center brightness-[0.75] transition-opacity duration-700 ${
               isLoaded ? 'opacity-100' : 'opacity-0'
             }`}
             loading="eager"
             onLoad={() => setIsLoaded(true)}
           />
-          {/* Neutral Dark Overlay for high contrast without blue color */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-black/75" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.7)_100%)]" />
+          {/* Neutral Dark Overlay for high contrast and readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.75)_100%)]" />
         </div>
 
         {/* ── CENTRED HERO CONTENT ── */}
