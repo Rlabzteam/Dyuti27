@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/Button';
-import { Download, ChevronDown, ChevronUp } from 'lucide-react';
+import { Download, ChevronLeft, ChevronRight, ArrowLeft, ArrowRight } from 'lucide-react';
 import { CONFERENCE_DATA } from '@/data/conference';
 
 export const CallForPapers: React.FC = () => {
-  const [expandedTheme, setExpandedTheme] = useState<number | null>(null);
+  const [activeThemeIndex, setActiveThemeIndex] = useState(0);
+  const totalThemes = CONFERENCE_DATA.subThemes.length;
+
+  const handlePrevTheme = () => {
+    setActiveThemeIndex((prev) => (prev > 0 ? prev - 1 : totalThemes - 1));
+  };
+
+  const handleNextTheme = () => {
+    setActiveThemeIndex((prev) => (prev < totalThemes - 1 ? prev + 1 : 0));
+  };
+
+  const activeTheme = CONFERENCE_DATA.subThemes[activeThemeIndex];
+  const activeTrackNum = String(activeThemeIndex + 1).padStart(2, '0');
 
   const participantTypes = [
     'Graduate Students',
@@ -107,91 +119,136 @@ export const CallForPapers: React.FC = () => {
           </div>
         </div>
 
-        {/* ── CONFERENCE THEMES (Interactive Accordion Layout) ── */}
-        <div className="mb-20 lg:mb-28">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-4 mb-10 border-b border-slate-300">
-            <div>
-              <span className="text-[11.5px] font-mono font-black uppercase tracking-[0.18em] text-slate-900 block mb-1">
-                Thematic Areas
-              </span>
-              <h3 className="font-heading text-[1.75rem] sm:text-[2.1rem] font-black text-slate-950 m-0">
-                Eight Conference Sub-Themes
-              </h3>
-            </div>
-            <span className="text-[11px] font-sans uppercase tracking-[0.14em] text-slate-600 hidden sm:inline font-bold">
-              Select a theme below to inspect focus areas
-            </span>
-          </div>
+        {/* ── CONFERENCE THEMES (Compact Stepper Card with Arrow Navigation) ── */}
+        <div className="mb-14 lg:mb-20">
+          <div className="rounded-[24px] sm:rounded-[32px] overflow-hidden border border-white/20 shadow-2xl bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-5 sm:p-7 lg:p-8 transition-all duration-300 relative">
+            
+            {/* Ambient Background Glow */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-amber-400/5 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="space-y-4">
-            {CONFERENCE_DATA.subThemes.map((track, idx) => {
-              const trackNum = String(idx + 1).padStart(2, '0');
-              const isOpen = expandedTheme === idx;
+            {/* Top Bar: Section Title + Arrow Controls */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 mb-5 border-b border-white/15 relative z-10">
+              <div className="flex items-center gap-3">
+                <span className="inline-flex items-center px-3.5 py-1 rounded-full bg-white/15 border border-white/25 text-white text-[11px] sm:text-xs font-mono font-black uppercase tracking-[0.16em]">
+                  Eight Conference Sub-Themes
+                </span>
+                <span className="text-xs text-slate-300 font-sans font-medium hidden md:inline">
+                  &bull; Select or cycle through all 8 tracks
+                </span>
+              </div>
 
-              return (
-                <div
-                  key={track.id || idx}
-                  className="rounded-[24px] sm:rounded-[28px] overflow-hidden border border-white/20 shadow-xl transition-all duration-300 bg-[#071A33] text-white"
+              {/* Arrow Stepper Controls */}
+              <div className="flex items-center gap-2.5 self-end sm:self-center">
+                <button
+                  type="button"
+                  onClick={handlePrevTheme}
+                  aria-label="Previous conference theme"
+                  className="w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 border border-white/25 flex items-center justify-center text-white transition-all hover:scale-105 active:scale-95 shadow-md cursor-pointer"
+                  title="Previous Theme"
                 >
-                  {/* Accordion Header Bar */}
+                  <ChevronLeft className="w-5 h-5 text-amber-300 stroke-[2.5]" />
+                </button>
+
+                <span className="font-mono text-xs font-black px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-slate-100 tracking-wider">
+                  Track <strong className="text-amber-300">{activeTrackNum}</strong> / 08
+                </span>
+
+                <button
+                  type="button"
+                  onClick={handleNextTheme}
+                  aria-label="Next conference theme"
+                  className="w-10 h-10 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(247,201,72,0.35)] cursor-pointer"
+                  title="Next Theme"
+                >
+                  <ChevronRight className="w-5 h-5 text-slate-950 stroke-[2.5]" />
+                </button>
+              </div>
+            </div>
+
+            {/* Active Theme Body */}
+            <div key={activeTheme.id || activeThemeIndex} className="space-y-4 relative z-10 animate-fadeIn">
+              
+              {/* Track Title */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-4">
+                <span className="font-mono text-xs sm:text-sm font-black px-3 py-1 rounded-xl bg-amber-400 text-slate-950 shrink-0 shadow-sm w-fit">
+                  TRACK {activeTrackNum}
+                </span>
+
+                <h4 className="font-heading font-black text-xl sm:text-2xl lg:text-[1.65rem] text-white tracking-tight leading-snug m-0">
+                  {activeTheme.title}
+                </h4>
+              </div>
+
+              {/* Research Sub-Topics Grid (Streamlined & Compact) */}
+              <div className="p-4 sm:p-5 rounded-[18px] bg-white/[0.08] border border-white/15 backdrop-blur-md">
+                <div className="flex items-center justify-between mb-3">
+                  <h5 className="text-[11px] font-mono font-black uppercase tracking-[0.18em] text-amber-300 m-0">
+                    Focus Research Topics ({activeTheme.topics.length} Areas)
+                  </h5>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3">
+                  {activeTheme.topics.map((topic, topicIdx) => (
+                    <div
+                      key={topicIdx}
+                      className="flex items-start gap-2.5 p-3 rounded-xl bg-white/10 border border-white/15 text-slate-100 text-xs sm:text-[13px] font-sans font-medium leading-relaxed hover:bg-white/15 transition-colors"
+                    >
+                      <span className="w-2 h-2 rounded-full bg-amber-400 mt-1 shrink-0 shadow-xs" />
+                      <span>{topic}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom Quick-Jump Pills & Inline Nav */}
+              <div className="pt-3 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-white/10">
+                <div className="flex flex-wrap items-center justify-center gap-1.5">
+                  <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-slate-400 mr-1 hidden sm:inline">
+                    Jump to:
+                  </span>
+                  {CONFERENCE_DATA.subThemes.map((_, idx) => {
+                    const pillNum = String(idx + 1).padStart(2, '0');
+                    const isActive = activeThemeIndex === idx;
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setActiveThemeIndex(idx)}
+                        className={`px-2.5 py-1 rounded-full font-mono text-[11px] font-black transition-all ${
+                          isActive
+                            ? 'bg-amber-400 text-slate-950 scale-105 shadow-sm'
+                            : 'bg-white/10 text-white hover:bg-white/20'
+                        }`}
+                        aria-label={`Jump to theme ${pillNum}`}
+                      >
+                        {pillNum}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="flex items-center gap-2">
                   <button
                     type="button"
-                    onClick={() => setExpandedTheme(isOpen ? null : idx)}
-                    className={`w-full p-6 sm:p-8 flex items-center justify-between text-left transition-colors duration-300 ${
-                      isOpen
-                        ? 'bg-gradient-to-r from-[#071A33] via-[#0e2a52] to-[#040e1c] border-b border-white/15'
-                        : 'bg-[#071A33] hover:bg-[#0c264a]'
-                    }`}
+                    onClick={handlePrevTheme}
+                    className="text-xs font-mono font-bold text-slate-300 hover:text-white flex items-center gap-1 py-1 px-2.5 rounded-lg hover:bg-white/10 transition-colors"
                   >
-                    <div className="flex items-center gap-4 sm:gap-6 flex-1 pr-4">
-                      {/* Track Number Badge */}
-                      <span className="font-mono text-base sm:text-lg font-black px-4 py-2 rounded-2xl bg-white/15 border border-white/25 text-white shrink-0 shadow-sm">
-                        {trackNum}
-                      </span>
-
-                      <div>
-                        <h4 className="font-heading font-black text-lg sm:text-2xl text-white tracking-tight leading-snug">
-                          {track.title}
-                        </h4>
-                        <span className="text-xs font-sans font-bold text-slate-300 mt-1 block">
-                          {track.topics.length} Focus Topics Included
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Toggle Arrow */}
-                    <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white shrink-0 transition-transform duration-300">
-                      {isOpen ? (
-                        <ChevronUp className="w-5 h-5" />
-                      ) : (
-                        <ChevronDown className="w-5 h-5" />
-                      )}
-                    </div>
+                    <ArrowLeft className="w-3 h-3" />
+                    Prev
                   </button>
-
-                  {/* Accordion Body Content */}
-                  {isOpen && (
-                    <div className="p-6 sm:p-8 bg-gradient-to-br from-[#040e1c] via-[#071A33] to-[#0b2952] animate-fadeIn">
-                      <h5 className="text-xs font-mono font-black uppercase tracking-[0.2em] text-white mb-5">
-                        Focus Areas &amp; Research Sub-Topics
-                      </h5>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
-                        {track.topics.map((topic, topicIdx) => (
-                          <div
-                            key={topicIdx}
-                            className="flex items-start gap-3.5 p-4 rounded-xl bg-white/10 border border-white/15 text-slate-100 text-sm font-sans font-medium leading-relaxed hover:bg-white/15 transition-colors"
-                          >
-                            <span className="w-2.5 h-2.5 rounded-full bg-white/40 mt-1.5 shrink-0 shadow-xs" />
-                            <span>{topic}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                  <button
+                    type="button"
+                    onClick={handleNextTheme}
+                    className="text-xs font-mono font-black text-amber-300 hover:text-amber-200 flex items-center gap-1 py-1 px-2.5 rounded-lg hover:bg-white/10 transition-colors"
+                  >
+                    Next
+                    <ArrowRight className="w-3 h-3" />
+                  </button>
                 </div>
-              );
-            })}
+              </div>
+
+            </div>
+
           </div>
         </div>
 
