@@ -8,78 +8,73 @@ export const HeroBanner: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
-    <section
-      className="relative min-h-[100svh] flex flex-col items-center justify-start pt-16 sm:pt-20 lg:pt-22 overflow-hidden bg-[#030C22] text-white"
-      aria-label="DYUTI 2027 National Conference Hero"
-    >
-      {/* ── KOCHI NIGHTSCAPE BACKGROUND ── */}
-      <div className="absolute inset-0">
-        {!isLoaded && <div className="absolute inset-0 bg-[#030C22]" />}
-        <img
-          src="/images/dyuti_dark_hero_bg.jpg"
-          alt="Kochi Nightscape"
-          className={`w-full h-full object-cover object-center transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'
+    <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pt-3 sm:pt-5 mb-14 lg:mb-20">
+      <section
+        className="relative w-full min-h-[500px] sm:min-h-[580px] lg:min-h-[640px] flex flex-col items-center justify-center overflow-hidden rounded-[28px] sm:rounded-[36px] bg-slate-950 text-white border border-slate-700/50 shadow-2xl"
+        aria-label="DYUTI 2027 National Conference Hero"
+      >
+        {/* ── KOCHI NIGHTSCAPE BACKGROUND WITHOUT BLUE TINT ── */}
+        <div className="absolute inset-0 z-0">
+          {!isLoaded && <div className="absolute inset-0 bg-slate-950" />}
+          <img
+            src="/images/dyuti_dark_hero_bg.jpg"
+            alt="Kochi Nightscape"
+            className={`w-full h-full object-cover object-center brightness-[0.8] transition-opacity duration-700 ${
+              isLoaded ? 'opacity-100' : 'opacity-0'
             }`}
-          loading="eager"
-          onLoad={() => setIsLoaded(true)}
-        />
-        {/* Dark overlay for legibility */}
-        <div className="absolute inset-0 bg-[#030C22]/70" />
-        {/* Vignette — stronger at edges */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(3,12,34,0.85)_100%)]" />
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#030C22] to-transparent" />
-      </div>
-
-      {/* ── CENTRED HERO CONTENT (HIGH TOP ALIGNMENT) ── */}
-      <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-8 max-w-5xl mx-auto">
-
-        {/* Eyebrow pill in white */}
-        <div className="inline-flex items-center px-6 py-2.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-sans font-black uppercase tracking-[0.22em] mb-8 sm:mb-10 backdrop-blur-md shadow-md">
-          <span>25 Years of Internationalism &bull; Kochi, Kerala</span>
+            loading="eager"
+            onLoad={() => setIsLoaded(true)}
+          />
+          {/* Neutral Dark Overlay for high contrast without blue color */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-black/75" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.7)_100%)]" />
         </div>
 
-        {/* Clean Unboxed Title Block in Crisp White with Generous Line Spacing */}
-        <div className="mb-8 sm:mb-12 flex flex-col items-center gap-6 sm:gap-8">
-          <span className="text-sm sm:text-base md:text-lg font-sans uppercase tracking-[0.28em] text-white font-black drop-shadow-md">
-            National Conference on Social Work
-          </span>
-          <h1 className="font-heading font-black text-[4.5rem] sm:text-[6.5rem] md:text-[7.5rem] lg:text-[8.5rem] xl:text-[9.5rem] text-white leading-none tracking-tight m-0 drop-shadow-2xl">
-            DYUTI 2027
-          </h1>
+        {/* ── CENTRED HERO CONTENT ── */}
+        <div className="relative z-10 flex flex-col items-center text-center py-14 sm:py-20 lg:py-24 px-4 sm:px-8 max-w-5xl mx-auto space-y-6 sm:space-y-8">
+
+          {/* Clean Title Block in Crisp White */}
+          <div className="flex flex-col items-center gap-4 sm:gap-6">
+            <span className="text-sm sm:text-base md:text-lg font-sans uppercase tracking-[0.28em] text-white font-black drop-shadow-md">
+              National Conference on Social Work
+            </span>
+            <h1 className="font-heading font-black text-[3.5rem] sm:text-[5.5rem] md:text-[6.5rem] lg:text-[7.5rem] xl:text-[8.5rem] text-white leading-none tracking-tight m-0 drop-shadow-2xl">
+              DYUTI 2027
+            </h1>
+          </div>
+
+          {/* Subtitle */}
+          <p className="font-sans text-[15px] sm:text-[17.5px] lg:text-[19px] text-slate-100 max-w-3xl leading-relaxed font-medium m-0">
+            Empowering Communities through Innovation, Inclusion, and Partnership. Curated by the{' '}
+            <strong className="text-white font-extrabold">Department of Social Work</strong>, Rajagiri
+            College of Social Sciences (Autonomous).
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+            <a
+              href={REGISTRATION_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-circle-fill h-[52px] px-9 inline-flex items-center gap-2 text-[13px] font-sans font-black uppercase tracking-[0.14em] text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-full shadow-[0_0_30px_rgba(247,201,72,0.4)] focus-visible:outline-none transition-all hover:scale-105"
+            >
+              REGISTER NOW
+              <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+            <a
+              href={CONFERENCE_DATA.links.cmtSubmission}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-circle-fill h-[52px] px-9 inline-flex items-center gap-2 text-[13px] font-sans font-black uppercase tracking-[0.14em] text-slate-950 bg-white hover:bg-slate-100 border border-white rounded-full shadow-md focus-visible:outline-none transition-all hover:scale-105"
+            >
+              CALL FOR PAPERS
+              <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+          </div>
         </div>
 
-        {/* Subtitle */}
-        <p className="font-sans text-[15px] sm:text-[17.5px] lg:text-[19px] text-slate-100 max-w-3xl leading-relaxed mb-12 sm:mb-16 font-medium">
-          Empowering Communities through Innovation, Inclusion, and Partnership. Curated by the{' '}
-          <strong className="text-white font-extrabold">Department of Social Work</strong>, Rajagiri
-          College of Social Sciences (Autonomous).
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <a
-            href={REGISTRATION_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-circle-fill h-[52px] px-9 inline-flex items-center gap-2 text-[13px] font-sans font-black uppercase tracking-[0.14em] text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-full shadow-[0_0_30px_rgba(247,201,72,0.4)] focus-visible:outline-none"
-          >
-            REGISTER NOW
-            <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
-          <a
-            href={CONFERENCE_DATA.links.cmtSubmission}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-circle-fill h-[52px] px-9 inline-flex items-center gap-2 text-[13px] font-sans font-black uppercase tracking-[0.14em] text-slate-950 bg-white hover:bg-slate-100 border border-white rounded-full shadow-md focus-visible:outline-none"
-          >
-            CALL FOR PAPERS
-            <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
-        </div>
-      </div>
-
-    </section>
+      </section>
+    </div>
   );
 };
 
