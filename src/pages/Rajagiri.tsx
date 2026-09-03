@@ -13,6 +13,14 @@ export const Rajagiri: React.FC = () => {
     'College with Potential for Excellence (CPE) by UGC India',
   ];
 
+  const globalHighlights = [
+    'Times Higher Education Impact Rankings: Global Band 601–800 (SDG 3)',
+    '60+ Active Academic Partnerships with Universities across 30+ Countries',
+    'Live Labs & Field Extension Projects across Kerala and South India',
+    'High-impact Research with Government of Kerala, NHRC, and K-DISC',
+    'Dedicated Social Work Center for Sustainability & Community Development',
+  ];
+
   return (
     <div className="bg-[#FDFBF7] text-slate-800 min-h-screen">
       
@@ -63,7 +71,7 @@ export const Rajagiri: React.FC = () => {
                 Ranked #12 in India (NIRF 2025)
               </span>
               <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
-                #1 in Kerala (KIRF 2025)
+                UGC Autonomous (2014 &ndash; 2030)
               </span>
             </div>
 
@@ -71,7 +79,7 @@ export const Rajagiri: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 pb-20 sm:pb-28 lg:pb-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8">
 
         {/* ── TABBED CONTAINER LAYOUT (LEGACY & GLOBAL IMPACT) ── */}
         <div className="mb-20 lg:mb-28">
@@ -102,48 +110,49 @@ export const Rajagiri: React.FC = () => {
             </button>
           </div>
 
-          {/* Tab Content Display */}
-          <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-8 sm:p-12 lg:p-16 shadow-2xl border border-white/20 relative overflow-hidden transition-all duration-500">
+          {/* Tab Content Display - Fixed Identical Dimensions */}
+          <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-8 sm:p-12 lg:p-16 shadow-2xl border border-white/20 relative overflow-hidden transition-all duration-500 min-h-[580px] flex flex-col justify-between">
             {/* Subtle background ambient glow */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
 
             {activeTab === 'legacy' ? (
               /* Tab 1: Legacy Content */
-              <div className="space-y-8 relative z-10 animate-fadeIn">
-                
-                {/* Top Header Row with RCSS Logo */}
-                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-white/15">
-                  <div className="space-y-4 max-w-3xl">
-                    <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs font-sans font-black uppercase tracking-[0.18em]">
-                      <span>Autonomous Institution (2014 &ndash; 2030)</span>
+              <div className="space-y-8 relative z-10 animate-fadeIn h-full flex flex-col justify-between">
+                <div>
+                  {/* Top Header Row with RCSS Logo */}
+                  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-white/15 mb-6">
+                    <div className="space-y-4 max-w-3xl">
+                      <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs font-sans font-black uppercase tracking-[0.18em]">
+                        <span>Autonomous Institution (2014 &ndash; 2030)</span>
+                      </div>
+
+                      <h2 className="text-[2.25rem] sm:text-[3rem] font-heading font-black text-white leading-tight tracking-tight">
+                        A Legacy of Distinction &amp; Social Commitment
+                      </h2>
+
+                      <div className="w-20 h-1.5 bg-white/40 rounded-full" />
                     </div>
 
-                    <h2 className="text-[2.25rem] sm:text-[3rem] font-heading font-black text-white leading-tight tracking-tight">
-                      A Legacy of Distinction &amp; Social Commitment
-                    </h2>
-
-                    <div className="w-20 h-1.5 bg-white/40 rounded-full" />
-                  </div>
-
-                  {/* RCSS Official Logo Card */}
-                  <div className="shrink-0 flex lg:justify-end">
-                    <div className="p-4 rounded-[22px] bg-white shadow-2xl border border-white/30 max-w-[240px] sm:max-w-[260px] transition-transform duration-300 hover:scale-[1.03]">
-                      <img
-                        src="/images/rcss_green_logo.png"
-                        alt="RCSS — Rajagiri College of Social Sciences (Autonomous) Official Crest Seal"
-                        className="w-full h-auto object-contain"
-                      />
+                    {/* RCSS Official Logo Card */}
+                    <div className="shrink-0 flex lg:justify-end">
+                      <div className="p-4 rounded-[22px] bg-white shadow-2xl border border-white/30 max-w-[240px] sm:max-w-[260px] transition-transform duration-300 hover:scale-[1.03]">
+                        <img
+                          src="/images/rcss_green_logo.png"
+                          alt="RCSS — Rajagiri College of Social Sciences (Autonomous) Official Crest Seal"
+                          className="w-full h-auto object-contain"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="space-y-4 text-[16px] sm:text-[17.5px] text-slate-100 leading-relaxed font-sans font-medium max-w-4xl">
-                  <p className="m-0">
-                    Rajagiri College of Social Sciences (Autonomous) was established as a pioneer institution in Social Work education in the state of Kerala. Managed by the Carmelites of Mary Immaculate (CMI) congregation, the college has established a benchmark of academic excellence, holistic training, and evidence-based research.
-                  </p>
-                  <p className="m-0">
-                    The term &ldquo;Rajagiri&rdquo; translates to &ldquo;Hill of the King,&rdquo; symbolizing the heights of learning and developmental yearning. True to its acronym <strong className="text-white font-black">DYUTI</strong> (&ldquo;Spark of Life&rdquo;), the institution fosters developmental dialogues that bridge academic theory with transformative field practice.
-                  </p>
+                  <div className="space-y-4 text-[16px] sm:text-[17.5px] text-slate-100 leading-relaxed font-sans font-medium max-w-4xl">
+                    <p className="m-0">
+                      Rajagiri College of Social Sciences (Autonomous) was established as a pioneer institution in Social Work education in the state of Kerala. Managed by the Carmelites of Mary Immaculate (CMI) congregation, the college has established a benchmark of academic excellence, holistic training, and evidence-based research.
+                    </p>
+                    <p className="m-0">
+                      The term &ldquo;Rajagiri&rdquo; translates to &ldquo;Hill of the King,&rdquo; symbolizing the heights of learning and developmental yearning. True to its acronym <strong className="text-white font-black">DYUTI</strong> (&ldquo;Spark of Life&rdquo;), the institution fosters developmental dialogues that bridge academic theory with transformative field practice.
+                    </p>
+                  </div>
                 </div>
 
                 {/* Accreditation Highlights Grid */}
@@ -163,36 +172,58 @@ export const Rajagiri: React.FC = () => {
               </div>
             ) : (
               /* Tab 2: Global Standing Content */
-              <div className="space-y-8 relative z-10 animate-fadeIn">
-                <div className="space-y-4">
-                  <div className="inline-flex items-center px-4 py-1 rounded-full bg-white/15 border border-white/25 text-amber-300 text-xs font-mono font-black uppercase tracking-[0.18em]">
-                    <span>Global Standing</span>
+              <div className="space-y-8 relative z-10 animate-fadeIn h-full flex flex-col justify-between">
+                <div>
+                  {/* Top Header Row with Ranking Card */}
+                  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-white/15 mb-6">
+                    <div className="space-y-4 max-w-3xl">
+                      <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-amber-300 text-xs font-mono font-black uppercase tracking-[0.18em]">
+                        <span>Global Standing &bull; UN SDG 3</span>
+                      </div>
+
+                      <h2 className="text-[2.25rem] sm:text-[3rem] font-heading font-black text-white leading-tight tracking-tight">
+                        SDG &amp; Global Impact
+                      </h2>
+
+                      <div className="w-20 h-1.5 bg-amber-300 rounded-full" />
+                    </div>
+
+                    {/* Ranking Card Box */}
+                    <div className="shrink-0 flex lg:justify-end">
+                      <div className="p-4 sm:p-5 rounded-[22px] bg-amber-400 text-slate-950 shadow-2xl border border-amber-300 max-w-[280px] sm:max-w-[300px] transition-transform duration-300 hover:scale-[1.03]">
+                        <span className="text-[10.5px] font-mono font-black uppercase tracking-[0.18em] text-slate-900 block mb-1">
+                          THE Impact Rankings
+                        </span>
+                        <h3 className="font-heading text-lg sm:text-xl font-black leading-tight text-slate-950 m-0">
+                          Global Band 601&ndash;800 for SDG 3
+                        </h3>
+                      </div>
+                    </div>
                   </div>
 
-                  <h2 className="text-[2.25rem] sm:text-[3rem] font-heading font-black text-white leading-tight tracking-tight">
-                    SDG &amp; Global Impact
-                  </h2>
-
-                  <div className="w-20 h-1.5 bg-amber-300 rounded-full" />
+                  <div className="space-y-4 text-[16px] sm:text-[17.5px] text-slate-100 leading-relaxed font-sans font-medium max-w-4xl">
+                    <p className="m-0">
+                      Rajagiri has earned international recognition by being placed in the <strong className="text-amber-300 font-black">601&ndash;800 global band for SDG 3 (Good Health and Well-being)</strong> in the Times Higher Education Impact Rankings 2026.
+                    </p>
+                    <p className="m-0">
+                      With world-class infrastructure, multidisciplinary academic programmes, dedicated research centres, live labs (extension departments), and a deep commitment to social sustainability, Rajagiri continues to set benchmarks in higher education globally.
+                    </p>
+                  </div>
                 </div>
 
-                {/* Highlight Container Box */}
-                <div className="p-6 sm:p-8 rounded-[20px] bg-amber-400 text-slate-950 shadow-xl border border-amber-300 max-w-3xl">
-                  <span className="text-xs font-mono font-black uppercase tracking-[0.2em] text-slate-900 block mb-1">
-                    Times Higher Education Impact Rankings
-                  </span>
-                  <h3 className="font-heading text-2xl sm:text-3xl font-black leading-tight text-slate-950 m-0">
-                    Global Band 601&ndash;800 for SDG 3
-                  </h3>
-                </div>
-
-                <div className="space-y-4 text-[16px] sm:text-[17.5px] text-slate-100 leading-relaxed font-sans font-medium max-w-4xl">
-                  <p className="m-0">
-                    Rajagiri has earned international recognition by being placed in the <strong className="text-amber-300 font-black">601&ndash;800 global band for SDG 3 (Good Health and Well-being)</strong> in the Times Higher Education Impact Rankings 2026.
-                  </p>
-                  <p className="m-0">
-                    With world-class infrastructure, multidisciplinary academic programmes, dedicated research centres, live labs (extension departments), and a deep commitment to social sustainability, Rajagiri continues to set benchmarks in higher education globally.
-                  </p>
+                {/* Global Standing Highlights Grid */}
+                <div className="pt-8 border-t border-white/20">
+                  <h4 className="text-xs font-mono font-black uppercase tracking-[0.2em] text-amber-300 mb-4">
+                    Key Global Impact &amp; Sustainability Recognitions
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                    {globalHighlights.map((item, idx) => (
+                      <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-white/10 border border-white/15 text-[14px] text-slate-100 font-sans font-medium">
+                        <span className="w-2.5 h-2.5 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}
