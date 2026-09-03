@@ -18,17 +18,17 @@ export const Rajagiri: React.FC = () => {
       
       {/* ── HERO BANNER (ALIGNED TO NAVIGATION BAR LENGTH) ── */}
       <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pt-3 sm:pt-5 mb-16 lg:mb-24">
-        <div className="relative w-full overflow-hidden rounded-[28px] sm:rounded-[36px] bg-[#071A33] text-white border border-white/20 shadow-2xl">
+        <div className="relative w-full overflow-hidden rounded-[28px] sm:rounded-[36px] bg-slate-950 text-white border border-slate-700/50 shadow-2xl">
           
-          {/* Blurred Background Building Photo (Exact Uploaded Photo - Aligned to Navbar Length) */}
+          {/* Background Building Photo without blue tint */}
           <div className="absolute inset-0 z-0">
             <img
               src="/images/rajagiri_building_main.jpg"
               alt="Rajagiri College of Social Sciences Main Building Campus"
-              className="w-full h-full object-cover filter blur-[5px] scale-105 brightness-[0.45]"
+              className="w-full h-full object-cover object-center brightness-[0.75]"
             />
-            {/* Gradient Overlay for high contrast */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#071A33]/75 via-[#071A33]/55 to-[#071A33]/85" />
+            {/* Neutral Dark Gradient Overlay for high contrast without blue color */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-black/75" />
           </div>
 
           {/* Centered Hero Content */}
