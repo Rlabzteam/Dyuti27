@@ -45,11 +45,11 @@ export const Header: React.FC = () => {
       role="banner"
     >
       <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pointer-events-auto flex flex-col items-center">
-        {/* ── 1. MAIN NAVIGATION BAR (STANDALONE STADIUM PILL: SHAPE NEVER CHANGES) ── */}
+        {/* ── 1. MAIN NAVIGATION BAR (SOLID BLUE: NO GLASS/NO BLUR) ── */}
         <div
           className={cn(
-            'w-full bg-gradient-to-r from-[#0a2540] via-[#124270] to-[#0a2540] text-white rounded-full border border-blue-300/30 px-4 sm:px-8 lg:px-10 h-[72px] sm:h-[84px] lg:h-[88px] flex items-center justify-between gap-4 transition-all duration-300 shadow-[0_8px_30px_rgba(10,37,64,0.35)] relative z-20 backdrop-blur-md',
-            isScrolled && 'shadow-[0_16px_45px_rgba(10,37,64,0.55)] bg-gradient-to-r from-[#0a2540]/98 via-[#134b7c]/98 to-[#0a2540]/98 border-blue-300/40'
+            'w-full bg-gradient-to-r from-[#0a2540] via-[#123962] to-[#0a2540] text-white rounded-full border border-blue-400/30 px-4 sm:px-8 lg:px-10 h-[72px] sm:h-[84px] lg:h-[88px] flex items-center justify-between gap-4 transition-all duration-300 shadow-[0_8px_30px_rgba(10,37,64,0.45)] relative z-20',
+            isScrolled && 'shadow-[0_16px_45px_rgba(10,37,64,0.65)] bg-gradient-to-r from-[#0a2540] via-[#123962] to-[#0a2540] border-blue-300/40'
           )}
         >
           {/* Left: Circular White Logo Badge + Title */}
@@ -153,7 +153,7 @@ export const Header: React.FC = () => {
               : 'max-h-14 opacity-100 translate-y-0'
           )}
         >
-          <div className="w-full bg-gradient-to-r from-[#0a2540] via-[#124270] to-[#0a2540] text-white border-x border-b border-blue-300/30 rounded-b-2xl sm:rounded-b-3xl pt-3.5 sm:pt-4 pb-1.5 sm:pb-2 px-4 sm:px-6 shadow-[0_8px_20px_rgba(10,37,64,0.3)] backdrop-blur-md flex items-center overflow-hidden">
+          <div className="w-full bg-gradient-to-r from-[#0a2540] via-[#123962] to-[#0a2540] text-white border-x border-b border-blue-400/30 rounded-b-2xl sm:rounded-b-3xl pt-3.5 sm:pt-4 pb-1.5 sm:pb-2 px-4 sm:px-6 shadow-[0_8px_20px_rgba(10,37,64,0.4)] flex items-center overflow-hidden">
             <div className="relative flex overflow-x-hidden w-full group [mask-image:linear-gradient(to_right,transparent,black_20px,black_calc(100%-20px),transparent)]">
               <div className="animate-marquee whitespace-nowrap flex items-center py-0.5">
                 {[...Array(3)].map((_, i) => (
@@ -228,7 +228,7 @@ export const Header: React.FC = () => {
         {/* ── MOBILE DRAWER ── */}
         {isMobileMenuOpen && (
           <div
-            className="w-full xl:hidden mt-2 bg-gradient-to-br from-[#0a2540] via-[#124270] to-[#061829] border border-blue-300/30 text-white rounded-2xl px-4 py-4 space-y-1.5 shadow-2xl animate-slideDown pointer-events-auto"
+            className="w-full xl:hidden mt-2 bg-gradient-to-br from-[#0a2540] via-[#123962] to-[#061829] border border-blue-400/30 text-white rounded-2xl px-4 py-4 space-y-1.5 shadow-2xl animate-slideDown pointer-events-auto"
             role="dialog"
             aria-modal="true"
             aria-label="Navigation menu"
