@@ -16,53 +16,53 @@ export const Rajagiri: React.FC = () => {
   return (
     <div className="bg-[#FDFBF7] text-slate-800 min-h-screen">
 
-      {/* ── HERO BANNER (INCREASED HEIGHT FOR CAMPUS ARCHITECTURE DISPLAY) ── */}
-      <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pt-3 sm:pt-4 mb-10 sm:mb-12">
-        <div className="relative w-full min-h-[340px] sm:min-h-[420px] lg:min-h-[460px] flex flex-col items-center justify-center overflow-hidden rounded-[28px] sm:rounded-[36px] bg-slate-950 text-white border border-slate-700/50 shadow-2xl">
+      {/* ── HERO BANNER (EXPANDED TALL HEIGHT FOR FULL CAMPUS ARCHITECTURE DISPLAY) ── */}
+      <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pt-3 sm:pt-5 mb-14 lg:mb-20">
+        <div className="relative w-full min-h-[540px] sm:min-h-[620px] lg:min-h-[700px] flex flex-col items-center justify-center overflow-hidden rounded-[28px] sm:rounded-[36px] bg-slate-950 text-white border border-slate-700/50 shadow-2xl">
 
-          {/* Background Building Photo without blue tint */}
+          {/* Background Building Photo */}
           <div className="absolute inset-0 z-0">
             <img
               src="/images/rajagiri_building_main.jpg"
               alt="Rajagiri College of Social Sciences Main Building Campus"
-              className="w-full h-full object-cover object-center brightness-[0.75]"
+              className="w-full h-full object-cover object-center brightness-[0.78]"
             />
             {/* Neutral Dark Gradient Overlay for high contrast without blue color */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/75" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/75" />
           </div>
 
           {/* Centered Hero Content */}
-          <div className="relative z-10 py-10 sm:py-14 lg:py-16 px-4 sm:px-8 text-center max-w-5xl mx-auto flex flex-col items-center justify-center space-y-4 sm:space-y-6">
+          <div className="relative z-10 py-16 sm:py-24 lg:py-28 px-4 sm:px-8 text-center max-w-5xl mx-auto flex flex-col items-center justify-center space-y-6 sm:space-y-8">
 
             {/* Centered College Title */}
             <div>
-              <h1 className="font-heading font-black text-3xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-white leading-tight mb-2 sm:mb-3">
+              <h1 className="font-heading font-black text-3xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-white leading-tight mb-3 sm:mb-4">
                 Rajagiri College of Social Sciences
               </h1>
-              <p className="text-sm sm:text-xl md:text-2xl font-sans font-bold text-white/95 tracking-wide m-0">
+              <p className="text-base sm:text-2xl font-sans font-bold text-white/95 tracking-wide m-0">
                 (Autonomous) &bull; Kalamassery, Kochi
               </p>
             </div>
 
             {/* Motto */}
-            <div className="inline-block border-y border-white/25 py-2 sm:py-3 px-8 sm:px-12 my-1 backdrop-blur-xs">
-              <p className="text-sm sm:text-lg md:text-xl font-heading font-bold text-slate-100 italic tracking-wider m-0">
+            <div className="inline-block border-y border-white/25 py-2.5 sm:py-3.5 px-8 sm:px-14 my-1 backdrop-blur-xs">
+              <p className="text-base sm:text-xl md:text-2xl font-heading font-bold text-slate-100 italic tracking-wider m-0">
                 &ldquo;Relentlessly Towards Excellence&rdquo;
               </p>
             </div>
 
             {/* Centered Accreditation Badges */}
-            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 pt-1">
-              <span className="px-3.5 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
+            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 pt-2">
+              <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
                 Established in 1955
               </span>
-              <span className="px-3.5 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
+              <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
                 NAAC A++ Accredited (3.83 CGPA)
               </span>
-              <span className="px-3.5 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
+              <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
                 Ranked #12 in India (NIRF 2025)
               </span>
-              <span className="px-3.5 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
+              <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
                 UGC Autonomous (2014 &ndash; 2030)
               </span>
             </div>
@@ -243,11 +243,11 @@ export const Rajagiri: React.FC = () => {
             </div>
 
             {/* Visual Media Column */}
-            <div className="lg:col-span-5 h-full min-h-[320px] sm:min-h-[400px] lg:min-h-[500px] overflow-hidden order-1 lg:order-2 bg-slate-900/60 flex items-center justify-center p-6 lg:p-8 border-b lg:border-b-0 lg:border-l border-slate-800/20">
+            <div className="lg:col-span-5 h-full min-h-[380px] sm:min-h-[460px] lg:min-h-[540px] overflow-hidden order-1 lg:order-2 bg-slate-900/60 flex items-center justify-center p-6 lg:p-8 border-b lg:border-b-0 lg:border-l border-slate-800/20">
               <img
                 src="https://dyuti.in/assets/images/rcss/department_of_social_work.png"
                 alt="Department of Social Work at Rajagiri"
-                className="w-full h-auto max-h-[440px] object-contain rounded-xl shadow-lg hover:scale-105 transition-transform duration-500"
+                className="w-full h-auto max-h-[520px] object-contain rounded-xl shadow-lg hover:scale-105 transition-transform duration-500"
                 loading="lazy"
               />
             </div>
