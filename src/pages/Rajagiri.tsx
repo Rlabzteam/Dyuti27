@@ -193,7 +193,7 @@ export const Rajagiri: React.FC = () => {
                 </div>
               </div>
             </div>
-              
+
             {/* 2-Column Side-by-Side Grid (lg:col-span-7 Left Narrative, lg:col-span-5 Right Pillars) */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
