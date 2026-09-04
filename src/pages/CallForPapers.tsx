@@ -97,20 +97,23 @@ export const CallForPapers: React.FC = () => {
           </div>
         </div>
 
-        {/* ── OFFICIAL CONFERENCE THEME BANNER ── */}
-        <div className="bg-[#071A33] border border-slate-600 rounded-[24px] p-6 sm:p-8 mb-16 shadow-editorial flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="max-w-xl">
-            <span className="text-[11.5px] font-mono font-bold uppercase tracking-[0.2em] text-amber-400 block mb-2">
+        {/* ── OFFICIAL CONFERENCE THEME BANNER (Asymmetric Inverted Leaf Shape in Deep Navy Gradient) ── */}
+        <div className="bg-gradient-to-br from-[#0a2540] via-[#123962] to-[#051424] border border-white/20 text-white rounded-[28px] sm:rounded-[36px] rounded-tr-[56px] sm:rounded-tr-[72px] rounded-bl-[56px] sm:rounded-bl-[72px] p-8 sm:p-10 lg:p-12 mb-20 lg:mb-28 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+          {/* Ambient Background Glow */}
+          <div className="absolute top-0 right-0 w-72 h-72 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="max-w-xl relative z-10">
+            <span className="text-[11.5px] font-mono font-black uppercase tracking-[0.2em] text-amber-300 block mb-2">
               Official Conference Identity &amp; Scope
             </span>
-            <h3 className="text-xl sm:text-2xl font-heading font-black text-white mb-2 leading-snug">
+            <h3 className="text-2xl sm:text-3xl font-heading font-black text-white mb-2 leading-snug">
               DYUTI 2027 Thematic Framework
             </h3>
-            <p className="text-xs sm:text-sm text-slate-100 font-sans font-normal m-0 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-100 font-sans font-medium m-0 leading-relaxed">
               Advancing empirical research across community innovation, social inclusion, human rights, and global partnership initiatives.
             </p>
           </div>
-          <div className="w-full md:w-auto shrink-0 max-w-[380px] bg-white p-4 rounded-[18px] border border-slate-300 shadow-md">
+          <div className="w-full md:w-auto shrink-0 max-w-[380px] bg-white p-4 rounded-2xl rounded-tr-3xl rounded-bl-3xl border border-white/30 shadow-xl relative z-10">
             <img
               src="/images/dyuti27_theme_banner.png"
               alt="DYUTI 27 — Social Work for Sustainable Development"
@@ -120,9 +123,9 @@ export const CallForPapers: React.FC = () => {
           </div>
         </div>
 
-        {/* ── CONFERENCE THEMES (Compact Stepper Card with Arrow Navigation) ── */}
-        <div className="mb-14 lg:mb-20">
-          <div className="rounded-[24px] sm:rounded-[32px] overflow-hidden border border-white/20 shadow-2xl bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-5 sm:p-7 lg:p-8 transition-all duration-300 relative">
+        {/* ── CONFERENCE THEMES (Compact Stepper Card with Arrow Navigation & Leaf Shape) ── */}
+        <div className="mb-20 lg:mb-28">
+          <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] overflow-hidden border border-white/20 shadow-2xl bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-6 sm:p-8 lg:p-10 transition-all duration-300 relative">
             
             {/* Ambient Background Glow */}
             <div className="absolute top-0 right-0 w-80 h-80 bg-amber-400/5 rounded-full blur-3xl pointer-events-none" />
@@ -359,25 +362,28 @@ export const CallForPapers: React.FC = () => {
 
         </div>
 
-        {/* ── TYPES OF PARTICIPANTS ── */}
-        <div className="mb-16 lg:mb-20 p-8 sm:p-10 rounded-[20px] bg-[#071A33] border border-slate-600 shadow-editorial">
-          <div className="mb-6">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-[0.18em] text-amber-400 block mb-1">
+        {/* ── TYPES OF PARTICIPANTS (Asymmetric Curved Leaf Shape Card in Deep Navy Gradient) ── */}
+        <div className="mb-20 lg:mb-28 p-8 sm:p-12 lg:p-14 rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white border border-white/20 shadow-2xl relative overflow-hidden">
+          {/* Ambient Background Glow */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="mb-8 relative z-10">
+            <span className="text-[11px] font-mono font-black uppercase tracking-[0.2em] text-amber-300 block mb-2">
               Delegates &amp; Attendees
             </span>
             <h3 className="font-heading text-2xl sm:text-3xl text-white font-black m-0">
               Eligible Participant Categories
             </h3>
-            <p className="text-xs sm:text-sm text-slate-200 font-sans m-0 mt-0.5">
+            <p className="text-xs sm:text-sm text-slate-100 font-sans font-medium m-0 mt-1">
               Scholars and practitioners eligible to register and present papers
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 relative z-10">
             {participantTypes.map((type, idx) => (
               <div
                 key={idx}
-                className="p-4 rounded-[12px] bg-[#0a2345] border border-slate-600 text-center font-sans text-xs sm:text-sm font-bold text-white shadow-sm flex items-center justify-center hover:border-amber-400 hover:bg-[#12315e] transition-all cursor-default"
+                className="p-4 sm:p-5 rounded-2xl rounded-tr-3xl rounded-bl-3xl bg-white/10 hover:bg-white/20 border border-white/20 hover:border-amber-300/60 text-center font-sans text-xs sm:text-sm font-bold text-white shadow-md flex items-center justify-center transition-all cursor-default backdrop-blur-sm"
               >
                 <span>{type}</span>
               </div>
@@ -386,7 +392,7 @@ export const CallForPapers: React.FC = () => {
         </div>
 
         {/* ── 01. SUBMISSION DEADLINES & MILESTONES (FULL WIDTH CARDS) ── */}
-        <div className="mb-16 lg:mb-20">
+        <div className="mb-20 lg:mb-28">
           <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-400">
             <div>
               <span className="text-[11px] font-mono font-black uppercase tracking-[0.18em] text-slate-900 block mb-1">
@@ -404,10 +410,10 @@ export const CallForPapers: React.FC = () => {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {/* Step 1: Abstract Submission */}
-            <div className="bg-[#071A33] border-2 border-amber-400 rounded-[18px] p-6 shadow-editorial flex flex-col justify-between relative overflow-hidden group hover:border-amber-300 transition-all">
-              <div className="absolute top-0 right-0 bg-amber-400 text-slate-950 text-[10px] font-mono uppercase font-black px-3 py-1 rounded-bl-[10px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Step 1: Abstract Submission (Curved Leaf Shape) */}
+            <div className="rounded-[24px] rounded-tl-[44px] rounded-br-[44px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-7 sm:p-8 shadow-2xl border-2 border-amber-400 relative overflow-hidden flex flex-col justify-between group hover:scale-[1.02] transition-all">
+              <div className="absolute top-0 right-0 bg-amber-400 text-slate-950 text-[10px] font-mono uppercase font-black px-3.5 py-1.5 rounded-bl-xl shadow-md">
                 Active Call
               </div>
               <div>
@@ -417,76 +423,76 @@ export const CallForPapers: React.FC = () => {
                 <h4 className="font-heading text-lg text-white font-bold mb-2">
                   Last Date of Abstract Submission
                 </h4>
-                <p className="text-xs text-slate-200 font-sans leading-relaxed mb-4">
+                <p className="text-xs text-slate-100 font-sans leading-relaxed mb-4 font-medium">
                   Original empirical abstracts (max 300 words) submitted via Microsoft CMT.
                 </p>
               </div>
-              <div className="pt-4 border-t border-slate-700 flex items-center justify-between">
+              <div className="pt-4 border-t border-white/15 flex items-center justify-between">
                 <span className="text-[11px] text-slate-300 font-sans uppercase font-bold">Deadline</span>
-                <span className="font-mono text-sm font-black text-slate-950 bg-amber-400 border border-amber-300 px-2.5 py-1 rounded-[6px]">
+                <span className="font-mono text-sm font-black text-slate-950 bg-amber-400 border border-amber-300 px-3 py-1 rounded-[8px] shadow-sm">
                   25 Sept 2026
                 </span>
               </div>
             </div>
 
-            {/* Step 2: Acceptance Notification */}
-            <div className="bg-[#071A33] border border-slate-600 rounded-[18px] p-6 shadow-editorial flex flex-col justify-between hover:border-slate-400 transition-all">
+            {/* Step 2: Acceptance Notification (Inverted Leaf Shape) */}
+            <div className="rounded-[24px] rounded-tr-[44px] rounded-bl-[44px] bg-gradient-to-br from-[#0a2540] via-[#123962] to-[#051424] text-white p-7 sm:p-8 shadow-2xl border border-white/20 relative overflow-hidden flex flex-col justify-between group hover:scale-[1.02] transition-all">
               <div>
-                <span className="font-mono text-xs font-bold text-amber-400 uppercase tracking-wider block mb-2">
+                <span className="font-mono text-xs font-bold text-amber-300 uppercase tracking-wider block mb-2">
                   Stage 02
                 </span>
                 <h4 className="font-heading text-lg text-white font-bold mb-2">
                   Notification of Acceptance
                 </h4>
-                <p className="text-xs text-slate-200 font-sans leading-relaxed mb-4">
+                <p className="text-xs text-slate-100 font-sans leading-relaxed mb-4 font-medium">
                   Double-blind peer review outcomes communicated directly to corresponding authors.
                 </p>
               </div>
-              <div className="pt-4 border-t border-slate-700 flex items-center justify-between">
+              <div className="pt-4 border-t border-white/15 flex items-center justify-between">
                 <span className="text-[11px] text-slate-300 font-sans uppercase font-bold">Channel</span>
-                <span className="font-mono text-xs font-black text-white bg-white/15 border border-white/25 px-2.5 py-1 rounded-[6px]">
+                <span className="font-mono text-xs font-black text-white bg-white/15 border border-white/25 px-3 py-1 rounded-[8px]">
                   CMT Portal
                 </span>
               </div>
             </div>
 
-            {/* Step 3: Registration Commencement */}
-            <div className="bg-[#071A33] border border-slate-600 rounded-[18px] p-6 shadow-editorial flex flex-col justify-between hover:border-slate-400 transition-all">
+            {/* Step 3: Registration Commencement (Curved Leaf Shape) */}
+            <div className="rounded-[24px] rounded-tl-[44px] rounded-br-[44px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-7 sm:p-8 shadow-2xl border border-white/20 relative overflow-hidden flex flex-col justify-between group hover:scale-[1.02] transition-all">
               <div>
-                <span className="font-mono text-xs font-bold text-amber-400 uppercase tracking-wider block mb-2">
+                <span className="font-mono text-xs font-bold text-amber-300 uppercase tracking-wider block mb-2">
                   Stage 03
                 </span>
                 <h4 className="font-heading text-lg text-white font-bold mb-2">
                   Registration Commencement
                 </h4>
-                <p className="text-xs text-slate-200 font-sans leading-relaxed mb-4">
+                <p className="text-xs text-slate-100 font-sans leading-relaxed mb-4 font-medium">
                   Delegate pass booking and author registration portals formally open.
                 </p>
               </div>
-              <div className="pt-4 border-t border-slate-700 flex items-center justify-between">
+              <div className="pt-4 border-t border-white/15 flex items-center justify-between">
                 <span className="text-[11px] text-slate-300 font-sans uppercase font-bold">Starts</span>
-                <span className="font-mono text-xs font-black text-white bg-white/15 border border-white/25 px-2.5 py-1 rounded-[6px]">
+                <span className="font-mono text-xs font-black text-white bg-white/15 border border-white/25 px-3 py-1 rounded-[8px]">
                   10 Aug 2026
                 </span>
               </div>
             </div>
 
-            {/* Step 4: Conference Days */}
-            <div className="bg-[#071A33] border border-slate-600 rounded-[18px] p-6 shadow-editorial flex flex-col justify-between hover:border-slate-400 transition-all">
+            {/* Step 4: Conference Days (Inverted Leaf Shape) */}
+            <div className="rounded-[24px] rounded-tr-[44px] rounded-bl-[44px] bg-gradient-to-br from-[#0a2540] via-[#123962] to-[#051424] text-white p-7 sm:p-8 shadow-2xl border border-white/20 relative overflow-hidden flex flex-col justify-between group hover:scale-[1.02] transition-all">
               <div>
-                <span className="font-mono text-xs font-bold text-amber-400 uppercase tracking-wider block mb-2">
+                <span className="font-mono text-xs font-bold text-amber-300 uppercase tracking-wider block mb-2">
                   Stage 04
                 </span>
                 <h4 className="font-heading text-lg text-white font-bold mb-2">
                   Conference Days
                 </h4>
-                <p className="text-xs text-slate-200 font-sans leading-relaxed mb-4">
+                <p className="text-xs text-slate-100 font-sans leading-relaxed mb-4 font-medium">
                   2-day international symposium at Rajagiri College, Kalamassery campus.
                 </p>
               </div>
-              <div className="pt-4 border-t border-slate-700 flex items-center justify-between">
+              <div className="pt-4 border-t border-white/15 flex items-center justify-between">
                 <span className="text-[11px] text-slate-300 font-sans uppercase font-bold">Venue</span>
-                <span className="font-mono text-xs font-black text-white bg-white/15 border border-white/25 px-2.5 py-1 rounded-[6px]">
+                <span className="font-mono text-xs font-black text-white bg-white/15 border border-white/25 px-3 py-1 rounded-[8px]">
                   07–08 Jan 2027
                 </span>
               </div>
@@ -495,7 +501,7 @@ export const CallForPapers: React.FC = () => {
         </div>
 
         {/* ── 02. REGISTRATION FEES & INCLUSIONS (LUXURY CARDS) ── */}
-        <div className="mb-16 lg:mb-20">
+        <div className="mb-20 lg:mb-28">
           <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-400">
             <div>
               <span className="text-[11px] font-mono font-black uppercase tracking-[0.18em] text-slate-900 block mb-1">
@@ -511,41 +517,41 @@ export const CallForPapers: React.FC = () => {
           </div>
 
           {/* 3 Tier Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-6">
-            {/* Tier 1: Students / Scholars */}
-            <div className="bg-[#071A33] rounded-[20px] p-7 sm:p-8 border border-slate-600 shadow-editorial flex flex-col justify-between hover:border-slate-400 transition-all group">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-8">
+            {/* Tier 1: Students / Scholars (Curved Leaf Shape) */}
+            <div className="rounded-[28px] sm:rounded-[32px] rounded-tl-[52px] rounded-br-[52px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-8 sm:p-9 shadow-2xl border border-white/20 flex flex-col justify-between hover:border-white/40 transition-all group relative overflow-hidden">
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[11px] font-mono uppercase font-bold text-amber-400 tracking-wider">
+                  <span className="text-[11px] font-mono uppercase font-black text-amber-300 tracking-wider">
                     Tier 01
                   </span>
-                  <span className="text-[10px] font-mono uppercase font-bold text-white bg-white/15 border border-white/25 px-2.5 py-0.5 rounded-[6px]">
+                  <span className="text-[10px] font-mono uppercase font-bold text-white bg-white/15 border border-white/25 px-3 py-1 rounded-full">
                     Scholar Pass
                   </span>
                 </div>
-                <h4 className="font-heading text-xl text-white font-bold mb-2">
+                <h4 className="font-heading text-xl sm:text-2xl text-white font-black mb-2">
                   Students / Research Scholars
                 </h4>
-                <p className="text-xs text-slate-200 font-sans leading-relaxed mb-6">
+                <p className="text-xs sm:text-sm text-slate-100 font-sans leading-relaxed mb-6 font-medium">
                   For graduate students, postgraduates, and full-time PhD research scholars.
                 </p>
-                <div className="flex items-baseline gap-1.5 mb-6 pb-6 border-b border-slate-700">
-                  <span className="font-heading text-4xl text-white font-black tracking-tight">
+                <div className="flex items-baseline gap-1.5 mb-6 pb-6 border-b border-white/15">
+                  <span className="font-heading text-4xl sm:text-5xl text-white font-black tracking-tight">
                     ₹ 750
                   </span>
-                  <span className="text-xs text-slate-300 font-sans font-medium">/ delegate</span>
+                  <span className="text-xs sm:text-sm text-slate-300 font-sans font-medium">/ delegate</span>
                 </div>
-                <ul className="space-y-3 text-xs text-slate-100 font-sans font-medium mb-8">
+                <ul className="space-y-3 text-xs sm:text-sm text-slate-100 font-sans font-medium mb-8">
                   <li className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+                    <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
                     <span>Access to all technical presentation tracks</span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+                    <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
                     <span>Author Certificate of Presentation</span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+                    <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
                     <span>Executive lunch &amp; refreshments on both days</span>
                   </li>
                 </ul>
@@ -554,49 +560,49 @@ export const CallForPapers: React.FC = () => {
                 href={CONFERENCE_DATA.links.registrationForm}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3 px-4 rounded-[12px] bg-white hover:bg-amber-400 text-slate-950 font-sans text-xs font-black text-center border border-white transition-all block"
+                className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-amber-400 text-slate-950 font-sans text-xs sm:text-sm font-black text-center border border-white transition-all block shadow-md"
               >
                 Register as Student / Scholar &rarr;
               </a>
             </div>
 
-            {/* Tier 2: Academicians / Faculty (Featured) */}
-            <div className="bg-[#071A33] rounded-[20px] p-7 sm:p-8 border-2 border-amber-400 shadow-editorial flex flex-col justify-between relative overflow-hidden group">
-              <div className="absolute top-0 right-0 bg-amber-400 text-slate-950 text-[10px] font-mono uppercase font-black px-3 py-1 rounded-bl-[10px]">
+            {/* Tier 2: Academicians / Faculty (Featured - Inverted Leaf Shape) */}
+            <div className="rounded-[28px] sm:rounded-[32px] rounded-tr-[52px] rounded-bl-[52px] bg-gradient-to-br from-[#0a2540] via-[#123962] to-[#051424] text-white p-8 sm:p-9 shadow-2xl border-2 border-amber-400 flex flex-col justify-between relative overflow-hidden group hover:border-amber-300 transition-all">
+              <div className="absolute top-0 right-0 bg-amber-400 text-slate-950 text-[10px] font-mono uppercase font-black px-3.5 py-1.5 rounded-bl-xl shadow-md">
                 Popular
               </div>
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[11px] font-mono uppercase font-black text-amber-400 tracking-wider">
+                  <span className="text-[11px] font-mono uppercase font-black text-amber-300 tracking-wider">
                     Tier 02
                   </span>
-                  <span className="text-[10px] font-mono uppercase font-black text-slate-950 bg-amber-400 border border-amber-300 px-2.5 py-0.5 rounded-[6px]">
+                  <span className="text-[10px] font-mono uppercase font-black text-slate-950 bg-amber-400 border border-amber-300 px-3 py-1 rounded-full shadow-xs">
                     Faculty Pass
                   </span>
                 </div>
-                <h4 className="font-heading text-xl text-white font-bold mb-2">
+                <h4 className="font-heading text-xl sm:text-2xl text-white font-black mb-2">
                   Academicians / Faculty Members
                 </h4>
-                <p className="text-xs text-slate-200 font-sans leading-relaxed mb-6">
+                <p className="text-xs sm:text-sm text-slate-100 font-sans leading-relaxed mb-6 font-medium">
                   For professors, associate faculty, lecturers, and academic researchers.
                 </p>
-                <div className="flex items-baseline gap-1.5 mb-6 pb-6 border-b border-slate-700">
-                  <span className="font-heading text-4xl text-white font-black tracking-tight">
+                <div className="flex items-baseline gap-1.5 mb-6 pb-6 border-b border-white/15">
+                  <span className="font-heading text-4xl sm:text-5xl text-white font-black tracking-tight">
                     ₹ 1,000
                   </span>
-                  <span className="text-xs text-slate-300 font-sans font-medium">/ delegate</span>
+                  <span className="text-xs sm:text-sm text-slate-300 font-sans font-medium">/ delegate</span>
                 </div>
-                <ul className="space-y-3 text-xs text-slate-100 font-sans font-medium mb-8">
+                <ul className="space-y-3 text-xs sm:text-sm text-slate-100 font-sans font-medium mb-8">
                   <li className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+                    <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
                     <span>Access to all keynotes, plenaries &amp; paper tracks</span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+                    <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
                     <span>Official Conference Kit, badge &amp; certificate</span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+                    <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
                     <span>Executive lunch &amp; banquet tea on both days</span>
                   </li>
                 </ul>
@@ -605,46 +611,46 @@ export const CallForPapers: React.FC = () => {
                 href={CONFERENCE_DATA.links.registrationForm}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3 px-4 rounded-[12px] bg-amber-400 hover:bg-amber-300 text-slate-950 font-sans text-xs font-black text-center shadow-lg transition-all block"
+                className="w-full py-3.5 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-sans text-xs sm:text-sm font-black text-center shadow-lg transition-all block"
               >
                 Register as Faculty Member &rarr;
               </a>
             </div>
 
-            {/* Tier 3: NGO & CSR Delegates */}
-            <div className="bg-[#071A33] rounded-[20px] p-7 sm:p-8 border border-slate-600 shadow-editorial flex flex-col justify-between hover:border-slate-400 transition-all group">
+            {/* Tier 3: NGO & CSR Delegates (Curved Leaf Shape) */}
+            <div className="rounded-[28px] sm:rounded-[32px] rounded-tl-[52px] rounded-br-[52px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-8 sm:p-9 shadow-2xl border border-white/20 flex flex-col justify-between hover:border-white/40 transition-all group relative overflow-hidden">
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[11px] font-mono uppercase font-bold text-amber-400 tracking-wider">
+                  <span className="text-[11px] font-mono uppercase font-black text-amber-300 tracking-wider">
                     Tier 03
                   </span>
-                  <span className="text-[10px] font-mono uppercase font-bold text-white bg-white/15 border border-white/25 px-2.5 py-0.5 rounded-[6px]">
+                  <span className="text-[10px] font-mono uppercase font-bold text-white bg-white/15 border border-white/25 px-3 py-1 rounded-full">
                     Industry Pass
                   </span>
                 </div>
-                <h4 className="font-heading text-xl text-white font-bold mb-2">
+                <h4 className="font-heading text-xl sm:text-2xl text-white font-black mb-2">
                   NGO &amp; CSR Delegates
                 </h4>
-                <p className="text-xs text-slate-200 font-sans leading-relaxed mb-6">
+                <p className="text-xs sm:text-sm text-slate-100 font-sans leading-relaxed mb-6 font-medium">
                   For development practitioners, corporate sustainability leaders, and NGO heads.
                 </p>
-                <div className="flex items-baseline gap-1.5 mb-6 pb-6 border-b border-slate-700">
-                  <span className="font-heading text-4xl text-white font-black tracking-tight">
+                <div className="flex items-baseline gap-1.5 mb-6 pb-6 border-b border-white/15">
+                  <span className="font-heading text-4xl sm:text-5xl text-white font-black tracking-tight">
                     ₹ 1,500
                   </span>
-                  <span className="text-xs text-slate-300 font-sans font-medium">/ delegate</span>
+                  <span className="text-xs sm:text-sm text-slate-300 font-sans font-medium">/ delegate</span>
                 </div>
-                <ul className="space-y-3 text-xs text-slate-100 font-sans font-medium mb-8">
+                <ul className="space-y-3 text-xs sm:text-sm text-slate-100 font-sans font-medium mb-8">
                   <li className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+                    <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
                     <span>Access to plenaries, industry roundtables &amp; tracks</span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+                    <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
                     <span>Exclusive delegate folder, kit &amp; formal certificate</span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+                    <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
                     <span>Executive buffet lunch on both conference days</span>
                   </li>
                 </ul>
@@ -653,25 +659,31 @@ export const CallForPapers: React.FC = () => {
                 href={CONFERENCE_DATA.links.registrationForm}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3 px-4 rounded-[12px] bg-white hover:bg-amber-400 text-slate-950 font-sans text-xs font-black text-center border border-white transition-all block"
+                className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-amber-400 text-slate-950 font-sans text-xs sm:text-sm font-black text-center border border-white transition-all block shadow-md"
               >
                 Register as NGO / CSR Delegate &rarr;
               </a>
             </div>
           </div>
 
-          {/* Unified Inclusions Banner */}
-          <div className="p-6 rounded-[16px] bg-[#0a2345] border border-slate-600 text-xs sm:text-sm text-slate-100 font-sans leading-relaxed">
-            <strong className="font-black text-amber-400 block mb-1">Every Registration Pass Includes:</strong>
-            <span>Conference kit, official delegate badge, verified certificate of participation/presentation, executive buffet lunch on both conference days (7 &amp; 8 January 2027), morning and evening tea/refreshments, and unrestricted entry to all plenaries and thematic paper tracks.</span>
+          {/* Unified Inclusions Banner (Inverted Leaf Shape) */}
+          <div className="p-7 sm:p-8 rounded-[24px] rounded-tr-[44px] rounded-bl-[44px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] border border-white/20 text-white text-xs sm:text-sm font-sans leading-relaxed shadow-xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10">
+              <strong className="font-black text-amber-300 text-sm sm:text-base block mb-2">Every Registration Pass Includes:</strong>
+              <span className="text-slate-100 font-medium leading-relaxed">Conference kit, official delegate badge, verified certificate of participation/presentation, executive buffet lunch on both conference days (7 &amp; 8 January 2027), morning and evening tea/refreshments, and unrestricted entry to all plenaries and thematic paper tracks.</span>
+            </div>
           </div>
         </div>
 
-        {/* ── 03. MODE OF PAYMENT & OFFICIAL RCSS BANK DETAILS ── */}
-        <div className="rounded-[24px] p-8 sm:p-12 bg-[#071A33] border border-slate-600 shadow-editorial mb-16 lg:mb-20">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-slate-700">
+        {/* ── 03. MODE OF PAYMENT & OFFICIAL RCSS BANK DETAILS (Asymmetric Inverted Leaf Shape in Deep Navy) ── */}
+        <div className="rounded-[28px] sm:rounded-[36px] rounded-tr-[56px] sm:rounded-tr-[72px] rounded-bl-[56px] sm:rounded-bl-[72px] p-8 sm:p-12 lg:p-14 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white border border-white/20 shadow-2xl mb-20 lg:mb-28 relative overflow-hidden">
+          {/* Ambient Background Glow */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-white/15 relative z-10">
             <div>
-              <span className="text-[11px] font-mono font-black uppercase tracking-[0.18em] text-amber-400 block mb-1">
+              <span className="text-[11px] font-mono font-black uppercase tracking-[0.2em] text-amber-300 block mb-1">
                 Banking Coordinates
               </span>
               <h4 className="font-heading text-2xl sm:text-3xl text-white font-black m-0">
@@ -681,14 +693,14 @@ export const CallForPapers: React.FC = () => {
                 Official RCSS Conference Bank Account &middot; Verified Gateway
               </span>
             </div>
-            <span className="text-[11px] font-mono uppercase tracking-wider text-amber-300 bg-amber-400/10 border border-amber-400/30 px-3.5 py-1.5 rounded-[8px] font-black self-start sm:self-auto">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-amber-300 bg-white/10 border border-white/25 px-3.5 py-1.5 rounded-full font-black self-start sm:self-auto shadow-sm">
               Direct Wire &middot; Instant Receipt
             </span>
           </div>
 
-          {/* 4 Clean Metric Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs sm:text-sm mb-8">
-            <div className="p-5 rounded-[16px] bg-[#0a2345] border border-slate-600 flex flex-col justify-between hover:border-slate-400 transition-all">
+          {/* 4 Metric Cards with Asymmetric Rounded Corners */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs sm:text-sm mb-8 relative z-10">
+            <div className="p-6 rounded-2xl rounded-tl-3xl rounded-br-3xl bg-white/10 hover:bg-white/15 border border-white/20 hover:border-white/30 transition-all backdrop-blur-sm shadow-md flex flex-col justify-between">
               <div>
                 <span className="text-[11px] text-slate-300 font-sans uppercase font-bold tracking-wider block mb-1">
                   Account Name
@@ -699,7 +711,7 @@ export const CallForPapers: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-5 rounded-[16px] bg-[#0a2345] border border-slate-600 flex flex-col justify-between hover:border-slate-400 transition-all">
+            <div className="p-6 rounded-2xl rounded-tr-3xl rounded-bl-3xl bg-white/10 hover:bg-white/15 border border-white/20 hover:border-white/30 transition-all backdrop-blur-sm shadow-md flex flex-col justify-between">
               <div>
                 <span className="text-[11px] text-slate-300 font-sans uppercase font-bold tracking-wider block mb-1">
                   Account Number
@@ -710,7 +722,7 @@ export const CallForPapers: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-5 rounded-[16px] bg-[#0a2345] border border-slate-600 flex flex-col justify-between hover:border-slate-400 transition-all">
+            <div className="p-6 rounded-2xl rounded-tl-3xl rounded-br-3xl bg-white/10 hover:bg-white/15 border border-white/20 hover:border-white/30 transition-all backdrop-blur-sm shadow-md flex flex-col justify-between">
               <div>
                 <span className="text-[11px] text-slate-300 font-sans uppercase font-bold tracking-wider block mb-1">
                   Bank &amp; Branch
@@ -721,12 +733,12 @@ export const CallForPapers: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-5 rounded-[16px] bg-[#0a2345] border border-amber-400/50 flex flex-col justify-between hover:border-amber-400 transition-all">
+            <div className="p-6 rounded-2xl rounded-tr-3xl rounded-bl-3xl bg-amber-400/10 hover:bg-amber-400/15 border border-amber-400/40 hover:border-amber-400/60 transition-all backdrop-blur-sm shadow-md flex flex-col justify-between">
               <div>
-                <span className="text-[11px] text-amber-400 font-sans uppercase font-bold tracking-wider block mb-1">
+                <span className="text-[11px] text-amber-300 font-sans uppercase font-bold tracking-wider block mb-1">
                   IFSC / NEFT Code
                 </span>
-                <strong className="text-amber-400 font-mono font-black text-base block tracking-tight">
+                <strong className="text-amber-300 font-mono font-black text-base block tracking-tight">
                   {CONFERENCE_DATA.bankDetails.ifsc}
                 </strong>
               </div>
@@ -734,7 +746,7 @@ export const CallForPapers: React.FC = () => {
           </div>
 
           {/* Action Row */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-700">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-white/15 relative z-10">
             <p className="text-xs text-slate-200 font-sans font-medium m-0">
               * Please preserve the transaction UTR number or transfer receipt screenshot to upload during online delegate registration.
             </p>
@@ -754,20 +766,27 @@ export const CallForPapers: React.FC = () => {
           </div>
         </div>
 
-        {/* ── MICROSOFT CMT ACKNOWLEDGEMENT ── */}
-        <div className="rounded-[16px] p-6 sm:p-8 bg-[#071A33] border border-slate-600 shadow-editorial mb-16 lg:mb-20">
-          <h4 className="font-heading text-lg text-white mb-1 font-black">Microsoft CMT Acknowledgement</h4>
-          <p className="text-xs text-slate-200 leading-relaxed font-sans font-normal m-0">
-            The Microsoft CMT service was used for managing the peer-reviewing process for this conference. This service was provided for free by Microsoft and they bore all expenses, including costs for Azure cloud services as well as for software development and support.
-          </p>
+        {/* ── MICROSOFT CMT ACKNOWLEDGEMENT (Asymmetric Curved Leaf Shape) ── */}
+        <div className="rounded-[24px] sm:rounded-[28px] rounded-tl-[48px] rounded-br-[48px] p-7 sm:p-9 bg-gradient-to-br from-[#0a2540] via-[#123962] to-[#051424] text-white border border-white/20 shadow-2xl mb-20 lg:mb-28 relative overflow-hidden">
+          {/* Ambient Background Glow */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative z-10">
+            <h4 className="font-heading text-lg sm:text-xl text-white mb-2 font-black">Microsoft CMT Acknowledgement</h4>
+            <p className="text-xs sm:text-sm text-slate-100 leading-relaxed font-sans font-medium m-0">
+              The Microsoft CMT service was used for managing the peer-reviewing process for this conference. This service was provided for free by Microsoft and they bore all expenses, including costs for Azure cloud services as well as for software development and support.
+            </p>
+          </div>
         </div>
 
-        {/* ── RAJAGIRI INTERNATIONAL EXCHANGE PROGRAMME - PARTNERING UNIVERSITIES ── */}
-        <div className="rounded-[24px] p-8 sm:p-12 lg:p-14 bg-[#071A33] border border-slate-600 shadow-editorial">
-          <div className="text-center mb-10 sm:mb-12">
+        {/* ── RAJAGIRI INTERNATIONAL EXCHANGE PROGRAMME - PARTNERING UNIVERSITIES (Curved Leaf Shape) ── */}
+        <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-8 sm:p-12 lg:p-14 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white border border-white/20 shadow-2xl relative overflow-hidden">
+          {/* Ambient Background Glow */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="text-center mb-10 sm:mb-12 relative z-10">
             <div className="inline-flex items-center gap-2 mb-3">
               <span className="w-5 h-0.5 bg-amber-400" />
-              <span className="text-[11.5px] font-mono font-bold uppercase tracking-[0.2em] text-amber-400">
+              <span className="text-[11.5px] font-mono font-bold uppercase tracking-[0.2em] text-amber-300">
                 Global Academic Alliances
               </span>
               <span className="w-5 h-0.5 bg-amber-400" />
@@ -775,13 +794,13 @@ export const CallForPapers: React.FC = () => {
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-white tracking-tight m-0 leading-tight">
               Rajagiri International Exchange Programme - Partnering Universities
             </h3>
-            <p className="text-xs sm:text-sm text-slate-200 font-sans font-normal mt-3 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-100 font-sans font-medium mt-3 max-w-2xl mx-auto leading-relaxed">
               Fostering global scholarship, cross-border research, student exchanges, and joint initiatives across premier partner universities worldwide.
             </p>
           </div>
 
           {/* Smooth Infinite Marquee Carousel */}
-          <div className="relative overflow-hidden w-full py-4 -mx-4 sm:-mx-8 px-4 sm:px-8">
+          <div className="relative overflow-hidden w-full py-4 -mx-4 sm:-mx-8 px-4 sm:px-8 z-10">
             {/* Left and right gradient fade masks */}
             <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-[#071A33] via-[#071A33]/80 to-transparent z-10" />
             <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-[#071A33] via-[#071A33]/80 to-transparent z-10" />
@@ -808,7 +827,7 @@ export const CallForPapers: React.FC = () => {
               ].map((logo, idx) => (
                 <div
                   key={`marquee-a-${idx}`}
-                  className="w-[180px] sm:w-[210px] h-[85px] sm:h-[95px] px-5 py-3 rounded-[14px] bg-white border border-slate-200 flex items-center justify-center shadow-lg hover:scale-105 transition-all duration-300 group shrink-0"
+                  className="w-[180px] sm:w-[210px] h-[85px] sm:h-[95px] px-5 py-3 rounded-2xl bg-white border border-slate-200 flex items-center justify-center shadow-lg hover:scale-105 transition-all duration-300 group shrink-0"
                 >
                   <img
                     src={logo.src}
@@ -823,6 +842,7 @@ export const CallForPapers: React.FC = () => {
               {[
                 { src: '/images/nyu_logo.png', alt: 'New York University (NYU)' },
                 { src: '/images/melbourne_logo.png', alt: 'The University of Melbourne' },
+                { src: 'https://dyuti.in/assets/images/york.jpg', alt: 'York University' },
                 { src: 'https://dyuti.in/assets/images/lgo/13.png', alt: 'Partner University 13' },
                 { src: 'https://dyuti.in/assets/images/lgo/12.png', alt: 'Partner University 12' },
                 { src: 'https://dyuti.in/assets/images/lgo/11.png', alt: 'Partner University 11' },
@@ -839,7 +859,7 @@ export const CallForPapers: React.FC = () => {
               ].map((logo, idx) => (
                 <div
                   key={`marquee-b-${idx}`}
-                  className="w-[180px] sm:w-[210px] h-[85px] sm:h-[95px] px-5 py-3 rounded-[14px] bg-white border border-slate-200 flex items-center justify-center shadow-lg hover:scale-105 transition-all duration-300 group shrink-0"
+                  className="w-[180px] sm:w-[210px] h-[85px] sm:h-[95px] px-5 py-3 rounded-2xl bg-white border border-slate-200 flex items-center justify-center shadow-lg hover:scale-105 transition-all duration-300 group shrink-0"
                 >
                   <img
                     src={logo.src}
