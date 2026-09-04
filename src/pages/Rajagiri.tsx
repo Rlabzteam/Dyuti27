@@ -4,20 +4,7 @@ import { Button } from '@/components/ui/Button';
 import { CONFERENCE_DATA } from '@/data/conference';
 
 export const Rajagiri: React.FC = () => {
-  const [activeTab, setActiveTab] = React.useState<'legacy' | 'cmi' | 'global'>('legacy');
-
-  const cmiStats = [
-    { number: '200+', label: 'Schools', desc: 'Primary, secondary, and higher secondary institutions' },
-    { number: '14', label: 'Colleges', desc: 'University-affiliated higher education institutions' },
-    { number: '1', label: 'University', desc: 'State & Deemed Higher Education University' },
-    { number: '1', label: 'Medical College', desc: 'Tertiary super-speciality hospital and teaching college' },
-    { number: '1', label: 'Engineering College', desc: 'Premier engineering and technology institute' },
-    { number: '12', label: 'Technical Institutes', desc: 'Vocational and polytechnic skill training centres' },
-    { number: '3', label: 'B.Ed. Colleges', desc: 'Teacher education and pedagogical research centres' },
-    { number: '5', label: 'Special Schools', desc: 'Empowering children with diverse and special needs' },
-    { number: '18', label: 'Non-Formal Centres', desc: 'Grassroots adult and community educational bodies' },
-    { number: '17', label: 'Cultural Centres', desc: 'Heritage preservation, research foundations & publishing' },
-  ];
+  const [activeTab, setActiveTab] = React.useState<'legacy' | 'global'>('legacy');
 
   const keyStats = [
     {
@@ -185,12 +172,12 @@ export const Rajagiri: React.FC = () => {
         <div className="mb-12 sm:mb-16">
 
           {/* Tab Navigation Buttons — Sleek, Wide Horizontal Footprint & Short Height */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-3 p-1.5 sm:p-2 bg-slate-200/80 rounded-2xl sm:rounded-full max-w-4xl sm:max-w-5xl mx-auto mb-6 sm:mb-8 border border-slate-300 shadow-inner">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-3 p-1.5 sm:p-2 bg-slate-200/80 rounded-2xl sm:rounded-full max-w-3xl mx-auto mb-6 sm:mb-8 border border-slate-300 shadow-inner">
             <button
               type="button"
               onClick={() => setActiveTab('legacy')}
-              className={`w-full sm:w-1/3 py-2 sm:py-2.5 px-4 sm:px-6 rounded-xl sm:rounded-full text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider transition-all duration-300 ${activeTab === 'legacy'
-                ? 'bg-[#071A33] text-amber-300 shadow-md scale-101 sm:scale-103'
+              className={`w-full sm:w-1/2 py-2.5 px-4 sm:px-6 rounded-xl sm:rounded-full text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider transition-all duration-300 ${activeTab === 'legacy'
+                ? 'bg-[#071A33] text-amber-300 shadow-md scale-101 sm:scale-102'
                 : 'text-slate-700 hover:text-slate-950 hover:bg-slate-300/60'
                 }`}
             >
@@ -198,19 +185,9 @@ export const Rajagiri: React.FC = () => {
             </button>
             <button
               type="button"
-              onClick={() => setActiveTab('cmi')}
-              className={`w-full sm:w-1/3 py-2 sm:py-2.5 px-4 sm:px-6 rounded-xl sm:rounded-full text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider transition-all duration-300 ${activeTab === 'cmi'
-                ? 'bg-[#071A33] text-amber-300 shadow-md scale-101 sm:scale-103'
-                : 'text-slate-700 hover:text-slate-950 hover:bg-slate-300/60'
-                }`}
-            >
-              CMI Heritage &amp; Mission
-            </button>
-            <button
-              type="button"
               onClick={() => setActiveTab('global')}
-              className={`w-full sm:w-1/3 py-2 sm:py-2.5 px-4 sm:px-6 rounded-xl sm:rounded-full text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider transition-all duration-300 ${activeTab === 'global'
-                ? 'bg-[#071A33] text-amber-300 shadow-md scale-101 sm:scale-103'
+              className={`w-full sm:w-1/2 py-2.5 px-4 sm:px-6 rounded-xl sm:rounded-full text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider transition-all duration-300 ${activeTab === 'global'
+                ? 'bg-[#071A33] text-amber-300 shadow-md scale-101 sm:scale-102'
                 : 'text-slate-700 hover:text-slate-950 hover:bg-slate-300/60'
                 }`}
             >
@@ -320,94 +297,6 @@ export const Rajagiri: React.FC = () => {
                   </div>
 
                 </div>
-              </div>
-            )}
-
-            {activeTab === 'cmi' && (
-              /* Tab 2: CMI Founding Heritage Content (Compact 2-Column Wide Layout) */
-              <div className="space-y-6 relative z-10 animate-fadeIn">
-
-                {/* Top Header Row with CMI Badge */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-white/15">
-                  <div className="space-y-2 max-w-4xl">
-                    <div className="inline-flex items-center px-3 py-1 rounded-full bg-amber-400/20 border border-amber-300/30 text-amber-300 text-[11px] font-mono font-black uppercase tracking-[0.16em]">
-                      <span>Foundational Vision</span>
-                    </div>
-
-                    <h2 className="text-2xl sm:text-3xl lg:text-[2.25rem] font-heading font-black text-white leading-tight tracking-tight m-0">
-                      Carmelites of Mary Immaculate (CMI)
-                    </h2>
-                  </div>
-
-                  <div className="shrink-0">
-                    <div className="px-4 py-2 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-center shadow-md">
-                      <span className="text-xl sm:text-2xl font-heading font-extrabold text-amber-300 block">448+</span>
-                      <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200">Educational Institutions</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 2-Column Side-by-Side Grid (Narrative Left, 10 Stats Right) */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-
-                  {/* Left Column: Narrative & Chavara Founding Banner */}
-                  <div className="lg:col-span-5 space-y-4">
-                    <div className="space-y-3 text-[14px] sm:text-[15px] text-slate-100 leading-relaxed font-sans font-medium">
-                      <p className="m-0">
-                        Drawing inspiration from founder, <strong className="text-amber-300 font-bold">St. Kuriakose Elias Chavara</strong>, a great visionary, reformer and religious leader of the 19th century, the <strong className="text-white font-bold">Carmelites of Mary Immaculate (CMI)</strong> were the first indigenous religious congregation for men in India.
-                      </p>
-                      <p className="m-0">
-                        The CMI have dedicated themselves to education at all levels. At present, their mission of education comprises a vast network of <strong className="text-white font-bold">448 institutions</strong> — including over 200 schools, 14 university-affiliated colleges, 1 engineering college, 12 technical institutes, 1 university, 1 medical college, 3 B.Ed. colleges, 5 special schools, 18 non-formal educational institutions, and 17 cultural centres spread all over India and beyond.
-                      </p>
-                    </div>
-
-                    {/* Chavara Heritage Founding Banner */}
-                    <div className="p-4 sm:p-5 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md space-y-2">
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-300 block">Chavara Educational Tradition</span>
-                        <span className="px-2.5 py-0.5 rounded-full bg-amber-400/20 border border-amber-300/30 text-amber-300 text-[10px] font-bold font-mono">
-                          Since 1831
-                        </span>
-                      </div>
-                      <h4 className="font-heading font-bold text-sm sm:text-base text-white m-0">
-                        &ldquo;Education for Human Dignity, Social Transformation &amp; Holistic Upliftment&rdquo;
-                      </h4>
-                      <p className="text-[12px] text-slate-200 leading-relaxed m-0">
-                        Pioneering universal education in Kerala through the historic &ldquo;school attached to every church&rdquo; movement, ensuring inclusive access across all socio-economic strata.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Right Column: 10 CMI Stats Breakdown Grid */}
-                  <div className="lg:col-span-7 space-y-3 lg:border-l lg:border-white/15 lg:pl-6">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="w-3 h-0.5 bg-amber-300" />
-                      <h4 className="text-xs font-mono font-black uppercase tracking-[0.18em] text-amber-300 m-0">
-                        CMI Nationwide Educational Footprint &amp; Network
-                      </h4>
-                    </div>
-
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
-                      {cmiStats.map((item, idx) => (
-                        <div key={idx} className="p-3 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex flex-col justify-between hover:bg-white/15 transition-all">
-                          <div>
-                            <span className="font-heading font-extrabold text-lg sm:text-xl text-amber-300 block mb-0.5">
-                              {item.number}
-                            </span>
-                            <span className="text-[11px] font-sans font-bold uppercase tracking-wider text-white block mb-1">
-                              {item.label}
-                            </span>
-                          </div>
-                          <p className="text-[10.5px] text-slate-300 leading-snug m-0">
-                            {item.desc}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                </div>
-
               </div>
             )}
 
