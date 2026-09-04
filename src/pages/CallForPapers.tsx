@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/Button';
 import { Download, ChevronLeft, ChevronRight, ArrowLeft, ArrowRight } from 'lucide-react';
 import { CONFERENCE_DATA } from '@/data/conference';
@@ -556,14 +557,12 @@ export const CallForPapers: React.FC = () => {
                   </li>
                 </ul>
               </div>
-              <a
-                href={CONFERENCE_DATA.links.registrationForm}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to="/register"
                 className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-amber-400 text-slate-950 font-sans text-xs sm:text-sm font-black text-center border border-white transition-all block shadow-md"
               >
                 Register as Student / Scholar &rarr;
-              </a>
+              </Link>
             </div>
 
             {/* Tier 2: Academicians / Faculty (Featured - Inverted Leaf Shape) */}
@@ -607,14 +606,12 @@ export const CallForPapers: React.FC = () => {
                   </li>
                 </ul>
               </div>
-              <a
-                href={CONFERENCE_DATA.links.registrationForm}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to="/register"
                 className="w-full py-3.5 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-sans text-xs sm:text-sm font-black text-center shadow-lg transition-all block"
               >
                 Register as Faculty Member &rarr;
-              </a>
+              </Link>
             </div>
 
             {/* Tier 3: NGO & CSR Delegates (Curved Leaf Shape) */}
@@ -655,14 +652,12 @@ export const CallForPapers: React.FC = () => {
                   </li>
                 </ul>
               </div>
-              <a
-                href={CONFERENCE_DATA.links.registrationForm}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to="/register"
                 className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-amber-400 text-slate-950 font-sans text-xs sm:text-sm font-black text-center border border-white transition-all block shadow-md"
               >
                 Register as NGO / CSR Delegate &rarr;
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -755,9 +750,7 @@ export const CallForPapers: React.FC = () => {
                 variant="primary"
                 size="md"
                 asLink
-                href={CONFERENCE_DATA.links.registrationForm}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/register"
                 showArrow
               >
                 Proceed to Delegate Registration

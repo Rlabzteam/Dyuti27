@@ -3,12 +3,11 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const REGISTRATION_URL = 'https://forms.gle/XTZZmXS1tjkvfm9u6';
-
 const navLinks = [
   { label: 'Home', path: '/', exact: true },
   { label: 'Rajagiri', path: '/rajagiri' },
   { label: 'Call for Papers', path: '/call_for_papers' },
+  { label: 'Registration', path: '/register' },
   { label: 'Attractions', path: '/attractions' },
   { label: 'Travel', path: '/travel' },
   { label: 'Gallery', path: '/gallery' },
@@ -91,7 +90,7 @@ export const Header: React.FC = () => {
                     end={item.exact}
                     className={({ isActive }) =>
                       cn(
-                        'relative px-4 py-2 text-[14px] lg:text-[15px] 2xl:text-[15.5px] font-sans font-semibold transition-all duration-200 whitespace-nowrap focus-visible:outline-none',
+                        'relative px-3.5 xl:px-4 py-2 text-[13.5px] lg:text-[14.5px] 2xl:text-[15.5px] font-sans font-semibold transition-all duration-200 whitespace-nowrap focus-visible:outline-none',
                         isActive
                           ? 'text-[#d4af37] font-bold border-b-2 border-[#d4af37] pb-1'
                           : 'text-white/90 hover:text-[#d4af37]'
@@ -107,27 +106,23 @@ export const Header: React.FC = () => {
 
           {/* Right: White Pill Register Button */}
           <div className="hidden sm:flex items-center gap-3 shrink-0">
-            <a
-              href={REGISTRATION_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/register"
               className="group h-[42px] sm:h-[46px] px-7 sm:px-9 inline-flex items-center gap-2 text-[13.5px] sm:text-[15px] font-sans font-bold bg-white text-[#071A33] hover:bg-slate-100 rounded-full transition-all duration-200 shadow-sm focus-visible:outline-none hover:scale-105"
             >
               <span>Register</span>
               <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Actions */}
           <div className="flex sm:hidden items-center gap-2 shrink-0">
-            <a
-              href={REGISTRATION_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/register"
               className="px-4 h-9 inline-flex items-center text-[12.5px] font-sans font-bold bg-white text-slate-950 hover:bg-slate-100 rounded-full focus-visible:outline-none shadow-xs"
             >
               Register
-            </a>
+            </Link>
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -166,14 +161,12 @@ export const Header: React.FC = () => {
                       <strong className="text-[#d4af37] font-bold">10th August 2026</strong> at Rajagiri College Of Social Sciences (Autonomous) Kalamassery.
                     </span>
                     <span className="mx-3.5 text-white/40 font-bold">&bull;</span>
-                    <a
-                      href={REGISTRATION_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      to="/register"
                       className="font-bold text-[#d4af37] hover:text-amber-200 underline decoration-[#d4af37]/70 underline-offset-2 transition-colors shrink-0"
                     >
                       REGISTER NOW &mdash; CLICK HERE FOR ONLINE REGISTRATION
-                    </a>
+                    </Link>
                     <span className="mx-3.5 text-white/40 font-bold">&bull;</span>
                     <span>
                       Extended Abstract Submission Deadline: <strong className="text-white font-bold">25 September 2026</strong>
@@ -201,14 +194,12 @@ export const Header: React.FC = () => {
                       <strong className="text-[#d4af37] font-bold">10th August 2026</strong> at Rajagiri College Of Social Sciences (Autonomous) Kalamassery.
                     </span>
                     <span className="mx-3.5 text-white/40 font-bold">&bull;</span>
-                    <a
-                      href={REGISTRATION_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      to="/register"
                       className="font-bold text-[#d4af37] hover:text-amber-200 underline decoration-[#d4af37]/70 underline-offset-2 transition-colors shrink-0"
                     >
                       REGISTER NOW &mdash; CLICK HERE FOR ONLINE REGISTRATION
-                    </a>
+                    </Link>
                     <span className="mx-3.5 text-white/40 font-bold">&bull;</span>
                     <span>
                       Extended Abstract Submission Deadline: <strong className="text-white font-bold">25 September 2026</strong>

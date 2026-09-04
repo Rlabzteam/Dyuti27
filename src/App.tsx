@@ -9,6 +9,7 @@ import { Attractions } from '@/pages/Attractions';
 import { Travel } from '@/pages/Travel';
 import { Gallery } from '@/pages/Gallery';
 import { Contact } from '@/pages/Contact';
+import { Registration } from '@/pages/Registration';
 import { NotFound } from '@/pages/NotFound';
 
 // Automatically scroll to top on route change
@@ -69,6 +70,11 @@ export const App: React.FC = () => {
           <Route path="contactus" element={<Contact />} />
           <Route path="contact" element={<Contact />} />
           <Route path="secretariat" element={<Contact />} />
+
+          {/* Delegate Registration Form */}
+          <Route path="register" element={<Registration />} />
+          <Route path="registration" element={<Registration />} />
+          <Route path="delegate-registration" element={<Registration />} />
 
           {/* 404 Catch-All */}
           <Route path="*" element={<NotFound />} />

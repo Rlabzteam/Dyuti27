@@ -30,15 +30,13 @@ export const Footer: React.FC = () => {
                 <Link to="/rajagiri" className="hover:text-amber-300 transition-colors">RAJAGIRI</Link>
                 <Link to="/call_for_papers" className="hover:text-amber-300 transition-colors">CALL FOR PAPERS</Link>
                 <Link to="/accomodation" className="hover:text-amber-300 transition-colors">ACCOMMODATION</Link>
-                <a
-                  href={CONFERENCE_DATA.links.registrationForm}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  to="/register"
                   className="text-amber-300 font-black hover:text-white transition-colors flex items-center gap-1"
                 >
                   <span>REGISTRATION</span>
                   <ArrowRight className="w-3.5 h-3.5" />
-                </a>
+                </Link>
                 <Link to="/gallery" className="hover:text-amber-300 transition-colors">GALLERY</Link>
                 <Link to="/attractions" className="hover:text-amber-300 transition-colors">ATTRACTIONS</Link>
                 <Link to="/travel" className="hover:text-amber-300 transition-colors">TRAVEL</Link>
