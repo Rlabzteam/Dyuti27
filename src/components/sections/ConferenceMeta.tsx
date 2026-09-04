@@ -8,8 +8,8 @@ export const ConferenceMeta: React.FC = () => {
       sub: 'Continuous legacy since 1998',
       badge: 'Legacy',
       bgGradient: 'from-[#071A33] via-[#0e2a52] to-[#040e1c]',
-      accentColor: 'text-amber-300',
-      badgeBg: 'bg-white/15 text-amber-300 border-white/25',
+      accentColor: 'text-amber-500',
+      badgeBg: 'bg-white/15 text-amber-500 border-white/25',
     },
     {
       number: '60+',
@@ -17,8 +17,8 @@ export const ConferenceMeta: React.FC = () => {
       sub: 'Universities across 30+ countries',
       badge: 'Global',
       bgGradient: 'from-[#0a2540] via-[#123962] to-[#051424]',
-      accentColor: 'text-amber-300',
-      badgeBg: 'bg-white/15 text-amber-300 border-white/25',
+      accentColor: 'text-amber-500',
+      badgeBg: 'bg-white/15 text-amber-500 border-white/25',
     },
     {
       number: 'NIRF',
@@ -26,8 +26,8 @@ export const ConferenceMeta: React.FC = () => {
       sub: 'National Institutional Ranking 2025',
       badge: 'Ranked #12',
       bgGradient: 'from-[#071A33] via-[#16365c] to-[#030d1a]',
-      accentColor: 'text-amber-300',
-      badgeBg: 'bg-white/15 text-amber-300 border-white/25',
+      accentColor: 'text-amber-500',
+      badgeBg: 'bg-white/15 text-amber-500 border-white/25',
     },
     {
       number: 'NAAC',
@@ -35,8 +35,8 @@ export const ConferenceMeta: React.FC = () => {
       sub: '3.83 CGPA · Highest Accreditation',
       badge: '3.83 CGPA',
       bgGradient: 'from-[#09223d] via-[#18426e] to-[#041120]',
-      accentColor: 'text-amber-300',
-      badgeBg: 'bg-white/15 text-amber-300 border-white/25',
+      accentColor: 'text-amber-500',
+      badgeBg: 'bg-white/15 text-amber-500 border-white/25',
     },
   ];
 
