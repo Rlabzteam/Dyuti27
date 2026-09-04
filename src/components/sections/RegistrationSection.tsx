@@ -34,7 +34,7 @@ export const RegistrationSection: React.FC = () => {
         </p>
 
         {/* Verified Official Fee Structure Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto gap-4 mb-10 text-left">
           {CONFERENCE_DATA.fees.map((fee, idx) => (
             <div
               key={idx}

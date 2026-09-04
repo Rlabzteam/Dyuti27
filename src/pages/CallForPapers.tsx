@@ -517,8 +517,8 @@ export const CallForPapers: React.FC = () => {
             </div>
           </div>
 
-          {/* 3 Tier Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-8">
+          {/* 2 Tier Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-8">
             {/* Tier 1: Students / Scholars (Curved Leaf Shape) */}
             <div className="rounded-[28px] sm:rounded-[32px] rounded-tl-[52px] rounded-br-[52px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-8 sm:p-9 shadow-2xl border border-white/20 flex flex-col justify-between hover:border-white/40 transition-all group relative overflow-hidden">
               <div>
@@ -611,52 +611,6 @@ export const CallForPapers: React.FC = () => {
                 className="w-full py-3.5 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-sans text-xs sm:text-sm font-black text-center shadow-lg transition-all block"
               >
                 Register as Faculty Member &rarr;
-              </Link>
-            </div>
-
-            {/* Tier 3: NGO & CSR Delegates (Curved Leaf Shape) */}
-            <div className="rounded-[28px] sm:rounded-[32px] rounded-tl-[52px] rounded-br-[52px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-8 sm:p-9 shadow-2xl border border-white/20 flex flex-col justify-between hover:border-white/40 transition-all group relative overflow-hidden">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-[11px] font-mono uppercase font-black text-amber-300 tracking-wider">
-                    Tier 03
-                  </span>
-                  <span className="text-[10px] font-mono uppercase font-bold text-white bg-white/15 border border-white/25 px-3 py-1 rounded-full">
-                    Industry Pass
-                  </span>
-                </div>
-                <h4 className="font-heading text-xl sm:text-2xl text-white font-black mb-2">
-                  NGO &amp; CSR Delegates
-                </h4>
-                <p className="text-xs sm:text-sm text-slate-100 font-sans leading-relaxed mb-6 font-medium">
-                  For development practitioners, corporate sustainability leaders, and NGO heads.
-                </p>
-                <div className="flex items-baseline gap-1.5 mb-6 pb-6 border-b border-white/15">
-                  <span className="font-heading text-4xl sm:text-5xl text-white font-black tracking-tight">
-                    ₹ 1,500
-                  </span>
-                  <span className="text-xs sm:text-sm text-slate-300 font-sans font-medium">/ delegate</span>
-                </div>
-                <ul className="space-y-3 text-xs sm:text-sm text-slate-100 font-sans font-medium mb-8">
-                  <li className="flex items-start gap-2.5">
-                    <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
-                    <span>Access to plenaries, industry roundtables &amp; tracks</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
-                    <span>Exclusive delegate folder, kit &amp; formal certificate</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
-                    <span>Executive buffet lunch on both conference days</span>
-                  </li>
-                </ul>
-              </div>
-              <Link
-                to="/register"
-                className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-amber-400 text-slate-950 font-sans text-xs sm:text-sm font-black text-center border border-white transition-all block shadow-md"
-              >
-                Register as NGO / CSR Delegate &rarr;
               </Link>
             </div>
           </div>

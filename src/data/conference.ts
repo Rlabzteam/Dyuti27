@@ -214,7 +214,6 @@ export const CONFERENCE_DATA = {
   fees: [
     { category: 'Students / Research Scholars', amount: '₹ 750', deadline: 'Includes lunch & sessions on both days' },
     { category: 'Academicians / Faculty Members', amount: '₹ 1,000', deadline: 'Includes lunch & sessions on both days' },
-    { category: 'NGO & CSR Delegates', amount: '₹ 1,500', deadline: 'Includes lunch & sessions on both days' },
   ] as RegistrationFee[],
 
   bankDetails: {

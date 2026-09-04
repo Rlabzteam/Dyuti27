@@ -58,7 +58,7 @@ export const RegistrationCTA: React.FC = () => {
         </div>
 
         {/* ── EDITORIAL PRICING CARDS (High-Contrast Navy Cards) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 mb-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto gap-6 sm:gap-8 mb-14">
           {CONFERENCE_DATA.fees.map((fee: RegistrationFee, idx: number) => {
             const isFeatured = idx === 1; // Academicians / Faculty Members
             return (
