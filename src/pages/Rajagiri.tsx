@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, ShieldCheck, Layers, Users, HeartHandshake } from 'lucide-react';
+import { Sparkles, ShieldCheck, Layers, Users, HeartHandshake, Trophy, Utensils, Leaf, Award } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { CONFERENCE_DATA } from '@/data/conference';
 
@@ -191,7 +191,10 @@ export const Rajagiri: React.FC = () => {
 
                 <div className="space-y-4 text-[16px] sm:text-[17.5px] text-slate-100 leading-relaxed font-sans font-medium max-w-4xl">
                   <p className="m-0">
-                    <strong className="text-white font-bold">Rajagiri College of Social Sciences (Autonomous)</strong> was established as a result of the indefatigable industry and foresight of the CMI Congregation. Rajagiri with its vision of <em className="text-amber-300 italic">&lsquo;becoming a centre of excellence in learning for enriching and fulfilling LIFE&rsquo;</em> has been regularly providing an annual forum for deliberations on vital issues of development from a Rights perspective.
+                    <strong className="text-white font-bold">Rajagiri College of Social Sciences (Autonomous), Kalamassery</strong>, established in 1955 by the Carmelites of Mary Immaculate (CMI) Congregation, is one of India&apos;s premier institutions for higher education. Guided by its motto, <em className="text-amber-300 italic font-semibold">Relentlessly Towards Excellence</em>, the college has built a legacy of academic distinction, innovation, and social commitment. Conferred autonomous status by the University Grants Commission (UGC) in 2014, the institution continues to enjoy autonomous status up to the academic year 2029&ndash;30. Rajagiri College of Social Sciences was ranked 12th among colleges in India by the National Institutional Ranking Framework (NIRF) 2025 and the 1st in Kerala under the Kerala Institutional Ranking Framework (KIRF) 2025. The institution is accredited with an A++ grade by the National Assessment and Accreditation Council (NAAC) with a CGPA of 3.83. Rajagiri has also earned international recognition by being placed in the 601&ndash;800 global band for SDG 3 (Good Health and Well-being) in the Times Higher Education Impact Rankings 2026. Rajagiri was also granted the status of &lsquo;College with Potential for Excellence&rsquo; (CPE) by the University Grants Commission (UGC) in 2016.
+                  </p>
+                  <p className="m-0">
+                    Rajagiri with its vision of <em className="text-amber-300 italic">&lsquo;becoming a centre of excellence in learning for enriching and fulfilling LIFE&rsquo;</em> has been regularly providing an annual forum for deliberations on vital issues of development from a Rights perspective.
                   </p>
                   <p className="m-0">
                     The term &ldquo;Rajagiri&rdquo; translates to &ldquo;Hill of the King,&rdquo; symbolizing the heights of learning and developmental yearning. True to its acronym <strong className="text-white font-black">DYUTI</strong> (&ldquo;Spark of Life&rdquo;), the institution fosters developmental dialogues that bridge academic theory with transformative field practice.
@@ -316,8 +319,102 @@ export const Rajagiri: React.FC = () => {
           </div>
         </div>
 
+        {/* ── RECOGNITIONS & INSTITUTIONAL ACCOLADES ── */}
+        <div className="mb-20 lg:mb-28 rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-8 sm:p-12 lg:p-14 border border-white/20 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white shadow-2xl relative overflow-hidden">
+          {/* Subtle Background Glow */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-400/5 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 space-y-8">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-white/15">
+              <div className="space-y-4 max-w-3xl">
+                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-400/20 border border-amber-300/30 text-amber-300 text-xs font-mono font-black uppercase tracking-[0.18em]">
+                  <span>National Honors &amp; Benchmarks</span>
+                </div>
+
+                <h2 className="text-[2.25rem] sm:text-[3rem] font-heading font-black text-white leading-tight tracking-tight m-0">
+                  Recognitions
+                </h2>
+
+                <div className="w-20 h-1.5 bg-amber-300 rounded-full" />
+              </div>
+
+              <div className="shrink-0">
+                <div className="px-5 py-3 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md text-center">
+                  <span className="text-xl sm:text-2xl font-heading font-extrabold text-amber-300 block">Excellence</span>
+                  <span className="text-xs font-sans uppercase tracking-wider text-slate-200">National &amp; Global Impact</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Exact Narrative Requested by User */}
+            <div className="space-y-4 text-[16px] sm:text-[17.5px] text-slate-100 leading-relaxed font-sans font-medium max-w-4xl">
+              <p className="m-0">
+                The institution has also received many national recognitions, including the <strong className="text-amber-300 font-bold">India Elite Education &amp; Institutional Excellence Award 2024</strong>, <strong className="text-amber-300 font-bold">Eat Right Campus Award by FSSAI (2025–2027)</strong>, <strong className="text-amber-300 font-bold">Green Institution Certification from the Haritha Keralam Mission</strong>, and the <strong className="text-amber-300 font-bold">Best NSS Unit Award (2023–24)</strong>.
+              </p>
+              <p className="m-0">
+                With excellent infrastructure, multidisciplinary academic programmes, international collaborations, research centres, placement opportunities, live labs (extension departments), and a strong commitment to innovation, sustainability, and community engagement, Rajagiri continues to set benchmarks in higher education at the national and international levels.
+              </p>
+            </div>
+
+            {/* 4 Featured Recognition Badges Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+              <div className="p-5 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm flex flex-col justify-between hover:bg-white/15 transition-all duration-300">
+                <div className="space-y-3">
+                  <div className="w-11 h-11 rounded-xl bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shadow-inner">
+                    <Trophy className="w-5 h-5" />
+                  </div>
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-300 block">Award 2024</span>
+                  <h4 className="font-heading font-bold text-base text-white leading-snug m-0">
+                    India Elite Education &amp; Institutional Excellence Award
+                  </h4>
+                </div>
+                <p className="text-xs text-slate-300 mt-3 m-0">Leadership in pedagogical quality and institutional distinction</p>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm flex flex-col justify-between hover:bg-white/15 transition-all duration-300">
+                <div className="space-y-3">
+                  <div className="w-11 h-11 rounded-xl bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shadow-inner">
+                    <Utensils className="w-5 h-5" />
+                  </div>
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-300 block">2025–2027</span>
+                  <h4 className="font-heading font-bold text-base text-white leading-snug m-0">
+                    Eat Right Campus Award by FSSAI
+                  </h4>
+                </div>
+                <p className="text-xs text-slate-300 mt-3 m-0">Five-star certification for safe, hygienic and healthy nutrition</p>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm flex flex-col justify-between hover:bg-white/15 transition-all duration-300">
+                <div className="space-y-3">
+                  <div className="w-11 h-11 rounded-xl bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shadow-inner">
+                    <Leaf className="w-5 h-5" />
+                  </div>
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-300 block">Haritha Keralam</span>
+                  <h4 className="font-heading font-bold text-base text-white leading-snug m-0">
+                    Green Institution Certification
+                  </h4>
+                </div>
+                <p className="text-xs text-slate-300 mt-3 m-0">Environmental sustainability, zero-waste and green initiatives</p>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm flex flex-col justify-between hover:bg-white/15 transition-all duration-300">
+                <div className="space-y-3">
+                  <div className="w-11 h-11 rounded-xl bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shadow-inner">
+                    <Award className="w-5 h-5" />
+                  </div>
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-300 block">2023–24</span>
+                  <h4 className="font-heading font-bold text-base text-white leading-snug m-0">
+                    Best NSS Unit Award
+                  </h4>
+                </div>
+                <p className="text-xs text-slate-300 mt-3 m-0">Outstanding youth volunteerism and grassroots social action</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* ── DEPARTMENT OF SOCIAL WORK (Contrast Deep Navy Card in Asymmetric Curved Leaf Shape) ── */}
-        <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] overflow-hidden border border-white/20 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white shadow-2xl mb-20 lg:mb-28">
+        <div className="rounded-[28px] sm:rounded-[36px] rounded-tr-[56px] sm:rounded-tr-[72px] rounded-bl-[56px] sm:rounded-bl-[72px] overflow-hidden border border-white/20 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white shadow-2xl mb-20 lg:mb-28">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
 
             {/* Narrative Column */}
@@ -375,7 +472,7 @@ export const Rajagiri: React.FC = () => {
         </div>
 
         {/* ── 25 YEARS OF INTERNATIONALISATION (Contrast Deep Navy Card in Asymmetric Curved Leaf Shape) ── */}
-        <div className="mb-20 lg:mb-28 rounded-[28px] sm:rounded-[36px] rounded-tr-[56px] sm:rounded-tr-[72px] rounded-bl-[56px] sm:rounded-bl-[72px] p-8 sm:p-12 lg:p-14 border border-white/20 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white shadow-2xl">
+        <div className="mb-20 lg:mb-28 rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-8 sm:p-12 lg:p-14 border border-white/20 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white shadow-2xl">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-8 pb-6 border-b border-white/10">
             <div>
               <h3 className="font-heading text-[1.75rem] sm:text-[2.1rem] font-bold text-white m-0">
