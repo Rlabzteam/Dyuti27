@@ -4,8 +4,6 @@ import { Button } from '@/components/ui/Button';
 import { CONFERENCE_DATA } from '@/data/conference';
 
 export const Rajagiri: React.FC = () => {
-  const [activeTab, setActiveTab] = React.useState<'legacy' | 'global'>('legacy');
-
   const keyStats = [
     {
       number: 'NAAC',
@@ -168,259 +166,230 @@ export const Rajagiri: React.FC = () => {
           </div>
         </div>
 
-        {/* ── TABBED CONTAINER LAYOUT (LEGACY, CMI HERITAGE & GLOBAL IMPACT) ── */}
-        <div className="mb-12 sm:mb-16">
+        {/* ── CARD 1: A LEGACY OF DISTINCTION & SOCIAL COMMITMENT ── */}
+        <div className="mb-8 sm:mb-12 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-6 sm:p-8 lg:p-10 shadow-2xl border border-white/20 relative overflow-hidden">
+          {/* Subtle background ambient glow */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
-          {/* Tab Navigation Buttons — Sleek, Wide Horizontal Footprint & Short Height */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-3 p-1.5 sm:p-2 bg-slate-200/80 rounded-2xl sm:rounded-full max-w-3xl mx-auto mb-6 sm:mb-8 border border-slate-300 shadow-inner">
-            <button
-              type="button"
-              onClick={() => setActiveTab('legacy')}
-              className={`w-full sm:w-1/2 py-2.5 px-4 sm:px-6 rounded-xl sm:rounded-full text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider transition-all duration-300 ${activeTab === 'legacy'
-                ? 'bg-[#071A33] text-amber-300 shadow-md scale-101 sm:scale-102'
-                : 'text-slate-700 hover:text-slate-950 hover:bg-slate-300/60'
-                }`}
-            >
-              A Legacy of Distinction
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab('global')}
-              className={`w-full sm:w-1/2 py-2.5 px-4 sm:px-6 rounded-xl sm:rounded-full text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider transition-all duration-300 ${activeTab === 'global'
-                ? 'bg-[#071A33] text-amber-300 shadow-md scale-101 sm:scale-102'
-                : 'text-slate-700 hover:text-slate-950 hover:bg-slate-300/60'
-                }`}
-            >
-              SDG &amp; Global Impact
-            </button>
-          </div>
+          <div className="space-y-6 relative z-10">
 
-          {/* Tab Content Display (Compact Height with Wide Horizontal Grid Arrangement) */}
-          <div className="w-full rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-6 sm:p-8 lg:p-10 shadow-2xl border border-white/20 relative overflow-hidden transition-all duration-500">
-            {/* Subtle background ambient glow */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+            {/* Top Header Row with RCSS Badge */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-white/15">
+              <div className="space-y-2 max-w-4xl">
+                <div className="inline-flex items-center px-3 py-1 rounded-full bg-amber-400/20 border border-amber-300/30 text-amber-300 text-[11px] font-mono font-black uppercase tracking-[0.16em]">
+                  <span>Autonomous Institution (2014 &ndash; 2030)</span>
+                </div>
 
-            {activeTab === 'legacy' && (
-              /* Tab 1: Legacy Content (Matched Height & Layout with Tab 2 & Tab 3) */
-              <div className="space-y-6 relative z-10 animate-fadeIn">
+                <h2 className="text-2xl sm:text-3xl lg:text-[2.25rem] font-heading font-black text-white leading-tight tracking-tight m-0">
+                  A Legacy of Distinction &amp; Social Commitment
+                </h2>
+              </div>
 
-                {/* Top Header Row with RCSS Badge */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-white/15">
-                  <div className="space-y-2 max-w-4xl">
-                    <div className="inline-flex items-center px-3 py-1 rounded-full bg-amber-400/20 border border-amber-300/30 text-amber-300 text-[11px] font-mono font-black uppercase tracking-[0.16em]">
-                      <span>Autonomous Institution (2014 &ndash; 2030)</span>
-                    </div>
+              <div className="shrink-0">
+                <div className="px-4 py-2 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-center shadow-md">
+                  <span className="text-xl sm:text-2xl font-heading font-extrabold text-amber-300 block">Est. 1955</span>
+                  <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200">Autonomous &bull; NAAC A++</span>
+                </div>
+              </div>
+            </div>
+              
+            {/* 2-Column Side-by-Side Grid (lg:col-span-7 Left Narrative, lg:col-span-5 Right Pillars) */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
-                    <h2 className="text-2xl sm:text-3xl lg:text-[2.25rem] font-heading font-black text-white leading-tight tracking-tight m-0">
-                      A Legacy of Distinction &amp; Social Commitment
-                    </h2>
+              {/* Left Column: Focused Narrative & Vision Motto Box */}
+              <div className="lg:col-span-7 space-y-4">
+                <div className="space-y-3 text-[14px] sm:text-[14.5px] text-slate-100 leading-relaxed font-sans font-medium">
+                  <p className="m-0">
+                    <strong className="text-white font-bold">Rajagiri College of Social Sciences (Autonomous), Kalamassery</strong>, established in 1955 by the Carmelites of Mary Immaculate (CMI) Congregation, is one of India&apos;s premier institutions for higher education. Guided by its motto, <em className="text-amber-300 italic font-semibold">&ldquo;Relentlessly Towards Excellence&rdquo;</em>, the college has built a rich legacy of academic distinction, innovation, and social commitment.
+                  </p>
+
+                  <p className="m-0 text-slate-200">
+                    Rajagiri with its vision of <em className="text-amber-300 italic">&lsquo;becoming a centre of excellence in learning for enriching and fulfilling LIFE&rsquo;</em> has been regularly providing an annual forum for deliberations on vital issues of development from a Rights perspective.
+                  </p>
+
+                  <p className="m-0 text-slate-200">
+                    The term &ldquo;Rajagiri&rdquo; translates to &ldquo;Hill of the King,&rdquo; symbolizing the heights of learning and developmental yearning. True to its acronym <strong className="text-white font-bold">DYUTI</strong> (&ldquo;Spark of Life&rdquo;), the institution fosters developmental dialogues that bridge academic theory with transformative field practice.
+                  </p>
+                </div>
+
+                {/* Institutional Heritage & Vision Motto Box */}
+                <div className="p-3.5 sm:p-4 rounded-2xl bg-amber-400 text-slate-950 shadow-lg border border-amber-300 flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-xl bg-slate-950/10 border border-slate-950/15 flex items-center justify-center text-slate-950 shrink-0 font-heading font-black text-lg shadow-inner">
+                    RCSS
                   </div>
-
-                  <div className="shrink-0">
-                    <div className="px-4 py-2 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-center shadow-md">
-                      <span className="text-xl sm:text-2xl font-heading font-extrabold text-amber-300 block">Est. 1955</span>
-                      <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200">Autonomous &bull; NAAC A++</span>
-                    </div>
+                  <div>
+                    <h4 className="font-heading font-black text-sm sm:text-base text-slate-950 m-0 leading-tight">
+                      &ldquo;Relentlessly Towards Excellence&rdquo; &bull; Est. 1955
+                    </h4>
+                    <p className="text-[12px] text-slate-900 font-sans font-medium m-0 mt-0.5 leading-snug">
+                      70+ years of pedagogical innovation, autonomous academic rigor, and transformative community impact.
+                    </p>
                   </div>
                 </div>
-                  
-                {/* 2-Column Side-by-Side Grid (lg:col-span-7 Left Narrative, lg:col-span-5 Right Pillars) */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              </div>
 
-                  {/* Left Column: Focused Narrative & Vision Motto Box */}
-                  <div className="lg:col-span-7 space-y-4">
-                    <div className="space-y-3 text-[14px] sm:text-[14.5px] text-slate-100 leading-relaxed font-sans font-medium">
-                      <p className="m-0">
-                        <strong className="text-white font-bold">Rajagiri College of Social Sciences (Autonomous), Kalamassery</strong>, established in 1955 by the Carmelites of Mary Immaculate (CMI) Congregation, is one of India&apos;s premier institutions for higher education. Guided by its motto, <em className="text-amber-300 italic font-semibold">&ldquo;Relentlessly Towards Excellence&rdquo;</em>, the college has built a rich legacy of academic distinction, innovation, and social commitment.
-                      </p>
+              {/* Right Column: Foundational Institutional Pillars */}
+              <div className="lg:col-span-5 space-y-3 lg:border-l lg:border-white/15 lg:pl-6">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="w-3 h-0.5 bg-amber-300" />
+                  <h4 className="text-xs font-mono font-black uppercase tracking-[0.18em] text-amber-300 m-0">
+                    Foundational Institutional Pillars
+                  </h4>
+                </div>
 
-                      <p className="m-0 text-slate-200">
-                        Rajagiri with its vision of <em className="text-amber-300 italic">&lsquo;becoming a centre of excellence in learning for enriching and fulfilling LIFE&rsquo;</em> has been regularly providing an annual forum for deliberations on vital issues of development from a Rights perspective.
-                      </p>
-
-                      <p className="m-0 text-slate-200">
-                        The term &ldquo;Rajagiri&rdquo; translates to &ldquo;Hill of the King,&rdquo; symbolizing the heights of learning and developmental yearning. True to its acronym <strong className="text-white font-bold">DYUTI</strong> (&ldquo;Spark of Life&rdquo;), the institution fosters developmental dialogues that bridge academic theory with transformative field practice.
-                      </p>
+                <div className="space-y-2.5">
+                  <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1 hover:bg-white/15 transition-colors">
+                    <div className="flex items-center justify-between">
+                      <h5 className="font-heading font-bold text-sm text-white m-0">Pedagogical Innovation</h5>
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300">Pillar 01</span>
                     </div>
+                    <p className="text-[11.5px] text-slate-200 leading-snug m-0">70+ years pioneering standards, curriculum development, and academic excellence across higher education in India.</p>
+                  </div>
 
-                    {/* Institutional Heritage & Vision Motto Box */}
-                    <div className="p-3.5 sm:p-4 rounded-2xl bg-amber-400 text-slate-950 shadow-lg border border-amber-300 flex items-center gap-3.5">
-                      <div className="w-11 h-11 rounded-xl bg-slate-950/10 border border-slate-950/15 flex items-center justify-center text-slate-950 shrink-0 font-heading font-black text-lg shadow-inner">
-                        RCSS
+                  <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1 hover:bg-white/15 transition-colors">
+                    <div className="flex items-center justify-between">
+                      <h5 className="font-heading font-bold text-sm text-white m-0">Autonomous Excellence</h5>
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300">Pillar 02</span>
+                    </div>
+                    <p className="text-[11.5px] text-slate-200 leading-snug m-0">Conferred UGC Autonomy (2014–2030) and CPE status, enabling dynamic industry-aligned curricula and global research partnerships.</p>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1 hover:bg-white/15 transition-colors">
+                    <div className="flex items-center justify-between">
+                      <h5 className="font-heading font-bold text-sm text-white m-0">Grassroots Impact</h5>
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300">Pillar 03</span>
+                    </div>
+                    <p className="text-[11.5px] text-slate-200 leading-snug m-0">Community live labs, child protection desks, and rights-based field action translating classroom theory into measurable social good.</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        {/* ── CARD 2: SDG & GLOBAL IMPACT ── */}
+        <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tr-[48px] sm:rounded-tr-[64px] rounded-bl-[48px] sm:rounded-bl-[64px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-6 sm:p-8 lg:p-10 shadow-2xl border border-white/20 relative overflow-hidden">
+          {/* Subtle background ambient glow */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="space-y-6 relative z-10">
+
+            {/* Top Header Row */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-white/15">
+              <div className="space-y-2 max-w-4xl">
+                <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/15 border border-white/25 text-amber-300 text-[11px] font-mono font-black uppercase tracking-[0.16em]">
+                  <span>Global Standing</span>
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl lg:text-[2.25rem] font-heading font-black text-white leading-tight tracking-tight m-0">
+                  SDG &amp; Global Impact
+                </h2>
+              </div>
+
+              <div className="shrink-0">
+                <div className="px-4 py-2 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-center shadow-md">
+                  <span className="text-xl sm:text-2xl font-heading font-extrabold text-amber-300 block">SDG 3</span>
+                  <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200">Global Band 601–800</span>
+                </div>
+              </div>
+            </div>
+
+            {/* 2-Column Side-by-Side Grid (Narrative Left, 4 SDG Focus Cards Right) */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+              {/* Left Column: THE Highlight Banner & Narrative */}
+              <div className="lg:col-span-5 space-y-4">
+                {/* THE Impact Rankings Box */}
+                <div className="p-4 sm:p-5 rounded-2xl bg-amber-400 text-slate-950 shadow-lg border border-amber-300">
+                  <span className="text-[10px] font-mono font-black uppercase tracking-[0.18em] text-slate-900 block mb-0.5">
+                    Times Higher Education Impact Rankings 2026
+                  </span>
+                  <h3 className="font-heading text-lg sm:text-xl font-black leading-tight text-slate-950 m-0 mb-1">
+                    Global Band 601&ndash;800 for SDG 3 (Good Health &amp; Well-Being)
+                  </h3>
+                  <p className="text-slate-900 text-xs sm:text-[13px] font-sans font-medium leading-relaxed m-0">
+                    Recognising Rajagiri&apos;s institutional commitment to public health, community psycho-social wellbeing, mental health services, and frontline health outreach.
+                  </p>
+                </div>
+
+                <div className="space-y-3 text-[14px] sm:text-[15px] text-slate-100 leading-relaxed font-sans font-medium">
+                  <p className="m-0">
+                    Rajagiri has earned international distinction in the <strong className="text-amber-300 font-bold">Times Higher Education (THE) Impact Rankings 2026</strong>, benchmarked against the United Nations Sustainable Development Goals.
+                  </p>
+                  <p className="m-0 text-slate-200">
+                    Through active community engagement, multidisciplinary research centres, and global academic partnerships across 30+ countries, the college fosters impactful health, education, and social sustainability initiatives.
+                  </p>
+                </div>
+              </div>
+
+              {/* Right Column: 4 SDG Focus Cards */}
+              <div className="lg:col-span-7 space-y-3 lg:border-l lg:border-white/15 lg:pl-6">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="w-3 h-0.5 bg-amber-300" />
+                  <h4 className="text-xs font-mono font-black uppercase tracking-[0.18em] text-amber-300 m-0">
+                    UN Sustainable Development Goals &bull; Institutional Alignment
+                  </h4>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="p-3.5 sm:p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-lg bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shrink-0">
+                        <Heart className="w-4 h-4" />
                       </div>
                       <div>
-                        <h4 className="font-heading font-black text-sm sm:text-base text-slate-950 m-0 leading-tight">
-                          &ldquo;Relentlessly Towards Excellence&rdquo; &bull; Est. 1955
-                        </h4>
-                        <p className="text-[12px] text-slate-900 font-sans font-medium m-0 mt-0.5 leading-snug">
-                          70+ years of pedagogical innovation, autonomous academic rigor, and transformative community impact.
-                        </p>
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 03</span>
+                        <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Good Health &amp; Well-Being</h5>
                       </div>
                     </div>
+                    <p className="text-[11.5px] text-slate-200 leading-relaxed m-0">Community mental health counselling, de-addiction research cell &amp; adolescent psycho-social interventions.</p>
                   </div>
 
-                  {/* Right Column: Foundational Institutional Pillars */}
-                  <div className="lg:col-span-5 space-y-3 lg:border-l lg:border-white/15 lg:pl-6">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="w-3 h-0.5 bg-amber-300" />
-                      <h4 className="text-xs font-mono font-black uppercase tracking-[0.18em] text-amber-300 m-0">
-                        Foundational Institutional Pillars
-                      </h4>
-                    </div>
-
-                    <div className="space-y-2.5">
-                      <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1 hover:bg-white/15 transition-colors">
-                        <div className="flex items-center justify-between">
-                          <h5 className="font-heading font-bold text-sm text-white m-0">Pedagogical Innovation</h5>
-                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300">Pillar 01</span>
-                        </div>
-                        <p className="text-[11.5px] text-slate-200 leading-snug m-0">70+ years pioneering standards, curriculum development, and academic excellence across higher education in India.</p>
+                  <div className="p-3.5 sm:p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-lg bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shrink-0">
+                        <BookOpen className="w-4 h-4" />
                       </div>
-
-                      <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1 hover:bg-white/15 transition-colors">
-                        <div className="flex items-center justify-between">
-                          <h5 className="font-heading font-bold text-sm text-white m-0">Autonomous Excellence</h5>
-                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300">Pillar 02</span>
-                        </div>
-                        <p className="text-[11.5px] text-slate-200 leading-snug m-0">Conferred UGC Autonomy (2014–2030) and CPE status, enabling dynamic industry-aligned curricula and global research partnerships.</p>
-                      </div>
-
-                      <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1 hover:bg-white/15 transition-colors">
-                        <div className="flex items-center justify-between">
-                          <h5 className="font-heading font-bold text-sm text-white m-0">Grassroots Impact</h5>
-                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300">Pillar 03</span>
-                        </div>
-                        <p className="text-[11.5px] text-slate-200 leading-snug m-0">Community live labs, child protection desks, and rights-based field action translating classroom theory into measurable social good.</p>
+                      <div>
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 04</span>
+                        <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Quality Education</h5>
                       </div>
                     </div>
+                    <p className="text-[11.5px] text-slate-200 leading-relaxed m-0">Outcome-based learning, autonomous curricula, student research grants, and international summer universities.</p>
                   </div>
 
+                  <div className="p-3.5 sm:p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-lg bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shrink-0">
+                        <Users className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 10</span>
+                        <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Reduced Inequalities</h5>
+                      </div>
+                    </div>
+                    <p className="text-[11.5px] text-slate-200 leading-relaxed m-0">Rights-based social justice, child protection nodal desks, and inclusive tribal/rural development programmes.</p>
+                  </div>
+
+                  <div className="p-3.5 sm:p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-lg bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shrink-0">
+                        <Globe className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 17</span>
+                        <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Global Partnerships</h5>
+                      </div>
+                    </div>
+                    <p className="text-[11.5px] text-slate-200 leading-relaxed m-0">Active collaborations with 60+ universities across 30 countries and international conference hosting (DYUTI/ICSD).</p>
+                  </div>
                 </div>
               </div>
-            )}
 
-            {activeTab === 'global' && (
-              /* Tab 3: Global Standing Content (Compact 2-Column Wide Layout) */
-              <div className="space-y-6 relative z-10 animate-fadeIn">
-
-                {/* Top Header Row */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-white/15">
-                  <div className="space-y-2 max-w-4xl">
-                    <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/15 border border-white/25 text-amber-300 text-[11px] font-mono font-black uppercase tracking-[0.16em]">
-                      <span>Global Standing</span>
-                    </div>
-
-                    <h2 className="text-2xl sm:text-3xl lg:text-[2.25rem] font-heading font-black text-white leading-tight tracking-tight m-0">
-                      SDG &amp; Global Impact
-                    </h2>
-                  </div>
-
-                  <div className="shrink-0">
-                    <div className="px-4 py-2 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-center shadow-md">
-                      <span className="text-xl sm:text-2xl font-heading font-extrabold text-amber-300 block">SDG 3</span>
-                      <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200">Global Band 601–800</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 2-Column Side-by-Side Grid (Narrative Left, 4 SDG Focus Cards Right) */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-
-                  {/* Left Column: THE Highlight Banner & Narrative */}
-                  <div className="lg:col-span-5 space-y-4">
-                    {/* THE Impact Rankings Box */}
-                    <div className="p-4 sm:p-5 rounded-2xl bg-amber-400 text-slate-950 shadow-lg border border-amber-300">
-                      <span className="text-[10px] font-mono font-black uppercase tracking-[0.18em] text-slate-900 block mb-0.5">
-                        Times Higher Education Impact Rankings 2026
-                      </span>
-                      <h3 className="font-heading text-lg sm:text-xl font-black leading-tight text-slate-950 m-0 mb-1">
-                        Global Band 601&ndash;800 for SDG 3 (Good Health &amp; Well-Being)
-                      </h3>
-                      <p className="text-slate-900 text-xs sm:text-[13px] font-sans font-medium leading-relaxed m-0">
-                        Recognising Rajagiri&apos;s institutional commitment to public health, community psycho-social wellbeing, mental health services, and frontline health outreach.
-                      </p>
-                    </div>
-
-                    <div className="space-y-3 text-[14px] sm:text-[15px] text-slate-100 leading-relaxed font-sans font-medium">
-                      <p className="m-0">
-                        Rajagiri has earned international distinction in the <strong className="text-amber-300 font-bold">Times Higher Education (THE) Impact Rankings 2026</strong>, benchmarked against the United Nations Sustainable Development Goals.
-                      </p>
-                      <p className="m-0 text-slate-200">
-                        Through active community engagement, multidisciplinary research centres, and global academic partnerships across 30+ countries, the college fosters impactful health, education, and social sustainability initiatives.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Right Column: 4 SDG Focus Cards */}
-                  <div className="lg:col-span-7 space-y-3 lg:border-l lg:border-white/15 lg:pl-6">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="w-3 h-0.5 bg-amber-300" />
-                      <h4 className="text-xs font-mono font-black uppercase tracking-[0.18em] text-amber-300 m-0">
-                        UN Sustainable Development Goals &bull; Institutional Alignment
-                      </h4>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div className="p-3.5 sm:p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-lg bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shrink-0">
-                            <Heart className="w-4 h-4" />
-                          </div>
-                          <div>
-                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 03</span>
-                            <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Good Health &amp; Well-Being</h5>
-                          </div>
-                        </div>
-                        <p className="text-[11.5px] text-slate-200 leading-relaxed m-0">Community mental health counselling, de-addiction research cell &amp; adolescent psycho-social interventions.</p>
-                      </div>
-
-                      <div className="p-3.5 sm:p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-lg bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shrink-0">
-                            <BookOpen className="w-4 h-4" />
-                          </div>
-                          <div>
-                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 04</span>
-                            <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Quality Education</h5>
-                          </div>
-                        </div>
-                        <p className="text-[11.5px] text-slate-200 leading-relaxed m-0">Outcome-based learning, autonomous curricula, student research grants, and international summer universities.</p>
-                      </div>
-
-                      <div className="p-3.5 sm:p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-lg bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shrink-0">
-                            <Users className="w-4 h-4" />
-                          </div>
-                          <div>
-                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 10</span>
-                            <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Reduced Inequalities</h5>
-                          </div>
-                        </div>
-                        <p className="text-[11.5px] text-slate-200 leading-relaxed m-0">Rights-based social justice, child protection nodal desks, and inclusive tribal/rural development programmes.</p>
-                      </div>
-
-                      <div className="p-3.5 sm:p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-lg bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shrink-0">
-                            <Globe className="w-4 h-4" />
-                          </div>
-                          <div>
-                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 17</span>
-                            <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Global Partnerships</h5>
-                          </div>
-                        </div>
-                        <p className="text-[11.5px] text-slate-200 leading-relaxed m-0">Active collaborations with 60+ universities across 30 countries and international conference hosting (DYUTI/ICSD).</p>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-              </div>
-            )}
-
+            </div>
           </div>
         </div>
 
