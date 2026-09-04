@@ -215,15 +215,15 @@ export const Rajagiri: React.FC = () => {
                 </div>
 
                 {/* Institutional Heritage & Vision Motto Box */}
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-amber-400 text-slate-950 shadow-lg border border-amber-300 flex items-center gap-3.5">
-                  <div className="w-11 h-11 rounded-xl bg-slate-950/10 border border-slate-950/15 flex items-center justify-center text-slate-950 shrink-0 font-heading font-black text-lg shadow-inner">
+                <div className="p-3.5 sm:p-4 rounded-2xl bg-blue-950/70 text-white shadow-lg border border-blue-400/30 backdrop-blur-md flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-xl bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shrink-0 font-heading font-black text-lg shadow-inner">
                     RCSS
                   </div>
                   <div>
-                    <h4 className="font-heading font-black text-sm sm:text-base text-slate-950 m-0 leading-tight">
+                    <h4 className="font-heading font-black text-sm sm:text-base text-white m-0 leading-tight">
                       &ldquo;Relentlessly Towards Excellence&rdquo; &bull; Est. 1955
                     </h4>
-                    <p className="text-[12px] text-slate-900 font-sans font-medium m-0 mt-0.5 leading-snug">
+                    <p className="text-[12px] text-slate-200 font-sans font-medium m-0 mt-0.5 leading-snug">
                       70+ years of pedagogical innovation, autonomous academic rigor, and transformative community impact.
                     </p>
                   </div>
@@ -304,14 +304,14 @@ export const Rajagiri: React.FC = () => {
               {/* Left Column: THE Highlight Banner & Narrative */}
               <div className="lg:col-span-5 space-y-4">
                 {/* THE Impact Rankings Box */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-amber-400 text-slate-950 shadow-lg border border-amber-300">
-                  <span className="text-[10px] font-mono font-black uppercase tracking-[0.18em] text-slate-900 block mb-0.5">
+                <div className="p-4 sm:p-5 rounded-2xl bg-blue-950/70 text-white shadow-lg border border-blue-400/30 backdrop-blur-md">
+                  <span className="text-[10px] font-mono font-black uppercase tracking-[0.18em] text-amber-300 block mb-0.5">
                     Times Higher Education Impact Rankings 2026
                   </span>
-                  <h3 className="font-heading text-lg sm:text-xl font-black leading-tight text-slate-950 m-0 mb-1">
+                  <h3 className="font-heading text-lg sm:text-xl font-black leading-tight text-white m-0 mb-1">
                     Global Band 601&ndash;800 for SDG 3 (Good Health &amp; Well-Being)
                   </h3>
-                  <p className="text-slate-900 text-xs sm:text-[13px] font-sans font-medium leading-relaxed m-0">
+                  <p className="text-slate-200 text-xs sm:text-[13px] font-sans font-medium leading-relaxed m-0">
                     Recognising Rajagiri&apos;s institutional commitment to public health, community psycho-social wellbeing, mental health services, and frontline health outreach.
                   </p>
                 </div>
@@ -517,8 +517,8 @@ export const Rajagiri: React.FC = () => {
               </div>
 
               {/* Conferences Bottom Banner */}
-              <div className="pt-4 border-t border-slate-700/60 mt-5">
-                <div className="p-3.5 rounded-xl bg-slate-950/45 border border-slate-800/40">
+              <div className="pt-4 border-t border-white/15 mt-5">
+                <div className="p-3.5 rounded-xl bg-blue-950/60 border border-blue-400/25 backdrop-blur-sm">
                   <span className="text-xs sm:text-[12.5px] text-slate-200 font-sans font-normal leading-snug block">
                     <strong className="text-amber-300 uppercase tracking-wider font-mono text-[10.5px] block sm:inline sm:mr-2">Conferences:</strong>
                     25 Years of Internationalisation (DYUTI 2024) &bull; 24th ICSD Biennial (DYUTI 2025) &bull; 10th International Summer University &bull; DYUTI 2027 (26th National Conference)

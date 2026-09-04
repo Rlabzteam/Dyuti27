@@ -168,8 +168,8 @@ export const Accommodation: React.FC = () => {
           </div>
         </div>
 
-        {/* ── HOSPITALITY DESK SUPPORT FOOTER ── */}
-        <div className="rounded-[20px] p-8 sm:p-12 lg:p-14 bg-gradient-to-br from-[#071A33] to-[#140020] border border-slate-800/10 text-white shadow-md">
+        {/* ── HOSPITALITY DESK SUPPORT FOOTER (Deep Navy Blue Box) ── */}
+        <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-8 sm:p-12 lg:p-14 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] border border-white/20 text-white shadow-2xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
 
             <div className="lg:col-span-8">
