@@ -142,37 +142,37 @@ export const Rajagiri: React.FC = () => {
 
       <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-2 sm:px-4 pb-16 sm:pb-20 lg:pb-24">
 
-        {/* ── 6 SIGNATURE CARDS (KEY ACCREDITATIONS & NATIONAL RANKINGS) ── */}
+        {/* ── 6 SIGNATURE CARDS (SHORT HORIZONTAL LENGTH / PROMINENT VERTICAL HEIGHT) ── */}
         <div className="mb-12 sm:mb-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3.5 sm:gap-4.5">
             {keyStats.map((item, idx) => (
               <div
                 key={idx}
-                className={`group relative w-full rounded-[24px] sm:rounded-[30px] rounded-tl-[48px] sm:rounded-tl-[60px] rounded-br-[48px] sm:rounded-br-[60px] bg-gradient-to-br ${item.bgGradient} p-6 sm:p-7 flex flex-col justify-between text-white border border-white/20 shadow-xl hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 overflow-hidden`}
+                className={`group relative w-full rounded-[22px] sm:rounded-[28px] rounded-tl-[42px] sm:rounded-tl-[52px] rounded-br-[42px] sm:rounded-br-[52px] bg-gradient-to-br ${item.bgGradient} p-5 sm:p-6 flex flex-col justify-between text-white border border-white/20 shadow-xl hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 overflow-hidden min-h-[260px] sm:min-h-[290px]`}
               >
                 {/* Subtle internal shine overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-60 pointer-events-none" />
 
                 {/* Top Row: Bold Category Badge */}
-                <div className="flex items-center justify-between mb-4 relative z-10">
-                  <span className={`text-[11px] font-mono font-black uppercase tracking-[0.18em] px-3.5 py-1 rounded-full border shadow-xs ${item.badgeBg}`}>
+                <div className="flex items-center justify-between mb-3 relative z-10">
+                  <span className={`text-[10px] sm:text-[10.5px] font-mono font-black uppercase tracking-[0.16em] px-2.5 py-1 rounded-full border shadow-xs ${item.badgeBg}`}>
                     {item.badge}
                   </span>
                 </div>
 
                 {/* Middle Row: Extra Bold Stat Number & Label */}
-                <div className="my-1 relative z-10">
-                  <div className={`font-heading text-[2.5rem] sm:text-[3rem] font-black ${item.accentColor} leading-none tracking-tight tabular-nums group-hover:scale-105 transition-transform duration-300 origin-left`}>
+                <div className="my-1.5 relative z-10">
+                  <div className={`font-heading text-[2rem] sm:text-[2.4rem] font-black ${item.accentColor} leading-none tracking-tight tabular-nums group-hover:scale-105 transition-transform duration-300 origin-left`}>
                     {item.number}
                   </div>
-                  <div className="text-[16px] sm:text-[17.5px] font-sans font-black text-white leading-snug mt-2">
+                  <div className="text-[14.5px] sm:text-[15.5px] font-sans font-black text-white leading-snug mt-2">
                     {item.label}
                   </div>
                 </div>
 
                 {/* Bottom Row: Subtitle */}
-                <div className="pt-3.5 border-t border-white/20 mt-3.5 relative z-10">
-                  <div className="text-[12.5px] sm:text-[13px] font-sans text-slate-100 font-bold leading-relaxed">
+                <div className="pt-3 border-t border-white/20 mt-3 relative z-10">
+                  <div className="text-[11.5px] sm:text-[12px] font-sans text-slate-100 font-medium leading-relaxed">
                     {item.sub}
                   </div>
                 </div>
@@ -248,80 +248,75 @@ export const Rajagiri: React.FC = () => {
                   </div>
                 </div>
                   
-                {/* 2-Column Side-by-Side Grid (lg:col-span-7 Left Narrative, lg:col-span-5 Right Pillars & Highlights) */}
+                {/* 2-Column Side-by-Side Grid (lg:col-span-7 Left Narrative, lg:col-span-5 Right Pillars) */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
-                  {/* Left Column: Full 3 Narrative Paragraphs (Verbatim) */}
-                  <div className="lg:col-span-7 space-y-3.5 text-[13.5px] sm:text-[14px] text-slate-100 leading-relaxed font-sans font-medium">
-                    <p className="m-0">
-                      <strong className="text-white font-bold">Rajagiri College of Social Sciences (Autonomous), Kalamassery</strong>, established in 1955 by the Carmelites of Mary Immaculate (CMI) Congregation, is one of India&apos;s premier institutions for higher education. Guided by its motto, <em className="text-amber-300 italic font-semibold">&ldquo;Relentlessly Towards Excellence&rdquo;</em>, the college has built a legacy of academic distinction, innovation, and social commitment. Conferred autonomous status by the University Grants Commission (UGC) in 2014, the institution continues to enjoy autonomous status up to the academic year 2029&ndash;30. Rajagiri College of Social Sciences was ranked 12th among colleges in India by the National Institutional Ranking Framework (NIRF) 2025 and the 1st in Kerala under the Kerala Institutional Ranking Framework (KIRF) 2025. The institution is accredited with an A++ grade by the National Assessment and Accreditation Council (NAAC) with a CGPA of 3.83. Rajagiri has also earned international recognition by being placed in the 601&ndash;800 global band for SDG 3 (Good Health and Well-being) in the Times Higher Education Impact Rankings 2026. Rajagiri was also granted the status of &lsquo;College with Potential for Excellence&rsquo; (CPE) by the University Grants Commission (UGC) in 2016.
-                    </p>
+                  {/* Left Column: Focused Narrative & Vision Motto Box */}
+                  <div className="lg:col-span-7 space-y-4">
+                    <div className="space-y-3 text-[14px] sm:text-[14.5px] text-slate-100 leading-relaxed font-sans font-medium">
+                      <p className="m-0">
+                        <strong className="text-white font-bold">Rajagiri College of Social Sciences (Autonomous), Kalamassery</strong>, established in 1955 by the Carmelites of Mary Immaculate (CMI) Congregation, is one of India&apos;s premier institutions for higher education. Guided by its motto, <em className="text-amber-300 italic font-semibold">&ldquo;Relentlessly Towards Excellence&rdquo;</em>, the college has built a rich legacy of academic distinction, innovation, and social commitment.
+                      </p>
 
-                    <p className="m-0 text-slate-200">
-                      Rajagiri with its vision of <em className="text-amber-300 italic">&lsquo;becoming a centre of excellence in learning for enriching and fulfilling LIFE&rsquo;</em> has been regularly providing an annual forum for deliberations on vital issues of development from a Rights perspective.
-                    </p>
+                      <p className="m-0 text-slate-200">
+                        Rajagiri with its vision of <em className="text-amber-300 italic">&lsquo;becoming a centre of excellence in learning for enriching and fulfilling LIFE&rsquo;</em> has been regularly providing an annual forum for deliberations on vital issues of development from a Rights perspective.
+                      </p>
 
-                    <p className="m-0 text-slate-200">
-                      The term &ldquo;Rajagiri&rdquo; translates to &ldquo;Hill of the King,&rdquo; symbolizing the heights of learning and developmental yearning. True to its acronym <strong className="text-white font-bold">DYUTI</strong> (&ldquo;Spark of Life&rdquo;), the institution fosters developmental dialogues that bridge academic theory with transformative field practice.
-                    </p>
-                  </div>
-
-                  {/* Right Column: Institutional Vision Banner & Foundational Pillars */}
-                  <div className="lg:col-span-5 space-y-4 lg:border-l lg:border-white/15 lg:pl-6">
-                    {/* Featured Institutional Vision Banner */}
-                    <div className="p-4 sm:p-5 rounded-2xl bg-amber-400 text-slate-950 shadow-lg border border-amber-300 space-y-1.5">
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="text-[10px] font-mono font-black uppercase tracking-[0.18em] text-slate-900 block">
-                          Academic &bull; Research &bull; Outreach
-                        </span>
-                        <span className="px-2.5 py-0.5 rounded-full bg-slate-950/15 text-slate-950 text-[10px] font-mono font-black">
-                          Est. 1955
-                        </span>
-                      </div>
-                      <h4 className="font-heading font-black text-base sm:text-lg text-slate-950 m-0 leading-tight">
-                        &ldquo;Relentlessly Towards Excellence&rdquo;
-                      </h4>
-                      <p className="text-slate-900 text-xs sm:text-[12.5px] font-sans font-medium leading-relaxed m-0">
-                        Pioneering higher education, autonomous academic rigor, and impactful developmental dialogues bridging classroom theory with grassroots social change.
+                      <p className="m-0 text-slate-200">
+                        The term &ldquo;Rajagiri&rdquo; translates to &ldquo;Hill of the King,&rdquo; symbolizing the heights of learning and developmental yearning. True to its acronym <strong className="text-white font-bold">DYUTI</strong> (&ldquo;Spark of Life&rdquo;), the institution fosters developmental dialogues that bridge academic theory with transformative field practice.
                       </p>
                     </div>
 
-                    {/* Foundational Institutional Pillars */}
-                    <div className="space-y-2.5">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="w-3 h-0.5 bg-amber-300" />
-                        <h4 className="text-xs font-mono font-black uppercase tracking-[0.18em] text-amber-300 m-0">
-                          Foundational Institutional Pillars
-                        </h4>
+                    {/* Institutional Heritage & Vision Motto Box */}
+                    <div className="p-3.5 sm:p-4 rounded-2xl bg-amber-400 text-slate-950 shadow-lg border border-amber-300 flex items-center gap-3.5">
+                      <div className="w-11 h-11 rounded-xl bg-slate-950/10 border border-slate-950/15 flex items-center justify-center text-slate-950 shrink-0 font-heading font-black text-lg shadow-inner">
+                        RCSS
                       </div>
-
-                      <div className="space-y-2">
-                        <div className="p-3 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1 hover:bg-white/15 transition-colors">
-                          <div className="flex items-center justify-between">
-                            <h5 className="font-heading font-bold text-xs sm:text-sm text-white m-0">Pedagogical Innovation</h5>
-                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300">Pillar 01</span>
-                          </div>
-                          <p className="text-[11px] text-slate-200 leading-snug m-0">70+ years pioneering standards, curriculum development, and academic excellence across disciplines in India.</p>
-                        </div>
-
-                        <div className="p-3 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1 hover:bg-white/15 transition-colors">
-                          <div className="flex items-center justify-between">
-                            <h5 className="font-heading font-bold text-xs sm:text-sm text-white m-0">Autonomous Excellence</h5>
-                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300">Pillar 02</span>
-                          </div>
-                          <p className="text-[11px] text-slate-200 leading-snug m-0">Conferred UGC Autonomy (2014–2030) and CPE status, enabling dynamic industry-aligned curricula and global research partnerships.</p>
-                        </div>
-
-                        <div className="p-3 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1 hover:bg-white/15 transition-colors">
-                          <div className="flex items-center justify-between">
-                            <h5 className="font-heading font-bold text-xs sm:text-sm text-white m-0">Grassroots Impact</h5>
-                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300">Pillar 03</span>
-                          </div>
-                          <p className="text-[11px] text-slate-200 leading-snug m-0">Community live labs, child protection desks, and rights-based field action translating classroom theory into measurable social good.</p>
-                        </div>
+                      <div>
+                        <h4 className="font-heading font-black text-sm sm:text-base text-slate-950 m-0 leading-tight">
+                          &ldquo;Relentlessly Towards Excellence&rdquo; &bull; Est. 1955
+                        </h4>
+                        <p className="text-[12px] text-slate-900 font-sans font-medium m-0 mt-0.5 leading-snug">
+                          70+ years of pedagogical innovation, autonomous academic rigor, and transformative community impact.
+                        </p>
                       </div>
                     </div>
+                  </div>
 
+                  {/* Right Column: Foundational Institutional Pillars */}
+                  <div className="lg:col-span-5 space-y-3 lg:border-l lg:border-white/15 lg:pl-6">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="w-3 h-0.5 bg-amber-300" />
+                      <h4 className="text-xs font-mono font-black uppercase tracking-[0.18em] text-amber-300 m-0">
+                        Foundational Institutional Pillars
+                      </h4>
+                    </div>
+
+                    <div className="space-y-2.5">
+                      <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1 hover:bg-white/15 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <h5 className="font-heading font-bold text-sm text-white m-0">Pedagogical Innovation</h5>
+                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300">Pillar 01</span>
+                        </div>
+                        <p className="text-[11.5px] text-slate-200 leading-snug m-0">70+ years pioneering standards, curriculum development, and academic excellence across higher education in India.</p>
+                      </div>
+
+                      <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1 hover:bg-white/15 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <h5 className="font-heading font-bold text-sm text-white m-0">Autonomous Excellence</h5>
+                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300">Pillar 02</span>
+                        </div>
+                        <p className="text-[11.5px] text-slate-200 leading-snug m-0">Conferred UGC Autonomy (2014–2030) and CPE status, enabling dynamic industry-aligned curricula and global research partnerships.</p>
+                      </div>
+
+                      <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1 hover:bg-white/15 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <h5 className="font-heading font-bold text-sm text-white m-0">Grassroots Impact</h5>
+                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300">Pillar 03</span>
+                        </div>
+                        <p className="text-[11.5px] text-slate-200 leading-snug m-0">Community live labs, child protection desks, and rights-based field action translating classroom theory into measurable social good.</p>
+                      </div>
+                    </div>
                   </div>
 
                 </div>
@@ -460,10 +455,10 @@ export const Rajagiri: React.FC = () => {
 
                     <div className="space-y-3 text-[14px] sm:text-[15px] text-slate-100 leading-relaxed font-sans font-medium">
                       <p className="m-0">
-                        Rajagiri has earned international recognition by being placed in the <strong className="text-amber-300 font-black">601&ndash;800 global band for SDG 3 (Good Health and Well-being)</strong> in the Times Higher Education Impact Rankings 2026.
+                        Rajagiri has earned international distinction in the <strong className="text-amber-300 font-bold">Times Higher Education (THE) Impact Rankings 2026</strong>, benchmarked against the United Nations Sustainable Development Goals.
                       </p>
-                      <p className="m-0">
-                        With world-class infrastructure, multidisciplinary academic programmes, dedicated research centres, live labs (extension departments), and a deep commitment to social sustainability, Rajagiri continues to set benchmarks in higher education globally.
+                      <p className="m-0 text-slate-200">
+                        Through active community engagement, multidisciplinary research centres, and global academic partnerships across 30+ countries, the college fosters impactful health, education, and social sustainability initiatives.
                       </p>
                     </div>
                   </div>
@@ -565,11 +560,8 @@ export const Rajagiri: React.FC = () => {
               </div>
             </div>
 
-            {/* Narrative & Badges in Wide Layout */}
+            {/* Narrative & Badges in Wide Layout (Streamlined, Non-Repetitive) */}
             <div className="space-y-3 text-[14px] sm:text-[15px] text-slate-100 leading-relaxed font-sans font-medium max-w-5xl">
-              <p className="m-0">
-                The institution has also received many national recognitions, including the <strong className="text-amber-300 font-bold">India Elite Education &amp; Institutional Excellence Award 2024</strong>, <strong className="text-amber-300 font-bold">Eat Right Campus Award by FSSAI (2025–2027)</strong>, <strong className="text-amber-300 font-bold">Green Institution Certification from the Haritha Keralam Mission</strong>, and the <strong className="text-amber-300 font-bold">Best NSS Unit Award (2023–24)</strong>.
-              </p>
               <p className="m-0">
                 With excellent infrastructure, multidisciplinary academic programmes, international collaborations, research centres, placement opportunities, live labs (extension departments), and a strong commitment to innovation, sustainability, and community engagement, Rajagiri continues to set benchmarks in higher education at the national and international levels.
               </p>

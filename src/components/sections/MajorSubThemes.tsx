@@ -28,40 +28,63 @@ export const MajorSubThemes: React.FC = () => {
   return (
     <section
       id="themes"
-      className="py-16 sm:py-24 bg-[#FDFBF7] text-slate-900 border-b border-slate-300 relative overflow-hidden"
-      aria-label="Conference Major Sub-Themes"
+      className="bg-[#FDFBF7] text-slate-900 border-b border-slate-200 relative py-20 sm:py-28 lg:py-32 overflow-hidden"
+      aria-labelledby="themes-heading"
     >
       {/* Background Graphic Ornaments */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-[#071A33]/5 blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/2 right-0 w-96 h-96 rounded-full bg-[#071A33]/5 blur-[100px] pointer-events-none" />
 
-      <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-2 sm:px-4 space-y-10 sm:space-y-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
 
-        {/* ── HEADER & SEARCH ── */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-slate-300">
-          <div>
-            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#071A33] text-white text-xs font-mono font-black uppercase tracking-[0.2em] mb-4 shadow-md">
-              <Layers className="w-3.5 h-3.5 mr-2 text-amber-300" />
-              <span>Eight Conference Sub-Themes</span>
+        {/* ── TOP SECTION ANNOTATION BAR ── */}
+        <div className="flex items-center justify-between pb-5 mb-12 sm:mb-16 border-b border-slate-300">
+          <div className="inline-flex items-center px-5 py-2 rounded-full bg-amber-400 text-slate-950 text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] shadow-md">
+            <span>Eight Sub-Themes &bull; Focus Research Tracks</span>
+          </div>
+          <span className="text-[11px] font-sans uppercase tracking-[0.14em] text-slate-800 font-bold hidden sm:inline">
+            Multidisciplinary Strands for Academic Discourse
+          </span>
+        </div>
+
+        {/* ── SECTION HEADER ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-14 lg:mb-20 items-end">
+          <div className="lg:col-span-7">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-5 h-0.5 bg-[#071A33]" />
+              <span className="text-[11.5px] font-sans uppercase tracking-[0.18em] font-black text-[#071A33]">
+                Conference Sub-Themes &amp; Topics
+              </span>
             </div>
-
-            <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#071A33] tracking-tight">
-              THEMATIC AREAS
+            <h2
+              id="themes-heading"
+              className="text-[2.25rem] sm:text-[3rem] lg:text-[3.5rem] font-heading font-black text-[#071A33] leading-[1.08] tracking-tight m-0"
+            >
+              Thematic areas &amp; focus tracks.
             </h2>
-            <p className="text-sm sm:text-base text-slate-600 font-sans font-medium mt-1 max-w-2xl">
-              Deliberating across 8 pivotal sub-themes on <em>Sustainable Communities</em>. Authors and researchers are invited to submit abstracts aligned with these focus tracks.
+            <p className="text-sm sm:text-base text-slate-800 font-sans font-medium mt-4 max-w-[620px] leading-relaxed">
+              Deliberating across 8 pivotal sub-themes on sustainable development. Authors, practitioners, and researchers are invited to submit abstracts aligned with these focus tracks.
             </p>
           </div>
 
-          {/* Search Box */}
-          <div className="relative w-full max-w-sm">
-            <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search sub-themes or topics..."
-              className="w-full pl-10 pr-4 py-3 rounded-full bg-white border border-slate-300 text-sm text-slate-900 font-medium placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#071A33] focus:border-transparent transition-all shadow-sm"
-            />
+          <div className="lg:col-span-5 flex flex-col items-start lg:items-end gap-3.5">
+            {/* Search Box */}
+            <div className="relative w-full max-w-sm">
+              <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search sub-themes or topics..."
+                className="w-full pl-10 pr-4 py-2.5 rounded-full bg-white border border-slate-300 text-sm text-slate-900 font-medium placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#071A33] focus:border-transparent transition-all shadow-xs"
+              />
+            </div>
+            <Link
+              to="/call-for-papers"
+              className="group inline-flex items-center gap-2 text-[12px] font-sans uppercase tracking-[0.14em] font-black text-[#071A33] hover:text-amber-600 transition-colors"
+            >
+              <span>Explore Call for Papers &amp; Guidelines</span>
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
           </div>
         </div>
 
@@ -78,8 +101,8 @@ export const MajorSubThemes: React.FC = () => {
                 key={theme.id || index}
                 className={`group relative w-full h-full p-6 sm:p-7 flex flex-col justify-between text-white border border-white/20 shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 overflow-hidden bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] ${
                   isAlternate
-                    ? 'rounded-[28px] sm:rounded-[36px] rounded-tr-[56px] sm:rounded-tr-[68px] rounded-bl-[56px] sm:rounded-bl-[68px]'
-                    : 'rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[68px] rounded-br-[56px] sm:rounded-br-[68px]'
+                    ? 'rounded-[24px] sm:rounded-[28px] rounded-tr-[48px] sm:rounded-tr-[56px] rounded-bl-[48px] sm:rounded-bl-[56px]'
+                    : 'rounded-[24px] sm:rounded-[28px] rounded-tl-[48px] sm:rounded-tl-[56px] rounded-br-[48px] sm:rounded-br-[56px]'
                 }`}
               >
                 {/* Subtle Ambient Light Glow */}
@@ -120,17 +143,6 @@ export const MajorSubThemes: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Bottom Action / CTA */}
-                <div className="pt-4 mt-6 border-t border-white/15 relative z-10">
-                  <Link
-                    to="/call-for-papers"
-                    className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-amber-300 hover:text-amber-200 uppercase tracking-wider transition-colors group/link"
-                  >
-                    <span>Submit to Track {trackNum}</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-1" />
-                  </Link>
-                </div>
-
               </div>
             );
           })}
@@ -149,10 +161,22 @@ export const MajorSubThemes: React.FC = () => {
           </div>
         )}
 
+        {/* ── FOOTER BAR ── */}
+        <div className="mt-14 pt-8 border-t border-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-2.5 text-xs text-slate-800 font-sans font-medium">
+            <Layers className="w-4 h-4 text-[#071A33] shrink-0" />
+            <span>Interdisciplinary and cross-track paper submissions are actively welcomed.</span>
+          </div>
+          <div className="flex items-center gap-2 text-xs font-mono text-slate-950 font-black">
+            <span>Indexed In: Scopus &bull; UGC-CARE Listed Proceedings</span>
+          </div>
+        </div>
+
       </div>
     </section>
   );
 };
+
 
 
 
