@@ -373,831 +373,738 @@ export const Registration: React.FC = () => {
 
         {/* ── STEP 1: REGISTRATION FORM ── */}
         {step === 'form' && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          <div className="max-w-5xl mx-auto space-y-8 animate-fadeIn">
+            <form onSubmit={handleProceedToReview} className="space-y-8">
 
-            {/* Left Column: Comprehensive Registration Form (8 Cols) */}
-            <div className="lg:col-span-8 space-y-8">
-              <form onSubmit={handleProceedToReview} className="space-y-8">
+              {/* Form Card */}
+              <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-6 sm:p-10 lg:p-14 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white border border-white/20 shadow-2xl relative overflow-hidden">
+                
+                {/* Subtle ambient glow */}
+                <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
 
-                {/* Form Card */}
-                <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-6 sm:p-10 lg:p-12 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white border border-white/20 shadow-2xl relative overflow-hidden">
-                  
-                  {/* Subtle ambient glow */}
-                  <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+                {/* Header inside form */}
+                <div className="mb-8 pb-6 border-b border-white/15 relative z-10">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="w-5 h-0.5 bg-amber-400" />
+                    <span className="text-[11.5px] font-mono font-bold uppercase tracking-[0.2em] text-amber-300">
+                      Section A &bull; Identity &amp; Affiliation
+                    </span>
+                  </div>
+                  <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-black text-white m-0">
+                    Details of the Participant
+                  </h2>
+                  <p className="text-xs sm:text-sm text-slate-200 font-sans mt-2 leading-relaxed">
+                    Please enter your personal and institutional particulars with care. Fields marked with <span className="text-amber-400 font-black">*</span> are mandatory.
+                  </p>
+                </div>
 
-                  {/* Header inside form */}
-                  <div className="mb-8 pb-6 border-b border-white/15 relative z-10">
+                {/* Error Alert Box */}
+                {formError && (
+                  <div className="p-4 rounded-xl bg-red-500/20 border border-red-400/50 text-red-200 text-xs sm:text-sm font-sans flex items-start gap-3 mb-6 animate-fadeIn">
+                    <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+                    <span>{formError}</span>
+                  </div>
+                )}
+
+                <div className="space-y-6 relative z-10 font-sans">
+
+                  {/* 1. Title & 2. Name */}
+                  <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-start">
+                    {/* 1. Title * */}
+                    <div className="sm:col-span-4 space-y-2">
+                      <label htmlFor="title" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+                        1. Title <span className="text-amber-400">*</span>
+                      </label>
+                      <select
+                        id="title"
+                        name="title"
+                        required
+                        value={formData.title}
+                        onChange={handleChange}
+                        className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all cursor-pointer"
+                      >
+                        {TITLE_OPTIONS.map((t) => (
+                          <option key={t} value={t} className="bg-[#071A33] text-white">
+                            {t}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* 2. Name * */}
+                    <div className="sm:col-span-8 space-y-2">
+                      <label htmlFor="name" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+                        2. Full Name <span className="text-amber-400">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        required
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="e.g. Bincy C.C"
+                        className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
+                      />
+                      <span className="text-[11px] text-amber-300/90 font-sans block pt-0.5">
+                        (As you want to appear in the Conference Certificate and other documents)
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* 3. Designation & 4. Gender */}
+                  <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-start">
+                    {/* 3. Designation * */}
+                    <div className="sm:col-span-7 space-y-2">
+                      <label htmlFor="designation" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+                        3. Designation <span className="text-amber-400">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        id="designation"
+                        name="designation"
+                        required
+                        value={formData.designation}
+                        onChange={handleChange}
+                        placeholder="e.g. Assistant Professor / PhD Scholar / Student"
+                        className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
+                      />
+                    </div>
+
+                    {/* 4. Gender * */}
+                    <div className="sm:col-span-5 space-y-2">
+                      <label htmlFor="gender" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+                        4. Gender <span className="text-amber-400">*</span>
+                      </label>
+                      <select
+                        id="gender"
+                        name="gender"
+                        required
+                        value={formData.gender}
+                        onChange={handleChange}
+                        className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all cursor-pointer"
+                      >
+                        <option value="" disabled className="bg-[#071A33] text-slate-400">
+                          Select Gender
+                        </option>
+                        {GENDER_OPTIONS.map((g) => (
+                          <option key={g} value={g} className="bg-[#071A33] text-white">
+                            {g}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* 5. Organization / College / Institution * */}
+                  <div className="space-y-2">
+                    <label htmlFor="organization" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+                      5. Name of the representing Organization / College / Institution / Independent <span className="text-amber-400">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="organization"
+                      name="organization"
+                      required
+                      value={formData.organization}
+                      onChange={handleChange}
+                      placeholder="e.g. Rajagiri College of Social Sciences (Autonomous)"
+                      className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
+                    />
+                  </div>
+
+                  {/* 6. Discipline * */}
+                  <div className="space-y-2">
+                    <label htmlFor="discipline" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+                      6. Discipline <span className="text-amber-400">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="discipline"
+                      name="discipline"
+                      required
+                      value={formData.discipline}
+                      onChange={handleChange}
+                      placeholder="e.g. Social Work, Economics, Public Health, Sociology, Management etc."
+                      className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
+                    />
+                    <span className="text-[11px] text-slate-300 font-sans block pt-0.5">
+                      (for example: Social Work, Economics, Public Health, Psychology, Sociology, Management etc.)
+                    </span>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="pt-6 pb-2 border-t border-white/15">
                     <div className="flex items-center gap-2 mb-2">
                       <span className="w-5 h-0.5 bg-amber-400" />
                       <span className="text-[11.5px] font-mono font-bold uppercase tracking-[0.2em] text-amber-300">
-                        Section A &bull; Identity &amp; Affiliation
+                        Section B &bull; Communication &amp; Contact
                       </span>
                     </div>
-                    <h2 className="font-heading text-2xl sm:text-3xl font-black text-white m-0">
-                      Details of the Participant
-                    </h2>
-                    <p className="text-xs sm:text-sm text-slate-200 font-sans mt-2 leading-relaxed">
-                      Please enter your personal and institutional particulars with care. Fields marked with <span className="text-amber-400 font-black">*</span> are mandatory.
-                    </p>
                   </div>
 
-                  {/* Error Alert Box */}
-                  {formError && (
-                    <div className="p-4 rounded-xl bg-red-500/20 border border-red-400/50 text-red-200 text-xs sm:text-sm font-sans flex items-start gap-3 mb-6 animate-fadeIn">
-                      <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
-                      <span>{formError}</span>
-                    </div>
-                  )}
+                  {/* 7. Address for Communication * */}
+                  <div className="space-y-2">
+                    <label htmlFor="address" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+                      7. Address for Communication (Please provide your Pin code too) <span className="text-amber-400">*</span>
+                    </label>
+                    <textarea
+                      id="address"
+                      name="address"
+                      rows={3}
+                      required
+                      value={formData.address}
+                      onChange={handleChange}
+                      placeholder="Door / Flat No., Department, Street Name, City, State, Country"
+                      className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all resize-none"
+                    />
+                  </div>
 
-                  <div className="space-y-6 relative z-10 font-sans">
-
-                    {/* 1. Title & 2. Name */}
-                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-start">
-                      {/* 1. Title * */}
-                      <div className="sm:col-span-4 space-y-2">
-                        <label htmlFor="title" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
-                          1. Title <span className="text-amber-400">*</span>
-                        </label>
-                        <select
-                          id="title"
-                          name="title"
-                          required
-                          value={formData.title}
-                          onChange={handleChange}
-                          className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all cursor-pointer"
-                        >
-                          {TITLE_OPTIONS.map((t) => (
-                            <option key={t} value={t} className="bg-[#071A33] text-white">
-                              {t}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      {/* 2. Name * */}
-                      <div className="sm:col-span-8 space-y-2">
-                        <label htmlFor="name" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
-                          2. Full Name <span className="text-amber-400">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          id="name"
-                          name="name"
-                          required
-                          value={formData.name}
-                          onChange={handleChange}
-                          placeholder="e.g. Bincy C.C"
-                          className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
-                        />
-                        <span className="text-[11px] text-amber-300/90 font-sans block pt-0.5">
-                          (As you want to appear in the Conference Certificate and other documents)
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* 3. Designation & 4. Gender */}
-                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-start">
-                      {/* 3. Designation * */}
-                      <div className="sm:col-span-7 space-y-2">
-                        <label htmlFor="designation" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
-                          3. Designation <span className="text-amber-400">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          id="designation"
-                          name="designation"
-                          required
-                          value={formData.designation}
-                          onChange={handleChange}
-                          placeholder="e.g. Assistant Professor / PhD Scholar / Student"
-                          className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
-                        />
-                      </div>
-
-                      {/* 4. Gender * */}
-                      <div className="sm:col-span-5 space-y-2">
-                        <label htmlFor="gender" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
-                          4. Gender <span className="text-amber-400">*</span>
-                        </label>
-                        <select
-                          id="gender"
-                          name="gender"
-                          required
-                          value={formData.gender}
-                          onChange={handleChange}
-                          className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all cursor-pointer"
-                        >
-                          <option value="" disabled className="bg-[#071A33] text-slate-400">
-                            Select Gender
-                          </option>
-                          {GENDER_OPTIONS.map((g) => (
-                            <option key={g} value={g} className="bg-[#071A33] text-white">
-                              {g}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-
-                    {/* 5. Organization / College / Institution * */}
+                  {/* Pincode & Contact Number */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 items-start">
+                    {/* Pincode */}
                     <div className="space-y-2">
-                      <label htmlFor="organization" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
-                        5. Name of the representing Organization / College / Institution / Independent <span className="text-amber-400">*</span>
+                      <label htmlFor="pincode" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+                        PIN / Postal Code <span className="text-amber-400">*</span>
                       </label>
                       <input
                         type="text"
-                        id="organization"
-                        name="organization"
+                        id="pincode"
+                        name="pincode"
                         required
-                        value={formData.organization}
+                        value={formData.pincode}
                         onChange={handleChange}
-                        placeholder="e.g. Rajagiri College of Social Sciences (Autonomous)"
+                        placeholder="e.g. 683104"
                         className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
                       />
                     </div>
 
-                    {/* 6. Discipline * */}
+                    {/* 8. Contact Number * */}
                     <div className="space-y-2">
-                      <label htmlFor="discipline" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
-                        6. Discipline <span className="text-amber-400">*</span>
+                      <label htmlFor="phone" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+                        8. Contact Number (Mobile / WhatsApp) <span className="text-amber-400">*</span>
                       </label>
                       <input
-                        type="text"
-                        id="discipline"
-                        name="discipline"
+                        type="tel"
+                        id="phone"
+                        name="phone"
                         required
-                        value={formData.discipline}
+                        value={formData.phone}
                         onChange={handleChange}
-                        placeholder="e.g. Social Work, Economics, Public Health, Sociology, Management etc."
+                        placeholder="e.g. +91 98765 43210"
                         className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
                       />
-                      <span className="text-[11px] text-slate-300 font-sans block pt-0.5">
-                        (for example: Social Work, Economics, Public Health, Psychology, Sociology, Management etc.)
+                    </div>
+                  </div>
+
+                  {/* Email Address */}
+                  <div className="space-y-2">
+                    <label htmlFor="email" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+                      Email Address <span className="text-amber-400">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="e.g. delegate@university.edu"
+                      className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
+                    />
+                    <span className="text-[11px] text-slate-300 font-sans block pt-0.5">
+                      Official conference confirmation and receipt will be dispatched to this email.
+                    </span>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="pt-6 pb-2 border-t border-white/15">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="w-5 h-0.5 bg-amber-400" />
+                      <span className="text-[11.5px] font-mono font-bold uppercase tracking-[0.2em] text-amber-300">
+                        Section C &bull; Preferences &amp; Conference Logistics
                       </span>
                     </div>
+                  </div>
 
-                    {/* Divider */}
-                    <div className="pt-6 pb-2 border-t border-white/15">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="w-5 h-0.5 bg-amber-400" />
-                        <span className="text-[11.5px] font-mono font-bold uppercase tracking-[0.2em] text-amber-300">
-                          Section B &bull; Communication &amp; Contact
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* 7. Address for Communication * */}
-                    <div className="space-y-2">
-                      <label htmlFor="address" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
-                        7. Address for Communication (Please provide your Pin code too) <span className="text-amber-400">*</span>
-                      </label>
-                      <textarea
-                        id="address"
-                        name="address"
-                        rows={3}
-                        required
-                        value={formData.address}
-                        onChange={handleChange}
-                        placeholder="Door / Flat No., Department, Street Name, City, State, Country"
-                        className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all resize-none"
-                      />
-                    </div>
-
-                    {/* Pincode & Contact Number */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 items-start">
-                      {/* Pincode */}
-                      <div className="space-y-2">
-                        <label htmlFor="pincode" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
-                          PIN / Postal Code <span className="text-amber-400">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          id="pincode"
-                          name="pincode"
-                          required
-                          value={formData.pincode}
-                          onChange={handleChange}
-                          placeholder="e.g. 683104"
-                          className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
-                        />
-                      </div>
-
-                      {/* 8. Contact Number * */}
-                      <div className="space-y-2">
-                        <label htmlFor="phone" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
-                          8. Contact Number (Mobile / WhatsApp) <span className="text-amber-400">*</span>
-                        </label>
-                        <input
-                          type="tel"
-                          id="phone"
-                          name="phone"
-                          required
-                          value={formData.phone}
-                          onChange={handleChange}
-                          placeholder="e.g. +91 98765 43210"
-                          className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Email Address */}
-                    <div className="space-y-2">
-                      <label htmlFor="email" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
-                        Email Address <span className="text-amber-400">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="e.g. delegate@university.edu"
-                        className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
-                      />
-                      <span className="text-[11px] text-slate-300 font-sans block pt-0.5">
-                        Official conference confirmation and receipt will be dispatched to this email.
-                      </span>
-                    </div>
-
-                    {/* Divider */}
-                    <div className="pt-6 pb-2 border-t border-white/15">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="w-5 h-0.5 bg-amber-400" />
-                        <span className="text-[11.5px] font-mono font-bold uppercase tracking-[0.2em] text-amber-300">
-                          Section C &bull; Preferences &amp; Conference Logistics
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* 9. Food Preference * */}
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
-                          9. Food Preference <span className="text-amber-400">*</span>
-                        </label>
-                        <span className="text-[11px] font-mono text-amber-300 bg-white/10 px-2.5 py-0.5 rounded-full font-bold">
-                          Required Question
-                        </span>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                        {FOOD_OPTIONS.map((food) => (
-                          <label
-                            key={food.id}
-                            className={`p-4 rounded-xl border flex items-center gap-3.5 cursor-pointer transition-all ${
-                              formData.foodPreference === food.id
-                                ? 'bg-amber-400/20 border-amber-400 text-white shadow-md ring-1 ring-amber-400/40'
-                                : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
-                            }`}
-                          >
-                            <input
-                              type="radio"
-                              name="foodPreference"
-                              value={food.id}
-                              checked={formData.foodPreference === food.id}
-                              onChange={handleChange}
-                              className="accent-amber-400 w-4 h-4 shrink-0"
-                            />
-                            <span className="text-xs sm:text-sm font-sans font-bold leading-normal">
-                              {food.label}
-                            </span>
-                          </label>
-                        ))}
-                      </div>
-
-                      {formData.foodPreference === 'special' && (
-                        <input
-                          type="text"
-                          name="foodDetails"
-                          value={formData.foodDetails}
-                          onChange={handleChange}
-                          placeholder="Please specify your dietary requirements (e.g., Gluten-Free, Vegan, Allergies)"
-                          className="w-full h-12 px-4 rounded-xl bg-white/10 border border-amber-400/60 text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400/20 mt-2"
-                        />
-                      )}
-                    </div>
-
-                    {/* 10. Do you require accommodation? * */}
-                    <div className="space-y-3 pt-2">
-                      <div>
-                        <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200 mb-1">
-                          10. Do you require accommodation? <span className="text-amber-400">*</span>
-                        </label>
-                        <span className="text-xs text-slate-300 font-sans block">
-                          (Moderate Accommodation will be provided on request)
-                        </span>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <label
-                          className={`p-4 rounded-xl border flex items-center justify-center gap-3 cursor-pointer transition-all ${
-                            formData.requireAccommodation === 'yes'
-                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-md ring-1 ring-amber-400/40'
-                              : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
-                          }`}
-                        >
-                          <input
-                            type="radio"
-                            name="requireAccommodation"
-                            value="yes"
-                            checked={formData.requireAccommodation === 'yes'}
-                            onChange={handleChange}
-                            className="accent-amber-400 w-4 h-4 shrink-0"
-                          />
-                          <span className="text-xs sm:text-sm font-sans font-bold text-center">
-                            Yes, I require accommodation
-                          </span>
-                        </label>
-
-                        <label
-                          className={`p-4 rounded-xl border flex items-center justify-center gap-3 cursor-pointer transition-all ${
-                            formData.requireAccommodation === 'no'
-                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-md ring-1 ring-amber-400/40'
-                              : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
-                          }`}
-                        >
-                          <input
-                            type="radio"
-                            name="requireAccommodation"
-                            value="no"
-                            checked={formData.requireAccommodation === 'no'}
-                            onChange={handleChange}
-                            className="accent-amber-400 w-4 h-4 shrink-0"
-                          />
-                          <span className="text-xs sm:text-sm font-sans font-bold text-center">
-                            No, I will arrange my own stay
-                          </span>
-                        </label>
-                      </div>
-                    </div>
-
-                    {/* 11. Are you presenting a paper in the conference? * */}
-                    <div className="space-y-3 pt-2">
+                  {/* 9. Food Preference * */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
                       <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
-                        11. Are you presenting a paper in the conference? <span className="text-amber-400">*</span>
+                        9. Food Preference <span className="text-amber-400">*</span>
+                      </label>
+                      <span className="text-[11px] font-mono text-amber-300 bg-white/10 px-2.5 py-0.5 rounded-full font-bold">
+                        Required Question
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                      {FOOD_OPTIONS.map((food) => (
+                        <label
+                          key={food.id}
+                          className={`p-4 rounded-xl border flex items-center gap-3.5 cursor-pointer transition-all ${
+                            formData.foodPreference === food.id
+                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-md ring-1 ring-amber-400/40'
+                              : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
+                          }`}
+                        >
+                          <input
+                            type="radio"
+                            name="foodPreference"
+                            value={food.id}
+                            checked={formData.foodPreference === food.id}
+                            onChange={handleChange}
+                            className="accent-amber-400 w-4 h-4 shrink-0"
+                          />
+                          <span className="text-xs sm:text-sm font-sans font-bold leading-normal">
+                            {food.label}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+
+                    {formData.foodPreference === 'special' && (
+                      <input
+                        type="text"
+                        name="foodDetails"
+                        value={formData.foodDetails}
+                        onChange={handleChange}
+                        placeholder="Please specify your dietary requirements (e.g., Gluten-Free, Vegan, Allergies)"
+                        className="w-full h-12 px-4 rounded-xl bg-white/10 border border-amber-400/60 text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400/20 mt-2"
+                      />
+                    )}
+                  </div>
+
+                  {/* 10. Do you require accommodation? * */}
+                  <div className="space-y-3 pt-2">
+                    <div>
+                      <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200 mb-1">
+                        10. Do you require accommodation? <span className="text-amber-400">*</span>
+                      </label>
+                      <span className="text-xs text-slate-300 font-sans block">
+                        (Moderate Accommodation will be provided on request)
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <label
+                        className={`p-4 rounded-xl border flex items-center justify-center gap-3 cursor-pointer transition-all ${
+                          formData.requireAccommodation === 'yes'
+                            ? 'bg-amber-400/20 border-amber-400 text-white shadow-md ring-1 ring-amber-400/40'
+                            : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="requireAccommodation"
+                          value="yes"
+                          checked={formData.requireAccommodation === 'yes'}
+                          onChange={handleChange}
+                          className="accent-amber-400 w-4 h-4 shrink-0"
+                        />
+                        <span className="text-xs sm:text-sm font-sans font-bold text-center">
+                          Yes, I require accommodation
+                        </span>
                       </label>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <label
-                          className={`p-4 rounded-xl border flex items-center justify-center gap-3 cursor-pointer transition-all ${
-                            formData.isPresentingPaper === 'yes'
-                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-md ring-1 ring-amber-400/40'
-                              : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
-                          }`}
-                        >
-                          <input
-                            type="radio"
-                            name="isPresentingPaper"
-                            value="yes"
-                            checked={formData.isPresentingPaper === 'yes'}
-                            onChange={handleChange}
-                            className="accent-amber-400 w-4 h-4 shrink-0"
-                          />
-                          <span className="text-xs sm:text-sm font-sans font-bold text-center">
-                            Yes (Author / Presenter)
-                          </span>
-                        </label>
+                      <label
+                        className={`p-4 rounded-xl border flex items-center justify-center gap-3 cursor-pointer transition-all ${
+                          formData.requireAccommodation === 'no'
+                            ? 'bg-amber-400/20 border-amber-400 text-white shadow-md ring-1 ring-amber-400/40'
+                            : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="requireAccommodation"
+                          value="no"
+                          checked={formData.requireAccommodation === 'no'}
+                          onChange={handleChange}
+                          className="accent-amber-400 w-4 h-4 shrink-0"
+                        />
+                        <span className="text-xs sm:text-sm font-sans font-bold text-center">
+                          No, I will arrange my own stay
+                        </span>
+                      </label>
+                    </div>
+                  </div>
 
-                        <label
-                          className={`p-4 rounded-xl border flex items-center justify-center gap-3 cursor-pointer transition-all ${
-                            formData.isPresentingPaper === 'no'
-                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-md ring-1 ring-amber-400/40'
-                              : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
-                          }`}
-                        >
-                          <input
-                            type="radio"
-                            name="isPresentingPaper"
-                            value="no"
-                            checked={formData.isPresentingPaper === 'no'}
-                            onChange={handleChange}
-                            className="accent-amber-400 w-4 h-4 shrink-0"
-                          />
-                          <span className="text-xs sm:text-sm font-sans font-bold text-center">
-                            No (Attendee / Delegate)
-                          </span>
-                        </label>
-                      </div>
+                  {/* 11. Are you presenting a paper in the conference? * */}
+                  <div className="space-y-3 pt-2">
+                    <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+                      11. Are you presenting a paper in the conference? <span className="text-amber-400">*</span>
+                    </label>
 
-                      {formData.isPresentingPaper === 'yes' && (
-                        <div className="p-5 rounded-2xl bg-white/10 border border-white/15 space-y-4 mt-2 animate-fadeIn">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <label
+                        className={`p-4 rounded-xl border flex items-center justify-center gap-3 cursor-pointer transition-all ${
+                          formData.isPresentingPaper === 'yes'
+                            ? 'bg-amber-400/20 border-amber-400 text-white shadow-md ring-1 ring-amber-400/40'
+                            : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="isPresentingPaper"
+                          value="yes"
+                          checked={formData.isPresentingPaper === 'yes'}
+                          onChange={handleChange}
+                          className="accent-amber-400 w-4 h-4 shrink-0"
+                        />
+                        <span className="text-xs sm:text-sm font-sans font-bold text-center">
+                          Yes (Author / Presenter)
+                        </span>
+                      </label>
+
+                      <label
+                        className={`p-4 rounded-xl border flex items-center justify-center gap-3 cursor-pointer transition-all ${
+                          formData.isPresentingPaper === 'no'
+                            ? 'bg-amber-400/20 border-amber-400 text-white shadow-md ring-1 ring-amber-400/40'
+                            : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="isPresentingPaper"
+                          value="no"
+                          checked={formData.isPresentingPaper === 'no'}
+                          onChange={handleChange}
+                          className="accent-amber-400 w-4 h-4 shrink-0"
+                        />
+                        <span className="text-xs sm:text-sm font-sans font-bold text-center">
+                          No (Attendee / Delegate)
+                        </span>
+                      </label>
+                    </div>
+
+                    {formData.isPresentingPaper === 'yes' && (
+                      <div className="p-5 rounded-2xl bg-white/10 border border-white/15 space-y-4 mt-2 animate-fadeIn">
+                        <div className="space-y-1.5">
+                          <label htmlFor="paperTitle" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+                            Paper Title (Optional / As Submitted)
+                          </label>
+                          <input
+                            type="text"
+                            id="paperTitle"
+                            name="paperTitle"
+                            value={formData.paperTitle}
+                            onChange={handleChange}
+                            placeholder="Title of your accepted abstract / paper"
+                            className="w-full h-11 px-4 rounded-lg bg-white/10 border border-white/20 text-white text-xs sm:text-sm focus:outline-none focus:border-amber-400"
+                          />
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div className="space-y-1.5">
-                            <label htmlFor="paperTitle" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
-                              Paper Title (Optional / As Submitted)
+                            <label htmlFor="cmtPaperId" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+                              Microsoft CMT Paper ID (If applicable)
                             </label>
                             <input
                               type="text"
-                              id="paperTitle"
-                              name="paperTitle"
-                              value={formData.paperTitle}
+                              id="cmtPaperId"
+                              name="cmtPaperId"
+                              value={formData.cmtPaperId}
                               onChange={handleChange}
-                              placeholder="Title of your accepted abstract / paper"
+                              placeholder="e.g. CMT-2027-042"
                               className="w-full h-11 px-4 rounded-lg bg-white/10 border border-white/20 text-white text-xs sm:text-sm focus:outline-none focus:border-amber-400"
                             />
                           </div>
 
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div className="space-y-1.5">
-                              <label htmlFor="cmtPaperId" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
-                                Microsoft CMT Paper ID (If applicable)
-                              </label>
-                              <input
-                                type="text"
-                                id="cmtPaperId"
-                                name="cmtPaperId"
-                                value={formData.cmtPaperId}
-                                onChange={handleChange}
-                                placeholder="e.g. CMT-2027-042"
-                                className="w-full h-11 px-4 rounded-lg bg-white/10 border border-white/20 text-white text-xs sm:text-sm focus:outline-none focus:border-amber-400"
-                              />
-                            </div>
-
-                            <div className="space-y-1.5">
-                              <label htmlFor="paperTheme" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
-                                Allocated Sub-Theme Track
-                              </label>
-                              <select
-                                id="paperTheme"
-                                name="paperTheme"
-                                value={formData.paperTheme}
-                                onChange={handleChange}
-                                className="w-full h-11 px-3 rounded-lg bg-[#071A33] border border-white/20 text-white text-xs sm:text-sm focus:outline-none focus:border-amber-400"
-                              >
-                                <option value="">Select Sub-theme</option>
-                                {CONFERENCE_DATA.subThemes.map((st) => (
-                                  <option key={st.id} value={st.title}>
-                                    Track {st.number}: {st.title}
-                                  </option>
-                                ))}
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Divider */}
-                    <div className="pt-6 pb-2 border-t border-white/15">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="w-5 h-0.5 bg-amber-400" />
-                        <span className="text-[11.5px] font-mono font-bold uppercase tracking-[0.2em] text-amber-300">
-                          Section D &bull; Registration Category
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* 12. Registration Category * */}
-                    <div className="space-y-3">
-                      <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
-                        12. Registration Category <span className="text-amber-400">*</span>
-                      </label>
-
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
-                        {/* Option 1: UG / PG Student */}
-                        <div
-                          onClick={() => handleCategorySelect('student')}
-                          className={`p-5 rounded-2xl rounded-tl-3xl rounded-br-3xl border transition-all cursor-pointer flex flex-col justify-between ${
-                            formData.registrationCategory === 'student'
-                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl scale-[1.02] ring-1 ring-amber-400/50'
-                              : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
-                          }`}
-                        >
-                          <div>
-                            <div className="flex items-center justify-between mb-2">
-                              <span className="text-[11px] font-mono uppercase font-black text-amber-300">
-                                Option 01
-                              </span>
-                              <input
-                                type="radio"
-                                name="registrationCategory"
-                                value="student"
-                                checked={formData.registrationCategory === 'student'}
-                                onChange={handleChange}
-                                className="accent-amber-400"
-                              />
-                            </div>
-                            <h4 className="font-heading font-black text-base text-white mb-1">
-                              UG / PG Student
-                            </h4>
-                            <p className="text-xs text-slate-200 font-sans leading-relaxed mb-3">
-                              Graduate &amp; Postgraduate Students
-                            </p>
-                          </div>
-                          <div className="pt-3 border-t border-white/15 flex items-center justify-between">
-                            <span className="text-[11px] text-slate-300 font-sans uppercase font-bold">Fee</span>
-                            <span className="font-mono text-base font-black text-amber-300">₹ 750</span>
-                          </div>
-                        </div>
-
-                        {/* Option 2: M.Phil / Research Scholars */}
-                        <div
-                          onClick={() => handleCategorySelect('scholar')}
-                          className={`p-5 rounded-2xl rounded-tr-3xl rounded-bl-3xl border transition-all cursor-pointer flex flex-col justify-between ${
-                            formData.registrationCategory === 'scholar'
-                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl scale-[1.02] ring-1 ring-amber-400/50'
-                              : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
-                          }`}
-                        >
-                          <div>
-                            <div className="flex items-center justify-between mb-2">
-                              <span className="text-[11px] font-mono uppercase font-black text-amber-300">
-                                Option 02
-                              </span>
-                              <input
-                                type="radio"
-                                name="registrationCategory"
-                                value="scholar"
-                                checked={formData.registrationCategory === 'scholar'}
-                                onChange={handleChange}
-                                className="accent-amber-400"
-                              />
-                            </div>
-                            <h4 className="font-heading font-black text-base text-white mb-1">
-                              M.Phil / Research Scholars
-                            </h4>
-                            <p className="text-xs text-slate-200 font-sans leading-relaxed mb-3">
-                              Full-time &amp; PhD Research Scholars
-                            </p>
-                          </div>
-                          <div className="pt-3 border-t border-white/15 flex items-center justify-between">
-                            <span className="text-[11px] text-slate-300 font-sans uppercase font-bold">Fee</span>
-                            <span className="font-mono text-base font-black text-amber-300">₹ 750</span>
-                          </div>
-                        </div>
-
-                        {/* Option 3: Professionals / Academicians / Practitioners */}
-                        <div
-                          onClick={() => handleCategorySelect('professional')}
-                          className={`p-5 rounded-2xl rounded-tl-3xl rounded-br-3xl border transition-all cursor-pointer flex flex-col justify-between ${
-                            formData.registrationCategory === 'professional'
-                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl scale-[1.02] ring-1 ring-amber-400/50'
-                              : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
-                          }`}
-                        >
-                          <div>
-                            <div className="flex items-center justify-between mb-2">
-                              <span className="text-[11px] font-mono uppercase font-black text-amber-300">
-                                Option 03
-                              </span>
-                              <input
-                                type="radio"
-                                name="registrationCategory"
-                                value="professional"
-                                checked={formData.registrationCategory === 'professional'}
-                                onChange={handleChange}
-                                className="accent-amber-400"
-                              />
-                            </div>
-                            <h4 className="font-heading font-black text-base text-white mb-1">
-                              Professionals / Academicians / Practitioners
-                            </h4>
-                            <p className="text-xs text-slate-200 font-sans leading-relaxed mb-3">
-                              Faculty, NGO &amp; CSR Delegates
-                            </p>
-                          </div>
-                          <div className="pt-3 border-t border-white/15 flex items-center justify-between">
-                            <span className="text-[11px] text-slate-300 font-sans uppercase font-bold">Fee</span>
-                            <span className="font-mono text-base font-black text-amber-300">₹ 1,000</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Divider */}
-                    <div className="pt-6 pb-2 border-t border-white/15">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="w-5 h-0.5 bg-amber-400" />
-                        <span className="text-[11.5px] font-mono font-bold uppercase tracking-[0.2em] text-amber-300">
-                          Section E &bull; Payment Method &amp; Gateway
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Payment Mode Choice */}
-                    <div className="space-y-4">
-                      <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
-                        Choose Payment Method <span className="text-amber-400">*</span>
-                      </label>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
-                        {/* Option 1: Online Payment Gateway */}
-                        <div
-                          onClick={() => setFormData((prev) => ({ ...prev, paymentMode: 'online' }))}
-                          className={`p-5 rounded-2xl rounded-tl-3xl rounded-br-3xl border transition-all cursor-pointer flex flex-col justify-between ${
-                            formData.paymentMode === 'online'
-                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl ring-2 ring-amber-400/40'
-                              : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
-                          }`}
-                        >
-                          <div className="space-y-2">
-                            <div className="flex items-center justify-between">
-                              <span className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase font-black text-amber-300">
-                                <CreditCard className="w-3.5 h-3.5" />
-                                Instant Online
-                              </span>
-                              <input
-                                type="radio"
-                                name="paymentMode"
-                                value="online"
-                                checked={formData.paymentMode === 'online'}
-                                onChange={handleChange}
-                                className="accent-amber-400"
-                              />
-                            </div>
-                            <h4 className="font-heading font-black text-base text-white">
-                              Online Payment Gateway
-                            </h4>
-                            <p className="text-xs text-slate-200 font-sans leading-relaxed">
-                              Pay securely via UPI, Credit/Debit Cards, or NetBanking with instant registration confirmation.
-                            </p>
-                          </div>
-                          <div className="pt-3 mt-3 border-t border-white/15 flex items-center gap-1.5 text-[11px] font-mono text-amber-300">
-                            <ShieldCheck className="w-3.5 h-3.5" />
-                            <span>Vortexx 256-Bit SSL Encrypted</span>
-                          </div>
-                        </div>
-
-                        {/* Option 2: Direct Bank Transfer */}
-                        <div
-                          onClick={() => setFormData((prev) => ({ ...prev, paymentMode: 'bank_transfer' }))}
-                          className={`p-5 rounded-2xl rounded-tr-3xl rounded-bl-3xl border transition-all cursor-pointer flex flex-col justify-between ${
-                            formData.paymentMode === 'bank_transfer'
-                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl ring-2 ring-amber-400/40'
-                              : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
-                          }`}
-                        >
-                          <div className="space-y-2">
-                            <div className="flex items-center justify-between">
-                              <span className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase font-black text-amber-300">
-                                <Building2 className="w-3.5 h-3.5" />
-                                Bank Wire
-                              </span>
-                              <input
-                                type="radio"
-                                name="paymentMode"
-                                value="bank_transfer"
-                                checked={formData.paymentMode === 'bank_transfer'}
-                                onChange={handleChange}
-                                className="accent-amber-400"
-                              />
-                            </div>
-                            <h4 className="font-heading font-black text-base text-white">
-                              NEFT / RTGS / IMPS Transfer
-                            </h4>
-                            <p className="text-xs text-slate-200 font-sans leading-relaxed">
-                              Direct electronic wire transfer to Rajagiri College South Indian Bank account.
-                            </p>
-                          </div>
-                          <div className="pt-3 mt-3 border-t border-white/15 text-[11px] font-mono text-slate-300">
-                            <span>Requires UTR Reference Number</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Transaction Reference / UTR Number (shown if bank transfer or optional) */}
-                      {formData.paymentMode === 'bank_transfer' && (
-                        <div className="p-5 rounded-2xl bg-white/10 border border-amber-400/30 space-y-3 mt-4 animate-fadeIn">
-                          <div className="flex items-center justify-between">
-                            <label htmlFor="transactionRef" className="block text-xs font-mono font-bold uppercase tracking-wider text-amber-300">
-                              NEFT / RTGS / UPI Transaction UTR Reference Number
+                          <div className="space-y-1.5">
+                            <label htmlFor="paperTheme" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+                              Allocated Sub-Theme Track
                             </label>
-                            <span className="text-[10px] font-mono text-amber-300">
-                              Bank Wire Record
-                            </span>
+                            <select
+                              id="paperTheme"
+                              name="paperTheme"
+                              value={formData.paperTheme}
+                              onChange={handleChange}
+                              className="w-full h-11 px-3 rounded-lg bg-[#071A33] border border-white/20 text-white text-xs sm:text-sm focus:outline-none focus:border-amber-400"
+                            >
+                              <option value="">Select Sub-theme</option>
+                              {CONFERENCE_DATA.subThemes.map((st) => (
+                                <option key={st.id} value={st.title}>
+                                  Track {st.number}: {st.title}
+                                </option>
+                              ))}
+                            </select>
                           </div>
-                          <input
-                            type="text"
-                            id="transactionRef"
-                            name="transactionRef"
-                            value={formData.transactionRef}
-                            onChange={handleChange}
-                            placeholder="e.g. UTR1234567890 / SIBL-TXN-987654"
-                            className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-xs sm:text-sm focus:outline-none focus:border-amber-400"
-                          />
-                          <p className="text-[11px] text-slate-200 font-sans m-0 leading-relaxed">
-                            Enter your bank UTR number if already paid. You may also transfer after submitting and email the receipt screenshot to <a href="mailto:dyuti@rajagiri.edu" className="text-amber-300 underline font-mono">dyuti@rajagiri.edu</a>.
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Divider */}
+                  <div className="pt-6 pb-2 border-t border-white/15">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="w-5 h-0.5 bg-amber-400" />
+                      <span className="text-[11.5px] font-mono font-bold uppercase tracking-[0.2em] text-amber-300">
+                        Section D &bull; Registration Category
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* 12. Registration Category * */}
+                  <div className="space-y-3">
+                    <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+                      12. Registration Category <span className="text-amber-400">*</span>
+                    </label>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
+                      {/* Option 1: UG / PG Student */}
+                      <div
+                        onClick={() => handleCategorySelect('student')}
+                        className={`p-5 rounded-2xl rounded-tl-3xl rounded-br-3xl border transition-all cursor-pointer flex flex-col justify-between ${
+                          formData.registrationCategory === 'student'
+                            ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl scale-[1.02] ring-1 ring-amber-400/50'
+                            : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
+                        }`}
+                      >
+                        <div>
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-[11px] font-mono uppercase font-black text-amber-300">
+                              Option 01
+                            </span>
+                            <input
+                              type="radio"
+                              name="registrationCategory"
+                              value="student"
+                              checked={formData.registrationCategory === 'student'}
+                              onChange={handleChange}
+                              className="accent-amber-400"
+                            />
+                          </div>
+                          <h4 className="font-heading font-black text-base text-white mb-1">
+                            UG / PG Student
+                          </h4>
+                          <p className="text-xs text-slate-200 font-sans leading-relaxed mb-3">
+                            Graduate &amp; Postgraduate Students
                           </p>
                         </div>
-                      )}
+                        <div className="pt-3 border-t border-white/15 flex items-center justify-between">
+                          <span className="text-[11px] text-slate-300 font-sans uppercase font-bold">Fee</span>
+                          <span className="font-mono text-base font-black text-amber-300">₹ 750</span>
+                        </div>
+                      </div>
+
+                      {/* Option 2: M.Phil / Research Scholars */}
+                      <div
+                        onClick={() => handleCategorySelect('scholar')}
+                        className={`p-5 rounded-2xl rounded-tr-3xl rounded-bl-3xl border transition-all cursor-pointer flex flex-col justify-between ${
+                          formData.registrationCategory === 'scholar'
+                            ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl scale-[1.02] ring-1 ring-amber-400/50'
+                            : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
+                        }`}
+                      >
+                        <div>
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-[11px] font-mono uppercase font-black text-amber-300">
+                              Option 02
+                            </span>
+                            <input
+                              type="radio"
+                              name="registrationCategory"
+                              value="scholar"
+                              checked={formData.registrationCategory === 'scholar'}
+                              onChange={handleChange}
+                              className="accent-amber-400"
+                            />
+                          </div>
+                          <h4 className="font-heading font-black text-base text-white mb-1">
+                            M.Phil / Research Scholars
+                          </h4>
+                          <p className="text-xs text-slate-200 font-sans leading-relaxed mb-3">
+                            Full-time &amp; PhD Research Scholars
+                          </p>
+                        </div>
+                        <div className="pt-3 border-t border-white/15 flex items-center justify-between">
+                          <span className="text-[11px] text-slate-300 font-sans uppercase font-bold">Fee</span>
+                          <span className="font-mono text-base font-black text-amber-300">₹ 750</span>
+                        </div>
+                      </div>
+
+                      {/* Option 3: Professionals / Academicians / Practitioners */}
+                      <div
+                        onClick={() => handleCategorySelect('professional')}
+                        className={`p-5 rounded-2xl rounded-tl-3xl rounded-br-3xl border transition-all cursor-pointer flex flex-col justify-between ${
+                          formData.registrationCategory === 'professional'
+                            ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl scale-[1.02] ring-1 ring-amber-400/50'
+                            : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
+                        }`}
+                      >
+                        <div>
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-[11px] font-mono uppercase font-black text-amber-300">
+                              Option 03
+                            </span>
+                            <input
+                              type="radio"
+                              name="registrationCategory"
+                              value="professional"
+                              checked={formData.registrationCategory === 'professional'}
+                              onChange={handleChange}
+                              className="accent-amber-400"
+                            />
+                          </div>
+                          <h4 className="font-heading font-black text-base text-white mb-1">
+                            Professionals / Academicians / Practitioners
+                          </h4>
+                          <p className="text-xs text-slate-200 font-sans leading-relaxed mb-3">
+                            Faculty, NGO &amp; CSR Delegates
+                          </p>
+                        </div>
+                        <div className="pt-3 border-t border-white/15 flex items-center justify-between">
+                          <span className="text-[11px] text-slate-300 font-sans uppercase font-bold">Fee</span>
+                          <span className="font-mono text-base font-black text-amber-300">₹ 1,000</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="pt-6 pb-2 border-t border-white/15">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="w-5 h-0.5 bg-amber-400" />
+                      <span className="text-[11.5px] font-mono font-bold uppercase tracking-[0.2em] text-amber-300">
+                        Section E &bull; Payment Method &amp; Gateway
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Payment Mode Choice */}
+                  <div className="space-y-4">
+                    <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+                      Choose Payment Method <span className="text-amber-400">*</span>
+                    </label>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
+                      {/* Option 1: Online Payment Gateway */}
+                      <div
+                        onClick={() => setFormData((prev) => ({ ...prev, paymentMode: 'online' }))}
+                        className={`p-5 rounded-2xl rounded-tl-3xl rounded-br-3xl border transition-all cursor-pointer flex flex-col justify-between ${
+                          formData.paymentMode === 'online'
+                            ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl ring-2 ring-amber-400/40'
+                            : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
+                        }`}
+                      >
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <span className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase font-black text-amber-300">
+                              <CreditCard className="w-3.5 h-3.5" />
+                              Instant Online
+                            </span>
+                            <input
+                              type="radio"
+                              name="paymentMode"
+                              value="online"
+                              checked={formData.paymentMode === 'online'}
+                              onChange={handleChange}
+                              className="accent-amber-400"
+                            />
+                          </div>
+                          <h4 className="font-heading font-black text-base text-white">
+                            Online Payment Gateway
+                          </h4>
+                          <p className="text-xs text-slate-200 font-sans leading-relaxed">
+                            Pay securely via UPI, Credit/Debit Cards, or NetBanking with instant registration confirmation.
+                          </p>
+                        </div>
+                        <div className="pt-3 mt-3 border-t border-white/15 flex items-center gap-1.5 text-[11px] font-mono text-amber-300">
+                          <ShieldCheck className="w-3.5 h-3.5" />
+                          <span>Vortexx 256-Bit SSL Encrypted</span>
+                        </div>
+                      </div>
+
+                      {/* Option 2: Direct Bank Transfer */}
+                      <div
+                        onClick={() => setFormData((prev) => ({ ...prev, paymentMode: 'bank_transfer' }))}
+                        className={`p-5 rounded-2xl rounded-tr-3xl rounded-bl-3xl border transition-all cursor-pointer flex flex-col justify-between ${
+                          formData.paymentMode === 'bank_transfer'
+                            ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl ring-2 ring-amber-400/40'
+                            : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
+                        }`}
+                      >
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <span className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase font-black text-amber-300">
+                              <Building2 className="w-3.5 h-3.5" />
+                              Bank Wire
+                            </span>
+                            <input
+                              type="radio"
+                              name="paymentMode"
+                              value="bank_transfer"
+                              checked={formData.paymentMode === 'bank_transfer'}
+                              onChange={handleChange}
+                              className="accent-amber-400"
+                            />
+                          </div>
+                          <h4 className="font-heading font-black text-base text-white">
+                            NEFT / RTGS / IMPS Transfer
+                          </h4>
+                          <p className="text-xs text-slate-200 font-sans leading-relaxed">
+                            Direct electronic wire transfer to Rajagiri College South Indian Bank account.
+                          </p>
+                        </div>
+                        <div className="pt-3 mt-3 border-t border-white/15 text-[11px] font-mono text-slate-300">
+                          <span>Requires UTR Reference Number</span>
+                        </div>
+                      </div>
                     </div>
 
-                  </div>
-
-                  {/* Submission Action Button */}
-                  <div className="pt-8 mt-8 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4 relative z-10">
-                    <p className="text-xs text-slate-200 font-sans font-medium m-0">
-                      * Next Step: You will be able to cross-check all details before final confirmation.
-                    </p>
-                    <Button
-                      variant="primary"
-                      size="lg"
-                      type="submit"
-                      showArrow
-                      className="w-full sm:w-auto shadow-xl"
-                    >
-                      Cross-Check &amp; Review Details
-                    </Button>
+                    {/* Transaction Reference / UTR Number (shown if bank transfer or optional) */}
+                    {formData.paymentMode === 'bank_transfer' && (
+                      <div className="p-5 rounded-2xl bg-white/10 border border-amber-400/30 space-y-3 mt-4 animate-fadeIn">
+                        <div className="flex items-center justify-between">
+                          <label htmlFor="transactionRef" className="block text-xs font-mono font-bold uppercase tracking-wider text-amber-300">
+                            NEFT / RTGS / UPI Transaction UTR Reference Number
+                          </label>
+                          <span className="text-[10px] font-mono text-amber-300">
+                            Bank Wire Record
+                          </span>
+                        </div>
+                        <input
+                          type="text"
+                          id="transactionRef"
+                          name="transactionRef"
+                          value={formData.transactionRef}
+                          onChange={handleChange}
+                          placeholder="e.g. UTR1234567890 / SIBL-TXN-987654"
+                          className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-xs sm:text-sm focus:outline-none focus:border-amber-400"
+                        />
+                        <p className="text-[11px] text-slate-200 font-sans m-0 leading-relaxed">
+                          Enter your bank UTR number if already paid. You may also transfer after submitting and email the receipt screenshot to <a href="mailto:dyuti@rajagiri.edu" className="text-amber-300 underline font-mono">dyuti@rajagiri.edu</a>.
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                 </div>
-              </form>
-            </div>
 
-            {/* Right Column: Registration Summary Sidebar (4 Cols) */}
-            <div className="lg:col-span-4 lg:sticky lg:top-24 self-start space-y-6">
-
-              {/* 1. Category & Inclusions Card (Curved Leaf Shape) */}
-              <div className="rounded-[24px] sm:rounded-[28px] rounded-tr-[48px] rounded-bl-[48px] p-7 sm:p-8 bg-gradient-to-br from-[#0a2540] via-[#123962] to-[#051424] text-white border border-white/20 shadow-2xl relative overflow-hidden">
-                <span className="text-[11px] font-mono font-black uppercase tracking-[0.2em] text-amber-300 block mb-1">
-                  Selected Category
-                </span>
-                <h3 className="font-heading text-xl text-white font-black mb-1">
-                  {selectedCategory.label}
-                </h3>
-                <span className="inline-block px-3 py-1 rounded-full bg-amber-400 text-slate-950 font-mono text-xs font-black mb-4">
-                  {selectedCategory.fee} / delegate
-                </span>
-
-                <div className="space-y-3 pt-3 border-t border-white/15 text-xs text-slate-100 font-sans font-medium">
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />
-                    <span>Official Conference Kit, Folder &amp; Badge</span>
-                  </div>
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />
-                    <span>Verified Certificate of Presentation / Participation</span>
-                  </div>
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />
-                    <span>Executive Buffet Lunch &amp; Tea on 7 &amp; 8 Jan 2027</span>
-                  </div>
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />
-                    <span>Full Access to Plenaries &amp; 8 Technical Tracks</span>
-                  </div>
+                {/* Submission Action Button */}
+                <div className="pt-8 mt-8 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4 relative z-10">
+                  <p className="text-xs text-slate-200 font-sans font-medium m-0">
+                    * Next Step: You will be able to cross-check all details before final confirmation.
+                  </p>
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    type="submit"
+                    showArrow
+                    className="w-full sm:w-auto shadow-xl"
+                  >
+                    Cross-Check &amp; Review Details
+                  </Button>
                 </div>
+
               </div>
-
-              {/* 2. Official Bank Coordinates Card (Curved Leaf Shape) */}
-              <div className="rounded-[24px] sm:rounded-[28px] rounded-tl-[48px] rounded-br-[48px] p-7 sm:p-8 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white border border-white/20 shadow-2xl space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-white/15">
-                  <div>
-                    <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-300 block mb-0.5">
-                      Bank Wire Gateway
-                    </span>
-                    <h4 className="font-heading text-base font-black text-white m-0">
-                      Official RCSS Account
-                    </h4>
-                  </div>
-                  <Building2 className="w-6 h-6 text-amber-400 shrink-0" />
-                </div>
-
-                <div className="space-y-2.5 text-xs font-sans">
-                  <div>
-                    <span className="text-[10px] text-slate-300 uppercase font-mono font-bold block">Beneficiary Account Name</span>
-                    <strong className="text-white font-bold block">{CONFERENCE_DATA.bankDetails.accountName}</strong>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-300 uppercase font-mono font-bold block">Account Number</span>
-                    <strong className="text-amber-300 font-mono font-black text-sm block tracking-wider">{CONFERENCE_DATA.bankDetails.accountNumber}</strong>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-300 uppercase font-mono font-bold block">Bank &amp; Branch</span>
-                    <strong className="text-white font-bold block">{CONFERENCE_DATA.bankDetails.bank}, Kalamassery</strong>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-amber-400 uppercase font-mono font-bold block">IFSC Code</span>
-                    <strong className="text-amber-300 font-mono font-black text-sm block tracking-wider">{CONFERENCE_DATA.bankDetails.ifsc}</strong>
-                  </div>
-                </div>
-              </div>
-
-              {/* 3. Hospitality & Secretariat Quick Help */}
-              <div className="rounded-2xl p-6 bg-white border border-slate-300 shadow-md space-y-3">
-                <div className="flex items-center gap-2">
-                  <Info className="w-4 h-4 text-[#071A33]" />
-                  <h4 className="font-heading text-sm font-black text-[#071A33] m-0">
-                    Registration Assistance
-                  </h4>
-                </div>
-                <p className="text-xs text-slate-600 font-sans m-0 leading-relaxed">
-                  Have questions regarding your category or accommodation? Connect with the secretariat desk:
-                </p>
-                <div className="pt-2 text-xs font-sans font-medium text-slate-800 space-y-1">
-                  <p className="m-0">Phone: <strong className="font-mono">+91 484-2911 346 / 321</strong></p>
-                  <p className="m-0">Email: <a href="mailto:dyuti@rajagiri.edu" className="text-blue-900 font-bold underline">dyuti@rajagiri.edu</a></p>
-                </div>
-              </div>
-
-            </div>
-
+            </form>
           </div>
         )}
 
         {/* ── STEP 2: CROSS-CHECK & REVIEW MODAL / VIEW ── */}
         {step === 'review' && (
-          <div className="max-w-4xl mx-auto space-y-8 animate-fadeIn">
+          <div className="max-w-5xl mx-auto space-y-8 animate-fadeIn">
 
             {/* Review Summary Card (Curved Leaf Shape) */}
             <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-8 sm:p-12 lg:p-14 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white border border-white/20 shadow-2xl relative overflow-hidden">
