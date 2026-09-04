@@ -19,9 +19,8 @@ export const HeroBanner: React.FC = () => {
           <img
             src="/images/dyuti27_kochi_watercolor_art.jpg"
             alt="Artistic Panorama of Kochi — Chinese Fishing Nets, Heritage Architecture, Water Metro, and Rajagiri Campus"
-            className={`w-full h-full object-cover object-center brightness-[0.75] transition-opacity duration-700 ${
-              isLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`w-full h-full object-cover object-center brightness-[0.75] transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
             loading="eager"
             fetchPriority="high"
             decoding="async"
