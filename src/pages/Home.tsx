@@ -1,6 +1,4 @@
-import React from 'react';
 import { HeroBanner } from '@/components/sections/HeroBanner';
-import { ConferenceMeta } from '@/components/sections/ConferenceMeta';
 import { ConferenceOverview } from '@/components/sections/ConferenceOverview';
 import { ImportantDatesTimeline } from '@/components/sections/ImportantDatesTimeline';
 import { MajorSubThemes } from '@/components/sections/MajorSubThemes';
@@ -14,10 +12,7 @@ export const Home: React.FC = () => {
       {/* 01 — Full-screen centred nightscape hero */}
       <HeroBanner />
 
-      {/* 02 — Key Stats Strip */}
-      <ConferenceMeta />
-
-      {/* 03 — DYUTI 2027 Overview, About DYUTI & Background */}
+      {/* 02 — DYUTI 2027 Overview, About DYUTI & Background */}
       <ConferenceOverview />
 
       {/* 04 — Important Dates */}
