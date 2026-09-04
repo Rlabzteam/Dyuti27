@@ -380,7 +380,7 @@ export const Registration: React.FC = () => {
               <form onSubmit={handleProceedToReview} className="space-y-8">
 
                 {/* Form Card */}
-                <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-8 sm:p-12 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white border border-white/20 shadow-2xl relative overflow-hidden">
+                <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-6 sm:p-10 lg:p-12 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white border border-white/20 shadow-2xl relative overflow-hidden">
                   
                   {/* Subtle ambient glow */}
                   <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
@@ -412,7 +412,7 @@ export const Registration: React.FC = () => {
                   <div className="space-y-6 relative z-10 font-sans">
 
                     {/* 1. Title & 2. Name */}
-                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-start">
                       {/* 1. Title * */}
                       <div className="sm:col-span-4 space-y-2">
                         <label htmlFor="title" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
@@ -424,7 +424,7 @@ export const Registration: React.FC = () => {
                           required
                           value={formData.title}
                           onChange={handleChange}
-                          className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all cursor-pointer"
+                          className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all cursor-pointer"
                         >
                           {TITLE_OPTIONS.map((t) => (
                             <option key={t} value={t} className="bg-[#071A33] text-white">
@@ -447,16 +447,16 @@ export const Registration: React.FC = () => {
                           value={formData.name}
                           onChange={handleChange}
                           placeholder="e.g. Bincy C.C"
-                          className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
+                          className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
                         />
-                        <span className="text-[11px] text-amber-300/90 font-sans block">
+                        <span className="text-[11px] text-amber-300/90 font-sans block pt-0.5">
                           (As you want to appear in the Conference Certificate and other documents)
                         </span>
                       </div>
                     </div>
 
                     {/* 3. Designation & 4. Gender */}
-                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-start">
                       {/* 3. Designation * */}
                       <div className="sm:col-span-7 space-y-2">
                         <label htmlFor="designation" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
@@ -470,7 +470,7 @@ export const Registration: React.FC = () => {
                           value={formData.designation}
                           onChange={handleChange}
                           placeholder="e.g. Assistant Professor / PhD Scholar / Student"
-                          className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
+                          className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
                         />
                       </div>
 
@@ -485,7 +485,7 @@ export const Registration: React.FC = () => {
                           required
                           value={formData.gender}
                           onChange={handleChange}
-                          className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all cursor-pointer"
+                          className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all cursor-pointer"
                         >
                           <option value="" disabled className="bg-[#071A33] text-slate-400">
                             Select Gender
@@ -512,7 +512,7 @@ export const Registration: React.FC = () => {
                         value={formData.organization}
                         onChange={handleChange}
                         placeholder="e.g. Rajagiri College of Social Sciences (Autonomous)"
-                        className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
+                        className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
                       />
                     </div>
 
@@ -529,9 +529,9 @@ export const Registration: React.FC = () => {
                         value={formData.discipline}
                         onChange={handleChange}
                         placeholder="e.g. Social Work, Economics, Public Health, Sociology, Management etc."
-                        className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
+                        className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
                       />
-                      <span className="text-[11px] text-slate-300 font-sans block">
+                      <span className="text-[11px] text-slate-300 font-sans block pt-0.5">
                         (for example: Social Work, Economics, Public Health, Psychology, Sociology, Management etc.)
                       </span>
                     </div>
@@ -559,12 +559,12 @@ export const Registration: React.FC = () => {
                         value={formData.address}
                         onChange={handleChange}
                         placeholder="Door / Flat No., Department, Street Name, City, State, Country"
-                        className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all resize-none"
+                        className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all resize-none"
                       />
                     </div>
 
                     {/* Pincode & Contact Number */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 items-start">
                       {/* Pincode */}
                       <div className="space-y-2">
                         <label htmlFor="pincode" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
@@ -578,7 +578,7 @@ export const Registration: React.FC = () => {
                           value={formData.pincode}
                           onChange={handleChange}
                           placeholder="e.g. 683104"
-                          className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
+                          className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
                         />
                       </div>
 
@@ -595,7 +595,7 @@ export const Registration: React.FC = () => {
                           value={formData.phone}
                           onChange={handleChange}
                           placeholder="e.g. +91 98765 43210"
-                          className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
+                          className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
                         />
                       </div>
                     </div>
@@ -613,9 +613,9 @@ export const Registration: React.FC = () => {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="e.g. delegate@university.edu"
-                        className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
+                        className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
                       />
-                      <span className="text-[11px] text-slate-300 font-sans block">
+                      <span className="text-[11px] text-slate-300 font-sans block pt-0.5">
                         Official conference confirmation and receipt will be dispatched to this email.
                       </span>
                     </div>
@@ -636,18 +636,18 @@ export const Registration: React.FC = () => {
                         <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
                           9. Food Preference <span className="text-amber-400">*</span>
                         </label>
-                        <span className="text-[11px] font-mono text-amber-300 bg-white/10 px-2.5 py-0.5 rounded-full">
+                        <span className="text-[11px] font-mono text-amber-300 bg-white/10 px-2.5 py-0.5 rounded-full font-bold">
                           Required Question
                         </span>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                         {FOOD_OPTIONS.map((food) => (
                           <label
                             key={food.id}
-                            className={`p-4 rounded-xl border flex items-center gap-3 cursor-pointer transition-all ${
+                            className={`p-4 rounded-xl border flex items-center gap-3.5 cursor-pointer transition-all ${
                               formData.foodPreference === food.id
-                                ? 'bg-amber-400/20 border-amber-400 text-white shadow-md'
+                                ? 'bg-amber-400/20 border-amber-400 text-white shadow-md ring-1 ring-amber-400/40'
                                 : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
                             }`}
                           >
@@ -657,9 +657,9 @@ export const Registration: React.FC = () => {
                               value={food.id}
                               checked={formData.foodPreference === food.id}
                               onChange={handleChange}
-                              className="accent-amber-400 w-4 h-4"
+                              className="accent-amber-400 w-4 h-4 shrink-0"
                             />
-                            <span className="text-xs sm:text-sm font-sans font-bold">
+                            <span className="text-xs sm:text-sm font-sans font-bold leading-normal">
                               {food.label}
                             </span>
                           </label>
@@ -673,7 +673,7 @@ export const Registration: React.FC = () => {
                           value={formData.foodDetails}
                           onChange={handleChange}
                           placeholder="Please specify your dietary requirements (e.g., Gluten-Free, Vegan, Allergies)"
-                          className="w-full px-4 py-3 rounded-xl bg-white/10 border border-amber-400/60 text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400/20 mt-2"
+                          className="w-full h-12 px-4 rounded-xl bg-white/10 border border-amber-400/60 text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400/20 mt-2"
                         />
                       )}
                     </div>
@@ -689,11 +689,11 @@ export const Registration: React.FC = () => {
                         </span>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <label
                           className={`p-4 rounded-xl border flex items-center justify-center gap-3 cursor-pointer transition-all ${
                             formData.requireAccommodation === 'yes'
-                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-md'
+                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-md ring-1 ring-amber-400/40'
                               : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
                           }`}
                         >
@@ -703,9 +703,9 @@ export const Registration: React.FC = () => {
                             value="yes"
                             checked={formData.requireAccommodation === 'yes'}
                             onChange={handleChange}
-                            className="accent-amber-400 w-4 h-4"
+                            className="accent-amber-400 w-4 h-4 shrink-0"
                           />
-                          <span className="text-xs sm:text-sm font-sans font-bold">
+                          <span className="text-xs sm:text-sm font-sans font-bold text-center">
                             Yes, I require accommodation
                           </span>
                         </label>
@@ -713,7 +713,7 @@ export const Registration: React.FC = () => {
                         <label
                           className={`p-4 rounded-xl border flex items-center justify-center gap-3 cursor-pointer transition-all ${
                             formData.requireAccommodation === 'no'
-                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-md'
+                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-md ring-1 ring-amber-400/40'
                               : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
                           }`}
                         >
@@ -723,9 +723,9 @@ export const Registration: React.FC = () => {
                             value="no"
                             checked={formData.requireAccommodation === 'no'}
                             onChange={handleChange}
-                            className="accent-amber-400 w-4 h-4"
+                            className="accent-amber-400 w-4 h-4 shrink-0"
                           />
-                          <span className="text-xs sm:text-sm font-sans font-bold">
+                          <span className="text-xs sm:text-sm font-sans font-bold text-center">
                             No, I will arrange my own stay
                           </span>
                         </label>
@@ -738,11 +738,11 @@ export const Registration: React.FC = () => {
                         11. Are you presenting a paper in the conference? <span className="text-amber-400">*</span>
                       </label>
 
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <label
                           className={`p-4 rounded-xl border flex items-center justify-center gap-3 cursor-pointer transition-all ${
                             formData.isPresentingPaper === 'yes'
-                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-md'
+                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-md ring-1 ring-amber-400/40'
                               : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
                           }`}
                         >
@@ -752,9 +752,9 @@ export const Registration: React.FC = () => {
                             value="yes"
                             checked={formData.isPresentingPaper === 'yes'}
                             onChange={handleChange}
-                            className="accent-amber-400 w-4 h-4"
+                            className="accent-amber-400 w-4 h-4 shrink-0"
                           />
-                          <span className="text-xs sm:text-sm font-sans font-bold">
+                          <span className="text-xs sm:text-sm font-sans font-bold text-center">
                             Yes (Author / Presenter)
                           </span>
                         </label>
@@ -762,7 +762,7 @@ export const Registration: React.FC = () => {
                         <label
                           className={`p-4 rounded-xl border flex items-center justify-center gap-3 cursor-pointer transition-all ${
                             formData.isPresentingPaper === 'no'
-                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-md'
+                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-md ring-1 ring-amber-400/40'
                               : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
                           }`}
                         >
@@ -772,16 +772,16 @@ export const Registration: React.FC = () => {
                             value="no"
                             checked={formData.isPresentingPaper === 'no'}
                             onChange={handleChange}
-                            className="accent-amber-400 w-4 h-4"
+                            className="accent-amber-400 w-4 h-4 shrink-0"
                           />
-                          <span className="text-xs sm:text-sm font-sans font-bold">
+                          <span className="text-xs sm:text-sm font-sans font-bold text-center">
                             No (Attendee / Delegate)
                           </span>
                         </label>
                       </div>
 
                       {formData.isPresentingPaper === 'yes' && (
-                        <div className="p-4 rounded-xl bg-white/10 border border-white/15 space-y-4 mt-2">
+                        <div className="p-5 rounded-2xl bg-white/10 border border-white/15 space-y-4 mt-2 animate-fadeIn">
                           <div className="space-y-1.5">
                             <label htmlFor="paperTitle" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
                               Paper Title (Optional / As Submitted)
@@ -793,7 +793,7 @@ export const Registration: React.FC = () => {
                               value={formData.paperTitle}
                               onChange={handleChange}
                               placeholder="Title of your accepted abstract / paper"
-                              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white text-xs sm:text-sm focus:outline-none focus:border-amber-400"
+                              className="w-full h-11 px-4 rounded-lg bg-white/10 border border-white/20 text-white text-xs sm:text-sm focus:outline-none focus:border-amber-400"
                             />
                           </div>
 
@@ -809,7 +809,7 @@ export const Registration: React.FC = () => {
                                 value={formData.cmtPaperId}
                                 onChange={handleChange}
                                 placeholder="e.g. CMT-2027-042"
-                                className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white text-xs sm:text-sm focus:outline-none focus:border-amber-400"
+                                className="w-full h-11 px-4 rounded-lg bg-white/10 border border-white/20 text-white text-xs sm:text-sm focus:outline-none focus:border-amber-400"
                               />
                             </div>
 
@@ -822,7 +822,7 @@ export const Registration: React.FC = () => {
                                 name="paperTheme"
                                 value={formData.paperTheme}
                                 onChange={handleChange}
-                                className="w-full px-4 py-3 rounded-lg bg-[#071A33] border border-white/20 text-white text-xs sm:text-sm focus:outline-none focus:border-amber-400"
+                                className="w-full h-11 px-3 rounded-lg bg-[#071A33] border border-white/20 text-white text-xs sm:text-sm focus:outline-none focus:border-amber-400"
                               >
                                 <option value="">Select Sub-theme</option>
                                 {CONFERENCE_DATA.subThemes.map((st) => (
@@ -853,13 +853,13 @@ export const Registration: React.FC = () => {
                         12. Registration Category <span className="text-amber-400">*</span>
                       </label>
 
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
                         {/* Option 1: UG / PG Student */}
                         <div
                           onClick={() => handleCategorySelect('student')}
                           className={`p-5 rounded-2xl rounded-tl-3xl rounded-br-3xl border transition-all cursor-pointer flex flex-col justify-between ${
                             formData.registrationCategory === 'student'
-                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl scale-[1.02]'
+                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl scale-[1.02] ring-1 ring-amber-400/50'
                               : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
                           }`}
                         >
@@ -895,7 +895,7 @@ export const Registration: React.FC = () => {
                           onClick={() => handleCategorySelect('scholar')}
                           className={`p-5 rounded-2xl rounded-tr-3xl rounded-bl-3xl border transition-all cursor-pointer flex flex-col justify-between ${
                             formData.registrationCategory === 'scholar'
-                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl scale-[1.02]'
+                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl scale-[1.02] ring-1 ring-amber-400/50'
                               : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
                           }`}
                         >
@@ -931,7 +931,7 @@ export const Registration: React.FC = () => {
                           onClick={() => handleCategorySelect('professional')}
                           className={`p-5 rounded-2xl rounded-tl-3xl rounded-br-3xl border transition-all cursor-pointer flex flex-col justify-between ${
                             formData.registrationCategory === 'professional'
-                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl scale-[1.02]'
+                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl scale-[1.02] ring-1 ring-amber-400/50'
                               : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
                           }`}
                         >
@@ -958,7 +958,7 @@ export const Registration: React.FC = () => {
                           </div>
                           <div className="pt-3 border-t border-white/15 flex items-center justify-between">
                             <span className="text-[11px] text-slate-300 font-sans uppercase font-bold">Fee</span>
-                            <span className="font-mono text-base font-black text-amber-300">₹ 1,000 – ₹ 1,500</span>
+                            <span className="font-mono text-base font-black text-amber-300">₹ 1,000</span>
                           </div>
                         </div>
                       </div>
@@ -980,19 +980,19 @@ export const Registration: React.FC = () => {
                         Choose Payment Method <span className="text-amber-400">*</span>
                       </label>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
                         {/* Option 1: Online Payment Gateway */}
                         <div
                           onClick={() => setFormData((prev) => ({ ...prev, paymentMode: 'online' }))}
                           className={`p-5 rounded-2xl rounded-tl-3xl rounded-br-3xl border transition-all cursor-pointer flex flex-col justify-between ${
                             formData.paymentMode === 'online'
-                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl ring-2 ring-amber-400/30'
+                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl ring-2 ring-amber-400/40'
                               : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
                           }`}
                         >
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
-                              <span className="inline-flex items-center gap-1 text-[11px] font-mono uppercase font-black text-amber-300">
+                              <span className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase font-black text-amber-300">
                                 <CreditCard className="w-3.5 h-3.5" />
                                 Instant Online
                               </span>
@@ -1023,13 +1023,13 @@ export const Registration: React.FC = () => {
                           onClick={() => setFormData((prev) => ({ ...prev, paymentMode: 'bank_transfer' }))}
                           className={`p-5 rounded-2xl rounded-tr-3xl rounded-bl-3xl border transition-all cursor-pointer flex flex-col justify-between ${
                             formData.paymentMode === 'bank_transfer'
-                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl ring-2 ring-amber-400/30'
+                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl ring-2 ring-amber-400/40'
                               : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
                           }`}
                         >
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
-                              <span className="inline-flex items-center gap-1 text-[11px] font-mono uppercase font-black text-amber-300">
+                              <span className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase font-black text-amber-300">
                                 <Building2 className="w-3.5 h-3.5" />
                                 Bank Wire
                               </span>
@@ -1073,7 +1073,7 @@ export const Registration: React.FC = () => {
                             value={formData.transactionRef}
                             onChange={handleChange}
                             placeholder="e.g. UTR1234567890 / SIBL-TXN-987654"
-                            className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-xs sm:text-sm focus:outline-none focus:border-amber-400"
+                            className="w-full h-12 px-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-xs sm:text-sm focus:outline-none focus:border-amber-400"
                           />
                           <p className="text-[11px] text-slate-200 font-sans m-0 leading-relaxed">
                             Enter your bank UTR number if already paid. You may also transfer after submitting and email the receipt screenshot to <a href="mailto:dyuti@rajagiri.edu" className="text-amber-300 underline font-mono">dyuti@rajagiri.edu</a>.
@@ -1105,7 +1105,7 @@ export const Registration: React.FC = () => {
             </div>
 
             {/* Right Column: Registration Summary Sidebar (4 Cols) */}
-            <div className="lg:col-span-4 space-y-6">
+            <div className="lg:col-span-4 lg:sticky lg:top-24 self-start space-y-6">
 
               {/* 1. Category & Inclusions Card (Curved Leaf Shape) */}
               <div className="rounded-[24px] sm:rounded-[28px] rounded-tr-[48px] rounded-bl-[48px] p-7 sm:p-8 bg-gradient-to-br from-[#0a2540] via-[#123962] to-[#051424] text-white border border-white/20 shadow-2xl relative overflow-hidden">
