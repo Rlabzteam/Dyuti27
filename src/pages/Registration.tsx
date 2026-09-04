@@ -6,7 +6,6 @@ import {
   Building2,
   Printer,
   Sparkles,
-  Info,
   CreditCard,
   Lock,
   Loader2,
@@ -328,7 +327,7 @@ export const Registration: React.FC = () => {
         </div>
 
         {/* ── STEP INDICATOR BANNER ── */}
-        <div className="mb-12 max-w-3xl mx-auto">
+        <div className="mb-12 max-w-4xl mx-auto">
           <div className="flex items-center justify-between p-2.5 sm:p-3 rounded-full bg-white border border-slate-300 shadow-md">
             <div
               className={`flex-1 py-2 px-3 sm:px-4 rounded-full text-center text-xs sm:text-sm font-sans font-bold transition-all flex items-center justify-center gap-2 ${
@@ -373,7 +372,7 @@ export const Registration: React.FC = () => {
 
         {/* ── STEP 1: REGISTRATION FORM ── */}
         {step === 'form' && (
-          <div className="max-w-5xl mx-auto space-y-8 animate-fadeIn">
+          <div className="max-w-6xl mx-auto space-y-8 animate-fadeIn">
             <form onSubmit={handleProceedToReview} className="space-y-8">
 
               {/* Form Card */}
@@ -1104,7 +1103,7 @@ export const Registration: React.FC = () => {
 
         {/* ── STEP 2: CROSS-CHECK & REVIEW MODAL / VIEW ── */}
         {step === 'review' && (
-          <div className="max-w-5xl mx-auto space-y-8 animate-fadeIn">
+          <div className="max-w-6xl mx-auto space-y-8 animate-fadeIn">
 
             {/* Review Summary Card (Curved Leaf Shape) */}
             <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-8 sm:p-12 lg:p-14 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white border border-white/20 shadow-2xl relative overflow-hidden">
@@ -1330,7 +1329,7 @@ export const Registration: React.FC = () => {
 
         {/* ── STEP 3: REGISTRATION SUCCESS SCREEN ── */}
         {step === 'success' && (
-          <div className="max-w-3xl mx-auto space-y-8 animate-fadeIn">
+          <div className="max-w-4xl mx-auto space-y-8 animate-fadeIn">
 
             {/* Success Card (Curved Leaf Shape) */}
             <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-8 sm:p-12 lg:p-14 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white border border-white/20 shadow-2xl text-center relative overflow-hidden">
