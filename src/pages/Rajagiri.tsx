@@ -1,16 +1,54 @@
 import React from 'react';
+import { Sparkles, ShieldCheck, Layers, Users, HeartHandshake } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { CONFERENCE_DATA } from '@/data/conference';
 
 export const Rajagiri: React.FC = () => {
-  const [activeTab, setActiveTab] = React.useState<'legacy' | 'global'>('legacy');
+  const [activeTab, setActiveTab] = React.useState<'legacy' | 'cmi' | 'global'>('legacy');
 
   const highlights = [
-    'First College in Kerala to be accredited with NAAC A++ (3.83 CGPA)',
+    'First College in Kerala to be accredited with NAAC A++ (3.83 CGPA in 4th Cycle)',
     'Autonomous status conferred by UGC India (2014 – 2030)',
-    'Ranked #12 in India (NIRF Rankings 2025: Social Work Categories)',
+    'Ranked #12 in India (NIRF Rankings 2025: Social Work / Colleges Category)',
     'Ranked #1 in Kerala State Institutional Rankings (KIRF 2025)',
-    'College with Potential for Excellence (CPE) by UGC India',
+    'College with Potential for Excellence (CPE) granted by UGC India (2016)',
+    'Rated #2 Social Work Programme in India (Outlook-ICARE 2024 & India Today 2020–2024)',
+  ];
+
+  const cmiStats = [
+    { number: '200+', label: 'Schools', desc: 'Primary, secondary, and higher secondary institutions' },
+    { number: '14', label: 'Colleges', desc: 'University-affiliated higher education institutions' },
+    { number: '1', label: 'University', desc: 'State & Deemed Higher Education University' },
+    { number: '1', label: 'Medical College', desc: 'Tertiary super-speciality hospital and teaching college' },
+    { number: '1', label: 'Engineering College', desc: 'Premier engineering and technology institute' },
+    { number: '12', label: 'Technical Institutes', desc: 'Vocational and polytechnic skill training centres' },
+    { number: '3', label: 'B.Ed. Colleges', desc: 'Teacher education and pedagogical research centres' },
+    { number: '5', label: 'Special Schools', desc: 'Empowering children with diverse and special needs' },
+    { number: '18', label: 'Non-Formal Centres', desc: 'Grassroots adult and community educational bodies' },
+    { number: '17', label: 'Cultural Centres', desc: 'Heritage preservation, research foundations & publishing' },
+  ];
+
+  const liveLabs = [
+    {
+      title: 'CHILDLINE 1098 Nodal Centre',
+      description: '24-hour emergency phone outreach service for children in need of care and protection, operating directly from the campus.',
+      icon: HeartHandshake,
+    },
+    {
+      title: 'Family Counselling Centre',
+      description: 'Providing professional psycho-social support, dispute resolution, and community mental health counselling services.',
+      icon: Users,
+    },
+    {
+      title: 'Vimukthi Research Cell',
+      description: 'Collaborative initiative with the Excise Department (Govt. of Kerala) for anti-drug awareness, de-addiction and rehabilitation.',
+      icon: ShieldCheck,
+    },
+    {
+      title: 'Research Tank & Extension Desks',
+      description: 'Live community intervention labs bridging theoretical social work pedagogy with grassroots field practice.',
+      icon: Layers,
+    },
   ];
 
   return (
@@ -30,7 +68,7 @@ export const Rajagiri: React.FC = () => {
               fetchPriority="high"
               decoding="async"
             />
-            {/* Neutral Dark Gradient Overlay for high contrast without blue color */}
+            {/* Neutral Dark Gradient Overlay for high contrast */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/75" />
           </div>
 
@@ -68,6 +106,9 @@ export const Rajagiri: React.FC = () => {
               <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
                 UGC Autonomous (2014 &ndash; 2030)
               </span>
+              <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
+                UGC College with Potential for Excellence (CPE)
+              </span>
             </div>
 
           </div>
@@ -76,16 +117,16 @@ export const Rajagiri: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-8 pb-20 sm:pb-28 lg:pb-32">
 
-        {/* ── TABBED CONTAINER LAYOUT (LEGACY & GLOBAL IMPACT) ── */}
+        {/* ── TABBED CONTAINER LAYOUT (LEGACY, CMI HERITAGE & GLOBAL IMPACT) ── */}
         <div className="mb-20 lg:mb-28">
 
           {/* Tab Navigation Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 p-2 bg-slate-200/80 rounded-full max-w-2xl mx-auto mb-10 border border-slate-300 shadow-inner">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 p-2 bg-slate-200/80 rounded-2xl sm:rounded-full max-w-3xl mx-auto mb-10 border border-slate-300 shadow-inner">
             <button
               type="button"
               onClick={() => setActiveTab('legacy')}
-              className={`w-full sm:w-1/2 py-3.5 px-6 rounded-full text-xs sm:text-sm font-mono font-black uppercase tracking-wider transition-all duration-300 ${activeTab === 'legacy'
-                ? 'bg-[#071A33] text-amber-300 shadow-lg scale-105'
+              className={`w-full sm:w-1/3 py-3 px-4 rounded-xl sm:rounded-full text-xs sm:text-sm font-mono font-black uppercase tracking-wider transition-all duration-300 ${activeTab === 'legacy'
+                ? 'bg-[#071A33] text-amber-300 shadow-lg scale-102 sm:scale-105'
                 : 'text-slate-700 hover:text-slate-950 hover:bg-slate-300/60'
                 }`}
             >
@@ -93,9 +134,19 @@ export const Rajagiri: React.FC = () => {
             </button>
             <button
               type="button"
+              onClick={() => setActiveTab('cmi')}
+              className={`w-full sm:w-1/3 py-3 px-4 rounded-xl sm:rounded-full text-xs sm:text-sm font-mono font-black uppercase tracking-wider transition-all duration-300 ${activeTab === 'cmi'
+                ? 'bg-[#071A33] text-amber-300 shadow-lg scale-102 sm:scale-105'
+                : 'text-slate-700 hover:text-slate-950 hover:bg-slate-300/60'
+                }`}
+            >
+              CMI Heritage &amp; Mission
+            </button>
+            <button
+              type="button"
               onClick={() => setActiveTab('global')}
-              className={`w-full sm:w-1/2 py-3.5 px-6 rounded-full text-xs sm:text-sm font-mono font-black uppercase tracking-wider transition-all duration-300 ${activeTab === 'global'
-                ? 'bg-[#071A33] text-amber-300 shadow-lg scale-105'
+              className={`w-full sm:w-1/3 py-3 px-4 rounded-xl sm:rounded-full text-xs sm:text-sm font-mono font-black uppercase tracking-wider transition-all duration-300 ${activeTab === 'global'
+                ? 'bg-[#071A33] text-amber-300 shadow-lg scale-102 sm:scale-105'
                 : 'text-slate-700 hover:text-slate-950 hover:bg-slate-300/60'
                 }`}
             >
@@ -108,7 +159,7 @@ export const Rajagiri: React.FC = () => {
             {/* Subtle background ambient glow */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
 
-            {activeTab === 'legacy' ? (
+            {activeTab === 'legacy' && (
               /* Tab 1: Legacy Content */
               <div className="space-y-8 relative z-10 animate-fadeIn">
 
@@ -140,10 +191,13 @@ export const Rajagiri: React.FC = () => {
 
                 <div className="space-y-4 text-[16px] sm:text-[17.5px] text-slate-100 leading-relaxed font-sans font-medium max-w-4xl">
                   <p className="m-0">
-                    Rajagiri College of Social Sciences (Autonomous) was established as a pioneer institution in Social Work education in the state of Kerala. Managed by the Carmelites of Mary Immaculate (CMI) congregation, the college has established a benchmark of academic excellence, holistic training, and evidence-based research.
+                    <strong className="text-white font-bold">Rajagiri College of Social Sciences (Autonomous)</strong> was established as a result of the indefatigable industry and foresight of the CMI Congregation. Rajagiri with its vision of <em className="text-amber-300 italic">&lsquo;becoming a centre of excellence in learning for enriching and fulfilling LIFE&rsquo;</em> has been regularly providing an annual forum for deliberations on vital issues of development from a Rights perspective.
                   </p>
                   <p className="m-0">
                     The term &ldquo;Rajagiri&rdquo; translates to &ldquo;Hill of the King,&rdquo; symbolizing the heights of learning and developmental yearning. True to its acronym <strong className="text-white font-black">DYUTI</strong> (&ldquo;Spark of Life&rdquo;), the institution fosters developmental dialogues that bridge academic theory with transformative field practice.
+                  </p>
+                  <p className="m-0">
+                    <strong className="text-white font-bold">Rajagiri School of Social Work</strong>, started in the year 1955, was one of the pioneering institutions in south India, establishing programmes and setting standards in the field of social work education. According to the India Today - MDRA and OUTLOOK - ICARE Survey of Best Social Work Colleges ranking, the Social Work Programme of Rajagiri College of Social Sciences is rated as the second-best in Pan India. The presence of live labs (extension departments) in the campus adds quality to education through experience.
                   </p>
                 </div>
 
@@ -162,8 +216,69 @@ export const Rajagiri: React.FC = () => {
                   </div>
                 </div>
               </div>
-            ) : (
-              /* Tab 2: Global Standing Content */
+            )}
+
+            {activeTab === 'cmi' && (
+              /* Tab 2: CMI Founding Heritage Content */
+              <div className="space-y-8 relative z-10 animate-fadeIn">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-white/15">
+                  <div className="space-y-4 max-w-3xl">
+                    <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-400/20 border border-amber-300/30 text-amber-300 text-xs font-mono font-black uppercase tracking-[0.18em]">
+                      <span>Foundational Vision</span>
+                    </div>
+
+                    <h2 className="text-[2.25rem] sm:text-[3rem] font-heading font-black text-white leading-tight tracking-tight">
+                      Carmelites of Mary Immaculate (CMI)
+                    </h2>
+
+                    <div className="w-20 h-1.5 bg-amber-300 rounded-full" />
+                  </div>
+
+                  <div className="shrink-0">
+                    <div className="px-5 py-3 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md text-center">
+                      <span className="text-2xl sm:text-3xl font-heading font-extrabold text-amber-300 block">448+</span>
+                      <span className="text-xs font-sans uppercase tracking-wider text-slate-200">Educational Institutions</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-4 text-[16px] sm:text-[17.5px] text-slate-100 leading-relaxed font-sans font-medium max-w-4xl">
+                  <p className="m-0">
+                    Drawing inspiration from founder, <strong className="text-amber-300 font-bold">St. Kuriakose Elias Chavara</strong>, a great visionary, reformer and religious leader of the 19th century, the <strong className="text-white font-bold">Carmelites of Mary Immaculate (CMI)</strong> were the first indigenous religious congregation for men in India.
+                  </p>
+                  <p className="m-0">
+                    The CMI have dedicated themselves to education at all levels. At present, their mission of education comprises a vast network of <strong className="text-white font-bold">448 institutions</strong> — including over 200 schools, 14 university-affiliated colleges, 1 engineering college, 12 technical institutes, 1 university, 1 medical college, 3 B.Ed. colleges, 5 special schools, 18 non-formal educational institutions, and 17 cultural centres spread all over India and beyond.
+                  </p>
+                </div>
+
+                {/* CMI Institutions Network Breakdown */}
+                <div className="pt-6 border-t border-white/20">
+                  <h4 className="text-xs font-mono font-black uppercase tracking-[0.2em] text-amber-300 mb-5">
+                    CMI Nationwide Educational Footprint &amp; Network
+                  </h4>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+                    {cmiStats.map((item, idx) => (
+                      <div key={idx} className="p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex flex-col justify-between hover:bg-white/15 transition-colors">
+                        <div>
+                          <span className="font-heading font-extrabold text-2xl text-amber-300 block mb-1">
+                            {item.number}
+                          </span>
+                          <span className="text-xs font-sans font-bold uppercase tracking-wider text-white block mb-1">
+                            {item.label}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-slate-300 leading-tight m-0">
+                          {item.desc}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'global' && (
+              /* Tab 3: Global Standing Content */
               <div className="space-y-8 relative z-10 animate-fadeIn">
                 <div className="space-y-4">
                   <div className="inline-flex items-center px-4 py-1 rounded-full bg-white/15 border border-white/25 text-amber-300 text-xs font-mono font-black uppercase tracking-[0.18em]">
@@ -221,7 +336,7 @@ export const Rajagiri: React.FC = () => {
 
                 <div className="space-y-4 text-[14.5px] sm:text-[15.5px] text-slate-200 leading-relaxed font-sans font-normal">
                   <p className="m-0">
-                    The Department of Social Work at Rajagiri College of Social Sciences (Autonomous) has a legendary record in social work education, research, internationalisation, and community engagement. The Department has been <strong className="text-white font-semibold">ranked #2 among Social Work programmes in India by Outlook-ICARE (2024)</strong> and <strong className="text-white font-semibold">#2 by India Today (2020–2024)</strong>.
+                    Rajagiri School of Social Work, started in the year 1955 was one of the pioneering institutions in south India, establishing programmes and setting standards in the field of social work education. The Department of Social Work at Rajagiri College of Social Sciences (Autonomous) has a legendary record in social work education, research, internationalisation, and community engagement. The Department has been <strong className="text-white font-semibold">ranked #2 among Social Work programmes in India by Outlook-ICARE (2024)</strong> and <strong className="text-white font-semibold">#2 by India Today (2020–2024)</strong>.
                   </p>
 
                   <p className="m-0 text-slate-300">
@@ -239,7 +354,7 @@ export const Rajagiri: React.FC = () => {
                 <div className="p-4 rounded-[14px] bg-slate-950/45 border border-slate-800/40">
                   <span className="text-xs sm:text-[13px] text-slate-200 font-sans font-normal leading-snug block">
                     <strong className="text-amber-300 uppercase tracking-wider font-mono text-[11px] block sm:inline sm:mr-2">Conferences:</strong>
-                    25 Years of Internationalisation (DYUTI 2024) &bull; 24th ICSD Biennial (DYUTI 2025) &bull; 10th International Summer University
+                    25 Years of Internationalisation (DYUTI 2024) &bull; 24th ICSD Biennial (DYUTI 2025) &bull; 10th International Summer University &bull; DYUTI 2027 (26th National Conference)
                   </span>
                 </div>
               </div>
@@ -277,9 +392,14 @@ export const Rajagiri: React.FC = () => {
             />
           </div>
 
-          <p className="text-slate-200 text-[14.5px] sm:text-[15.5px] leading-relaxed mb-8 font-sans font-normal">
-            <strong className="text-white font-bold">Internationalisation</strong> has been a foundational pillar for Rajagiri since its inception, having completed 25 years of official international collaborations across 60+ partner universities in 30 countries:
-          </p>
+          <div className="space-y-4 text-slate-200 text-[14.5px] sm:text-[15.5px] leading-relaxed mb-8 font-sans font-normal">
+            <p className="m-0">
+              <strong className="text-white font-bold">&lsquo;Internationalisation&rsquo;</strong> has been a catchword for Rajagiri since its inception and we have completed <strong className="text-amber-300 font-bold">25 years of official International collaborations</strong>. Currently, Rajagiri has official agreements with <strong className="text-white font-bold">60+ International Universities across 30 countries</strong>. Establishing vibrant academic tie-ups with leading universities all over the world has not only helped the students to get international exposure, but also facilitated in sharing of resources for faculty training, curriculum development, research, and consultancy.
+            </p>
+            <p className="m-0">
+              Our students from PG and UG programmes regularly do short-term study programmes in our Partner Universities with a duration ranging from <strong className="text-white font-bold">1 month to 6 months</strong>. We host International students in our regular programmes as full-time students which is also supported by the <strong className="text-white font-bold">Study in India (SII) Programme</strong> from the Govt of India. The various programmes offered by Rajagiri also have twinning, dual degree arrangements with world-class International Universities across the globe.
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13px] sm:text-[13.5px] text-white">
             <div className="flex items-start gap-3 p-5 rounded-[14px] bg-white/10 border border-white/15 backdrop-blur-sm">
@@ -298,6 +418,46 @@ export const Rajagiri: React.FC = () => {
               <span className="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2 shrink-0" />
               <span className="font-sans leading-relaxed text-slate-100">Collaborative research, dual-degree, twinning, and international internships for global exposure.</span>
             </div>
+          </div>
+        </div>
+
+        {/* ── LIVE LABS & EXTENSION ECOSYSTEM (Real-world Experiential Learning) ── */}
+        <div className="mb-20 lg:mb-28">
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#071A33]/10 border border-[#071A33]/20 text-[#071A33] text-xs font-mono font-bold uppercase tracking-widest mb-3">
+              <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
+              <span>Experiential Pedagogy</span>
+            </div>
+            <h3 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#071A33] tracking-tight">
+              Live Labs &amp; Extension Departments
+            </h3>
+            <p className="text-slate-600 text-sm sm:text-base mt-2 font-sans">
+              The presence of live labs and extension departments on campus adds distinctive quality to education through hands-on community engagement and continuous field practice.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {liveLabs.map((lab, idx) => {
+              const IconComp = lab.icon;
+              return (
+                <div
+                  key={idx}
+                  className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex items-start gap-4"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-[#071A33]/5 border border-[#071A33]/10 flex items-center justify-center shrink-0 text-[#071A33]">
+                    <IconComp className="w-6 h-6 text-[#2563EB]" />
+                  </div>
+                  <div>
+                    <h4 className="font-heading font-bold text-lg text-[#071A33] mb-1">
+                      {lab.title}
+                    </h4>
+                    <p className="text-slate-600 text-sm leading-relaxed font-sans m-0">
+                      {lab.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -341,3 +501,4 @@ export const Rajagiri: React.FC = () => {
     </div>
   );
 };
+
