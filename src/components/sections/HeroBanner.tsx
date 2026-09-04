@@ -17,7 +17,7 @@ export const HeroBanner: React.FC = () => {
         <div className="absolute inset-0 z-0">
           {!isLoaded && <div className="absolute inset-0 bg-slate-950" />}
           <img
-            src="/images/dyuti27_kochi_watercolor_art.jpg"
+            src="/images/new_dyuti_illustration.jpeg"
             alt="Artistic Panorama of Kochi — Chinese Fishing Nets, Heritage Architecture, Water Metro, and Rajagiri Campus"
             className={`w-full h-full object-cover object-center brightness-[0.75] transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'
               }`}
