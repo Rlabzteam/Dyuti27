@@ -421,37 +421,54 @@ export const Rajagiri: React.FC = () => {
           </div>
         </div>
 
-        {/* ── LIVE LABS & EXTENSION ECOSYSTEM (Real-world Experiential Learning) ── */}
+        {/* ── LIVE LABS & EXTENSION ECOSYSTEM (Real-world Experiential Learning in Signature Blue Color Shapes) ── */}
         <div className="mb-20 lg:mb-28">
           <div className="text-center max-w-3xl mx-auto mb-10">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#071A33]/10 border border-[#071A33]/20 text-[#071A33] text-xs font-mono font-bold uppercase tracking-widest mb-3">
-              <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#071A33] text-amber-300 text-xs font-mono font-bold uppercase tracking-widest mb-3 shadow-md border border-white/10">
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
               <span>Experiential Pedagogy</span>
             </div>
             <h3 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#071A33] tracking-tight">
               Live Labs &amp; Extension Departments
             </h3>
-            <p className="text-slate-600 text-sm sm:text-base mt-2 font-sans">
+            <p className="text-slate-600 text-sm sm:text-base mt-2 font-sans font-medium">
               The presence of live labs and extension departments on campus adds distinctive quality to education through hands-on community engagement and continuous field practice.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {liveLabs.map((lab, idx) => {
               const IconComp = lab.icon;
+              const isEven = idx % 2 === 0;
               return (
                 <div
                   key={idx}
-                  className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex items-start gap-4"
+                  className={`p-8 sm:p-10 text-white shadow-2xl transition-all duration-500 hover:-translate-y-1.5 hover:shadow-blue-950/40 relative overflow-hidden group flex flex-col justify-between border ${
+                    isEven
+                      ? 'rounded-[32px] sm:rounded-[42px] rounded-tl-[60px] sm:rounded-tl-[80px] rounded-br-[60px] sm:rounded-br-[80px] bg-gradient-to-br from-[#071A33] via-[#0f3466] to-[#041021] border-blue-400/30 hover:border-amber-300/60 shadow-blue-950/30'
+                      : 'rounded-[32px] sm:rounded-[42px] rounded-tr-[60px] sm:rounded-tr-[80px] rounded-bl-[60px] sm:rounded-bl-[80px] bg-gradient-to-br from-[#0a2548] via-[#144280] to-[#06152b] border-blue-400/30 hover:border-amber-300/60 shadow-blue-950/30'
+                  }`}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-[#071A33]/5 border border-[#071A33]/10 flex items-center justify-center shrink-0 text-[#071A33]">
-                    <IconComp className="w-6 h-6 text-[#2563EB]" />
+                  {/* Subtle dynamic ambient glow */}
+                  <div className="absolute top-0 right-0 w-56 h-56 bg-blue-400/10 rounded-full blur-3xl pointer-events-none group-hover:bg-amber-400/15 transition-all duration-500" />
+                  <div className="absolute -bottom-10 -left-10 w-44 h-44 bg-sky-500/10 rounded-full blur-2xl pointer-events-none" />
+
+                  <div className="flex items-start gap-4 sm:gap-5 relative z-10">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-white/15 to-white/5 border border-white/25 backdrop-blur-md flex items-center justify-center shrink-0 text-amber-300 shadow-inner group-hover:scale-110 group-hover:border-amber-300/50 transition-all duration-300">
+                      <IconComp className="w-7 h-7 sm:w-8 sm:h-8 text-amber-300 group-hover:text-amber-200 transition-colors" />
+                    </div>
+                    <div className="space-y-2">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-blue-950/70 border border-blue-300/30 text-[11px] font-mono font-bold uppercase tracking-wider text-amber-300 shadow-xs">
+                        <span>Live Lab {String(idx + 1).padStart(2, '0')}</span>
+                      </div>
+                      <h4 className="font-heading font-extrabold text-xl sm:text-2xl text-white leading-snug tracking-tight m-0">
+                        {lab.title}
+                      </h4>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-heading font-bold text-lg text-[#071A33] mb-1">
-                      {lab.title}
-                    </h4>
-                    <p className="text-slate-600 text-sm leading-relaxed font-sans m-0">
+
+                  <div className="pt-6 mt-6 border-t border-white/15 relative z-10">
+                    <p className="text-[14.5px] sm:text-[15.5px] text-blue-50/95 leading-relaxed font-sans font-normal m-0">
                       {lab.description}
                     </p>
                   </div>
