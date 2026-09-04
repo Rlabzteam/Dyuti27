@@ -64,7 +64,7 @@ export const Rajagiri: React.FC = () => {
   return (
     <div className="bg-[#FDFBF7] text-slate-800 min-h-screen">
 
-      {/* ── HERO BANNER (EXPANDED TALL HEIGHT FOR FULL CAMPUS ARCHITECTURE DISPLAY) ── */}
+      {/* ── HERO BANNER (EXPANDED TALL HEIGHT & FULL HORIZONTAL LENGTH FOR CAMPUS ARCHITECTURE DISPLAY) ── */}
       <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pt-3 sm:pt-5 mb-10 sm:mb-14">
         <div className="relative w-full min-h-[540px] sm:min-h-[620px] lg:min-h-[700px] flex flex-col items-center justify-center overflow-hidden rounded-[28px] sm:rounded-[36px] bg-slate-950 text-white border border-slate-700/50 shadow-2xl">
 
@@ -125,46 +125,47 @@ export const Rajagiri: React.FC = () => {
         </div>
       </div>
 
-      <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-2 sm:px-4 pb-16 sm:pb-20 lg:pb-24">
+      {/* ── 6 SIGNATURE CARDS (SPACIOUS LENGTH & PROMINENT VERTICAL HEIGHT) ── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          {keyStats.map((item, idx) => (
+            <div
+              key={idx}
+              className={`group relative w-full rounded-[22px] sm:rounded-[28px] rounded-tl-[42px] sm:rounded-tl-[52px] rounded-br-[42px] sm:rounded-br-[52px] bg-gradient-to-br ${item.bgGradient} p-6 sm:p-7 flex flex-col justify-between text-white border border-white/20 shadow-xl hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 overflow-hidden min-h-[260px] sm:min-h-[280px]`}
+            >
+              {/* Subtle internal shine overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-60 pointer-events-none" />
 
-        {/* ── 6 SIGNATURE CARDS (SHORT HORIZONTAL LENGTH / PROMINENT VERTICAL HEIGHT) ── */}
-        <div className="mb-12 sm:mb-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3.5 sm:gap-4.5">
-            {keyStats.map((item, idx) => (
-              <div
-                key={idx}
-                className={`group relative w-full rounded-[22px] sm:rounded-[28px] rounded-tl-[42px] sm:rounded-tl-[52px] rounded-br-[42px] sm:rounded-br-[52px] bg-gradient-to-br ${item.bgGradient} p-5 sm:p-6 flex flex-col justify-between text-white border border-white/20 shadow-xl hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 overflow-hidden min-h-[260px] sm:min-h-[290px]`}
-              >
-                {/* Subtle internal shine overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-60 pointer-events-none" />
+              {/* Top Row: Bold Category Badge */}
+              <div className="flex items-center justify-between mb-3 relative z-10">
+                <span className={`text-[11px] font-mono font-black uppercase tracking-[0.16em] px-3 py-1 rounded-full border shadow-xs ${item.badgeBg}`}>
+                  {item.badge}
+                </span>
+              </div>
 
-                {/* Top Row: Bold Category Badge */}
-                <div className="flex items-center justify-between mb-3 relative z-10">
-                  <span className={`text-[10px] sm:text-[10.5px] font-mono font-black uppercase tracking-[0.16em] px-2.5 py-1 rounded-full border shadow-xs ${item.badgeBg}`}>
-                    {item.badge}
-                  </span>
+              {/* Middle Row: Extra Bold Stat Number & Label */}
+              <div className="my-2 relative z-10">
+                <div className={`font-heading text-[2.2rem] sm:text-[2.6rem] font-black ${item.accentColor} leading-none tracking-tight tabular-nums group-hover:scale-105 transition-transform duration-300 origin-left`}>
+                  {item.number}
                 </div>
-
-                {/* Middle Row: Extra Bold Stat Number & Label */}
-                <div className="my-1.5 relative z-10">
-                  <div className={`font-heading text-[2rem] sm:text-[2.4rem] font-black ${item.accentColor} leading-none tracking-tight tabular-nums group-hover:scale-105 transition-transform duration-300 origin-left`}>
-                    {item.number}
-                  </div>
-                  <div className="text-[14.5px] sm:text-[15.5px] font-sans font-black text-white leading-snug mt-2">
-                    {item.label}
-                  </div>
-                </div>
-
-                {/* Bottom Row: Subtitle */}
-                <div className="pt-3 border-t border-white/20 mt-3 relative z-10">
-                  <div className="text-[11.5px] sm:text-[12px] font-sans text-slate-100 font-medium leading-relaxed">
-                    {item.sub}
-                  </div>
+                <div className="text-[16px] sm:text-[17px] font-sans font-black text-white leading-snug mt-2">
+                  {item.label}
                 </div>
               </div>
-            ))}
-          </div>
+
+              {/* Bottom Row: Subtitle */}
+              <div className="pt-3.5 border-t border-white/20 mt-3 relative z-10">
+                <div className="text-[12.5px] sm:text-[13.5px] font-sans text-slate-100 font-medium leading-relaxed">
+                  {item.sub}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
+      </div>
+
+      {/* ── MAIN CONTENT CARDS (MODERATE ELEGANT LENGTH: MAX-W-7XL) ── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20 lg:pb-24">
 
         {/* ── CARD 1: A LEGACY OF DISTINCTION & SOCIAL COMMITMENT ── */}
         <div className="mb-8 sm:mb-12 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-6 sm:p-8 lg:p-10 shadow-2xl border border-white/20 relative overflow-hidden">
