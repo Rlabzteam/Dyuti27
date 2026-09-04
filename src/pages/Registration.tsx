@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   CheckCircle2,
   AlertCircle,
@@ -6,10 +6,15 @@ import {
   Building2,
   Printer,
   Sparkles,
-  Info
+  Info,
+  CreditCard,
+  Lock,
+  Loader2,
+  ShieldCheck
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { CONFERENCE_DATA } from '@/data/conference';
+import { initiateVortexPayment } from '@/services/paymentService';
 
 interface RegistrationFormData {
   title: string;
@@ -31,7 +36,7 @@ interface RegistrationFormData {
   cmtPaperId: string;
   paperTheme: string;
   registrationCategory: string;
-  paymentMode: string;
+  paymentMode: 'online' | 'bank_transfer';
   transactionRef: string;
   agreeToTerms: boolean;
 }
@@ -56,7 +61,7 @@ const INITIAL_FORM_DATA: RegistrationFormData = {
   cmtPaperId: '',
   paperTheme: '',
   registrationCategory: 'student',
-  paymentMode: 'NEFT/RTGS Bank Transfer',
+  paymentMode: 'online',
   transactionRef: '',
   agreeToTerms: false,
 };
@@ -103,7 +108,7 @@ const CATEGORY_DETAILS: Record<string, { label: string; fee: string; amount: num
   },
   professional: {
     label: 'Professionals / Academicians / Practitioners',
-    fee: '₹ 1,000 – ₹ 1,500',
+    fee: '₹ 1,000',
     amount: 1000,
     desc: 'For faculty members, professors, development practitioners, NGO heads, and CSR delegates',
     badge: 'Faculty / Delegate Pass',
@@ -115,6 +120,42 @@ export const Registration: React.FC = () => {
   const [step, setStep] = useState<'form' | 'review' | 'success'>('form');
   const [formError, setFormError] = useState<string | null>(null);
   const [registrationId, setRegistrationId] = useState<string>('');
+  const [isProcessingPayment, setIsProcessingPayment] = useState<boolean>(false);
+  const [paymentResult, setPaymentResult] = useState<{
+    orderId?: string;
+    amount?: number;
+    mode?: string;
+  }>({});
+
+  // Check URL query parameters for return redirect from payment gateway
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentStatus = urlParams.get('payment_status');
+
+    if (paymentStatus === 'success') {
+      const orderId = urlParams.get('order_id') || `VORTEX-${Date.now().toString().slice(-6)}`;
+      const name = urlParams.get('name') || 'Delegate';
+      const email = urlParams.get('email') || '';
+      const amount = Number(urlParams.get('amount')) || 750;
+
+      setFormData((prev) => ({
+        ...prev,
+        name: name,
+        email: email,
+        paymentMode: 'online',
+      }));
+
+      setRegistrationId(`DYUTI27-ONLINE-${Math.floor(10000 + Math.random() * 90000)}`);
+      setPaymentResult({
+        orderId,
+        amount,
+        mode: 'Vortexx Gateway',
+      });
+      setStep('success');
+    } else if (paymentStatus === 'failed') {
+      setFormError('Payment was not completed or was cancelled. Please try again.');
+    }
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -202,18 +243,54 @@ export const Registration: React.FC = () => {
     }
   };
 
-  const handleFinalSubmit = () => {
+  const handleFinalSubmit = async () => {
     if (!formData.agreeToTerms) {
       setFormError('Please check the verification declaration box to confirm your details.');
       return;
     }
 
-    // Generate unique registration reference
-    const randomCode = Math.floor(10000 + Math.random() * 90000);
-    const generatedId = `DYUTI27-REG-${randomCode}`;
-    setRegistrationId(generatedId);
-    setStep('success');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setFormError(null);
+
+    if (formData.paymentMode === 'online') {
+      setIsProcessingPayment(true);
+      try {
+        const orderRequest = {
+          customerName: `${formData.title} ${formData.name}`.trim(),
+          customerEmail: formData.email.trim(),
+          customerMobile: formData.phone.trim(),
+          amount: selectedCategory.amount,
+          currency: 'INR',
+          redirectUrl: `${window.location.origin}/register?payment_status=success&name=${encodeURIComponent(
+            `${formData.title} ${formData.name}`
+          )}&email=${encodeURIComponent(formData.email)}&amount=${selectedCategory.amount}`,
+        };
+
+        const result = await initiateVortexPayment(orderRequest);
+
+        if (result.status === 'success' && result.data?.payment_url) {
+          // Direct user to the payment gateway checkout page
+          window.location.href = result.data.payment_url;
+          return;
+        } else {
+          setFormError(result.message || 'Payment initialization failed. Please try again or use direct bank transfer.');
+          setIsProcessingPayment(false);
+        }
+      } catch (err: any) {
+        setFormError(err?.message || 'Error communicating with the payment gateway.');
+        setIsProcessingPayment(false);
+      }
+    } else {
+      // Direct Bank Transfer (NEFT/RTGS)
+      const randomCode = Math.floor(10000 + Math.random() * 90000);
+      const generatedId = `DYUTI27-REG-${randomCode}`;
+      setRegistrationId(generatedId);
+      setPaymentResult({
+        amount: selectedCategory.amount,
+        mode: 'Direct Bank Transfer (NEFT/RTGS)',
+      });
+      setStep('success');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const handlePrint = () => {
@@ -887,28 +964,122 @@ export const Registration: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Transaction Reference / UTR Number */}
-                    <div className="p-5 rounded-2xl bg-white/10 border border-white/15 space-y-3">
-                      <div className="flex items-center justify-between">
-                        <label htmlFor="transactionRef" className="block text-xs font-mono font-bold uppercase tracking-wider text-amber-300">
-                          NEFT / RTGS / UPI Transaction UTR Reference Number (Optional)
-                        </label>
-                        <span className="text-[10px] font-mono text-slate-300">
-                          Direct Bank Transfer
+                    {/* Divider */}
+                    <div className="pt-6 pb-2 border-t border-white/15">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="w-5 h-0.5 bg-amber-400" />
+                        <span className="text-[11.5px] font-mono font-bold uppercase tracking-[0.2em] text-amber-300">
+                          Section E &bull; Payment Method &amp; Gateway
                         </span>
                       </div>
-                      <input
-                        type="text"
-                        id="transactionRef"
-                        name="transactionRef"
-                        value={formData.transactionRef}
-                        onChange={handleChange}
-                        placeholder="e.g. UTR1234567890 / SIBL-TXN-987654"
-                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-xs sm:text-sm focus:outline-none focus:border-amber-400"
-                      />
-                      <p className="text-[11px] text-slate-200 font-sans m-0 leading-relaxed">
-                        If you have already made the bank transfer, enter your UTR number above. You can also complete bank transfer after submitting and email the receipt screenshot to <a href="mailto:dyuti@rajagiri.edu" className="text-amber-300 underline font-mono">dyuti@rajagiri.edu</a>.
-                      </p>
+                    </div>
+
+                    {/* Payment Mode Choice */}
+                    <div className="space-y-4">
+                      <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+                        Choose Payment Method <span className="text-amber-400">*</span>
+                      </label>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {/* Option 1: Online Payment Gateway */}
+                        <div
+                          onClick={() => setFormData((prev) => ({ ...prev, paymentMode: 'online' }))}
+                          className={`p-5 rounded-2xl rounded-tl-3xl rounded-br-3xl border transition-all cursor-pointer flex flex-col justify-between ${
+                            formData.paymentMode === 'online'
+                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl ring-2 ring-amber-400/30'
+                              : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
+                          }`}
+                        >
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="inline-flex items-center gap-1 text-[11px] font-mono uppercase font-black text-amber-300">
+                                <CreditCard className="w-3.5 h-3.5" />
+                                Instant Online
+                              </span>
+                              <input
+                                type="radio"
+                                name="paymentMode"
+                                value="online"
+                                checked={formData.paymentMode === 'online'}
+                                onChange={handleChange}
+                                className="accent-amber-400"
+                              />
+                            </div>
+                            <h4 className="font-heading font-black text-base text-white">
+                              Online Payment Gateway
+                            </h4>
+                            <p className="text-xs text-slate-200 font-sans leading-relaxed">
+                              Pay securely via UPI, Credit/Debit Cards, or NetBanking with instant registration confirmation.
+                            </p>
+                          </div>
+                          <div className="pt-3 mt-3 border-t border-white/15 flex items-center gap-1.5 text-[11px] font-mono text-amber-300">
+                            <ShieldCheck className="w-3.5 h-3.5" />
+                            <span>Vortexx 256-Bit SSL Encrypted</span>
+                          </div>
+                        </div>
+
+                        {/* Option 2: Direct Bank Transfer */}
+                        <div
+                          onClick={() => setFormData((prev) => ({ ...prev, paymentMode: 'bank_transfer' }))}
+                          className={`p-5 rounded-2xl rounded-tr-3xl rounded-bl-3xl border transition-all cursor-pointer flex flex-col justify-between ${
+                            formData.paymentMode === 'bank_transfer'
+                              ? 'bg-amber-400/20 border-amber-400 text-white shadow-xl ring-2 ring-amber-400/30'
+                              : 'bg-white/10 border-white/20 text-slate-200 hover:bg-white/15'
+                          }`}
+                        >
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="inline-flex items-center gap-1 text-[11px] font-mono uppercase font-black text-amber-300">
+                                <Building2 className="w-3.5 h-3.5" />
+                                Bank Wire
+                              </span>
+                              <input
+                                type="radio"
+                                name="paymentMode"
+                                value="bank_transfer"
+                                checked={formData.paymentMode === 'bank_transfer'}
+                                onChange={handleChange}
+                                className="accent-amber-400"
+                              />
+                            </div>
+                            <h4 className="font-heading font-black text-base text-white">
+                              NEFT / RTGS / IMPS Transfer
+                            </h4>
+                            <p className="text-xs text-slate-200 font-sans leading-relaxed">
+                              Direct electronic wire transfer to Rajagiri College South Indian Bank account.
+                            </p>
+                          </div>
+                          <div className="pt-3 mt-3 border-t border-white/15 text-[11px] font-mono text-slate-300">
+                            <span>Requires UTR Reference Number</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Transaction Reference / UTR Number (shown if bank transfer or optional) */}
+                      {formData.paymentMode === 'bank_transfer' && (
+                        <div className="p-5 rounded-2xl bg-white/10 border border-amber-400/30 space-y-3 mt-4 animate-fadeIn">
+                          <div className="flex items-center justify-between">
+                            <label htmlFor="transactionRef" className="block text-xs font-mono font-bold uppercase tracking-wider text-amber-300">
+                              NEFT / RTGS / UPI Transaction UTR Reference Number
+                            </label>
+                            <span className="text-[10px] font-mono text-amber-300">
+                              Bank Wire Record
+                            </span>
+                          </div>
+                          <input
+                            type="text"
+                            id="transactionRef"
+                            name="transactionRef"
+                            value={formData.transactionRef}
+                            onChange={handleChange}
+                            placeholder="e.g. UTR1234567890 / SIBL-TXN-987654"
+                            className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-xs sm:text-sm focus:outline-none focus:border-amber-400"
+                          />
+                          <p className="text-[11px] text-slate-200 font-sans m-0 leading-relaxed">
+                            Enter your bank UTR number if already paid. You may also transfer after submitting and email the receipt screenshot to <a href="mailto:dyuti@rajagiri.edu" className="text-amber-300 underline font-mono">dyuti@rajagiri.edu</a>.
+                          </p>
+                        </div>
+                      )}
                     </div>
 
                   </div>
@@ -916,7 +1087,7 @@ export const Registration: React.FC = () => {
                   {/* Submission Action Button */}
                   <div className="pt-8 mt-8 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4 relative z-10">
                     <p className="text-xs text-slate-200 font-sans font-medium m-0">
-                      * Next Step: You will be able to cross-check all 12 items before final confirmation.
+                      * Next Step: You will be able to cross-check all details before final confirmation.
                     </p>
                     <Button
                       variant="primary"
@@ -1122,10 +1293,10 @@ export const Registration: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Section 3: Conference Logistics & Category */}
+                {/* Section 3: Conference Logistics, Category & Payment Mode */}
                 <div className="p-6 rounded-2xl bg-white/10 border border-white/15 space-y-4">
                   <h3 className="font-mono text-xs font-black uppercase tracking-wider text-amber-300 pb-2 border-b border-white/15">
-                    3. Conference Preferences &amp; Category
+                    3. Conference Preferences &amp; Payment Gateway
                   </h3>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -1155,12 +1326,31 @@ export const Registration: React.FC = () => {
                     </div>
 
                     <div>
-                      <span className="text-[11px] text-slate-300 block uppercase font-mono">12. Registration Category</span>
+                      <span className="text-[11px] text-slate-300 block uppercase font-mono">12. Registration Category &amp; Fee</span>
                       <strong className="text-amber-300 font-bold block">{selectedCategory.label}</strong>
                       <span className="text-xs text-white font-mono font-black">{selectedCategory.fee}</span>
                     </div>
 
-                    {formData.transactionRef && (
+                    <div className="sm:col-span-2 pt-3 border-t border-white/10">
+                      <span className="text-[11px] text-slate-300 block uppercase font-mono mb-1">
+                        Selected Payment Mode
+                      </span>
+                      <div className="flex items-center gap-2">
+                        {formData.paymentMode === 'online' ? (
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 font-mono text-xs font-bold">
+                            <CreditCard className="w-3.5 h-3.5" />
+                            Online Payment Gateway (Instant Confirmation)
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300 font-mono text-xs font-bold">
+                            <Building2 className="w-3.5 h-3.5" />
+                            Direct Bank Wire Transfer (NEFT / RTGS)
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {formData.paymentMode === 'bank_transfer' && formData.transactionRef && (
                       <div className="sm:col-span-2 pt-2 border-t border-white/10">
                         <span className="text-[11px] text-slate-300 block uppercase font-mono">Transaction Reference / UTR</span>
                         <strong className="text-amber-300 font-mono font-bold">{formData.transactionRef}</strong>
@@ -1192,6 +1382,7 @@ export const Registration: React.FC = () => {
                 <Button
                   variant="white"
                   size="md"
+                  disabled={isProcessingPayment}
                   onClick={() => {
                     setStep('form');
                     setFormError(null);
@@ -1204,11 +1395,24 @@ export const Registration: React.FC = () => {
                 <Button
                   variant="primary"
                   size="lg"
+                  disabled={isProcessingPayment}
                   onClick={handleFinalSubmit}
-                  showArrow
+                  showArrow={!isProcessingPayment}
                   className="w-full sm:w-auto shadow-xl"
                 >
-                  Confirm &amp; Submit Registration
+                  {isProcessingPayment ? (
+                    <span className="inline-flex items-center gap-2">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Connecting to Payment Gateway...
+                    </span>
+                  ) : formData.paymentMode === 'online' ? (
+                    <span className="inline-flex items-center gap-2">
+                      <Lock className="w-4 h-4" />
+                      Pay ₹ {selectedCategory.amount} &amp; Confirm
+                    </span>
+                  ) : (
+                    'Confirm & Submit Registration'
+                  )}
                 </Button>
               </div>
 
@@ -1232,9 +1436,11 @@ export const Registration: React.FC = () => {
                 <CheckCircle2 className="w-10 h-10 text-emerald-400" />
               </div>
 
-              <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-amber-300 font-mono text-xs font-black uppercase tracking-widest mb-4">
-                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                Registration Acknowledged
+              <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 font-mono text-xs font-black uppercase tracking-widest mb-4">
+                <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
+                {formData.paymentMode === 'online' || paymentResult.orderId
+                  ? 'Payment Verified & Registration Confirmed'
+                  : 'Registration Recorded (Bank Wire Pending Verification)'}
               </span>
 
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-black text-white mb-3">
@@ -1242,17 +1448,29 @@ export const Registration: React.FC = () => {
               </h2>
 
               <p className="text-xs sm:text-sm text-slate-100 font-sans max-w-xl mx-auto leading-relaxed mb-6 font-medium">
-                Your delegate registration request for <strong className="text-white font-black">DYUTI 2027</strong> has been recorded successfully.
+                Your delegate registration request for <strong className="text-white font-black">DYUTI 2027</strong> has been acknowledged and recorded successfully.
               </p>
 
-              {/* Reference ID Banner */}
-              <div className="p-5 rounded-2xl bg-white/10 border border-white/20 max-w-md mx-auto mb-8 shadow-inner">
-                <span className="text-[11px] text-slate-300 uppercase font-mono block mb-1">
-                  Your Registration Reference ID
-                </span>
-                <span className="font-mono text-xl sm:text-2xl font-black text-amber-300 tracking-wider">
-                  {registrationId}
-                </span>
+              {/* Reference ID & Order Banner */}
+              <div className="p-6 rounded-2xl bg-white/10 border border-white/20 max-w-md mx-auto mb-8 shadow-inner space-y-2">
+                <div>
+                  <span className="text-[11px] text-slate-300 uppercase font-mono block mb-1">
+                    Registration Reference ID
+                  </span>
+                  <span className="font-mono text-xl sm:text-2xl font-black text-amber-300 tracking-wider block">
+                    {registrationId}
+                  </span>
+                </div>
+                {paymentResult.orderId && (
+                  <div className="pt-2 border-t border-white/15">
+                    <span className="text-[10px] text-slate-300 uppercase font-mono block">
+                      Gateway Order ID
+                    </span>
+                    <span className="font-mono text-sm font-bold text-emerald-300">
+                      {paymentResult.orderId}
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Summary Details Box */}
@@ -1260,6 +1478,20 @@ export const Registration: React.FC = () => {
                 <div className="flex justify-between pb-2 border-b border-white/10">
                   <span className="text-slate-300">Category:</span>
                   <strong className="text-white">{selectedCategory.label}</strong>
+                </div>
+                <div className="flex justify-between pb-2 border-b border-white/10">
+                  <span className="text-slate-300">Amount:</span>
+                  <strong className="text-amber-300 font-mono font-bold">
+                    ₹ {paymentResult.amount || selectedCategory.amount}
+                  </strong>
+                </div>
+                <div className="flex justify-between pb-2 border-b border-white/10">
+                  <span className="text-slate-300">Payment Status:</span>
+                  <strong className="text-emerald-300">
+                    {formData.paymentMode === 'online' || paymentResult.orderId
+                      ? 'Completed via Vortexx Gateway'
+                      : 'Bank Wire Transfer'}
+                  </strong>
                 </div>
                 <div className="flex justify-between pb-2 border-b border-white/10">
                   <span className="text-slate-300">Institution:</span>
