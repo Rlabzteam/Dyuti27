@@ -87,14 +87,14 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
       >
         <div className={rightContent ? 'lg:col-span-8' : ''}>
           {eyebrow && (
-            <div className="flex items-center gap-2.5 mb-3.5">
+            <div className="flex items-center gap-3 mb-4">
               <span
-                className={cn('w-5 h-0.5', dark ? 'bg-[#93C5FD]' : 'bg-[#2563EB]')}
+                className={cn('w-8 h-0.5', dark ? 'bg-[#93C5FD]' : 'bg-[#071A33]')}
               />
               <span
                 className={cn(
-                  'text-[11px] sm:text-[12px] font-sans uppercase tracking-[0.2em] font-bold',
-                  dark ? 'text-[#93C5FD]' : 'text-[#2563EB]'
+                  'text-sm sm:text-[15px] font-sans font-extrabold uppercase tracking-[0.24em]',
+                  dark ? 'text-[#93C5FD]' : 'text-slate-700'
                 )}
               >
                 {eyebrow}

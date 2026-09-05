@@ -355,12 +355,13 @@ export const Registration: React.FC = () => {
 
         {/* ── PAGE HEADER ── */}
         <div className="text-center max-w-3xl mx-auto mb-14 lg:mb-20">
-          <div className="flex items-center justify-center gap-2.5 mb-6">
-            <span className="w-6 h-0.5 bg-[#071A33]" />
-            <span className="text-[12px] font-sans font-bold uppercase tracking-[0.22em] text-slate-600">
+          {/* Eyebrow */}
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <span className="w-8 h-0.5 bg-[#071A33]" />
+            <span className="text-sm sm:text-[15px] font-sans font-extrabold uppercase tracking-[0.24em] text-slate-700">
               DYUTI 2027 Registration Portal
             </span>
-            <span className="w-6 h-0.5 bg-[#071A33]" />
+            <span className="w-8 h-0.5 bg-[#071A33]" />
           </div>
 
           <h1 className="font-heading font-extrabold text-[#071A33] leading-none tracking-tight mb-6 text-[2.5rem] sm:text-[3.25rem] lg:text-[4rem]">
