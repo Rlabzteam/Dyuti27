@@ -215,18 +215,19 @@ export const Rajagiri: React.FC = () => {
                 </div>
 
                 {/* Institutional Heritage & Vision Motto Box */}
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-blue-950/70 text-white shadow-lg border border-blue-400/30 backdrop-blur-md flex items-center gap-3.5">
-                  <div className="w-11 h-11 rounded-xl bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shrink-0 font-heading font-black text-lg shadow-inner">
-                    RCSS
-                  </div>
-                  <div>
-                    <h4 className="font-heading font-black text-sm sm:text-base text-white m-0 leading-tight">
-                      &ldquo;Relentlessly Towards Excellence&rdquo; &bull; Est. 1955
+                <div className="mt-5 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#0b2447] via-[#103460] to-[#081c38] text-white shadow-xl border border-amber-400/30 border-l-4 border-l-amber-400 backdrop-blur-md group hover:border-amber-400/50 transition-all space-y-1.5">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h4 className="font-heading font-black text-sm sm:text-base text-amber-200 m-0 leading-tight">
+                      &ldquo;Relentlessly Towards Excellence&rdquo;
                     </h4>
-                    <p className="text-[12px] text-slate-200 font-sans font-medium m-0 mt-0.5 leading-snug">
-                      70+ years of pedagogical innovation, autonomous academic rigor, and transformative community impact.
-                    </p>
+                    <span className="text-white/40 hidden sm:inline">&bull;</span>
+                    <span className="text-amber-300 font-mono text-[11px] font-bold uppercase tracking-wider bg-amber-400/15 px-2.5 py-0.5 rounded-full border border-amber-400/30">
+                      Est. 1955
+                    </span>
                   </div>
+                  <p className="text-[12.5px] sm:text-[13px] text-slate-200 font-sans font-normal m-0 leading-relaxed">
+                    70+ years of pedagogical innovation, autonomous academic rigor, and transformative community impact.
+                  </p>
                 </div>
               </div>
 
