@@ -8,7 +8,7 @@ export const Rajagiri: React.FC = () => {
   const socialWorkSlides = [
     {
       id: 1,
-      tag: "Host Department",
+      tag: "",
       title: "Department of Social Work",
       content: (
         <p className="m-0 text-slate-200 text-[14px] sm:text-[15.5px] leading-relaxed font-sans font-normal">
@@ -20,7 +20,7 @@ export const Rajagiri: React.FC = () => {
     },
     {
       id: 2,
-      tag: "Research & Consultancies",
+      tag: "",
       title: "Impactful Research & Government Consultancies",
       content: (
         <p className="m-0 text-slate-200 text-[14px] sm:text-[15.5px] leading-relaxed font-sans font-normal">
@@ -32,7 +32,7 @@ export const Rajagiri: React.FC = () => {
     },
     {
       id: 3,
-      tag: "Scholarly Publishing",
+      tag: "",
       title: "UGC CARE Listed Journal & ICSSR Grant",
       content: (
         <p className="m-0 text-slate-200 text-[14px] sm:text-[15.5px] leading-relaxed font-sans font-normal">
