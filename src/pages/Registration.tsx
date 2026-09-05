@@ -9,7 +9,11 @@ import {
   CreditCard,
   Lock,
   Loader2,
-  ShieldCheck
+  ShieldCheck,
+  XCircle,
+  RefreshCw,
+  HelpCircle,
+  PhoneCall
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { CONFERENCE_DATA } from '@/data/conference';
@@ -116,7 +120,7 @@ const CATEGORY_DETAILS: Record<string, { label: string; fee: string; amount: num
 
 export const Registration: React.FC = () => {
   const [formData, setFormData] = useState<RegistrationFormData>(INITIAL_FORM_DATA);
-  const [step, setStep] = useState<'form' | 'review' | 'success'>('form');
+  const [step, setStep] = useState<'form' | 'review' | 'success' | 'failure'>('form');
   const [formError, setFormError] = useState<string | null>(null);
   const [registrationId, setRegistrationId] = useState<string>('');
   const [isProcessingPayment, setIsProcessingPayment] = useState<boolean>(false);
@@ -165,9 +169,17 @@ export const Registration: React.FC = () => {
       const errorMessage =
         urlParams.get('message') ||
         urlParams.get('error') ||
-        'Payment was cancelled or could not be processed. Please try again or opt for Direct Bank Transfer.';
+        'The online payment transaction was cancelled or could not be completed by your bank / payment gateway.';
+      const orderId = urlParams.get('order_id') || urlParams.get('payment_id') || '';
+      const amount = Number(urlParams.get('amount')) || 750;
+
+      setPaymentResult({
+        orderId,
+        amount,
+        mode: 'Vortexx / Razorpay Gateway',
+      });
       setFormError(errorMessage);
-      setStep('form');
+      setStep('failure');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, []);
@@ -1454,6 +1466,118 @@ export const Registration: React.FC = () => {
                 >
                   Return to Homepage
                 </Button>
+              </div>
+
+            </div>
+
+          </div>
+        )}
+
+        {/* ── STEP 4: PAYMENT FAILURE / CANCELLED SCREEN ── */}
+        {step === 'failure' && (
+          <div className="max-w-4xl mx-auto space-y-8 animate-fadeIn">
+
+            {/* Failure Card (Curved Leaf Shape) */}
+            <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-8 sm:p-12 lg:p-14 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white border border-red-500/30 shadow-2xl text-center relative overflow-hidden">
+              
+              {/* Subtle ambient glow */}
+              <div className="absolute top-0 right-0 w-80 h-80 bg-red-500/5 rounded-full blur-3xl pointer-events-none" />
+
+              {/* Failure Icon */}
+              <div className="w-20 h-20 rounded-full bg-red-500/20 border-2 border-red-400 flex items-center justify-center mx-auto mb-6 shadow-xl relative z-10">
+                <XCircle className="w-10 h-10 text-red-400" />
+              </div>
+
+              <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-red-500/20 border border-red-400/50 text-red-300 font-mono text-xs font-black uppercase tracking-widest mb-4">
+                <AlertCircle className="w-3.5 h-3.5 text-red-300" />
+                Payment Transaction Incomplete
+              </span>
+
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-black text-white mb-3">
+                Payment Was Cancelled or Failed
+              </h2>
+
+              <p className="text-xs sm:text-sm text-slate-200 font-sans max-w-xl mx-auto leading-relaxed mb-6 font-medium">
+                We could not complete your online transaction with Razorpay. Your delegate registration has not been finalized yet.
+              </p>
+
+              {/* Error Details Box */}
+              <div className="p-5 rounded-2xl bg-red-500/10 border border-red-400/30 text-red-200 text-xs sm:text-sm font-sans max-w-xl mx-auto mb-8 text-left space-y-2">
+                <div className="flex items-start gap-2.5">
+                  <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="block text-red-300 font-bold mb-0.5">Gateway Notice:</strong>
+                    <span>{formError || 'The payment session was cancelled or could not be authenticated by the issuing bank.'}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Helpful Resolution Guidelines */}
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-left font-sans text-xs sm:text-sm space-y-3 mb-8 max-w-xl mx-auto">
+                <h4 className="font-mono text-xs font-black uppercase tracking-wider text-amber-300 flex items-center gap-2 pb-2 border-b border-white/10">
+                  <HelpCircle className="w-4 h-4 text-amber-400" />
+                  What Should You Do Next?
+                </h4>
+                <ul className="space-y-2.5 text-slate-200">
+                  <li className="flex items-start gap-2.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+                    <span><strong>Money Deducted?</strong> If amount was debited from your bank/UPI, Razorpay and your bank will automatically process a full reversal within 2&ndash;3 business days.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+                    <span><strong>Retry Online Payment:</strong> You can re-attempt using another card, UPI ID, or NetBanking without re-entering your details.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+                    <span><strong>Direct Bank Transfer:</strong> You can alternatively transfer the fee directly to Rajagiri College South Indian Bank account.</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center justify-center gap-4 relative z-10">
+                <Button
+                  variant="primary"
+                  size="md"
+                  onClick={() => {
+                    setFormError(null);
+                    setStep('review');
+                  }}
+                  icon={<RefreshCw className="w-4 h-4" />}
+                >
+                  Retry Payment (₹ {selectedCategory.amount})
+                </Button>
+
+                <Button
+                  variant="white"
+                  size="md"
+                  onClick={() => {
+                    setFormData((prev) => ({ ...prev, paymentMode: 'bank_transfer' }));
+                    setFormError(null);
+                    setStep('review');
+                  }}
+                  icon={<Building2 className="w-4 h-4" />}
+                >
+                  Pay via Direct Bank Transfer
+                </Button>
+
+                <Button
+                  variant="white"
+                  size="md"
+                  onClick={() => {
+                    setFormError(null);
+                    setStep('form');
+                  }}
+                  icon={<ArrowLeft className="w-4 h-4" />}
+                >
+                  Edit Registration Details
+                </Button>
+              </div>
+
+              {/* Support Contact Footer */}
+              <div className="mt-8 pt-6 border-t border-white/10 flex items-center justify-center gap-2 text-[11px] font-mono text-slate-300">
+                <PhoneCall className="w-3.5 h-3.5 text-amber-400" />
+                <span>Need assistance? Contact Secretariat at <a href="mailto:dyuti@rajagiri.edu" className="text-amber-300 underline">dyuti@rajagiri.edu</a></span>
               </div>
 
             </div>
