@@ -1,5 +1,4 @@
 import React from 'react';
-import { Trophy, Utensils, Leaf, Award, Globe, Heart, BookOpen, Users } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { CONFERENCE_DATA } from '@/data/conference';
 
@@ -338,53 +337,33 @@ export const Rajagiri: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="p-3.5 sm:p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-lg bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shrink-0">
-                        <Heart className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 03</span>
-                        <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Good Health &amp; Well-Being</h5>
-                      </div>
+                    <div>
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 03</span>
+                      <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Good Health &amp; Well-Being</h5>
                     </div>
                     <p className="text-[11.5px] text-slate-200 leading-relaxed m-0">Community mental health counselling, de-addiction research cell &amp; adolescent psycho-social interventions.</p>
                   </div>
 
                   <div className="p-3.5 sm:p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-lg bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shrink-0">
-                        <BookOpen className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 04</span>
-                        <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Quality Education</h5>
-                      </div>
+                    <div>
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 04</span>
+                      <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Quality Education</h5>
                     </div>
                     <p className="text-[11.5px] text-slate-200 leading-relaxed m-0">Outcome-based learning, autonomous curricula, student research grants, and international summer universities.</p>
                   </div>
 
                   <div className="p-3.5 sm:p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-lg bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shrink-0">
-                        <Users className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 10</span>
-                        <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Reduced Inequalities</h5>
-                      </div>
+                    <div>
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 10</span>
+                      <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Reduced Inequalities</h5>
                     </div>
                     <p className="text-[11.5px] text-slate-200 leading-relaxed m-0">Rights-based social justice, child protection nodal desks, and inclusive tribal/rural development programmes.</p>
                   </div>
 
                   <div className="p-3.5 sm:p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-lg bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shrink-0">
-                        <Globe className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 17</span>
-                        <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Global Partnerships</h5>
-                      </div>
+                    <div>
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 17</span>
+                      <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Global Partnerships</h5>
                     </div>
                     <p className="text-[11.5px] text-slate-200 leading-relaxed m-0">Active collaborations with 60+ universities across 30 countries and international conference hosting (DYUTI/ICSD).</p>
                   </div>
@@ -430,10 +409,7 @@ export const Rajagiri: React.FC = () => {
             {/* 4 Featured Recognition Badges Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
               <div className="p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex flex-col justify-between hover:bg-white/15 transition-all duration-300">
-                <div className="space-y-2">
-                  <div className="w-9 h-9 rounded-lg bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shadow-inner">
-                    <Trophy className="w-4 h-4" />
-                  </div>
+                <div className="space-y-1.5">
                   <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">Award 2024</span>
                   <h4 className="font-heading font-bold text-sm text-white leading-snug m-0">
                     India Elite Education &amp; Institutional Excellence Award
@@ -443,10 +419,7 @@ export const Rajagiri: React.FC = () => {
               </div>
 
               <div className="p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex flex-col justify-between hover:bg-white/15 transition-all duration-300">
-                <div className="space-y-2">
-                  <div className="w-9 h-9 rounded-lg bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shadow-inner">
-                    <Utensils className="w-4 h-4" />
-                  </div>
+                <div className="space-y-1.5">
                   <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">2025–2027</span>
                   <h4 className="font-heading font-bold text-sm text-white leading-snug m-0">
                     Eat Right Campus Award by FSSAI
@@ -456,10 +429,7 @@ export const Rajagiri: React.FC = () => {
               </div>
 
               <div className="p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex flex-col justify-between hover:bg-white/15 transition-all duration-300">
-                <div className="space-y-2">
-                  <div className="w-9 h-9 rounded-lg bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shadow-inner">
-                    <Leaf className="w-4 h-4" />
-                  </div>
+                <div className="space-y-1.5">
                   <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">Haritha Keralam</span>
                   <h4 className="font-heading font-bold text-sm text-white leading-snug m-0">
                     Green Institution Certification
@@ -469,10 +439,7 @@ export const Rajagiri: React.FC = () => {
               </div>
 
               <div className="p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex flex-col justify-between hover:bg-white/15 transition-all duration-300">
-                <div className="space-y-2">
-                  <div className="w-9 h-9 rounded-lg bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shadow-inner">
-                    <Award className="w-4 h-4" />
-                  </div>
+                <div className="space-y-1.5">
                   <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">2023–24</span>
                   <h4 className="font-heading font-bold text-sm text-white leading-snug m-0">
                     Best NSS Unit Award

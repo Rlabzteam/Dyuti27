@@ -1,18 +1,7 @@
 import React, { useState } from 'react';
-import { Search, Layers, Scale, TrendingUp, Users, Leaf, Heart, GraduationCap, Building2, Globe, ArrowRight } from 'lucide-react';
+import { Search, ArrowRight, Layers } from 'lucide-react';
 import { CONFERENCE_DATA } from '@/data/conference';
 import { Link } from 'react-router-dom';
-
-const themeIcons: Record<string, React.FC<{ className?: string }>> = {
-  '01': Scale,
-  '02': TrendingUp,
-  '03': Users,
-  '04': Leaf,
-  '05': Heart,
-  '06': GraduationCap,
-  '07': Building2,
-  '08': Globe,
-};
 
 export const MajorSubThemes: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -92,8 +81,6 @@ export const MajorSubThemes: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 items-stretch">
           {filteredThemes.map((theme, index) => {
             const originalIndex = CONFERENCE_DATA.subThemes.findIndex((t) => t.title === theme.title);
-            const trackNum = theme.number || String((originalIndex >= 0 ? originalIndex : index) + 1).padStart(2, '0');
-            const IconComp = themeIcons[trackNum] || Layers;
             const isAlternate = (originalIndex >= 0 ? originalIndex : index) % 2 === 1;
 
             return (
@@ -109,16 +96,6 @@ export const MajorSubThemes: React.FC = () => {
                 <div className="absolute top-0 right-0 w-44 h-44 bg-amber-400/5 rounded-full blur-2xl pointer-events-none group-hover:bg-amber-400/10 transition-colors" />
 
                 <div>
-                  {/* Top Row: Track Badge & Icon */}
-                  <div className="flex items-center justify-between gap-3 mb-5 relative z-10">
-                    <span className="px-3.5 py-1 rounded-full bg-white/15 border border-white/25 text-amber-300 text-xs font-mono font-black uppercase tracking-wider shadow-xs">
-                      Track {trackNum}
-                    </span>
-                    <div className="w-10 h-10 rounded-xl bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 shrink-0 shadow-inner group-hover:scale-110 transition-transform">
-                      <IconComp className="w-5 h-5" />
-                    </div>
-                  </div>
-
                   {/* Theme Title */}
                   <h3 className="font-heading font-black text-lg sm:text-xl text-white leading-snug tracking-tight mb-4 relative z-10 min-h-[52px]">
                     {theme.title}
