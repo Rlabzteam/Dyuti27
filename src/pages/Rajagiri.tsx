@@ -275,21 +275,21 @@ export const Rajagiri: React.FC = () => {
               {/* Left Column: THE Highlight Banner & Narrative */}
               <div className="lg:col-span-5 space-y-4">
                 {/* THE Impact Rankings Box */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-blue-950/70 text-white shadow-lg border border-blue-400/30 backdrop-blur-md">
-                  <span className="text-[10px] font-mono font-black uppercase tracking-[0.18em] text-amber-300 block mb-0.5">
+                <div className="p-4 sm:p-5 rounded-2xl bg-blue-950/80 text-white shadow-lg border border-blue-400/40 backdrop-blur-md">
+                  <span className="text-xs sm:text-[13px] font-sans font-black uppercase tracking-[0.18em] text-amber-400 block mb-1.5">
                     Times Higher Education Impact Rankings 2026
                   </span>
-                  <h3 className="font-heading text-lg sm:text-xl font-black leading-tight text-white m-0 mb-1">
+                  <h3 className="font-heading text-lg sm:text-xl font-black leading-tight text-white m-0 mb-1.5">
                     Global Band 601&ndash;800 for SDG 3 (Good Health &amp; Well-Being)
                   </h3>
-                  <p className="text-slate-200 text-xs sm:text-[13px] font-sans font-medium leading-relaxed m-0">
+                  <p className="text-slate-100 text-xs sm:text-[13.5px] font-sans font-medium leading-relaxed m-0">
                     Recognising Rajagiri&apos;s institutional commitment to public health, community psycho-social wellbeing, mental health services, and frontline health outreach.
                   </p>
                 </div>
 
                 <div className="space-y-3 text-[14px] sm:text-[15px] text-slate-100 leading-relaxed font-sans font-medium">
                   <p className="m-0">
-                    Rajagiri has earned international distinction in the <strong className="text-amber-300 font-bold">Times Higher Education (THE) Impact Rankings 2026</strong>, benchmarked against the United Nations Sustainable Development Goals.
+                    Rajagiri has earned international distinction in the <strong className="text-amber-400 font-extrabold">Times Higher Education (THE) Impact Rankings 2026</strong>, benchmarked against the United Nations Sustainable Development Goals.
                   </p>
                   <p className="m-0 text-slate-200">
                     Through active community engagement, multidisciplinary research centres, and global academic partnerships across 30+ countries, the college fosters impactful health, education, and social sustainability initiatives.
@@ -299,44 +299,68 @@ export const Rajagiri: React.FC = () => {
 
               {/* Right Column: 4 SDG Focus Cards */}
               <div className="lg:col-span-7 space-y-3 lg:border-l lg:border-white/15 lg:pl-6">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="w-3 h-0.5 bg-amber-300" />
-                  <h4 className="text-xs font-mono font-black uppercase tracking-[0.18em] text-amber-300 m-0">
+                <div className="flex items-center gap-2.5 mb-2">
+                  <span className="w-5 h-0.5 bg-amber-400" />
+                  <h4 className="text-xs sm:text-[13px] font-sans font-black uppercase tracking-[0.16em] text-amber-400 m-0">
                     UN Sustainable Development Goals &bull; Institutional Alignment
                   </h4>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="p-3.5 sm:p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div className="p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
                     <div>
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 03</span>
-                      <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Good Health &amp; Well-Being</h5>
+                      <span className="text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider text-amber-400 block mb-0.5">
+                        SDG 03
+                      </span>
+                      <h5 className="font-heading font-bold text-sm sm:text-base text-white m-0 leading-tight">
+                        Good Health &amp; Well-Being
+                      </h5>
                     </div>
-                    <p className="text-[11.5px] text-slate-200 leading-relaxed m-0">Community mental health counselling, de-addiction research cell &amp; adolescent psycho-social interventions.</p>
+                    <p className="text-xs sm:text-[12.5px] text-slate-100 leading-relaxed m-0 font-medium">
+                      Community mental health counselling, de-addiction research cell &amp; adolescent psycho-social interventions.
+                    </p>
                   </div>
 
-                  <div className="p-3.5 sm:p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
+                  <div className="p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
                     <div>
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 04</span>
-                      <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Quality Education</h5>
+                      <span className="text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider text-amber-400 block mb-0.5">
+                        SDG 04
+                      </span>
+                      <h5 className="font-heading font-bold text-sm sm:text-base text-white m-0 leading-tight">
+                        Quality Education
+                      </h5>
                     </div>
-                    <p className="text-[11.5px] text-slate-200 leading-relaxed m-0">Outcome-based learning, autonomous curricula, student research grants, and international summer universities.</p>
+                    <p className="text-xs sm:text-[12.5px] text-slate-100 leading-relaxed m-0 font-medium">
+                      Outcome-based learning, autonomous curricula, student research grants, and international summer universities.
+                    </p>
                   </div>
 
-                  <div className="p-3.5 sm:p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
+                  <div className="p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
                     <div>
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 10</span>
-                      <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Reduced Inequalities</h5>
+                      <span className="text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider text-amber-400 block mb-0.5">
+                        SDG 10
+                      </span>
+                      <h5 className="font-heading font-bold text-sm sm:text-base text-white m-0 leading-tight">
+                        Reduced Inequalities
+                      </h5>
                     </div>
-                    <p className="text-[11.5px] text-slate-200 leading-relaxed m-0">Rights-based social justice, child protection nodal desks, and inclusive tribal/rural development programmes.</p>
+                    <p className="text-xs sm:text-[12.5px] text-slate-100 leading-relaxed m-0 font-medium">
+                      Rights-based social justice, child protection nodal desks, and inclusive tribal/rural development programmes.
+                    </p>
                   </div>
 
-                  <div className="p-3.5 sm:p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
+                  <div className="p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
                     <div>
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">SDG 17</span>
-                      <h5 className="font-heading font-bold text-sm text-white m-0 leading-tight">Global Partnerships</h5>
+                      <span className="text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider text-amber-400 block mb-0.5">
+                        SDG 17
+                      </span>
+                      <h5 className="font-heading font-bold text-sm sm:text-base text-white m-0 leading-tight">
+                        Global Partnerships
+                      </h5>
                     </div>
-                    <p className="text-[11.5px] text-slate-200 leading-relaxed m-0">Active collaborations with 60+ universities across 30 countries and international conference hosting (DYUTI/ICSD).</p>
+                    <p className="text-xs sm:text-[12.5px] text-slate-100 leading-relaxed m-0 font-medium">
+                      Active collaborations with 60+ universities across 30 countries and international conference hosting (DYUTI/ICSD).
+                    </p>
                   </div>
                 </div>
               </div>
