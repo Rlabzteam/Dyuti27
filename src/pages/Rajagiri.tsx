@@ -8,7 +8,6 @@ export const Rajagiri: React.FC = () => {
   const socialWorkSlides = [
     {
       id: 1,
-      tag: "",
       title: "Department of Social Work",
       content: (
         <p className="m-0 text-slate-200 text-[14px] sm:text-[15.5px] leading-relaxed font-sans font-normal">
@@ -20,7 +19,6 @@ export const Rajagiri: React.FC = () => {
     },
     {
       id: 2,
-      tag: "",
       title: "Impactful Research & Government Consultancies",
       content: (
         <p className="m-0 text-slate-200 text-[14px] sm:text-[15.5px] leading-relaxed font-sans font-normal">
@@ -32,7 +30,6 @@ export const Rajagiri: React.FC = () => {
     },
     {
       id: 3,
-      tag: "",
       title: "UGC CARE Listed Journal & ICSSR Grant",
       content: (
         <p className="m-0 text-slate-200 text-[14px] sm:text-[15.5px] leading-relaxed font-sans font-normal">
@@ -44,7 +41,6 @@ export const Rajagiri: React.FC = () => {
     },
     {
       id: 4,
-      tag: "",
       title: "Flagship Academic Conferences",
       content: (
         <div className="space-y-3 text-slate-200 text-[14px] sm:text-[15.5px] leading-relaxed font-sans font-normal">
@@ -504,15 +500,6 @@ export const Rajagiri: React.FC = () => {
                 key={socialWorkSlide}
                 className="lg:col-span-7 flex flex-col justify-center animate-fade-in transition-all duration-500"
               >
-                {socialWorkSlides[socialWorkSlide].tag && (
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="w-5 h-0.5 bg-amber-300 animate-pulse" />
-                    <span className="text-xs font-mono font-bold uppercase tracking-[0.18em] text-amber-300">
-                      {socialWorkSlides[socialWorkSlide].tag}
-                    </span>
-                  </div>
-                )}
-
                 <h3 className="font-heading text-2xl sm:text-3xl lg:text-[2.4rem] font-extrabold text-white m-0 mb-4 leading-tight tracking-tight">
                   {socialWorkSlides[socialWorkSlide].title}
                 </h3>
