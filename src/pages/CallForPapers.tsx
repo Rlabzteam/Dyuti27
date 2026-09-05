@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/Button';
-import { Download, ChevronLeft, ChevronRight, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Download } from 'lucide-react';
 import { CONFERENCE_DATA } from '@/data/conference';
 
 export const CallForPapers: React.FC = () => {
@@ -17,7 +17,6 @@ export const CallForPapers: React.FC = () => {
   };
 
   const activeTheme = CONFERENCE_DATA.subThemes[activeThemeIndex];
-  const activeTrackNum = String(activeThemeIndex + 1).padStart(2, '0');
 
   const participantTypes = [
     'Graduate Students',
@@ -124,134 +123,90 @@ export const CallForPapers: React.FC = () => {
           </div>
         </div>
 
-        {/* ── CONFERENCE THEMES (Compact Stepper Card with Arrow Navigation & Leaf Shape) ── */}
-        <div className="mb-20 lg:mb-28">
-          <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] overflow-hidden border border-white/20 shadow-2xl bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-6 sm:p-8 lg:p-10 transition-all duration-300 relative">
-            
-            {/* Ambient Background Glow */}
-            <div className="absolute top-0 right-0 w-80 h-80 bg-amber-400/5 rounded-full blur-3xl pointer-events-none" />
+        {/* ── EIGHT CONFERENCE SUB-THEMES (Showcase Card with Fixed Shape & Signature Navy Blue Gradient) ── */}
+        <div className="relative w-full rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] overflow-hidden bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] border border-white/20 hover:border-amber-400/30 shadow-2xl p-6 sm:p-10 lg:p-12 text-white mb-20 lg:mb-28">
+          {/* Ambient Background Radial Glows */}
+          <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
 
-            {/* Top Bar: Section Title + Arrow Controls */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 mb-5 border-b border-white/15 relative z-10">
+          {/* Left Arrow Button with Micro-Animation */}
+          <button
+            type="button"
+            onClick={handlePrevTheme}
+            aria-label="Previous Sub-Theme"
+            className="group/btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 text-white/60 hover:text-amber-300 hover:scale-110 active:scale-95 transition-all duration-300 p-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 hover:border-amber-400/40 backdrop-blur-md shadow-lg focus:outline-none cursor-pointer"
+          >
+            <svg className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg transition-transform duration-300 group-hover/btn:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          {/* Right Arrow Button with Micro-Animation */}
+          <button
+            type="button"
+            onClick={handleNextTheme}
+            aria-label="Next Sub-Theme"
+            className="group/btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 text-white/60 hover:text-amber-300 hover:scale-110 active:scale-95 transition-all duration-300 p-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 hover:border-amber-400/40 backdrop-blur-md shadow-lg focus:outline-none cursor-pointer"
+          >
+            <svg className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg transition-transform duration-300 group-hover/btn:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
+          {/* Inner Content */}
+          <div className="relative z-10 px-4 sm:px-8 lg:px-12">
+            {/* Section Header */}
+            <div className="flex items-center justify-between pb-5 mb-5 border-b border-white/15">
               <div className="flex items-center gap-3">
-                <span className="inline-flex items-center px-3.5 py-1 rounded-full bg-white/15 border border-white/25 text-white text-[11px] sm:text-xs font-mono font-black uppercase tracking-[0.16em]">
+                <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] shadow-sm">
                   Eight Conference Sub-Themes
                 </span>
-                <span className="text-xs text-slate-300 font-sans font-medium hidden md:inline">
-                  &bull; Select or cycle through all 8 tracks
-                </span>
-              </div>
-
-              {/* Arrow Stepper Controls */}
-              <div className="flex items-center gap-2.5 self-end sm:self-center">
-                <button
-                  type="button"
-                  onClick={handlePrevTheme}
-                  aria-label="Previous conference theme"
-                  className="w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 border border-white/25 flex items-center justify-center text-white transition-all hover:scale-105 active:scale-95 shadow-md cursor-pointer"
-                  title="Previous Theme"
-                >
-                  <ChevronLeft className="w-5 h-5 text-amber-300 stroke-[2.5]" />
-                </button>
-
-                <span className="font-mono text-xs font-black px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-slate-100 tracking-wider">
-                  Track <strong className="text-amber-300">{activeTrackNum}</strong> / 08
-                </span>
-
-                <button
-                  type="button"
-                  onClick={handleNextTheme}
-                  aria-label="Next conference theme"
-                  className="w-10 h-10 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(247,201,72,0.35)] cursor-pointer"
-                  title="Next Theme"
-                >
-                  <ChevronRight className="w-5 h-5 text-slate-950 stroke-[2.5]" />
-                </button>
               </div>
             </div>
 
-            {/* Active Theme Body */}
-            <div key={activeTheme.id || activeThemeIndex} className="space-y-4 relative z-10 animate-fadeIn">
-              
-              {/* Track Title */}
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-4">
-                <span className="font-mono text-xs sm:text-sm font-black px-3 py-1 rounded-xl bg-amber-400 text-slate-950 shrink-0 shadow-sm w-fit">
-                  TRACK {activeTrackNum}
-                </span>
-
-                <h4 className="font-heading font-black text-xl sm:text-2xl lg:text-[1.65rem] text-white tracking-tight leading-snug m-0">
+            {/* Active Theme Dynamic Body with Fade-In Animation & Rigid Fixed Heights */}
+            <div
+              key={activeTheme.id || activeThemeIndex}
+              className="space-y-4 animate-fade-in transition-opacity duration-300 min-h-[440px] sm:min-h-[380px] flex flex-col justify-between"
+            >
+              {/* Sub-Theme Title (Fixed Height Slot) */}
+              <div className="h-[72px] sm:h-[78px] flex items-center">
+                <h3 className="font-heading text-xl sm:text-2xl lg:text-[1.95rem] font-extrabold text-white m-0 leading-snug tracking-tight">
                   {activeTheme.title}
-                </h4>
+                </h3>
               </div>
 
-              {/* Research Sub-Topics Grid (Streamlined & Compact) */}
-              <div className="p-4 sm:p-5 rounded-[18px] bg-white/[0.08] border border-white/15 backdrop-blur-md">
-                <div className="flex items-center justify-between mb-3">
-                  <h5 className="text-[11px] font-mono font-black uppercase tracking-[0.18em] text-amber-300 m-0">
-                    Focus Research Topics ({activeTheme.topics.length} Areas)
-                  </h5>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3">
+              {/* Research Focus Areas Grid with Enhanced Font Visibility */}
+              <div className="p-4 sm:p-6 rounded-[22px] bg-white/[0.08] hover:bg-white/[0.11] border border-white/15 backdrop-blur-md transition-all duration-300 min-h-[330px] sm:min-h-[260px] flex flex-col justify-center">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5 items-stretch">
                   {activeTheme.topics.map((topic, topicIdx) => (
                     <div
                       key={topicIdx}
-                      className="flex items-start gap-2.5 p-3 rounded-xl bg-white/10 border border-white/15 text-slate-100 text-xs sm:text-[13px] font-sans font-medium leading-relaxed hover:bg-white/15 transition-colors"
+                      className="flex items-start gap-3 p-3 sm:p-3.5 rounded-xl bg-white/[0.12] hover:bg-white/[0.18] border border-white/20 text-white text-[13.5px] sm:text-[15px] font-sans font-semibold leading-snug shadow-sm transition-all duration-200 group/topic"
                     >
-                      <span className="w-2 h-2 rounded-full bg-amber-400 mt-1 shrink-0 shadow-xs" />
-                      <span>{topic}</span>
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-400 mt-1 shrink-0 shadow-[0_0_8px_rgba(251,191,36,0.8)] group-hover/topic:scale-125 transition-transform" />
+                      <span className="group-hover/topic:text-amber-200 transition-colors">{topic}</span>
                     </div>
                   ))}
                 </div>
               </div>
+            </div>
 
-              {/* Bottom Quick-Jump Pills & Inline Nav */}
-              <div className="pt-3 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-white/10">
-                <div className="flex flex-wrap items-center justify-center gap-1.5">
-                  <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-slate-400 mr-1 hidden sm:inline">
-                    Jump to:
-                  </span>
-                  {CONFERENCE_DATA.subThemes.map((_, idx) => {
-                    const pillNum = String(idx + 1).padStart(2, '0');
-                    const isActive = activeThemeIndex === idx;
-                    return (
-                      <button
-                        key={idx}
-                        type="button"
-                        onClick={() => setActiveThemeIndex(idx)}
-                        className={`px-2.5 py-1 rounded-full font-mono text-[11px] font-black transition-all ${
-                          isActive
-                            ? 'bg-amber-400 text-slate-950 scale-105 shadow-sm'
-                            : 'bg-white/10 text-white hover:bg-white/20'
-                        }`}
-                        aria-label={`Jump to theme ${pillNum}`}
-                      >
-                        {pillNum}
-                      </button>
-                    );
-                  })}
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={handlePrevTheme}
-                    className="text-xs font-mono font-bold text-slate-300 hover:text-white flex items-center gap-1 py-1 px-2.5 rounded-lg hover:bg-white/10 transition-colors"
-                  >
-                    <ArrowLeft className="w-3 h-3" />
-                    Prev
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleNextTheme}
-                    className="text-xs font-mono font-black text-amber-300 hover:text-amber-200 flex items-center gap-1 py-1 px-2.5 rounded-lg hover:bg-white/10 transition-colors"
-                  >
-                    Next
-                    <ArrowRight className="w-3 h-3" />
-                  </button>
-                </div>
-              </div>
-
+            {/* Manual Pagination Dots (No Numbers) */}
+            <div className="flex items-center justify-center gap-2 pt-5 mt-1">
+              {CONFERENCE_DATA.subThemes.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => setActiveThemeIndex(idx)}
+                  className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                    activeThemeIndex === idx
+                      ? 'w-8 bg-amber-400 shadow-[0_0_12px_rgba(251,191,36,0.8)]'
+                      : 'w-2.5 bg-white/25 hover:bg-white/50'
+                  }`}
+                  aria-label={`Go to sub-theme ${idx + 1}`}
+                />
+              ))}
             </div>
 
           </div>
