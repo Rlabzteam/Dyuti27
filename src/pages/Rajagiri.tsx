@@ -356,14 +356,14 @@ export const Rajagiri: React.FC = () => {
           <div className="absolute top-0 right-0 w-96 h-96 bg-amber-400/5 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 space-y-5">
-            <div className="pb-4 border-b border-white/15">
-              <h2 className="text-2xl sm:text-3xl font-heading font-black text-white leading-tight tracking-tight m-0">
+            <div className="text-center pb-4 border-b border-white/15">
+              <h2 className="text-2xl sm:text-3xl lg:text-[2rem] font-heading font-black text-white leading-tight tracking-tight m-0">
                 Recognitions
               </h2>
             </div>
 
-            {/* Narrative & Badges in Wide Layout (Streamlined, Non-Repetitive) */}
-            <div className="space-y-3 text-[14px] sm:text-[15px] text-slate-100 leading-relaxed font-sans font-medium max-w-5xl">
+            {/* Narrative & Badges in Wide Layout (Streamlined, Centered) */}
+            <div className="space-y-3 text-[14px] sm:text-[15px] text-slate-100 leading-relaxed font-sans font-medium max-w-4xl mx-auto text-center">
               <p className="m-0">
                 With excellent infrastructure, multidisciplinary academic programmes, international collaborations, research centres, placement opportunities, live labs (extension departments), and a strong commitment to innovation, sustainability, and community engagement, Rajagiri continues to set benchmarks in higher education at the national and international levels.
               </p>
