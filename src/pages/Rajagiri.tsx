@@ -1,8 +1,78 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/Button';
 import { CONFERENCE_DATA } from '@/data/conference';
 
 export const Rajagiri: React.FC = () => {
+  const [socialWorkSlide, setSocialWorkSlide] = useState(0);
+  const [isSocialWorkPaused, setIsSocialWorkPaused] = useState(false);
+
+  const socialWorkSlides = [
+    {
+      id: 1,
+      tag: "Host Department",
+      title: "Department of Social Work",
+      content: (
+        <p className="m-0 text-slate-200 text-[14px] sm:text-[15.5px] leading-relaxed font-sans font-normal">
+          Rajagiri School of Social Work, started in the year 1955 was one of the pioneering institutions in south India, establishing programmes and setting standards in the field of social work education. The Department of Social Work at Rajagiri College of Social Sciences (Autonomous) has a legendary record in social work education, research, internationalisation, and community engagement. The Department has been <strong className="text-white font-semibold">ranked #2 among Social Work programmes in India by Outlook-ICARE (2024)</strong> and <strong className="text-white font-semibold">#2 by India Today (2020–2024)</strong>.
+        </p>
+      ),
+      image: "/images/gallery/6L6A7349.JPG",
+      alt: "Department of Social Work at Rajagiri - Institutional Excellence"
+    },
+    {
+      id: 2,
+      tag: "Research & Consultancies",
+      title: "Impactful Research & Government Consultancies",
+      content: (
+        <p className="m-0 text-slate-200 text-[14px] sm:text-[15.5px] leading-relaxed font-sans font-normal">
+          The Department has undertaken impactful research with the <strong className="text-white font-semibold">Vimukthi Mission</strong>, <strong className="text-white font-semibold">Department of Excise (Government of Kerala)</strong>, <strong className="text-white font-semibold">K-DISC</strong>, <strong className="text-white font-semibold">National Human Rights Commission</strong>, <strong className="text-white font-semibold">Kerala State Commission for Protection of Child Rights</strong>, and <strong className="text-white font-semibold">Department of Social Justice</strong>.
+        </p>
+      ),
+      image: "/images/gallery/6L6A7541.JPG",
+      alt: "Social Work Research Initiatives and Government Consultancies"
+    },
+    {
+      id: 3,
+      tag: "Scholarly Publishing",
+      title: "UGC CARE Listed Journal & ICSSR Grant",
+      content: (
+        <p className="m-0 text-slate-200 text-[14px] sm:text-[15.5px] leading-relaxed font-sans font-normal">
+          The <em className="text-white italic not-italic font-semibold">Rajagiri Journal of Social Development</em> is listed in <strong className="text-amber-300 font-bold">UGC CARE</strong> and received the prestigious <strong className="text-white font-semibold">ICSSR Adhoc Annual Grant-in-Aid for 2024–2025</strong>.
+        </p>
+      ),
+      image: "/images/gallery/dyuti_brochure_release.jpg",
+      alt: "Rajagiri Journal of Social Development and Scholarly Publications"
+    },
+    {
+      id: 4,
+      tag: "Conferences & Global Legacy",
+      title: "Flagship Academic Conferences",
+      content: (
+        <div className="space-y-3 text-slate-200 text-[14px] sm:text-[15.5px] leading-relaxed font-sans font-normal">
+          <p className="m-0">
+            The Department regularly hosts signature national and international academic conferences fostering global knowledge exchange and collaborative practice:
+          </p>
+          <div className="p-3.5 rounded-xl bg-white/10 border border-white/20 backdrop-blur-sm">
+            <span className="text-xs sm:text-[13px] text-amber-200 font-sans font-medium leading-relaxed block">
+              <strong className="text-amber-300 uppercase tracking-wider font-mono text-xs block mb-1">Conferences Series:</strong>
+              25 Years of Internationalisation (DYUTI 2024) &bull; 24th ICSD Biennial (DYUTI 2025) &bull; 10th International Summer University &bull; DYUTI 2027 (26th National Conference)
+            </span>
+          </div>
+        </div>
+      ),
+      image: "/images/gallery/IMG_9963.JPG",
+      alt: "Signature Academic Conferences and DYUTI Symposiums"
+    }
+  ];
+
+  useEffect(() => {
+    if (isSocialWorkPaused) return;
+    const timer = setInterval(() => {
+      setSocialWorkSlide((prev) => (prev === socialWorkSlides.length - 1 ? 0 : prev + 1));
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [isSocialWorkPaused, socialWorkSlides.length]);
+
   return (
     <div className="bg-[#FDFBF7] text-slate-800 min-h-screen">
 
@@ -394,59 +464,99 @@ export const Rajagiri: React.FC = () => {
           </div>
         </div>
 
-        {/* ── DEPARTMENT OF SOCIAL WORK (Contrast Deep Navy Card in Asymmetric Curved Leaf Shape) ── */}
-        <div className="rounded-[24px] sm:rounded-[32px] rounded-tr-[48px] sm:rounded-tr-[64px] rounded-bl-[48px] sm:rounded-bl-[64px] overflow-hidden border border-white/20 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white shadow-2xl mb-12 sm:mb-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
+        {/* ── DEPARTMENT OF SOCIAL WORK (Interactive Showcase matching icswhmh.com style with smooth animations) ── */}
+        <div
+          className="relative w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[42px] overflow-hidden bg-gradient-to-r from-[#071A33] via-[#0E2A52] to-[#040E1C] border border-white/20 hover:border-amber-400/30 shadow-2xl p-6 sm:p-10 lg:p-12 text-white mb-12 sm:mb-16 transition-all duration-500"
+          onMouseEnter={() => setIsSocialWorkPaused(true)}
+          onMouseLeave={() => setIsSocialWorkPaused(false)}
+        >
+          {/* Subtle Ambient Radial Glows with Breathing Animation */}
+          <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-600/25 rounded-full blur-3xl pointer-events-none animate-pulse duration-[4000ms]" />
+          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none animate-pulse duration-[5000ms]" />
 
-            {/* Narrative Column */}
-            <div className="lg:col-span-7 p-6 sm:p-8 lg:p-10 flex flex-col justify-between order-2 lg:order-1">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="w-4 h-0.5 bg-amber-300" />
-                  <span className="text-[11px] font-mono font-bold uppercase tracking-[0.18em] text-amber-300">
-                    Host Department
+          {/* Background Angled Facet (Matching icswhmh.com layout) */}
+          <div className="absolute top-0 left-0 w-[55%] h-full bg-black/25 transform -skew-x-12 -translate-x-16 pointer-events-none transition-transform duration-1000" />
+
+          {/* Left Arrow Button with Micro-Animation */}
+          <button
+            onClick={() => setSocialWorkSlide((prev) => (prev === 0 ? socialWorkSlides.length - 1 : prev - 1))}
+            aria-label="Previous Slide"
+            className="group/btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 text-white/50 hover:text-amber-300 hover:scale-110 active:scale-95 transition-all duration-300 p-2.5 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 hover:border-amber-400/40 backdrop-blur-md shadow-lg focus:outline-none cursor-pointer"
+          >
+            <svg className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg transition-transform duration-300 group-hover/btn:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          {/* Right Arrow Button with Micro-Animation */}
+          <button
+            onClick={() => setSocialWorkSlide((prev) => (prev === socialWorkSlides.length - 1 ? 0 : prev + 1))}
+            aria-label="Next Slide"
+            className="group/btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 text-white/50 hover:text-amber-300 hover:scale-110 active:scale-95 transition-all duration-300 p-2.5 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 hover:border-amber-400/40 backdrop-blur-md shadow-lg focus:outline-none cursor-pointer"
+          >
+            <svg className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg transition-transform duration-300 group-hover/btn:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
+          {/* Inner Content Grid */}
+          <div className="relative z-10 px-6 sm:px-10 lg:px-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+
+              {/* Left Column: Narrative Content with Fade-In Transition */}
+              <div
+                key={socialWorkSlide}
+                className="lg:col-span-7 flex flex-col justify-center animate-fade-in transition-all duration-500"
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="w-5 h-0.5 bg-amber-300 animate-pulse" />
+                  <span className="text-xs font-mono font-bold uppercase tracking-[0.18em] text-amber-300">
+                    {socialWorkSlides[socialWorkSlide].tag}
+                  </span>
+                  <span className="ml-auto text-[10.5px] font-mono font-semibold text-slate-300 bg-white/10 px-2.5 py-0.5 rounded-full border border-white/10">
+                    0{socialWorkSlide + 1} / 0{socialWorkSlides.length}
                   </span>
                 </div>
 
-                <h3 className="font-heading text-2xl sm:text-[1.85rem] font-extrabold text-white m-0 mb-4">
-                  Department of Social Work
+                <h3 className="font-heading text-2xl sm:text-3xl lg:text-[2.4rem] font-extrabold text-white m-0 mb-4 leading-tight tracking-tight">
+                  {socialWorkSlides[socialWorkSlide].title}
                 </h3>
 
-                <div className="space-y-3 text-[14px] sm:text-[15px] text-slate-200 leading-relaxed font-sans font-normal">
-                  <p className="m-0">
-                    Rajagiri School of Social Work, started in the year 1955 was one of the pioneering institutions in south India, establishing programmes and setting standards in the field of social work education. The Department of Social Work at Rajagiri College of Social Sciences (Autonomous) has a legendary record in social work education, research, internationalisation, and community engagement. The Department has been <strong className="text-white font-semibold">ranked #2 among Social Work programmes in India by Outlook-ICARE (2024)</strong> and <strong className="text-white font-semibold">#2 by India Today (2020–2024)</strong>.
-                  </p>
-
-                  <p className="m-0 text-slate-300">
-                    The Department has undertaken impactful research with the Vimukthi Mission, Department of Excise (Government of Kerala), K-DISC, National Human Rights Commission, Kerala State Commission for Protection of Child Rights, and Department of Social Justice.
-                  </p>
-
-                  <p className="m-0 text-slate-300">
-                    The <em className="text-white italic not-italic font-semibold">Rajagiri Journal of Social Development</em> is listed in UGC CARE and received the ICSSR Adhoc Annual Grant-in-Aid for 2024–2025.
-                  </p>
+                <div className="min-h-[150px] sm:min-h-[160px] flex items-center">
+                  {socialWorkSlides[socialWorkSlide].content}
                 </div>
               </div>
 
-              {/* Conferences Bottom Banner */}
-              <div className="pt-4 border-t border-white/15 mt-5">
-                <div className="p-3.5 rounded-xl bg-blue-950/60 border border-blue-400/25 backdrop-blur-sm">
-                  <span className="text-xs sm:text-[12.5px] text-slate-200 font-sans font-normal leading-snug block">
-                    <strong className="text-amber-300 uppercase tracking-wider font-mono text-[10.5px] block sm:inline sm:mr-2">Conferences:</strong>
-                    25 Years of Internationalisation (DYUTI 2024) &bull; 24th ICSD Biennial (DYUTI 2025) &bull; 10th International Summer University &bull; DYUTI 2027 (26th National Conference)
-                  </span>
+              {/* Right Column: Featured Asymmetric Polygon / Curved Photo with Ken-Burns Transition */}
+              <div className="lg:col-span-5 flex justify-center items-center">
+                <div className="w-full h-[260px] sm:h-[320px] lg:h-[360px] rounded-[24px] sm:rounded-[32px] rounded-tr-[54px] sm:rounded-tr-[72px] rounded-bl-[54px] sm:rounded-bl-[72px] overflow-hidden shadow-2xl border border-white/20 relative group bg-black/40">
+                  <img
+                    key={socialWorkSlides[socialWorkSlide].image}
+                    src={socialWorkSlides[socialWorkSlide].image}
+                    alt={socialWorkSlides[socialWorkSlide].alt}
+                    className="w-full h-full object-cover animate-fade-in transition-all duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity pointer-events-none" />
                 </div>
               </div>
+
             </div>
 
-            {/* Visual Media Column */}
-            <div className="lg:col-span-5 h-full min-h-[300px] sm:min-h-[360px] lg:min-h-[420px] overflow-hidden order-1 lg:order-2 bg-slate-900/60 flex items-center justify-center p-6 lg:p-8 border-b lg:border-b-0 lg:border-l border-slate-800/20">
-              <img
-                src="https://dyuti.in/assets/images/rcss/department_of_social_work.png"
-                alt="Department of Social Work at Rajagiri"
-                className="w-full h-auto max-h-[380px] object-contain rounded-xl shadow-lg hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-                decoding="async"
-              />
+            {/* Discreet Animated Pagination Dots */}
+            <div className="flex items-center justify-center gap-2 pt-4 mt-2">
+              {socialWorkSlides.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setSocialWorkSlide(idx)}
+                  className={`h-1.5 rounded-full transition-all duration-500 cursor-pointer ${
+                    socialWorkSlide === idx
+                      ? 'w-8 bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.6)]'
+                      : 'w-2 bg-white/25 hover:bg-white/50'
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
             </div>
 
           </div>
