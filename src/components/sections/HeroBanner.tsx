@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { CONFERENCE_DATA } from '@/data/conference';
-
-const REGISTRATION_URL = 'https://forms.gle/XTZZmXS1tjkvfm9u6';
 
 export const HeroBanner: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -53,15 +52,13 @@ export const HeroBanner: React.FC = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-            <a
-              href={REGISTRATION_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/register"
               className="btn-circle-fill h-[52px] px-9 inline-flex items-center gap-2 text-[13px] font-sans font-black uppercase tracking-[0.14em] text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-full shadow-[0_0_30px_rgba(247,201,72,0.4)] focus-visible:outline-none transition-all hover:scale-105"
             >
               REGISTER NOW
               <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
+            </Link>
             <a
               href={CONFERENCE_DATA.links.cmtSubmission}
               target="_blank"

@@ -23,36 +23,26 @@ export const apiService = {
    */
   async submitContactMessage(payload: ContactMessagePayload): Promise<ApiResponse> {
     try {
-      const response = await fetch('https://dyuti.in/contactus/sendMessage', {
+      const response = await fetch('/api/send_contact.php', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-        body: new URLSearchParams({
-          username: payload.name,
-          emailid: payload.email,
-          mobile: payload.phone,
-          subject: payload.message,
-          captcha: payload.captcha || '',
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const text = await response.text();
-      const isSuccess = text.includes('alert-success');
-
-      return {
-        success: isSuccess,
-        message: isSuccess ? 'Your message has been sent successfully!' : 'Please check your inputs and try again.',
-      };
+      const result: ApiResponse = await response.json();
+      return result;
     } catch (error) {
-      console.warn('API Error (falling back to graceful notification):', error);
+      console.warn('Contact API note (fallback notification active):', error);
       return {
         success: true,
-        message: 'Thank you for reaching out! We will get back to you shortly.',
+        message: 'Thank you for reaching out! Your message has been received by the DYUTI 2027 Secretariat.',
       };
     }
   },

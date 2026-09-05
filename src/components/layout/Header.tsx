@@ -157,7 +157,7 @@ export const Header: React.FC = () => {
                       Important Announcement:
                     </span>
                     <span>
-                      The International Conference on Social Work (DYUTI 2027) &mdash; Registration begins from{' '}
+                      The National Conference on Social Work (DYUTI 2027) &mdash; Registration begins from{' '}
                       <strong className="text-[#d4af37] font-bold">10th August 2026</strong> at Rajagiri College Of Social Sciences (Autonomous) Kalamassery.
                     </span>
                     <span className="mx-3.5 text-white/40 font-bold">&bull;</span>
@@ -190,7 +190,7 @@ export const Header: React.FC = () => {
                       Important Announcement:
                     </span>
                     <span>
-                      The International Conference on Social Work (DYUTI 2027) &mdash; Registration begins from{' '}
+                      The National Conference on Social Work (DYUTI 2027) &mdash; Registration begins from{' '}
                       <strong className="text-[#d4af37] font-bold">10th August 2026</strong> at Rajagiri College Of Social Sciences (Autonomous) Kalamassery.
                     </span>
                     <span className="mx-3.5 text-white/40 font-bold">&bull;</span>

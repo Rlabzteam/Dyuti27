@@ -17,7 +17,7 @@ export const HeroEditorial: React.FC = () => {
             <span className="font-mono text-[11px] font-bold text-[#2563EB] tabular-nums">01</span>
             <span className="w-6 h-px bg-[#D9DEE5]" />
             <span className="text-[11px] font-sans uppercase tracking-[0.18em] text-[#071A33] font-bold">
-              International Conference &middot; 2027
+              National Conference &middot; 2027
             </span>
           </div>
           <div className="hidden sm:flex items-center gap-4 text-[11px] font-sans text-[#667085] uppercase tracking-[0.14em] font-semibold">
@@ -57,9 +57,9 @@ export const HeroEditorial: React.FC = () => {
 
             {/* Body Description */}
             <p className="text-[14.5px] sm:text-[15px] text-[#667085] leading-relaxed font-sans font-normal max-w-[500px] mb-8">
-              A premier international symposium advancing the UN 2030 Agenda through
+              A premier national symposium advancing the UN 2030 Agenda through
               collaborative social work scholarship, double-blind peer-reviewed research,
-              and global academic alliances.
+              and academic alliances.
             </p>
 
             {/* CTA Row */}

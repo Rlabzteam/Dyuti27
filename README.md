@@ -1,12 +1,12 @@
-# DYUTI 2027 — National & International Conference Web Platform
+# DYUTI 2027 — National Academic Conference Web Platform
 
-The official modern web platform for **DYUTI 2027**, the Annual International Academic Conference hosted by the **Department of Social Work**, [Rajagiri College of Social Sciences (Autonomous)](https://rcss.rajagiri.edu), Kalamassery, Kochi, Kerala, India.
+The official modern web platform for **DYUTI 2027**, the Annual National Academic Conference hosted by the **Department of Social Work**, [Rajagiri College of Social Sciences (Autonomous)](https://rcss.rajagiri.edu), Kalamassery, Kochi, Kerala, India.
 
 ---
 
 ## 🌟 Overview
 
-**DYUTI** (*Developmental Yearnings for a United and Transformed India* — meaning *"Spark of Life"*) is a prestigious annual international symposium convened continuously since 1998. The 2027 edition focuses on **"Social Work for Sustainable Development: Empowering Communities through Innovation, Inclusion, and Partnership"**, bringing together global scholars, researchers, development practitioners, and policy leaders aligned with the United Nations 2030 Agenda for Sustainable Development (UN SDGs).
+**DYUTI** (*Developmental Yearnings for a United and Transformed India* — meaning *"Spark of Life"*) is a prestigious annual national symposium convened continuously since 1998. The 2027 edition focuses on **"Social Work for Sustainable Development: Empowering Communities through Innovation, Inclusion, and Partnership"**, bringing together scholars, researchers, development practitioners, and policy leaders aligned with the United Nations 2030 Agenda for Sustainable Development (UN SDGs).
 
 This web application serves as the primary delegate and scholar portal, managing academic calls for papers, track explorations, registration advisories, hotel bookings, route navigation, historical conference archives, and direct secretariat inquiries.
 

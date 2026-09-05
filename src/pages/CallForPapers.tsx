@@ -488,7 +488,7 @@ export const CallForPapers: React.FC = () => {
                   Conference Days
                 </h4>
                 <p className="text-xs text-slate-100 font-sans leading-relaxed mb-4 font-medium">
-                  2-day international symposium at Rajagiri College, Kalamassery campus.
+                  2-day national symposium at Rajagiri College, Kalamassery campus.
                 </p>
               </div>
               <div className="pt-4 border-t border-white/15 flex items-center justify-between">

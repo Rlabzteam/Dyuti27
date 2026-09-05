@@ -46,7 +46,7 @@ export const Gallery: React.FC = () => {
           </h1>
           <div className="w-16 h-1 bg-[#071A33] rounded-full mx-auto mb-6" />
           <p className="text-sm sm:text-base text-slate-650 leading-relaxed font-sans max-w-2xl mx-auto font-normal">
-            Glimpses of keynote addresses, book release ceremonies, academic dialogues, and cultural exchanges over 25+ editions of the DYUTI international conference.
+            Glimpses of keynote addresses, book release ceremonies, academic dialogues, and cultural exchanges over 25+ editions of the DYUTI conference series.
           </p>
         </div>
 

@@ -47,7 +47,7 @@ export const Hero: React.FC = () => {
 
             {/* Short supporting description */}
             <p className="text-sm sm:text-base text-slate-650 leading-relaxed max-w-2xl mb-8 font-normal">
-              An international academic conference organized by <strong>{CONFERENCE_DATA.hostInstitution}</strong> uniting scholars, practitioners, policymakers, and researchers to advance sustainable development, community empowerment, and social justice.
+              A national academic conference organized by <strong>{CONFERENCE_DATA.hostInstitution}</strong> uniting scholars, practitioners, policymakers, and researchers to advance sustainable development, community empowerment, and social justice.
             </p>
 
             {/* Verified Meta Details: WHEN and WHERE */}
