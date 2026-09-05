@@ -263,15 +263,10 @@ export const Rajagiri: React.FC = () => {
           <div className="space-y-6 relative z-10">
 
             {/* Top Header Row Centered */}
-            <div className="flex flex-col items-center justify-center text-center space-y-3 pb-6 border-b border-white/15">
+            <div className="flex flex-col items-center justify-center text-center pb-6 border-b border-white/15">
               <h2 className="text-2xl sm:text-3xl lg:text-[2.35rem] font-heading font-black text-white leading-tight tracking-tight m-0">
                 SDG &amp; Global Impact
               </h2>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-center shadow-md">
-                <span className="text-base sm:text-lg font-heading font-extrabold text-amber-300">SDG 3</span>
-                <span className="text-white/40">&bull;</span>
-                <span className="text-xs sm:text-[13px] font-sans uppercase tracking-wider text-slate-200 font-medium">Global Band 601&ndash;800</span>
-              </div>
             </div>
 
             {/* 2-Column Side-by-Side Grid (Narrative Left, 4 SDG Focus Cards Right) */}
