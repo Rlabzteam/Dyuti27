@@ -587,17 +587,17 @@ export const CallForPapers: React.FC = () => {
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-white/15 relative z-10">
             <div>
-              <span className="text-[11px] font-mono font-black uppercase tracking-[0.2em] text-amber-300 block mb-1">
-                Banking Coordinates
-              </span>
+              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] mb-3 shadow-md">
+                <span>Banking Coordinates</span>
+              </div>
               <h4 className="font-heading text-2xl sm:text-3xl text-white font-black m-0">
                 Mode of Payment (NEFT / RTGS Bank Transfer)
               </h4>
-              <span className="text-xs font-sans text-slate-200 uppercase tracking-wider font-bold">
+              <span className="text-xs font-sans text-slate-200 uppercase tracking-wider font-bold block mt-1">
                 Official RCSS Conference Bank Account &middot; Verified Gateway
               </span>
             </div>
-            <span className="text-[11px] font-mono uppercase tracking-wider text-amber-300 bg-white/10 border border-white/25 px-3.5 py-1.5 rounded-full font-black self-start sm:self-auto shadow-sm">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-white bg-white/15 border border-white/25 px-3.5 py-1.5 rounded-full font-black self-start sm:self-auto shadow-sm">
               Direct Wire &middot; Instant Receipt
             </span>
           </div>
@@ -637,12 +637,12 @@ export const CallForPapers: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-6 rounded-2xl rounded-tr-3xl rounded-bl-3xl bg-amber-400/10 hover:bg-amber-400/15 border border-amber-400/40 hover:border-amber-400/60 transition-all backdrop-blur-sm shadow-md flex flex-col justify-between">
+            <div className="p-6 rounded-2xl rounded-tr-3xl rounded-bl-3xl bg-white/15 hover:bg-white/20 border border-white/25 hover:border-white/35 transition-all backdrop-blur-sm shadow-md flex flex-col justify-between">
               <div>
-                <span className="text-[11px] text-amber-300 font-sans uppercase font-bold tracking-wider block mb-1">
+                <span className="text-[11px] text-slate-200 font-sans uppercase font-bold tracking-wider block mb-1">
                   IFSC / NEFT Code
                 </span>
-                <strong className="text-amber-300 font-mono font-black text-base block tracking-tight">
+                <strong className="text-white font-mono font-black text-base block tracking-tight">
                   {CONFERENCE_DATA.bankDetails.ifsc}
                 </strong>
               </div>
