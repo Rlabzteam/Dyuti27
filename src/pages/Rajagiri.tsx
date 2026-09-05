@@ -44,7 +44,7 @@ export const Rajagiri: React.FC = () => {
     },
     {
       id: 4,
-      tag: "Conferences & Global Legacy",
+      tag: "",
       title: "Flagship Academic Conferences",
       content: (
         <div className="space-y-3 text-slate-200 text-[14px] sm:text-[15.5px] leading-relaxed font-sans font-normal">
@@ -508,9 +508,6 @@ export const Rajagiri: React.FC = () => {
                   <span className="w-5 h-0.5 bg-amber-300 animate-pulse" />
                   <span className="text-xs font-mono font-bold uppercase tracking-[0.18em] text-amber-300">
                     {socialWorkSlides[socialWorkSlide].tag}
-                  </span>
-                  <span className="ml-auto text-[10.5px] font-mono font-semibold text-slate-300 bg-white/10 px-2.5 py-0.5 rounded-full border border-white/10">
-                    0{socialWorkSlide + 1} / 0{socialWorkSlides.length}
                   </span>
                 </div>
 
