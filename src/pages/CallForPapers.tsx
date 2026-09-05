@@ -324,9 +324,9 @@ export const CallForPapers: React.FC = () => {
           <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
 
           <div className="mb-8 relative z-10">
-            <span className="text-[11px] font-mono font-black uppercase tracking-[0.2em] text-amber-300 block mb-2">
-              Delegates &amp; Attendees
-            </span>
+            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] mb-3 shadow-md">
+              <span>Delegates &amp; Attendees</span>
+            </div>
             <h3 className="font-heading text-2xl sm:text-3xl text-white font-black m-0">
               Eligible Participant Categories
             </h3>
@@ -339,7 +339,7 @@ export const CallForPapers: React.FC = () => {
             {participantTypes.map((type, idx) => (
               <div
                 key={idx}
-                className="p-4 sm:p-5 rounded-2xl rounded-tr-3xl rounded-bl-3xl bg-white/10 hover:bg-white/20 border border-white/20 hover:border-amber-300/60 text-center font-sans text-xs sm:text-sm font-bold text-white shadow-md flex items-center justify-center transition-all cursor-default backdrop-blur-sm"
+                className="p-4 sm:p-5 rounded-2xl rounded-tr-3xl rounded-bl-3xl bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/40 text-center font-sans text-xs sm:text-sm font-bold text-white shadow-md flex items-center justify-center transition-all cursor-default backdrop-blur-sm"
               >
                 <span>{type}</span>
               </div>
