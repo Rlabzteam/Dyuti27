@@ -94,32 +94,31 @@ export const ImportantDatesTimeline: React.FC = () => {
 
         {/* ── DESKTOP HORIZONTAL TIMELINE ── */}
         <div className="hidden lg:block relative pt-4 pb-4">
-          {/* Main timeline track line */}
-          <div className="absolute top-[28px] left-12 right-12 h-[2px] bg-slate-300 -z-0" />
+          {/* Main timeline track line - Solid Black */}
+          <div className="absolute top-[36px] left-10 right-10 h-[4px] bg-black rounded-full z-0 shadow-sm" />
 
           <div className="grid grid-cols-5 gap-5 relative z-10">
             {steps.map((step, idx) => (
               <div key={idx} className="flex flex-col group">
-                <div className="flex items-center gap-3 mb-6 pl-2">
+                <div className="flex items-center mb-6 pl-1">
                   <div
-                    className={`w-8 h-8 rounded-lg shrink-0 flex items-center justify-center font-mono text-xs font-black transition-all duration-300 group-hover:scale-110 ${step.isHighlight
-                      ? 'bg-[#071A33] text-amber-300 ring-4 ring-[#071A33]/25 animate-pulseGlow'
-                      : 'bg-slate-200 text-slate-900 border border-slate-300 group-hover:border-[#071A33] group-hover:text-[#071A33]'
-                      }`}
+                    className={`w-10 h-10 rounded-xl shrink-0 flex items-center justify-center font-mono text-sm font-black transition-all duration-300 shadow-md group-hover:scale-110 ${
+                      step.isHighlight
+                        ? 'bg-black text-amber-400 border-2 border-amber-400 ring-4 ring-black/20 animate-pulseGlow'
+                        : 'bg-black text-white border-2 border-black ring-4 ring-black/15 group-hover:bg-slate-900 group-hover:border-black'
+                    }`}
                   >
                     {step.number}
                   </div>
-                  <span className="font-mono text-[11px] font-black text-slate-700 uppercase tracking-wider group-hover:text-[#071A33] transition-colors">
-                    Step {step.number}
-                  </span>
                 </div>
 
                 {/* Unique Asymmetric Curved Leaf Shape Card */}
                 <div
-                  className={`rounded-[24px] rounded-tl-[48px] rounded-br-[48px] p-6 transition-all duration-300 flex flex-col justify-between min-h-[230px] border border-white/20 text-white shadow-xl ${step.isHighlight
-                    ? 'bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] ring-2 ring-amber-400/50 shadow-[#071A33]/25'
-                    : 'bg-gradient-to-br from-[#0a2540] via-[#123962] to-[#051424] hover:scale-[1.03]'
-                    }`}
+                  className={`rounded-[24px] rounded-tl-[48px] rounded-br-[48px] p-6 transition-all duration-300 flex flex-col justify-between min-h-[230px] border border-white/20 text-white shadow-xl ${
+                    step.isHighlight
+                      ? 'bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] ring-2 ring-amber-400/50 shadow-[#071A33]/25'
+                      : 'bg-gradient-to-br from-[#0a2540] via-[#123962] to-[#051424] hover:scale-[1.03]'
+                  }`}
                 >
                   <div>
                     <div className="mb-2.5">
@@ -143,27 +142,29 @@ export const ImportantDatesTimeline: React.FC = () => {
         </div>
 
         {/* ── MOBILE VERTICAL TIMELINE ── */}
-        <div className="lg:hidden relative pl-8 sm:pl-10 space-y-6 sm:space-y-8">
-          <div className="absolute left-[13px] sm:left-[17px] top-4 bottom-4 w-[2px] bg-slate-300" />
+        <div className="lg:hidden relative pl-12 sm:pl-14 space-y-6 sm:space-y-8">
+          <div className="absolute left-[17px] sm:left-[21px] top-4 bottom-4 w-[4px] bg-black rounded-full shadow-sm" />
 
           {steps.map((step, idx) => (
             <div key={idx} className="relative group">
-              {/* Stepper Node */}
+              {/* Stepper Node - Solid Black */}
               <div
-                className={`absolute -left-[29px] sm:-left-[33px] top-4 w-7 h-7 rounded-lg flex items-center justify-center font-mono text-[10px] font-black transition-transform duration-300 group-hover:scale-110 ${step.isHighlight
-                  ? 'bg-[#071A33] text-amber-300 ring-4 ring-[#071A33]/25'
-                  : 'bg-[#071A33] text-white border border-white/20'
-                  }`}
+                className={`absolute -left-[38px] sm:-left-[42px] top-4 w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center font-mono text-xs sm:text-sm font-black transition-transform duration-300 shadow-md group-hover:scale-110 ${
+                  step.isHighlight
+                    ? 'bg-black text-amber-400 border-2 border-amber-400 ring-4 ring-black/20'
+                    : 'bg-black text-white border-2 border-black ring-4 ring-black/15'
+                }`}
               >
                 {step.number}
               </div>
 
               {/* Unique Asymmetric Curved Leaf Shape Card */}
               <div
-                className={`rounded-[24px] rounded-tl-[44px] rounded-br-[44px] p-5 sm:p-6 text-white border border-white/20 transition-all duration-300 shadow-xl ${step.isHighlight
-                  ? 'bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] ring-2 ring-amber-400/50'
-                  : 'bg-gradient-to-br from-[#0a2540] via-[#123962] to-[#051424]'
-                  }`}
+                className={`rounded-[24px] rounded-tl-[44px] rounded-br-[44px] p-5 sm:p-6 text-white border border-white/20 transition-all duration-300 shadow-xl ${
+                  step.isHighlight
+                    ? 'bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] ring-2 ring-amber-400/50'
+                    : 'bg-gradient-to-br from-[#0a2540] via-[#123962] to-[#051424]'
+                }`}
               >
                 <div className="flex items-center gap-3 mb-2">
                   <span className="font-mono text-[12px] font-black uppercase tracking-wider text-amber-300 bg-white/15 px-3 py-0.5 rounded-full border border-white/20">
