@@ -529,29 +529,30 @@ export const Rajagiri: React.FC = () => {
 
           <div className="space-y-3 text-slate-200 text-[14px] sm:text-[15px] leading-relaxed mb-6 font-sans font-normal">
             <p className="m-0">
-              <strong className="text-white font-bold">&lsquo;Internationalisation&rsquo;</strong> has been a catchword for Rajagiri since its inception and we have completed <strong className="text-amber-300 font-bold">25 years of official International collaborations</strong>. Currently, Rajagiri has official agreements with <strong className="text-white font-bold">60+ International Universities across 30 countries</strong>. Establishing vibrant academic tie-ups with leading universities all over the world has not only helped the students to get international exposure, but also facilitated in sharing of resources for faculty training, curriculum development, research, and consultancy.
+              <strong className="text-white font-bold">&lsquo;Internationalisation&rsquo;</strong> has been a cornerstone of Rajagiri&apos;s academic ethos since inception. Celebrating <strong className="text-amber-300 font-bold">25 years of formal international collaborations</strong>, Rajagiri maintains active agreements with over <strong className="text-white font-bold">60 premier universities across 30 countries</strong>. These global alliances facilitate faculty exchanges, joint research, curriculum co-creation, and international consultancy.
             </p>
             <p className="m-0">
-              Our students from PG and UG programmes regularly do short-term study programmes in our Partner Universities with a duration ranging from <strong className="text-white font-bold">1 month to 6 months</strong>. We host International students in our regular programmes as full-time students which is also supported by the <strong className="text-white font-bold">Study in India (SII) Programme</strong> from the Govt of India. The various programmes offered by Rajagiri also have twinning, dual degree arrangements with world-class International Universities across the globe.
+              Undergraduate and postgraduate students participate in semester-abroad and short-term study schemes ranging from <strong className="text-white font-bold">1 to 6 months</strong>. Rajagiri also welcomes international scholars under the Government of India&apos;s <strong className="text-white font-bold">Study in India (SII)</strong> initiative, alongside offering dual-degree and twinning pathways with distinguished global partner institutions.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[12.5px] sm:text-[13px] text-white">
-            <div className="flex items-start gap-2.5 p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2 shrink-0" />
-              <span className="font-sans leading-relaxed text-slate-100">A global academic network spanning <strong className="text-white">60+ partner universities across 30 countries</strong>.</span>
+          {/* Key Global Metric Highlights (Concise, Non-Repetitive) */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+            <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm text-center">
+              <span className="text-xl sm:text-2xl font-mono font-black text-amber-300 block">25+</span>
+              <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200 block mt-0.5">Years Collaborations</span>
             </div>
-            <div className="flex items-start gap-2.5 p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2 shrink-0" />
-              <span className="font-sans leading-relaxed text-slate-100">Student exchange programmes with study opportunities ranging from <strong className="text-white">1 to 6 months</strong>.</span>
+            <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm text-center">
+              <span className="text-xl sm:text-2xl font-mono font-black text-amber-300 block">60+</span>
+              <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200 block mt-0.5">Partner Universities</span>
             </div>
-            <div className="flex items-start gap-2.5 p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2 shrink-0" />
-              <span className="font-sans leading-relaxed text-slate-100">Hosting international students supported by the Government of India&apos;s <strong className="text-white">Study in India (SII) Programme</strong>.</span>
+            <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm text-center">
+              <span className="text-xl sm:text-2xl font-mono font-black text-amber-300 block">30+</span>
+              <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200 block mt-0.5">Countries</span>
             </div>
-            <div className="flex items-start gap-2.5 p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2 shrink-0" />
-              <span className="font-sans leading-relaxed text-slate-100">Collaborative research, dual-degree, twinning, and international internships for global exposure.</span>
+            <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm text-center">
+              <span className="text-xl sm:text-2xl font-mono font-black text-amber-300 block">SII</span>
+              <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200 block mt-0.5">Study in India Partner</span>
             </div>
           </div>
         </div>
