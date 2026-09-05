@@ -124,17 +124,17 @@ export const CallForPapers: React.FC = () => {
         </div>
 
         {/* ── EIGHT CONFERENCE SUB-THEMES (Showcase Card with Fixed Shape & Signature Navy Blue Gradient) ── */}
-        <div className="relative w-full rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] overflow-hidden bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] border border-white/20 hover:border-amber-400/30 shadow-2xl p-6 sm:p-10 lg:p-12 text-white mb-20 lg:mb-28">
+        <div className="relative w-full rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] overflow-hidden bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] border border-white/20 hover:border-white/30 shadow-2xl p-6 sm:p-10 lg:p-12 text-white mb-20 lg:mb-28">
           {/* Ambient Background Radial Glows */}
           <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
 
           {/* Left Arrow Button with Micro-Animation */}
           <button
             type="button"
             onClick={handlePrevTheme}
             aria-label="Previous Sub-Theme"
-            className="group/btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 text-white/60 hover:text-amber-300 hover:scale-110 active:scale-95 transition-all duration-300 p-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 hover:border-amber-400/40 backdrop-blur-md shadow-lg focus:outline-none cursor-pointer"
+            className="group/btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 text-white/60 hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 p-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 hover:border-white/40 backdrop-blur-md shadow-lg focus:outline-none cursor-pointer"
           >
             <svg className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg transition-transform duration-300 group-hover/btn:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
@@ -146,7 +146,7 @@ export const CallForPapers: React.FC = () => {
             type="button"
             onClick={handleNextTheme}
             aria-label="Next Sub-Theme"
-            className="group/btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 text-white/60 hover:text-amber-300 hover:scale-110 active:scale-95 transition-all duration-300 p-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 hover:border-amber-400/40 backdrop-blur-md shadow-lg focus:outline-none cursor-pointer"
+            className="group/btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 text-white/60 hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 p-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 hover:border-white/40 backdrop-blur-md shadow-lg focus:outline-none cursor-pointer"
           >
             <svg className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg transition-transform duration-300 group-hover/btn:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
@@ -184,15 +184,15 @@ export const CallForPapers: React.FC = () => {
                       key={topicIdx}
                       className="flex items-start gap-3 p-3 sm:p-3.5 rounded-xl bg-white/[0.12] hover:bg-white/[0.18] border border-white/20 text-white text-[13.5px] sm:text-[15px] font-sans font-semibold leading-snug shadow-sm transition-all duration-200 group/topic"
                     >
-                      <span className="w-2.5 h-2.5 rounded-full bg-amber-400 mt-1 shrink-0 shadow-[0_0_8px_rgba(251,191,36,0.8)] group-hover/topic:scale-125 transition-transform" />
-                      <span className="group-hover/topic:text-amber-200 transition-colors">{topic}</span>
+                      <span className="w-2 h-2 rounded-full bg-white/80 mt-1.5 shrink-0 group-hover/topic:scale-125 transition-transform" />
+                      <span className="group-hover/topic:text-white transition-colors">{topic}</span>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* Manual Pagination Dots (No Numbers) */}
+            {/* Manual Pagination Dots (No Numbers, Pure White Glow) */}
             <div className="flex items-center justify-center gap-2 pt-5 mt-1">
               {CONFERENCE_DATA.subThemes.map((_, idx) => (
                 <button
@@ -201,7 +201,7 @@ export const CallForPapers: React.FC = () => {
                   onClick={() => setActiveThemeIndex(idx)}
                   className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
                     activeThemeIndex === idx
-                      ? 'w-8 bg-amber-400 shadow-[0_0_12px_rgba(251,191,36,0.8)]'
+                      ? 'w-8 bg-white shadow-[0_0_10px_rgba(255,255,255,0.7)]'
                       : 'w-2.5 bg-white/25 hover:bg-white/50'
                   }`}
                   aria-label={`Go to sub-theme ${idx + 1}`}
