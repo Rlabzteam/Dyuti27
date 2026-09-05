@@ -23,7 +23,11 @@ export const apiService = {
    */
   async submitContactMessage(payload: ContactMessagePayload): Promise<ApiResponse> {
     try {
-      const response = await fetch('/api/send_contact.php', {
+      const endpoint =
+        (import.meta as any).env?.VITE_CONTACT_API_URL ||
+        'https://dyuti27new.onrender.com/api/send_contact.php';
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
