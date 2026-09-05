@@ -686,12 +686,8 @@ export const CallForPapers: React.FC = () => {
           <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none" />
 
           <div className="text-center mb-10 sm:mb-12 relative z-10">
-            <div className="inline-flex items-center gap-2 mb-3">
-              <span className="w-5 h-0.5 bg-amber-400" />
-              <span className="text-[11.5px] font-mono font-bold uppercase tracking-[0.2em] text-amber-300">
-                Global Academic Alliances
-              </span>
-              <span className="w-5 h-0.5 bg-amber-400" />
+            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] mb-4 shadow-md">
+              <span>Global Academic Alliances</span>
             </div>
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-white tracking-tight m-0 leading-tight">
               Rajagiri International Exchange Programme - Partnering Universities
