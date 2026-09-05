@@ -504,12 +504,14 @@ export const Rajagiri: React.FC = () => {
                 key={socialWorkSlide}
                 className="lg:col-span-7 flex flex-col justify-center animate-fade-in transition-all duration-500"
               >
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="w-5 h-0.5 bg-amber-300 animate-pulse" />
-                  <span className="text-xs font-mono font-bold uppercase tracking-[0.18em] text-amber-300">
-                    {socialWorkSlides[socialWorkSlide].tag}
-                  </span>
-                </div>
+                {socialWorkSlides[socialWorkSlide].tag && (
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="w-5 h-0.5 bg-amber-300 animate-pulse" />
+                    <span className="text-xs font-mono font-bold uppercase tracking-[0.18em] text-amber-300">
+                      {socialWorkSlides[socialWorkSlide].tag}
+                    </span>
+                  </div>
+                )}
 
                 <h3 className="font-heading text-2xl sm:text-3xl lg:text-[2.4rem] font-extrabold text-white m-0 mb-4 leading-tight tracking-tight">
                   {socialWorkSlides[socialWorkSlide].title}
