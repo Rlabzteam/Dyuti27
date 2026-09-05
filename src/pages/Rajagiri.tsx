@@ -556,20 +556,20 @@ export const Rajagiri: React.FC = () => {
 
         {/* ── 25 YEARS OF INTERNATIONALISATION (Contrast Deep Navy Card in Asymmetric Curved Leaf Shape) ── */}
         <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] p-6 sm:p-8 lg:p-10 border border-white/20 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white shadow-2xl">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 pb-4 border-b border-white/10">
-            <div>
-              <h3 className="font-heading text-2xl sm:text-[1.85rem] font-bold text-white m-0">
-                25 Years of Internationalisation @ Rajagiri
-              </h3>
-              <p className="text-xs text-slate-350 font-sans font-semibold uppercase tracking-wider m-0 mt-1">
-                A Proud Milestone Towards Global Academic Excellence
-              </p>
-            </div>
+          <div className="flex flex-col items-center text-center justify-center gap-3 mb-6 pb-5 border-b border-white/10">
             <img
               src="https://dyuti.in/assets/images/25.png"
               alt="25 Years of Internationalisation Milestone"
-              className="h-12 sm:h-14 w-auto object-contain shrink-0 brightness-200 contrast-125"
+              className="h-12 sm:h-14 w-auto object-contain shrink-0 brightness-200 contrast-125 mb-1"
             />
+            <div className="max-w-2xl mx-auto">
+              <h3 className="font-heading text-2xl sm:text-[1.85rem] font-bold text-white m-0 leading-tight">
+                25 Years of Internationalisation @ Rajagiri
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 font-sans font-semibold uppercase tracking-wider m-0 mt-1.5">
+                A Proud Milestone Towards Global Academic Excellence
+              </p>
+            </div>
           </div>
 
           <div className="space-y-3 text-slate-200 text-[14px] sm:text-[15px] leading-relaxed mb-6 font-sans font-normal">
