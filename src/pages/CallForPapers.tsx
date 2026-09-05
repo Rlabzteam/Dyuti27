@@ -103,9 +103,9 @@ export const CallForPapers: React.FC = () => {
           <div className="absolute top-0 right-0 w-72 h-72 bg-white/5 rounded-full blur-3xl pointer-events-none" />
 
           <div className="max-w-xl relative z-10">
-            <span className="text-[11.5px] font-mono font-black uppercase tracking-[0.2em] text-amber-300 block mb-2">
-              Official Conference Identity &amp; Scope
-            </span>
+            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] mb-3 shadow-md">
+              <span>Official Conference Identity &amp; Scope</span>
+            </div>
             <h3 className="text-2xl sm:text-3xl font-heading font-black text-white mb-2 leading-snug">
               DYUTI 2027 Thematic Framework
             </h3>
