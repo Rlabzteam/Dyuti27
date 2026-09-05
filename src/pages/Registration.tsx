@@ -126,13 +126,17 @@ export const Registration: React.FC = () => {
     mode?: string;
   }>({});
 
-  // Check URL query parameters for return redirect from payment gateway
+  // Check URL query parameters for return redirect from payment gateway / Razorpay
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const paymentStatus = urlParams.get('payment_status');
+    const paymentStatus = urlParams.get('payment_status') || urlParams.get('status');
 
     if (paymentStatus === 'success') {
-      const orderId = urlParams.get('order_id') || `VORTEX-${Date.now().toString().slice(-6)}`;
+      const orderId =
+        urlParams.get('order_id') ||
+        urlParams.get('payment_id') ||
+        urlParams.get('razorpay_payment_id') ||
+        `VORTEX-${Date.now().toString().slice(-6)}`;
       const name = urlParams.get('name') || 'Delegate';
       const email = urlParams.get('email') || '';
       const amount = Number(urlParams.get('amount')) || 750;
@@ -148,11 +152,23 @@ export const Registration: React.FC = () => {
       setPaymentResult({
         orderId,
         amount,
-        mode: 'Vortexx Gateway',
+        mode: 'Vortexx / Razorpay Gateway',
       });
       setStep('success');
-    } else if (paymentStatus === 'failed') {
-      setFormError('Payment was not completed or was cancelled. Please try again.');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (
+      paymentStatus === 'failed' ||
+      paymentStatus === 'failure' ||
+      paymentStatus === 'cancelled' ||
+      paymentStatus === 'error'
+    ) {
+      const errorMessage =
+        urlParams.get('message') ||
+        urlParams.get('error') ||
+        'Payment was cancelled or could not be processed. Please try again or opt for Direct Bank Transfer.';
+      setFormError(errorMessage);
+      setStep('form');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, []);
 
@@ -1092,7 +1108,9 @@ export const Registration: React.FC = () => {
                     showArrow
                     className="w-full sm:w-auto shadow-xl"
                   >
-                    Cross-Check &amp; Review Details
+                    {formData.paymentMode === 'online'
+                      ? `Review & Pay ₹ ${selectedCategory.amount}`
+                      : 'Review & Confirm Details'}
                   </Button>
                 </div>
 
@@ -1309,15 +1327,15 @@ export const Registration: React.FC = () => {
                   {isProcessingPayment ? (
                     <span className="inline-flex items-center gap-2">
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      Connecting to Payment Gateway...
+                      Redirecting to Payment Gateway...
                     </span>
                   ) : formData.paymentMode === 'online' ? (
                     <span className="inline-flex items-center gap-2">
                       <Lock className="w-4 h-4" />
-                      Pay ₹ {selectedCategory.amount} &amp; Confirm
+                      Register &amp; Pay ₹ {selectedCategory.amount} Now
                     </span>
                   ) : (
-                    'Confirm & Submit Registration'
+                    'Confirm &amp; Submit Registration'
                   )}
                 </Button>
               </div>
