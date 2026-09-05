@@ -3,63 +3,6 @@ import { Button } from '@/components/ui/Button';
 import { CONFERENCE_DATA } from '@/data/conference';
 
 export const Rajagiri: React.FC = () => {
-  const keyStats = [
-    {
-      number: 'NAAC',
-      label: 'A++ Grade · 3.83 CGPA',
-      sub: 'First College in Kerala to be accredited with NAAC A++ (3.83 CGPA in 4th Cycle)',
-      badge: 'NAAC A++',
-      bgGradient: 'from-[#071A33] via-[#0e2a52] to-[#040e1c]',
-      accentColor: 'text-amber-300',
-      badgeBg: 'bg-white/15 text-amber-300 border-white/25',
-    },
-    {
-      number: 'UGC',
-      label: 'Autonomous (2014–30)',
-      sub: 'Autonomous status conferred by UGC India (2014 – 2030)',
-      badge: 'Autonomous',
-      bgGradient: 'from-[#0a2540] via-[#123962] to-[#051424]',
-      accentColor: 'text-amber-300',
-      badgeBg: 'bg-white/15 text-amber-300 border-white/25',
-    },
-    {
-      number: '#12',
-      label: 'NIRF Ranking in India',
-      sub: 'Ranked #12 in India (NIRF Rankings 2025: Social Work / Colleges Category)',
-      badge: 'NIRF 2025',
-      bgGradient: 'from-[#071A33] via-[#16365c] to-[#030d1a]',
-      accentColor: 'text-amber-300',
-      badgeBg: 'bg-white/15 text-amber-300 border-white/25',
-    },
-    {
-      number: '#1',
-      label: 'KIRF Ranking in Kerala',
-      sub: 'Ranked #1 in Kerala State Institutional Rankings (KIRF 2025)',
-      badge: 'KIRF 2025',
-      bgGradient: 'from-[#09223d] via-[#18426e] to-[#041120]',
-      accentColor: 'text-amber-300',
-      badgeBg: 'bg-white/15 text-amber-300 border-white/25',
-    },
-    {
-      number: 'CPE',
-      label: 'Potential for Excellence',
-      sub: 'College with Potential for Excellence (CPE) granted by UGC India (2016)',
-      badge: 'UGC CPE',
-      bgGradient: 'from-[#071A33] via-[#0e2a52] to-[#040e1c]',
-      accentColor: 'text-amber-300',
-      badgeBg: 'bg-white/15 text-amber-300 border-white/25',
-    },
-    {
-      number: '#2',
-      label: 'Pan-India Social Work',
-      sub: 'Rated #2 Social Work Programme in India (Outlook-ICARE 2024 & India Today 2020–2024)',
-      badge: 'Social Work',
-      bgGradient: 'from-[#0a2540] via-[#123962] to-[#051424]',
-      accentColor: 'text-amber-300',
-      badgeBg: 'bg-white/15 text-amber-300 border-white/25',
-    },
-  ];
-
   return (
     <div className="bg-[#FDFBF7] text-slate-800 min-h-screen">
 
@@ -124,148 +67,125 @@ export const Rajagiri: React.FC = () => {
         </div>
       </div>
 
-      {/* ── 6 SIGNATURE CARDS (SPACIOUS LENGTH & PROMINENT VERTICAL HEIGHT) ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {keyStats.map((item, idx) => (
-            <div
-              key={idx}
-              className={`group relative w-full rounded-[22px] sm:rounded-[28px] rounded-tl-[42px] sm:rounded-tl-[52px] rounded-br-[42px] sm:rounded-br-[52px] bg-gradient-to-br ${item.bgGradient} p-6 sm:p-7 flex flex-col justify-between text-white border border-white/20 shadow-xl hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 overflow-hidden min-h-[260px] sm:min-h-[280px]`}
-            >
-              {/* Subtle internal shine overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-60 pointer-events-none" />
+      {/* ── MAIN CONTENT CARDS (EXTENDED FULL HORIZONTAL WIDTH MATCHING HERO BANNER) ── */}
+      <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pb-16 sm:pb-20 lg:pb-24">
 
-              {/* Top Row: Bold Category Badge */}
-              <div className="flex items-center justify-between mb-3 relative z-10">
-                <span className={`text-[11px] font-mono font-black uppercase tracking-[0.16em] px-3 py-1 rounded-full border shadow-xs ${item.badgeBg}`}>
-                  {item.badge}
-                </span>
-              </div>
-
-              {/* Middle Row: Extra Bold Stat Number & Label */}
-              <div className="my-2 relative z-10">
-                <div className={`font-heading text-[2.2rem] sm:text-[2.6rem] font-black ${item.accentColor} leading-none tracking-tight tabular-nums group-hover:scale-105 transition-transform duration-300 origin-left`}>
-                  {item.number}
-                </div>
-                <div className="text-[16px] sm:text-[17px] font-sans font-black text-white leading-snug mt-2">
-                  {item.label}
-                </div>
-              </div>
-
-              {/* Bottom Row: Subtitle */}
-              <div className="pt-3.5 border-t border-white/20 mt-3 relative z-10">
-                <div className="text-[12.5px] sm:text-[13.5px] font-sans text-slate-100 font-medium leading-relaxed">
-                  {item.sub}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ── MAIN CONTENT CARDS (MODERATE ELEGANT LENGTH: MAX-W-7XL) ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20 lg:pb-24">
-
-        {/* ── CARD 1: A LEGACY OF DISTINCTION & SOCIAL COMMITMENT ── */}
-        <div className="mb-8 sm:mb-12 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-6 sm:p-8 lg:p-10 shadow-2xl border border-white/20 relative overflow-hidden">
+        {/* ── CARD 1: A LEGACY OF DISTINCTION & SOCIAL COMMITMENT (icswhmh Achievements Card Design with Original Brand Colors & Content) ── */}
+        <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-6 sm:p-8 lg:p-12 shadow-2xl border border-white/20 relative overflow-hidden">
           {/* Subtle background ambient glow */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="space-y-6 relative z-10">
+          {/* Background Watermarks */}
+          <div className="absolute left-6 sm:left-10 top-10 font-heading font-extrabold text-white/[0.03] text-6xl sm:text-8xl lg:text-[9rem] select-none pointer-events-none tracking-tight leading-none">
+            RAJAGIRI
+          </div>
+          <div className="absolute right-6 sm:right-10 bottom-8 font-heading font-extrabold text-white/[0.03] text-3xl sm:text-5xl lg:text-6xl select-none pointer-events-none tracking-wider text-right leading-none">
+            LEARN SERVE EXCEL
+          </div>
 
-            {/* Top Header Row with RCSS Badge */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-white/15">
-              <div className="space-y-2 max-w-4xl">
-                <div className="inline-flex items-center px-3 py-1 rounded-full bg-amber-400/20 border border-amber-300/30 text-amber-300 text-[11px] font-mono font-black uppercase tracking-[0.16em]">
-                  <span>Autonomous Institution (2014 &ndash; 2030)</span>
-                </div>
-
-                <h2 className="text-2xl sm:text-3xl lg:text-[2.25rem] font-heading font-black text-white leading-tight tracking-tight m-0">
-                  A Legacy of Distinction &amp; Social Commitment
-                </h2>
-              </div>
-
-              <div className="shrink-0">
-                <div className="px-4 py-2 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-center shadow-md">
-                  <span className="text-xl sm:text-2xl font-heading font-extrabold text-amber-300 block">Est. 1955</span>
-                  <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200">Autonomous &bull; NAAC A++</span>
-                </div>
-              </div>
+          <div className="relative z-10 space-y-8">
+            {/* Top Header Row Centered */}
+            <div className="flex flex-col items-center justify-center text-center pb-6 border-b border-white/15">
+              <h2 className="text-2xl sm:text-3xl lg:text-[2.35rem] font-heading font-black text-white leading-tight tracking-tight m-0">
+                A Legacy of Distinction &amp; Social Commitment
+              </h2>
             </div>
 
-            {/* 2-Column Side-by-Side Grid (lg:col-span-7 Left Narrative, lg:col-span-5 Right Pillars) */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            {/* Institutional Narrative Section */}
+            <div className="space-y-3.5 text-[14px] sm:text-[14.5px] text-slate-100 leading-relaxed font-sans font-normal pb-4 border-b border-white/15">
+              <p className="m-0">
+                <strong className="text-white font-bold">Rajagiri College of Social Sciences (Autonomous), Kalamassery</strong>, established in 1955 by the Carmelites of Mary Immaculate (CMI) Congregation, is one of India&apos;s premier institutions for higher education. Guided by its motto, <em className="text-amber-300 italic font-semibold">&ldquo;Relentlessly Towards Excellence&rdquo;</em>, the college has built a rich legacy of academic distinction, innovation, and social commitment.
+              </p>
+              <p className="m-0 text-slate-200">
+                Rajagiri with its vision of <em className="text-amber-300 italic">&lsquo;becoming a centre of excellence in learning for enriching and fulfilling LIFE&rsquo;</em> has been regularly providing an annual forum for deliberations on vital issues of development from a Rights perspective.
+              </p>
+              <p className="m-0 text-slate-200">
+                The term &ldquo;Rajagiri&rdquo; translates to &ldquo;Hill of the King,&rdquo; symbolizing the heights of learning and developmental yearning. True to its acronym <strong className="text-white font-bold">DYUTI</strong> (&ldquo;Spark of Life&rdquo;), the institution fosters developmental dialogues that bridge academic theory with transformative field practice.
+              </p>
+            </div>
 
-              {/* Left Column: Focused Narrative & Vision Motto Box */}
-              <div className="lg:col-span-7 space-y-4">
-                <div className="space-y-3 text-[14px] sm:text-[14.5px] text-slate-100 leading-relaxed font-sans font-medium">
-                  <p className="m-0">
-                    <strong className="text-white font-bold">Rajagiri College of Social Sciences (Autonomous), Kalamassery</strong>, established in 1955 by the Carmelites of Mary Immaculate (CMI) Congregation, is one of India&apos;s premier institutions for higher education. Guided by its motto, <em className="text-amber-300 italic font-semibold">&ldquo;Relentlessly Towards Excellence&rdquo;</em>, the college has built a rich legacy of academic distinction, innovation, and social commitment.
-                  </p>
-
-                  <p className="m-0 text-slate-200">
-                    Rajagiri with its vision of <em className="text-amber-300 italic">&lsquo;becoming a centre of excellence in learning for enriching and fulfilling LIFE&rsquo;</em> has been regularly providing an annual forum for deliberations on vital issues of development from a Rights perspective.
-                  </p>
-
-                  <p className="m-0 text-slate-200">
-                    The term &ldquo;Rajagiri&rdquo; translates to &ldquo;Hill of the King,&rdquo; symbolizing the heights of learning and developmental yearning. True to its acronym <strong className="text-white font-bold">DYUTI</strong> (&ldquo;Spark of Life&rdquo;), the institution fosters developmental dialogues that bridge academic theory with transformative field practice.
-                  </p>
-                </div>
-
-                {/* Institutional Heritage & Vision Motto Box */}
-                <div className="mt-5 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#0b2447] via-[#103460] to-[#081c38] text-white shadow-xl border border-amber-400/30 border-l-4 border-l-amber-400 backdrop-blur-md group hover:border-amber-400/50 transition-all space-y-1.5">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h4 className="font-heading font-black text-sm sm:text-base text-amber-200 m-0 leading-tight">
-                      &ldquo;Relentlessly Towards Excellence&rdquo;
-                    </h4>
-                    <span className="text-white/40 hidden sm:inline">&bull;</span>
-                    <span className="text-amber-300 font-mono text-[11px] font-bold uppercase tracking-wider bg-amber-400/15 px-2.5 py-0.5 rounded-full border border-amber-400/30">
-                      Est. 1955
-                    </span>
+            {/* 4-Column Cards Grid with Horizontal Zigzag Flow (Motto + Foundational Institutional Pillars) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start py-4 sm:py-6 relative z-10">
+              {/* Card 1: Relentlessly Towards Excellence */}
+              <div className="group rounded-[24px] bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-[12px] border border-white/[0.15] hover:border-amber-400/40 p-6 sm:p-7 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-black/30 flex flex-col justify-between h-full lg:-translate-y-4 hover:lg:-translate-y-6">
+                <div>
+                  <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 shadow-md">
+                    <img
+                      src="https://res.cloudinary.com/dswfp5fwx/image/upload/v1777322022/_DSC9801_twnmgf.jpg"
+                      alt="Relentlessly Towards Excellence"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
                   </div>
-                  <p className="text-[12.5px] sm:text-[13px] text-slate-200 font-sans font-normal m-0 leading-relaxed">
+                  <h3 className="font-heading font-bold text-lg sm:text-xl text-amber-300 tracking-tight mb-2.5 leading-snug group-hover:text-amber-200 transition-colors m-0">
+                    &ldquo;Relentlessly Towards Excellence&rdquo;
+                  </h3>
+                  <p className="font-sans text-[13px] sm:text-[13.5px] text-slate-200 leading-relaxed m-0 font-normal">
                     70+ years of pedagogical innovation, autonomous academic rigor, and transformative community impact.
                   </p>
                 </div>
               </div>
 
-              {/* Right Column: Foundational Institutional Pillars */}
-              <div className="lg:col-span-5 space-y-3 lg:border-l lg:border-white/15 lg:pl-6">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="w-3 h-0.5 bg-amber-300" />
-                  <h4 className="text-xs font-mono font-black uppercase tracking-[0.18em] text-amber-300 m-0">
-                    Foundational Institutional Pillars
-                  </h4>
-                </div>
-
-                <div className="space-y-2.5">
-                  <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1 hover:bg-white/15 transition-colors">
-                    <div className="flex items-center justify-between">
-                      <h5 className="font-heading font-bold text-sm text-white m-0">Pedagogical Innovation</h5>
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300">Pillar 01</span>
-                    </div>
-                    <p className="text-[11.5px] text-slate-200 leading-snug m-0">70+ years pioneering standards, curriculum development, and academic excellence across higher education in India.</p>
+              {/* Card 2: Pedagogical Innovation */}
+              <div className="group rounded-[24px] bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-[12px] border border-white/[0.15] hover:border-amber-400/40 p-6 sm:p-7 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-black/30 flex flex-col justify-between h-full lg:translate-y-4 hover:lg:translate-y-2">
+                <div>
+                  <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 shadow-md">
+                    <img
+                      src="https://res.cloudinary.com/dswfp5fwx/image/upload/v1777274982/DSC00105_iniref.jpg"
+                      alt="Pedagogical Innovation"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
                   </div>
-
-                  <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1 hover:bg-white/15 transition-colors">
-                    <div className="flex items-center justify-between">
-                      <h5 className="font-heading font-bold text-sm text-white m-0">Autonomous Excellence</h5>
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300">Pillar 02</span>
-                    </div>
-                    <p className="text-[11.5px] text-slate-200 leading-snug m-0">Conferred UGC Autonomy (2014–2030) and CPE status, enabling dynamic industry-aligned curricula and global research partnerships.</p>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1 hover:bg-white/15 transition-colors">
-                    <div className="flex items-center justify-between">
-                      <h5 className="font-heading font-bold text-sm text-white m-0">Grassroots Impact</h5>
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300">Pillar 03</span>
-                    </div>
-                    <p className="text-[11.5px] text-slate-200 leading-snug m-0">Community live labs, child protection desks, and rights-based field action translating classroom theory into measurable social good.</p>
-                  </div>
+                  <h3 className="font-heading font-bold text-lg sm:text-xl text-amber-300 tracking-tight mb-2.5 leading-snug group-hover:text-amber-200 transition-colors m-0">
+                    Pedagogical Innovation
+                  </h3>
+                  <p className="font-sans text-[13px] sm:text-[13.5px] text-slate-200 leading-relaxed m-0 font-normal">
+                    70+ years pioneering standards, curriculum development, and academic excellence across higher education in India.
+                  </p>
                 </div>
               </div>
 
+              {/* Card 3: Autonomous Excellence */}
+              <div className="group rounded-[24px] bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-[12px] border border-white/[0.15] hover:border-amber-400/40 p-6 sm:p-7 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-black/30 flex flex-col justify-between h-full lg:-translate-y-4 hover:lg:-translate-y-6">
+                <div>
+                  <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 shadow-md">
+                    <img
+                      src="https://res.cloudinary.com/dswfp5fwx/image/upload/v1777274194/DSC00502_1_rahpwv.jpg"
+                      alt="Autonomous Excellence"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                  <h3 className="font-heading font-bold text-lg sm:text-xl text-amber-300 tracking-tight mb-2.5 leading-snug group-hover:text-amber-200 transition-colors m-0">
+                    Autonomous Excellence
+                  </h3>
+                  <p className="font-sans text-[13px] sm:text-[13.5px] text-slate-200 leading-relaxed m-0 font-normal">
+                    Conferred UGC Autonomy (2014&ndash;2030) and CPE status, enabling dynamic industry-aligned curricula and global research partnerships.
+                  </p>
+                </div>
+              </div>
+
+              {/* Card 4: Grassroots Impact */}
+              <div className="group rounded-[24px] bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-[12px] border border-white/[0.15] hover:border-amber-400/40 p-6 sm:p-7 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-black/30 flex flex-col justify-between h-full lg:translate-y-4 hover:lg:translate-y-2">
+                <div>
+                  <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 shadow-md">
+                    <img
+                      src="https://res.cloudinary.com/dswfp5fwx/image/upload/v1777274694/DSC01012_dnfcv2.jpg"
+                      alt="Grassroots Impact"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                  <h3 className="font-heading font-bold text-lg sm:text-xl text-amber-300 tracking-tight mb-2.5 leading-snug group-hover:text-amber-200 transition-colors m-0">
+                    Grassroots Impact
+                  </h3>
+                  <p className="font-sans text-[13px] sm:text-[13.5px] text-slate-200 leading-relaxed m-0 font-normal">
+                    Community live labs, child protection desks, and rights-based field action translating classroom theory into measurable social good.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -278,23 +198,15 @@ export const Rajagiri: React.FC = () => {
 
           <div className="space-y-6 relative z-10">
 
-            {/* Top Header Row */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-white/15">
-              <div className="space-y-2 max-w-4xl">
-                <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/15 border border-white/25 text-amber-300 text-[11px] font-mono font-black uppercase tracking-[0.16em]">
-                  <span>Global Standing</span>
-                </div>
-
-                <h2 className="text-2xl sm:text-3xl lg:text-[2.25rem] font-heading font-black text-white leading-tight tracking-tight m-0">
-                  SDG &amp; Global Impact
-                </h2>
-              </div>
-
-              <div className="shrink-0">
-                <div className="px-4 py-2 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-center shadow-md">
-                  <span className="text-xl sm:text-2xl font-heading font-extrabold text-amber-300 block">SDG 3</span>
-                  <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200">Global Band 601–800</span>
-                </div>
+            {/* Top Header Row Centered */}
+            <div className="flex flex-col items-center justify-center text-center space-y-3 pb-6 border-b border-white/15">
+              <h2 className="text-2xl sm:text-3xl lg:text-[2.35rem] font-heading font-black text-white leading-tight tracking-tight m-0">
+                SDG &amp; Global Impact
+              </h2>
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-center shadow-md">
+                <span className="text-base sm:text-lg font-heading font-extrabold text-amber-300">SDG 3</span>
+                <span className="text-white/40">&bull;</span>
+                <span className="text-xs sm:text-[13px] font-sans uppercase tracking-wider text-slate-200 font-medium">Global Band 601&ndash;800</span>
               </div>
             </div>
 
@@ -380,23 +292,10 @@ export const Rajagiri: React.FC = () => {
           <div className="absolute top-0 right-0 w-96 h-96 bg-amber-400/5 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 space-y-5">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-white/15">
-              <div className="space-y-2 max-w-3xl">
-                <div className="inline-flex items-center px-3 py-1 rounded-full bg-amber-400/20 border border-amber-300/30 text-amber-300 text-[11px] font-mono font-black uppercase tracking-[0.16em]">
-                  <span>National Honors &amp; Benchmarks</span>
-                </div>
-
-                <h2 className="text-2xl sm:text-3xl font-heading font-black text-white leading-tight tracking-tight m-0">
-                  Recognitions
-                </h2>
-              </div>
-
-              <div className="shrink-0">
-                <div className="px-4 py-2 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-center">
-                  <span className="text-lg sm:text-xl font-heading font-extrabold text-amber-300 block">Excellence</span>
-                  <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200">National &amp; Global Impact</span>
-                </div>
-              </div>
+            <div className="pb-4 border-b border-white/15">
+              <h2 className="text-2xl sm:text-3xl font-heading font-black text-white leading-tight tracking-tight m-0">
+                Recognitions
+              </h2>
             </div>
 
             {/* Narrative & Badges in Wide Layout (Streamlined, Non-Repetitive) */}
@@ -406,46 +305,90 @@ export const Rajagiri: React.FC = () => {
               </p>
             </div>
 
-            {/* 4 Featured Recognition Badges Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
-              <div className="p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex flex-col justify-between hover:bg-white/15 transition-all duration-300">
-                <div className="space-y-1.5">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">Award 2024</span>
-                  <h4 className="font-heading font-bold text-sm text-white leading-snug m-0">
+            {/* 4 Featured Recognition Badges Grid with Photos */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-3">
+              {/* Recognition 1: India Elite Education Award */}
+              <div className="group rounded-[20px] bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-[12px] border border-white/[0.15] hover:border-amber-400/40 p-4 sm:p-5 transition-all duration-300 overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-black/30 flex flex-col justify-between">
+                <div>
+                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 shadow-md">
+                    <img
+                      src="/images/gallery/6L6A7495.JPG"
+                      alt="India Elite Education & Institutional Excellence Award"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block mb-1.5">Award 2024</span>
+                  <h4 className="font-heading font-bold text-sm sm:text-[15px] text-white leading-snug group-hover:text-amber-200 transition-colors m-0 mb-1.5">
                     India Elite Education &amp; Institutional Excellence Award
                   </h4>
+                  <p className="text-[11.5px] sm:text-xs text-slate-200 leading-relaxed m-0 font-sans font-normal">
+                    Leadership in pedagogical quality and institutional distinction
+                  </p>
                 </div>
-                <p className="text-[11px] text-slate-300 mt-2 m-0">Leadership in pedagogical quality and institutional distinction</p>
               </div>
 
-              <div className="p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex flex-col justify-between hover:bg-white/15 transition-all duration-300">
-                <div className="space-y-1.5">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">2025–2027</span>
-                  <h4 className="font-heading font-bold text-sm text-white leading-snug m-0">
+              {/* Recognition 2: Eat Right Campus Award */}
+              <div className="group rounded-[20px] bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-[12px] border border-white/[0.15] hover:border-amber-400/40 p-4 sm:p-5 transition-all duration-300 overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-black/30 flex flex-col justify-between">
+                <div>
+                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 shadow-md">
+                    <img
+                      src="/images/gallery/15137561.jpg"
+                      alt="Eat Right Campus Award by FSSAI"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block mb-1.5">2025–2027</span>
+                  <h4 className="font-heading font-bold text-sm sm:text-[15px] text-white leading-snug group-hover:text-amber-200 transition-colors m-0 mb-1.5">
                     Eat Right Campus Award by FSSAI
                   </h4>
+                  <p className="text-[11.5px] sm:text-xs text-slate-200 leading-relaxed m-0 font-sans font-normal">
+                    Five-star certification for safe, hygienic and healthy nutrition
+                  </p>
                 </div>
-                <p className="text-[11px] text-slate-300 mt-2 m-0">Five-star certification for safe, hygienic and healthy nutrition</p>
               </div>
 
-              <div className="p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex flex-col justify-between hover:bg-white/15 transition-all duration-300">
-                <div className="space-y-1.5">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">Haritha Keralam</span>
-                  <h4 className="font-heading font-bold text-sm text-white leading-snug m-0">
+              {/* Recognition 3: Green Institution Certification */}
+              <div className="group rounded-[20px] bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-[12px] border border-white/[0.15] hover:border-amber-400/40 p-4 sm:p-5 transition-all duration-300 overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-black/30 flex flex-col justify-between">
+                <div>
+                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 shadow-md">
+                    <img
+                      src="/images/gallery/15168818.jpg"
+                      alt="Green Institution Certification"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block mb-1.5">Haritha Keralam</span>
+                  <h4 className="font-heading font-bold text-sm sm:text-[15px] text-white leading-snug group-hover:text-amber-200 transition-colors m-0 mb-1.5">
                     Green Institution Certification
                   </h4>
+                  <p className="text-[11.5px] sm:text-xs text-slate-200 leading-relaxed m-0 font-sans font-normal">
+                    Environmental sustainability, zero-waste and green initiatives
+                  </p>
                 </div>
-                <p className="text-[11px] text-slate-300 mt-2 m-0">Environmental sustainability, zero-waste and green initiatives</p>
               </div>
 
-              <div className="p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex flex-col justify-between hover:bg-white/15 transition-all duration-300">
-                <div className="space-y-1.5">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block">2023–24</span>
-                  <h4 className="font-heading font-bold text-sm text-white leading-snug m-0">
+              {/* Recognition 4: Best NSS Unit Award */}
+              <div className="group rounded-[20px] bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-[12px] border border-white/[0.15] hover:border-amber-400/40 p-4 sm:p-5 transition-all duration-300 overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-black/30 flex flex-col justify-between">
+                <div>
+                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 shadow-md">
+                    <img
+                      src="/images/gallery/IMG_1460.JPG"
+                      alt="Best NSS Unit Award"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block mb-1.5">2023–24</span>
+                  <h4 className="font-heading font-bold text-sm sm:text-[15px] text-white leading-snug group-hover:text-amber-200 transition-colors m-0 mb-1.5">
                     Best NSS Unit Award
                   </h4>
+                  <p className="text-[11.5px] sm:text-xs text-slate-200 leading-relaxed m-0 font-sans font-normal">
+                    Outstanding youth volunteerism and grassroots social action
+                  </p>
                 </div>
-                <p className="text-[11px] text-slate-300 mt-2 m-0">Outstanding youth volunteerism and grassroots social action</p>
               </div>
             </div>
           </div>

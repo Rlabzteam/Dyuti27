@@ -86,11 +86,10 @@ export const MajorSubThemes: React.FC = () => {
             return (
               <div
                 key={theme.id || index}
-                className={`group relative w-full h-full p-6 sm:p-7 flex flex-col justify-between text-white border border-white/20 shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 overflow-hidden bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] ${
-                  isAlternate
+                className={`group relative w-full h-full p-6 sm:p-7 flex flex-col justify-between text-white border border-white/20 shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 overflow-hidden bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] ${isAlternate
                     ? 'rounded-[24px] sm:rounded-[28px] rounded-tr-[48px] sm:rounded-tr-[56px] rounded-bl-[48px] sm:rounded-bl-[56px]'
                     : 'rounded-[24px] sm:rounded-[28px] rounded-tl-[48px] sm:rounded-tl-[56px] rounded-br-[48px] sm:rounded-br-[56px]'
-                }`}
+                  }`}
               >
                 {/* Subtle Ambient Light Glow */}
                 <div className="absolute top-0 right-0 w-44 h-44 bg-amber-400/5 rounded-full blur-2xl pointer-events-none group-hover:bg-amber-400/10 transition-colors" />
