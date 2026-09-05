@@ -4,7 +4,6 @@ import { CONFERENCE_DATA } from '@/data/conference';
 
 export const Rajagiri: React.FC = () => {
   const [socialWorkSlide, setSocialWorkSlide] = useState(0);
-  const [isSocialWorkPaused, setIsSocialWorkPaused] = useState(false);
 
   const socialWorkSlides = [
     {
@@ -66,12 +65,11 @@ export const Rajagiri: React.FC = () => {
   ];
 
   useEffect(() => {
-    if (isSocialWorkPaused) return;
     const timer = setInterval(() => {
       setSocialWorkSlide((prev) => (prev === socialWorkSlides.length - 1 ? 0 : prev + 1));
-    }, 6000);
+    }, 4000);
     return () => clearInterval(timer);
-  }, [isSocialWorkPaused, socialWorkSlides.length]);
+  }, [socialWorkSlides.length]);
 
   return (
     <div className="bg-[#FDFBF7] text-slate-800 min-h-screen">
@@ -464,11 +462,9 @@ export const Rajagiri: React.FC = () => {
           </div>
         </div>
 
-        {/* ── DEPARTMENT OF SOCIAL WORK (Interactive Showcase matching icswhmh.com style with smooth animations) ── */}
+        {/* ── DEPARTMENT OF SOCIAL WORK (Interactive Showcase with Continuous Auto-Advance) ── */}
         <div
           className="relative w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[42px] overflow-hidden bg-gradient-to-r from-[#071A33] via-[#0E2A52] to-[#040E1C] border border-white/20 hover:border-amber-400/30 shadow-2xl p-6 sm:p-10 lg:p-12 text-white mb-12 sm:mb-16 transition-all duration-500"
-          onMouseEnter={() => setIsSocialWorkPaused(true)}
-          onMouseLeave={() => setIsSocialWorkPaused(false)}
         >
           {/* Subtle Ambient Radial Glows with Breathing Animation */}
           <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-600/25 rounded-full blur-3xl pointer-events-none animate-pulse duration-[4000ms]" />
@@ -543,19 +539,29 @@ export const Rajagiri: React.FC = () => {
 
             </div>
 
-            {/* Discreet Animated Pagination Dots */}
-            <div className="flex items-center justify-center gap-2 pt-4 mt-2">
+            {/* Continuous Auto-Advance Animated Pagination Dots */}
+            <div className="flex items-center justify-center gap-2 pt-5 mt-2">
               {socialWorkSlides.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setSocialWorkSlide(idx)}
-                  className={`h-1.5 rounded-full transition-all duration-500 cursor-pointer ${
+                  className={`h-2 rounded-full transition-all duration-500 cursor-pointer overflow-hidden relative ${
                     socialWorkSlide === idx
-                      ? 'w-8 bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.6)]'
-                      : 'w-2 bg-white/25 hover:bg-white/50'
+                      ? 'w-10 bg-white/20'
+                      : 'w-2.5 bg-white/25 hover:bg-white/50'
                   }`}
                   aria-label={`Go to slide ${idx + 1}`}
-                />
+                >
+                  {socialWorkSlide === idx && (
+                    <div
+                      key={`progress-${socialWorkSlide}`}
+                      className="absolute inset-0 bg-gradient-to-r from-amber-400 to-amber-300 rounded-full shadow-[0_0_10px_rgba(251,191,36,0.8)]"
+                      style={{
+                        animation: 'progressFill 4s linear forwards'
+                      }}
+                    />
+                  )}
+                </button>
               ))}
             </div>
 
