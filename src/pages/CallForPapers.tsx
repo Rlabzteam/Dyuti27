@@ -349,7 +349,7 @@ export const CallForPapers: React.FC = () => {
 
         {/* ── 01. SUBMISSION DEADLINES & MILESTONES (FULL WIDTH CARDS) ── */}
         <div className="mb-20 lg:mb-28">
-          <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-400">
+          <div className="mb-8 pb-4 border-b border-slate-400">
             <div>
               <span className="text-[11px] font-mono font-black uppercase tracking-[0.18em] text-slate-900 block mb-1">
                 Timeline &amp; Dates
@@ -361,9 +361,6 @@ export const CallForPapers: React.FC = () => {
                 Critical timeline for abstract review, author acceptance, and conference attendance
               </p>
             </div>
-            <span className="hidden sm:inline-flex items-center text-[11px] font-mono uppercase tracking-wider text-slate-950 bg-slate-200 border border-slate-400 px-3 py-1 rounded-[6px] font-black">
-              IST (UTC+05:30)
-            </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
