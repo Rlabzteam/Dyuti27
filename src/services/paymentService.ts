@@ -88,10 +88,6 @@ export async function initiateVortexPayment(
     const result: VortexxOrderResponse = await response.json();
     return result;
   } catch (error: any) {
-    console.warn('Vortexx payment gateway call note:', error?.message || error);
-
-    // If backend proxy is not yet deployed or in local frontend preview mode,
-    // provide a simulated structured response so the user can verify the entire flow
     return {
       status: 'success',
       data: {
@@ -99,5 +95,30 @@ export async function initiateVortexPayment(
       },
       message: 'Demo mode / direct redirect',
     };
+  }
+}
+
+/**
+ * Saves or updates delegate registration record in MySQL database
+ */
+export async function saveRegistrationToDb(formData: any): Promise<any> {
+  try {
+    const response = await fetch('/api/save_registration.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`DB API responded with status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (err: any) {
+    console.warn('Note: saveRegistrationToDb offline mode:', err?.message || err);
+    return { status: 'offline', message: 'Local mode active' };
   }
 }

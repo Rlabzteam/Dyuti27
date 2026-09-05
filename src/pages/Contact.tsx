@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { PageHeader } from '@/components/ui/PageHeader';
-import { FormField } from '@/components/ui/FormField';
 import { Button } from '@/components/ui/Button';
 import { CONFERENCE_DATA } from '@/data/conference';
 import { apiService } from '@/lib/api';

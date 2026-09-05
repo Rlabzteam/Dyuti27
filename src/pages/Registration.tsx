@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { CONFERENCE_DATA } from '@/data/conference';
-import { initiateVortexPayment } from '@/services/paymentService';
+import { initiateVortexPayment, saveRegistrationToDb } from '@/services/paymentService';
 
 interface RegistrationFormData {
   title: string;
@@ -152,7 +152,8 @@ export const Registration: React.FC = () => {
         paymentMode: 'online',
       }));
 
-      setRegistrationId(`DYUTI27-ONLINE-${Math.floor(10000 + Math.random() * 90000)}`);
+      const onlineRegId = `DYUTI27-ONLINE-${Math.floor(10000 + Math.random() * 90000)}`;
+      setRegistrationId(onlineRegId);
       setPaymentResult({
         orderId,
         amount,
@@ -160,6 +161,18 @@ export const Registration: React.FC = () => {
       });
       setStep('success');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Persist to database asynchronously
+      saveRegistrationToDb({
+        registration_id: onlineRegId,
+        name,
+        email,
+        amount,
+        payment_mode: 'online',
+        payment_status: 'success',
+        payment_order_id: orderId,
+        razorpay_payment_id: orderId,
+      });
     } else if (
       paymentStatus === 'failed' ||
       paymentStatus === 'failure' ||
@@ -317,6 +330,16 @@ export const Registration: React.FC = () => {
       });
       setStep('success');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Persist bank wire registration to database asynchronously
+      saveRegistrationToDb({
+        ...formData,
+        registration_id: generatedId,
+        amount: selectedCategory.amount,
+        payment_mode: 'bank_transfer',
+        payment_status: 'pending',
+        transaction_ref: formData.transactionRef || null,
+      });
     }
   };
 
