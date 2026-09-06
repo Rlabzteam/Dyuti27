@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/Button';
-import { CONFERENCE_DATA } from '@/data/conference';
 
 export const Rajagiri: React.FC = () => {
   const [socialWorkSlide, setSocialWorkSlide] = useState(0);
@@ -529,39 +527,31 @@ export const Rajagiri: React.FC = () => {
           </div>
         </div>
 
-        {/* ── OFFICIAL RCSS PORTAL BANNER WITH BLURRED RAJAGIRI CAMPUS BACKGROUND ── */}
-        <div className="relative text-center text-white rounded-[24px] sm:rounded-[28px] p-8 sm:p-12 hd-card hd-card-dark shadow-2xl overflow-hidden">
-          {/* Blurred Background Campus Image + Gradient Overlay */}
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <img
-              src="https://dyuti.in/assets/images/rcss/Rajagiri-College-of-Social-Sciences.jpg"
-              alt="Rajagiri College Campus Background"
-              className="w-full h-full object-cover object-center filter blur-sm scale-105 brightness-60"
-              loading="eager"
-            />
-            {/* Deep Navy Atmospheric Gradient Overlay for crystal clear readability */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#071A33]/80 via-[#071A33]/70 to-[#071A33]/85" />
-          </div>
-
-          <div className="relative z-10">
-            <h3 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-2 tracking-tight">
-              Explore RCSS Official Portal
-            </h3>
-            <p className="text-white/90 text-sm sm:text-base max-w-xl mx-auto mb-6 font-sans font-normal leading-relaxed">
-              Discover academic programmes, research centres, live lab initiatives, and faculty publications at Rajagiri College of Social Sciences (Autonomous).
-            </p>
-            <Button
-              variant="white"
-              size="lg"
-              asLink
-              href={CONFERENCE_DATA.links.rajagiriPortal}
+        {/* ── HIGH-VISIBILITY RAJAGIRI PORTAL CALLOUT ── */}
+        <div className="pt-4 pb-2 flex justify-center">
+          <div className="inline-flex flex-col sm:flex-row items-center justify-between gap-4 px-6 sm:px-8 py-4 sm:py-5 rounded-2xl bg-white border-2 border-slate-200/80 shadow-md max-w-3xl w-full text-center sm:text-left transition-all hover:border-[#071A33]/40 hover:shadow-xl">
+            <div className="space-y-1">
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-600 block">
+                Official Institutional Portal
+              </span>
+              <p className="text-sm sm:text-base font-bold text-slate-900 m-0">
+                Explore Rajagiri College of Social Sciences (Autonomous)
+              </p>
+              <p className="text-xs text-slate-500 m-0 font-normal">
+                Academic programmes, research centres, live labs, and institutional updates
+              </p>
+            </div>
+            <a
+              href="https://rcss.rajagiri.edu"
               target="_blank"
               rel="noopener noreferrer"
-              showArrow
-              className="shadow-lg hover:shadow-xl bg-white hover:bg-slate-100 text-[#071A33] border border-transparent font-bold h-11 inline-flex items-center justify-center transition-all hover:scale-105"
+              className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#071A33] hover:bg-[#0b2952] text-white text-xs sm:text-sm font-bold shadow-sm hover:shadow-md transition-all hover:scale-105 active:scale-95"
             >
-              Visit rcss.rajagiri.edu
-            </Button>
+              <span>Visit rcss.rajagiri.edu</span>
+              <svg className="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
           </div>
         </div>
 
