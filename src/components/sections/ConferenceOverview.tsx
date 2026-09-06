@@ -21,20 +21,57 @@ export const ConferenceOverview: React.FC = () => {
           {/* Subtle background glow */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="space-y-6 relative z-10">
-            <div className="inline-flex items-center px-5 py-2 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] shadow-md hd-chip">
-              <span>National Conference</span>
+          <div className="relative z-10 space-y-7">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-white/15">
+              <div>
+                <div className="inline-flex items-center px-5 py-2 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] mb-4 shadow-md hd-chip">
+                  <span>National Conference</span>
+                </div>
+                <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight">
+                  DYUTI 2027
+                </h2>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs font-black shadow-xs hd-chip">
+                  Sustainable Development Goals
+                </span>
+                <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs font-black shadow-xs hd-chip">
+                  Empowering Communities
+                </span>
+              </div>
             </div>
 
-            <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-white leading-snug max-w-4xl tracking-tight">
-              DYUTI 2027
-            </h2>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-2">
+              {/* Left Column: Narrative (7 cols) */}
+              <div className="lg:col-span-7 space-y-4">
+                <div className="w-20 h-1.5 bg-gradient-to-r from-amber-400 to-amber-200 rounded-full mb-4" />
+                <p className="text-[16px] sm:text-[17.5px] text-slate-100 leading-relaxed font-sans font-medium">
+                  The 2027 DYUTI National Conference, themed &ldquo;Social Work for Sustainable Development: Empowering Communities through Innovation, Inclusion, and Partnership,&rdquo; brings together academicians, researchers, practitioners, policymakers, students, and development professionals to deliberate on innovative and collaborative approaches for sustainable development. Aligned with the 2030 Agenda for Sustainable Development and its vision of &ldquo;Leaving No One Behind,&rdquo; the conference highlights the vital role of social work in promoting social justice, inclusive development, community empowerment, and sustainable solutions. Through scholarly dialogue and knowledge exchange, DYUTI 2027 aims to strengthen partnerships and advance resilient, equitable, and sustainable communities.
+                </p>
+              </div>
 
-            <div className="w-20 h-1.5 bg-gradient-to-r from-amber-400 to-amber-200 rounded-full" />
-
-            <p className="text-[16px] sm:text-[17.5px] text-slate-100 leading-relaxed font-sans font-medium max-w-4xl pt-1">
-              The 2027 DYUTI National Conference, themed &ldquo;Social Work for Sustainable Development: Empowering Communities through Innovation, Inclusion, and Partnership,&rdquo; brings together academicians, researchers, practitioners, policymakers, students, and development professionals to deliberate on innovative and collaborative approaches for sustainable development. Aligned with the 2030 Agenda for Sustainable Development and its vision of &ldquo;Leaving No One Behind,&rdquo; the conference highlights the vital role of social work in promoting social justice, inclusive development, community empowerment, and sustainable solutions. Through scholarly dialogue and knowledge exchange, DYUTI 2027 aims to strengthen partnerships and advance resilient, equitable, and sustainable communities.
-            </p>
+              {/* Right Column: Uploaded DYUTI 27 Official Logo (5 cols) */}
+              <div className="lg:col-span-5 flex justify-center lg:justify-end">
+                <div className="rounded-[24px] bg-white p-5 sm:p-6 shadow-2xl border border-white/40 max-w-[380px] w-full hd-card hd-card-light hd-card-light-hover flex flex-col items-center justify-center">
+                  <div className="w-full flex items-center justify-center py-2">
+                    <img
+                      src="/images/dyuti27_theme_header.png"
+                      alt="DYUTI 27 — Official Thematic Logo"
+                      className="w-full h-auto max-h-[120px] object-contain"
+                    />
+                  </div>
+                  <div className="text-center pt-3 border-t border-slate-200 w-full mt-2">
+                    <span className="text-slate-900 font-sans text-xs font-black uppercase tracking-wider block">
+                      DYUTI 2027 Official Logo
+                    </span>
+                    <span className="text-slate-500 font-sans text-[11px] font-medium block">
+                      Social Work for Sustainable Development
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
