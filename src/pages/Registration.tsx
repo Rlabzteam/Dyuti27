@@ -428,10 +428,11 @@ export const Registration: React.FC = () => {
             <form onSubmit={handleProceedToReview} className="space-y-8">
 
               {/* Form Card */}
-              <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-6 sm:p-10 lg:p-14 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white border border-white/20 shadow-2xl relative overflow-hidden">
+              <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-6 sm:p-10 lg:p-14 hd-card hd-card-dark text-white shadow-2xl relative overflow-hidden">
                 
                 {/* Subtle ambient glow */}
-                <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
                 {/* Header inside form */}
                 <div className="mb-8 pb-6 border-b border-white/15 relative z-10">
@@ -1160,10 +1161,11 @@ export const Registration: React.FC = () => {
           <div className="max-w-6xl mx-auto space-y-8 animate-fadeIn">
 
             {/* Review Summary Card (Curved Leaf Shape) */}
-            <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-8 sm:p-12 lg:p-14 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white border border-white/20 shadow-2xl relative overflow-hidden">
+            <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-8 sm:p-12 lg:p-14 hd-card hd-card-dark text-white shadow-2xl relative overflow-hidden">
               
               {/* Subtle ambient glow */}
-              <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
               {/* Header */}
               <div className="mb-8 pb-6 border-b border-white/15 relative z-10">
@@ -1193,7 +1195,7 @@ export const Registration: React.FC = () => {
               <div className="space-y-6 relative z-10 font-sans text-xs sm:text-sm">
 
                 {/* Section 1: Participant Particulars */}
-                <div className="p-6 rounded-2xl bg-white/10 border border-white/15 space-y-4">
+                <div className="p-6 rounded-2xl hd-card hd-glass-dark space-y-4">
                   <h3 className="font-mono text-xs font-black uppercase tracking-wider text-amber-300 pb-2 border-b border-white/15">
                     1. Participant &amp; Institutional Profile
                   </h3>
@@ -1229,7 +1231,7 @@ export const Registration: React.FC = () => {
                 </div>
 
                 {/* Section 2: Communication Coordinates */}
-                <div className="p-6 rounded-2xl bg-white/10 border border-white/15 space-y-4">
+                <div className="p-6 rounded-2xl hd-card hd-glass-dark space-y-4">
                   <h3 className="font-mono text-xs font-black uppercase tracking-wider text-amber-300 pb-2 border-b border-white/15">
                     2. Address &amp; Communication Details
                   </h3>
@@ -1254,7 +1256,7 @@ export const Registration: React.FC = () => {
                 </div>
 
                 {/* Section 3: Conference Logistics, Category & Payment Mode */}
-                <div className="p-6 rounded-2xl bg-white/10 border border-white/15 space-y-4">
+                <div className="p-6 rounded-2xl hd-card hd-glass-dark space-y-4">
                   <h3 className="font-mono text-xs font-black uppercase tracking-wider text-amber-300 pb-2 border-b border-white/15">
                     3. Conference Preferences &amp; Payment Gateway
                   </h3>
@@ -1297,12 +1299,12 @@ export const Registration: React.FC = () => {
                       </span>
                       <div className="flex items-center gap-2">
                         {formData.paymentMode === 'online' ? (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 font-mono text-xs font-bold">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 font-mono text-xs font-bold hd-chip">
                             <CreditCard className="w-3.5 h-3.5" />
                             Online Payment Gateway (Instant Confirmation)
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300 font-mono text-xs font-bold">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300 font-mono text-xs font-bold hd-chip">
                             <Building2 className="w-3.5 h-3.5" />
                             Direct Bank Wire Transfer (NEFT / RTGS)
                           </span>
@@ -1320,7 +1322,7 @@ export const Registration: React.FC = () => {
                 </div>
 
                 {/* Verification Checkbox */}
-                <div className="p-5 rounded-2xl bg-amber-400/10 border border-amber-400/40">
+                <div className="p-5 rounded-2xl bg-amber-400/10 border border-amber-400/40 hd-card">
                   <label className="flex items-start gap-3 cursor-pointer">
                     <input
                       type="checkbox"
@@ -1386,17 +1388,18 @@ export const Registration: React.FC = () => {
           <div className="max-w-4xl mx-auto space-y-8 animate-fadeIn">
 
             {/* Success Card (Curved Leaf Shape) */}
-            <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-8 sm:p-12 lg:p-14 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white border border-white/20 shadow-2xl text-center relative overflow-hidden">
+            <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-8 sm:p-12 lg:p-14 hd-card hd-card-dark text-white shadow-2xl text-center relative overflow-hidden">
               
               {/* Subtle ambient glow */}
-              <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
               {/* Success Icon */}
-              <div className="w-20 h-20 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center mx-auto mb-6 shadow-xl relative z-10">
+              <div className="w-20 h-20 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center mx-auto mb-6 shadow-xl relative z-10 hd-chip">
                 <CheckCircle2 className="w-10 h-10 text-emerald-400" />
               </div>
 
-              <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 font-mono text-xs font-black uppercase tracking-widest mb-4">
+              <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 font-mono text-xs font-black uppercase tracking-widest mb-4 hd-chip">
                 <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
                 {formData.paymentMode === 'online' || paymentResult.orderId
                   ? 'Payment Verified & Registration Confirmed'

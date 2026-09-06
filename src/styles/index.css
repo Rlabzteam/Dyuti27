@@ -91,6 +91,112 @@
   color: #F7C948;
 }
 
+/* ── HIGH DEFINITION (HD) CARD EFFECTS & CLEAN DEPTH ── */
+
+/* HD Card Base Container with Smooth GPU-accelerated Hover Physics */
+.hd-card {
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s ease,
+              background-color 0.35s ease;
+}
+
+/* HD Dark Card Specular Rim Lighting & Multi-Layer Depth */
+.hd-card-dark {
+  background: linear-gradient(135deg, #071A33 0%, #0E2A52 50%, #040E1C 100%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 16px 36px -8px rgba(0, 0, 0, 0.35),
+    0 4px 12px -2px rgba(0, 0, 0, 0.2),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.hd-card-dark-hover:hover {
+  border-color: rgba(251, 191, 36, 0.45);
+  box-shadow:
+    0 24px 48px -10px rgba(0, 0, 0, 0.5),
+    0 0 25px -2px rgba(245, 158, 11, 0.18),
+    0 0 1px 1px rgba(251, 191, 36, 0.3),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.4),
+    inset 0 0 0 1px rgba(251, 191, 36, 0.15);
+  transform: translateY(-4px);
+}
+
+/* HD Glassmorphic Card (Translucent Deep Navy) */
+.hd-glass-dark {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(18px) saturate(180%) contrast(105%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%) contrast(105%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 12px 30px -6px rgba(0, 0, 0, 0.3),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.hd-glass-dark:hover {
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(251, 191, 36, 0.45);
+  box-shadow:
+    0 20px 42px -8px rgba(0, 0, 0, 0.45),
+    0 0 22px rgba(251, 191, 36, 0.16),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.35);
+  transform: translateY(-4px);
+}
+
+/* HD Light Card Specular Rim Lighting */
+.hd-card-light {
+  background: #FFFFFF;
+  border: 1px solid rgba(7, 26, 51, 0.12);
+  box-shadow:
+    0 4px 20px -2px rgba(7, 26, 51, 0.06),
+    0 1px 3px 0 rgba(7, 26, 51, 0.03),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 1px rgba(7, 26, 51, 0.04);
+}
+
+.hd-card-light-hover:hover {
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow:
+    0 16px 36px -6px rgba(7, 26, 51, 0.12),
+    0 4px 12px -2px rgba(7, 26, 51, 0.05),
+    0 0 20px -2px rgba(37, 99, 235, 0.12),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 1),
+    inset 0 0 0 1px rgba(37, 99, 235, 0.15);
+  transform: translateY(-4px);
+}
+
+/* HD Image Thumbnail Frame */
+.hd-img-frame {
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 8px 20px -4px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.hd-img-frame img {
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hd-card:hover .hd-img-frame img,
+.group:hover .hd-img-frame img {
+  transform: scale(1.06);
+  filter: brightness(1.05) contrast(1.02);
+}
+
+/* HD Badge / Pill with Specular Frosted Ring */
+.hd-chip {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    0 2px 8px -1px rgba(0, 0, 0, 0.15),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
+}
+
 /* Glow border classes */
 .neon-glow-gold {
   box-shadow: 0 0 20px rgba(247, 201, 72, 0.15);

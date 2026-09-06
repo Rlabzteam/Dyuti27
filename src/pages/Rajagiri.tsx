@@ -135,10 +135,10 @@ export const Rajagiri: React.FC = () => {
       <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pb-16 sm:pb-20 lg:pb-24">
 
         {/* ── CARD 1: A LEGACY OF DISTINCTION & SOCIAL COMMITMENT (icswhmh Achievements Card Design with Original Brand Colors & Content) ── */}
-        <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-6 sm:p-8 lg:p-12 shadow-2xl border border-white/20 relative overflow-hidden">
+        <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] hd-card hd-card-dark text-white p-6 sm:p-8 lg:p-12 shadow-2xl relative overflow-hidden">
           {/* Subtle background ambient glow */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
           {/* Background Watermarks */}
           <div className="absolute left-6 sm:left-10 top-10 font-heading font-extrabold text-white/[0.03] text-6xl sm:text-8xl lg:text-[9rem] select-none pointer-events-none tracking-tight leading-none">
@@ -172,13 +172,13 @@ export const Rajagiri: React.FC = () => {
             {/* 4-Column Cards Grid with Horizontal Zigzag Flow (Motto + Foundational Institutional Pillars) */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start py-4 sm:py-6 relative z-10">
               {/* Card 1: Relentlessly Towards Excellence */}
-              <div className="group rounded-[24px] bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-[12px] border border-white/[0.15] hover:border-amber-400/40 p-6 sm:p-7 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-black/30 flex flex-col justify-between h-full lg:-translate-y-4 hover:lg:-translate-y-6">
+              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[24px] p-6 sm:p-7 flex flex-col justify-between h-full lg:-translate-y-4 hover:lg:-translate-y-6">
                 <div>
-                  <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 shadow-md">
+                  <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 hd-img-frame">
                     <img
                       src="https://res.cloudinary.com/dswfp5fwx/image/upload/v1777322022/_DSC9801_twnmgf.jpg"
                       alt="Relentlessly Towards Excellence"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full object-cover"
                       loading="lazy"
                     />
                   </div>
@@ -192,13 +192,13 @@ export const Rajagiri: React.FC = () => {
               </div>
 
               {/* Card 2: Pedagogical Innovation */}
-              <div className="group rounded-[24px] bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-[12px] border border-white/[0.15] hover:border-amber-400/40 p-6 sm:p-7 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-black/30 flex flex-col justify-between h-full lg:translate-y-4 hover:lg:translate-y-2">
+              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[24px] p-6 sm:p-7 flex flex-col justify-between h-full lg:translate-y-4 hover:lg:translate-y-2">
                 <div>
-                  <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 shadow-md">
+                  <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 hd-img-frame">
                     <img
                       src="https://res.cloudinary.com/dswfp5fwx/image/upload/v1777274982/DSC00105_iniref.jpg"
                       alt="Pedagogical Innovation"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full object-cover"
                       loading="lazy"
                     />
                   </div>
@@ -212,13 +212,13 @@ export const Rajagiri: React.FC = () => {
               </div>
 
               {/* Card 3: Autonomous Excellence */}
-              <div className="group rounded-[24px] bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-[12px] border border-white/[0.15] hover:border-amber-400/40 p-6 sm:p-7 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-black/30 flex flex-col justify-between h-full lg:-translate-y-4 hover:lg:-translate-y-6">
+              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[24px] p-6 sm:p-7 flex flex-col justify-between h-full lg:-translate-y-4 hover:lg:-translate-y-6">
                 <div>
-                  <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 shadow-md">
+                  <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 hd-img-frame">
                     <img
                       src="https://res.cloudinary.com/dswfp5fwx/image/upload/v1777274194/DSC00502_1_rahpwv.jpg"
                       alt="Autonomous Excellence"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full object-cover"
                       loading="lazy"
                     />
                   </div>
@@ -232,13 +232,13 @@ export const Rajagiri: React.FC = () => {
               </div>
 
               {/* Card 4: Grassroots Impact */}
-              <div className="group rounded-[24px] bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-[12px] border border-white/[0.15] hover:border-amber-400/40 p-6 sm:p-7 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-black/30 flex flex-col justify-between h-full lg:translate-y-4 hover:lg:translate-y-2">
+              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[24px] p-6 sm:p-7 flex flex-col justify-between h-full lg:translate-y-4 hover:lg:translate-y-2">
                 <div>
-                  <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 shadow-md">
+                  <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 hd-img-frame">
                     <img
                       src="https://res.cloudinary.com/dswfp5fwx/image/upload/v1777274694/DSC01012_dnfcv2.jpg"
                       alt="Grassroots Impact"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full object-cover"
                       loading="lazy"
                     />
                   </div>
@@ -255,10 +255,10 @@ export const Rajagiri: React.FC = () => {
         </div>
 
         {/* ── CARD 2: SDG & GLOBAL IMPACT ── */}
-        <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tr-[48px] sm:rounded-tr-[64px] rounded-bl-[48px] sm:rounded-bl-[64px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-6 sm:p-8 lg:p-10 shadow-2xl border border-white/20 relative overflow-hidden">
+        <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tr-[48px] sm:rounded-tr-[64px] rounded-bl-[48px] sm:rounded-bl-[64px] hd-card hd-card-dark text-white p-6 sm:p-8 lg:p-10 shadow-2xl relative overflow-hidden">
           {/* Subtle background ambient glow */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="space-y-6 relative z-10">
 
@@ -275,7 +275,7 @@ export const Rajagiri: React.FC = () => {
               {/* Left Column: THE Highlight Banner & Narrative */}
               <div className="lg:col-span-5 space-y-4">
                 {/* THE Impact Rankings Box */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-blue-950/80 text-white shadow-lg border border-blue-400/40 backdrop-blur-md">
+                <div className="p-4 sm:p-5 rounded-2xl hd-card hd-glass-dark text-white border-blue-400/50">
                   <span className="text-xs sm:text-[13px] font-sans font-black uppercase tracking-[0.18em] text-amber-400 block mb-1.5">
                     Times Higher Education Impact Rankings 2026
                   </span>
@@ -307,7 +307,7 @@ export const Rajagiri: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  <div className="p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
+                  <div className="p-4 rounded-2xl hd-card hd-glass-dark hd-glass-dark-hover space-y-1.5">
                     <div>
                       <span className="text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider text-amber-400 block mb-0.5">
                         SDG 03
@@ -321,7 +321,7 @@ export const Rajagiri: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
+                  <div className="p-4 rounded-2xl hd-card hd-glass-dark hd-glass-dark-hover space-y-1.5">
                     <div>
                       <span className="text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider text-amber-400 block mb-0.5">
                         SDG 04
@@ -335,7 +335,7 @@ export const Rajagiri: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
+                  <div className="p-4 rounded-2xl hd-card hd-glass-dark hd-glass-dark-hover space-y-1.5">
                     <div>
                       <span className="text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider text-amber-400 block mb-0.5">
                         SDG 10
@@ -349,7 +349,7 @@ export const Rajagiri: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm space-y-1.5 hover:bg-white/15 transition-all">
+                  <div className="p-4 rounded-2xl hd-card hd-glass-dark hd-glass-dark-hover space-y-1.5">
                     <div>
                       <span className="text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider text-amber-400 block mb-0.5">
                         SDG 17
@@ -370,9 +370,9 @@ export const Rajagiri: React.FC = () => {
         </div>
 
         {/* ── RECOGNITIONS & INSTITUTIONAL ACCOLADES ── */}
-        <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] p-6 sm:p-8 lg:p-10 border border-white/20 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white shadow-2xl relative overflow-hidden">
+        <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] p-6 sm:p-8 lg:p-10 hd-card hd-card-dark text-white shadow-2xl relative overflow-hidden">
           {/* Subtle Background Glow */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-400/5 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 space-y-5">
             <div className="text-center pb-4 border-b border-white/15">
@@ -391,13 +391,13 @@ export const Rajagiri: React.FC = () => {
             {/* 4 Featured Recognition Badges Grid with Photos */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-3">
               {/* Recognition 1: India Elite Education Award */}
-              <div className="group rounded-[20px] bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-[12px] border border-white/[0.15] hover:border-amber-400/40 p-4 sm:p-5 transition-all duration-300 overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-black/30 flex flex-col justify-between">
+              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[20px] p-4 sm:p-5 flex flex-col justify-between">
                 <div>
-                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 shadow-md">
+                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 hd-img-frame">
                     <img
                       src="/images/gallery/6L6A7495.JPG"
                       alt="India Elite Education & Institutional Excellence Award"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full object-cover"
                       loading="lazy"
                     />
                   </div>
@@ -412,13 +412,13 @@ export const Rajagiri: React.FC = () => {
               </div>
 
               {/* Recognition 2: Eat Right Campus Award */}
-              <div className="group rounded-[20px] bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-[12px] border border-white/[0.15] hover:border-amber-400/40 p-4 sm:p-5 transition-all duration-300 overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-black/30 flex flex-col justify-between">
+              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[20px] p-4 sm:p-5 flex flex-col justify-between">
                 <div>
-                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 shadow-md">
+                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 hd-img-frame">
                     <img
                       src="/images/gallery/15137561.jpg"
                       alt="Eat Right Campus Award by FSSAI"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full object-cover"
                       loading="lazy"
                     />
                   </div>
@@ -433,13 +433,13 @@ export const Rajagiri: React.FC = () => {
               </div>
 
               {/* Recognition 3: Green Institution Certification */}
-              <div className="group rounded-[20px] bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-[12px] border border-white/[0.15] hover:border-amber-400/40 p-4 sm:p-5 transition-all duration-300 overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-black/30 flex flex-col justify-between">
+              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[20px] p-4 sm:p-5 flex flex-col justify-between">
                 <div>
-                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 shadow-md">
+                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 hd-img-frame">
                     <img
                       src="/images/gallery/15168818.jpg"
                       alt="Green Institution Certification"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full object-cover"
                       loading="lazy"
                     />
                   </div>
@@ -454,13 +454,13 @@ export const Rajagiri: React.FC = () => {
               </div>
 
               {/* Recognition 4: Best NSS Unit Award */}
-              <div className="group rounded-[20px] bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-[12px] border border-white/[0.15] hover:border-amber-400/40 p-4 sm:p-5 transition-all duration-300 overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-black/30 flex flex-col justify-between">
+              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[20px] p-4 sm:p-5 flex flex-col justify-between">
                 <div>
-                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 shadow-md">
+                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 hd-img-frame">
                     <img
                       src="/images/gallery/IMG_1460.JPG"
                       alt="Best NSS Unit Award"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full object-cover"
                       loading="lazy"
                     />
                   </div>
@@ -479,7 +479,7 @@ export const Rajagiri: React.FC = () => {
 
         {/* ── DEPARTMENT OF SOCIAL WORK (Interactive Showcase with Continuous Auto-Advance) ── */}
         <div
-          className="relative w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[42px] overflow-hidden bg-gradient-to-r from-[#071A33] via-[#0E2A52] to-[#040E1C] border border-white/20 hover:border-amber-400/30 shadow-2xl p-6 sm:p-10 lg:p-12 text-white mb-12 sm:mb-16 transition-all duration-500"
+          className="relative w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[42px] overflow-hidden hd-card hd-card-dark p-6 sm:p-10 lg:p-12 text-white mb-12 sm:mb-16"
         >
           {/* Subtle Ambient Radial Glows with Breathing Animation */}
           <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-600/25 rounded-full blur-3xl pointer-events-none animate-pulse duration-[4000ms]" />
@@ -492,7 +492,7 @@ export const Rajagiri: React.FC = () => {
           <button
             onClick={() => setSocialWorkSlide((prev) => (prev === 0 ? socialWorkSlides.length - 1 : prev - 1))}
             aria-label="Previous Slide"
-            className="group/btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 text-white/50 hover:text-amber-300 hover:scale-110 active:scale-95 transition-all duration-300 p-2.5 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 hover:border-amber-400/40 backdrop-blur-md shadow-lg focus:outline-none cursor-pointer"
+            className="group/btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 text-white/70 hover:text-amber-300 hover:scale-110 active:scale-95 transition-all duration-300 p-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 hover:border-amber-400/50 backdrop-blur-md shadow-lg focus:outline-none cursor-pointer"
           >
             <svg className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg transition-transform duration-300 group-hover/btn:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
@@ -503,7 +503,7 @@ export const Rajagiri: React.FC = () => {
           <button
             onClick={() => setSocialWorkSlide((prev) => (prev === socialWorkSlides.length - 1 ? 0 : prev + 1))}
             aria-label="Next Slide"
-            className="group/btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 text-white/50 hover:text-amber-300 hover:scale-110 active:scale-95 transition-all duration-300 p-2.5 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 hover:border-amber-400/40 backdrop-blur-md shadow-lg focus:outline-none cursor-pointer"
+            className="group/btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 text-white/70 hover:text-amber-300 hover:scale-110 active:scale-95 transition-all duration-300 p-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 hover:border-amber-400/50 backdrop-blur-md shadow-lg focus:outline-none cursor-pointer"
           >
             <svg className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg transition-transform duration-300 group-hover/btn:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
@@ -530,12 +530,12 @@ export const Rajagiri: React.FC = () => {
 
               {/* Right Column: Featured Asymmetric Polygon / Curved Photo with Ken-Burns Transition */}
               <div className="lg:col-span-5 flex justify-center items-center">
-                <div className="w-full h-[260px] sm:h-[320px] lg:h-[360px] rounded-[24px] sm:rounded-[32px] rounded-tr-[54px] sm:rounded-tr-[72px] rounded-bl-[54px] sm:rounded-bl-[72px] overflow-hidden shadow-2xl border border-white/20 relative group bg-black/40">
+                <div className="w-full h-[260px] sm:h-[320px] lg:h-[360px] rounded-[24px] sm:rounded-[32px] rounded-tr-[54px] sm:rounded-tr-[72px] rounded-bl-[54px] sm:rounded-bl-[72px] hd-img-frame relative group bg-black/40">
                   <img
                     key={socialWorkSlides[socialWorkSlide].image}
                     src={socialWorkSlides[socialWorkSlide].image}
                     alt={socialWorkSlides[socialWorkSlide].alt}
-                    className="w-full h-full object-cover animate-fade-in transition-all duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover animate-fade-in"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity pointer-events-none" />
@@ -574,7 +574,7 @@ export const Rajagiri: React.FC = () => {
         </div>
 
         {/* ── 25 YEARS OF INTERNATIONALISATION (Contrast Deep Navy Card in Asymmetric Curved Leaf Shape) ── */}
-        <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] p-6 sm:p-8 lg:p-10 border border-white/20 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white shadow-2xl">
+        <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] p-6 sm:p-8 lg:p-10 hd-card hd-card-dark text-white shadow-2xl">
           <div className="flex flex-col items-center text-center justify-center gap-3 mb-6 pb-5 border-b border-white/10">
             <img
               src="https://dyuti.in/assets/images/25.png"
@@ -602,19 +602,19 @@ export const Rajagiri: React.FC = () => {
 
           {/* Key Global Metric Highlights (Concise, Non-Repetitive) */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-            <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm text-center">
+            <div className="p-3.5 rounded-2xl hd-card hd-glass-dark hd-glass-dark-hover text-center">
               <span className="text-xl sm:text-2xl font-mono font-black text-amber-300 block">25+</span>
               <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200 block mt-0.5">Years Collaborations</span>
             </div>
-            <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm text-center">
+            <div className="p-3.5 rounded-2xl hd-card hd-glass-dark hd-glass-dark-hover text-center">
               <span className="text-xl sm:text-2xl font-mono font-black text-amber-300 block">60+</span>
               <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200 block mt-0.5">Partner Universities</span>
             </div>
-            <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm text-center">
+            <div className="p-3.5 rounded-2xl hd-card hd-glass-dark hd-glass-dark-hover text-center">
               <span className="text-xl sm:text-2xl font-mono font-black text-amber-300 block">30+</span>
               <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200 block mt-0.5">Countries</span>
             </div>
-            <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm text-center">
+            <div className="p-3.5 rounded-2xl hd-card hd-glass-dark hd-glass-dark-hover text-center">
               <span className="text-xl sm:text-2xl font-mono font-black text-amber-300 block">SII</span>
               <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200 block mt-0.5">Study in India Partner</span>
             </div>
@@ -622,7 +622,7 @@ export const Rajagiri: React.FC = () => {
         </div>
 
         {/* ── OFFICIAL RCSS PORTAL BANNER WITH BLURRED RAJAGIRI CAMPUS BACKGROUND ── */}
-        <div className="relative text-center text-white border border-slate-200 rounded-[24px] sm:rounded-[28px] p-8 sm:p-12 shadow-lg overflow-hidden bg-[#071A33]">
+        <div className="relative text-center text-white rounded-[24px] sm:rounded-[28px] p-8 sm:p-12 hd-card hd-card-dark shadow-2xl overflow-hidden">
           {/* Blurred Background Campus Image + Gradient Overlay */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
             <img

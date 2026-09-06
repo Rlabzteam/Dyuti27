@@ -14,24 +14,24 @@ export const Card: React.FC<CardProps> = ({
   ...props
 }) => {
   const variants = {
-    editorial: 'bg-white border border-[#D9DEE5] text-[#101828] shadow-subtle',
-    offwhite: 'bg-[#F8F8F6] border border-[#D9DEE5] text-[#101828]',
-    navy: 'bg-[#071A33] border border-white/10 text-white',
-    subtle: 'bg-white border border-[#EAEFF5] text-[#101828]',
-    // Legacy variants mapped gracefully:
-    luxury: 'bg-white border border-[#D9DEE5] text-[#101828] shadow-subtle',
-    emerald: 'bg-[#071A33] border border-white/10 text-white',
-    'gold-border': 'bg-white border border-[#12345B]/30 text-[#101828] shadow-subtle',
-    glass: 'bg-white/90 backdrop-blur-xs border border-[#D9DEE5] text-[#101828]',
-    slate: 'bg-[#F8F8F6] border border-[#D9DEE5] text-[#101828]',
+    editorial: 'hd-card-light text-[#101828]',
+    offwhite: 'bg-[#F8F8F6] border border-[#D9DEE5] text-[#101828] shadow-sm',
+    navy: 'hd-card-dark text-white',
+    subtle: 'bg-white border border-[#EAEFF5] text-[#101828] shadow-sm',
+    // Legacy / specialized variants:
+    luxury: 'hd-card-light border-amber-300/40 text-[#101828]',
+    emerald: 'hd-card-dark text-white',
+    'gold-border': 'bg-white border border-amber-400/40 text-[#101828] shadow-md',
+    glass: 'hd-glass-dark text-white',
+    slate: 'bg-[#F8F8F6] border border-[#D9DEE5] text-[#101828] shadow-sm',
   };
 
   return (
     <div
       className={cn(
-        'rounded-md p-6 sm:p-8 transition-all duration-200 relative',
+        'rounded-xl p-6 sm:p-8 transition-all duration-300 relative hd-card',
         variants[variant],
-        hover && 'hover:border-[#12345B]/40 hover:shadow-editorial',
+        hover && (variant === 'navy' || variant === 'emerald' || variant === 'glass' ? 'hd-card-dark-hover' : 'hd-card-light-hover'),
         className
       )}
       {...props}
@@ -40,3 +40,5 @@ export const Card: React.FC<CardProps> = ({
     </div>
   );
 };
+
+
