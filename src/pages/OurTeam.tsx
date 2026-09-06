@@ -185,8 +185,8 @@ export const OurTeam: React.FC = () => {
                       <span>Executive Committee &middot; Chief Patron</span>
                     </div>
 
-                    <div className="flex items-start gap-4 mb-5">
-                      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-tr from-amber-400 to-amber-200 text-[#071A33] flex items-center justify-center font-heading font-black text-2xl shadow-lg shrink-0 border-2 border-white/40 overflow-hidden">
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-6 mb-6 text-center sm:text-left">
+                      <div className="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-2xl sm:rounded-3xl bg-gradient-to-tr from-amber-400 to-amber-200 text-[#071A33] flex items-center justify-center font-heading font-black text-3xl shadow-xl shrink-0 border-2 border-white/50 overflow-hidden ring-4 ring-white/20">
                         {committee.executiveCommittee.chiefPatron.imageUrl ? (
                           <img
                             src={committee.executiveCommittee.chiefPatron.imageUrl}
@@ -197,11 +197,11 @@ export const OurTeam: React.FC = () => {
                           <span>SM</span>
                         )}
                       </div>
-                      <div>
+                      <div className="flex-1">
                         <h3 className="font-heading text-2xl sm:text-[1.85rem] font-black text-white m-0 leading-tight">
                           {committee.executiveCommittee.chiefPatron.name}
                         </h3>
-                        <p className="text-amber-300 font-sans font-bold text-sm sm:text-base mt-1">
+                        <p className="text-amber-300 font-sans font-bold text-base sm:text-lg mt-1.5">
                           {committee.executiveCommittee.chiefPatron.designation}
                         </p>
                       </div>
@@ -243,8 +243,8 @@ export const OurTeam: React.FC = () => {
                       <span>Executive Committee &middot; Patron</span>
                     </div>
 
-                    <div className="flex items-start gap-4 mb-5">
-                      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-tr from-amber-400 to-amber-200 text-[#071A33] flex items-center justify-center font-heading font-black text-2xl shadow-lg shrink-0 border-2 border-white/40 overflow-hidden">
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-6 mb-6 text-center sm:text-left">
+                      <div className="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-2xl sm:rounded-3xl bg-gradient-to-tr from-amber-400 to-amber-200 text-[#071A33] flex items-center justify-center font-heading font-black text-3xl shadow-xl shrink-0 border-2 border-white/50 overflow-hidden ring-4 ring-white/20">
                         {committee.executiveCommittee.patron.imageUrl ? (
                           <img
                             src={committee.executiveCommittee.patron.imageUrl}
@@ -255,11 +255,11 @@ export const OurTeam: React.FC = () => {
                           <span>KT</span>
                         )}
                       </div>
-                      <div>
+                      <div className="flex-1">
                         <h3 className="font-heading text-2xl sm:text-[1.85rem] font-black text-white m-0 leading-tight">
                           {committee.executiveCommittee.patron.name}
                         </h3>
-                        <p className="text-amber-300 font-sans font-bold text-sm sm:text-base mt-1">
+                        <p className="text-amber-300 font-sans font-bold text-base sm:text-lg mt-1.5">
                           {committee.executiveCommittee.patron.designation}
                         </p>
                       </div>
