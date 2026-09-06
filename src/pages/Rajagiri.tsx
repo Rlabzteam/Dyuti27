@@ -134,7 +134,7 @@ export const Rajagiri: React.FC = () => {
               <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
                 Ranked #12 in India (NIRF 2025)
               </span>
-              <span className="px-4 py-1.5 rounded-full bg-amber-400/25 border border-amber-300/40 text-amber-200 text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
+              <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
                 Ranked #1 in Kerala (KIRF 2025)
               </span>
               <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
@@ -304,8 +304,8 @@ export const Rajagiri: React.FC = () => {
                       loading="lazy"
                     />
                   </div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block mb-1.5">Award 2024</span>
-                  <h4 className="font-heading font-bold text-sm sm:text-[15px] text-white leading-snug group-hover:text-amber-200 transition-colors m-0 mb-1.5">
+                  <span className="text-xs sm:text-[13px] font-sans font-extrabold uppercase tracking-wider text-slate-100 block mb-1">Award 2024</span>
+                  <h4 className="font-heading font-bold text-sm sm:text-[15px] text-white leading-snug group-hover:text-white transition-colors m-0 mb-1.5">
                     India Elite Education &amp; Institutional Excellence Award
                   </h4>
                   <p className="text-[11.5px] sm:text-xs text-slate-200 leading-relaxed m-0 font-sans font-normal">
@@ -325,8 +325,8 @@ export const Rajagiri: React.FC = () => {
                       loading="lazy"
                     />
                   </div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block mb-1.5">2025–2027</span>
-                  <h4 className="font-heading font-bold text-sm sm:text-[15px] text-white leading-snug group-hover:text-amber-200 transition-colors m-0 mb-1.5">
+                  <span className="text-xs sm:text-[13px] font-sans font-extrabold uppercase tracking-wider text-slate-100 block mb-1">2025–2027</span>
+                  <h4 className="font-heading font-bold text-sm sm:text-[15px] text-white leading-snug group-hover:text-white transition-colors m-0 mb-1.5">
                     Eat Right Campus Award by FSSAI
                   </h4>
                   <p className="text-[11.5px] sm:text-xs text-slate-200 leading-relaxed m-0 font-sans font-normal">
@@ -346,8 +346,8 @@ export const Rajagiri: React.FC = () => {
                       loading="lazy"
                     />
                   </div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block mb-1.5">Haritha Keralam</span>
-                  <h4 className="font-heading font-bold text-sm sm:text-[15px] text-white leading-snug group-hover:text-amber-200 transition-colors m-0 mb-1.5">
+                  <span className="text-xs sm:text-[13px] font-sans font-extrabold uppercase tracking-wider text-slate-100 block mb-1">Haritha Keralam</span>
+                  <h4 className="font-heading font-bold text-sm sm:text-[15px] text-white leading-snug group-hover:text-white transition-colors m-0 mb-1.5">
                     Green Institution Certification
                   </h4>
                   <p className="text-[11.5px] sm:text-xs text-slate-200 leading-relaxed m-0 font-sans font-normal">
@@ -367,8 +367,8 @@ export const Rajagiri: React.FC = () => {
                       loading="lazy"
                     />
                   </div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 block mb-1.5">2023–24</span>
-                  <h4 className="font-heading font-bold text-sm sm:text-[15px] text-white leading-snug group-hover:text-amber-200 transition-colors m-0 mb-1.5">
+                  <span className="text-xs sm:text-[13px] font-sans font-extrabold uppercase tracking-wider text-slate-100 block mb-1">2023–24</span>
+                  <h4 className="font-heading font-bold text-sm sm:text-[15px] text-white leading-snug group-hover:text-white transition-colors m-0 mb-1.5">
                     Best NSS Unit Award
                   </h4>
                   <p className="text-[11.5px] sm:text-xs text-slate-200 leading-relaxed m-0 font-sans font-normal">
