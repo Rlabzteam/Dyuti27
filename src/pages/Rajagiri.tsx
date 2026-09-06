@@ -550,11 +550,10 @@ export const Rajagiri: React.FC = () => {
                 <button
                   key={idx}
                   onClick={() => setSocialWorkSlide(idx)}
-                  className={`h-2 rounded-full transition-all duration-500 cursor-pointer overflow-hidden relative ${
-                    socialWorkSlide === idx
-                      ? 'w-10 bg-white/20'
-                      : 'w-2.5 bg-white/25 hover:bg-white/50'
-                  }`}
+                  className={`h-2 rounded-full transition-all duration-500 cursor-pointer overflow-hidden relative ${socialWorkSlide === idx
+                    ? 'w-10 bg-white/20'
+                    : 'w-2.5 bg-white/25 hover:bg-white/50'
+                    }`}
                   aria-label={`Go to slide ${idx + 1}`}
                 >
                   {socialWorkSlide === idx && (
