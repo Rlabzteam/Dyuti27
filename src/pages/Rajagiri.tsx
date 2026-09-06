@@ -297,13 +297,14 @@ export const Rajagiri: React.FC = () => {
                 <div>
                   <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 hd-img-frame">
                     <img
-                      src="https://res.cloudinary.com/dswfp5fwx/image/upload/v1777274694/DSC01012_dnfcv2.jpg"
+                      src="/images/pillar_grassroots.jpg"
                       alt="Grassroots Impact"
                       className="w-full h-full object-cover"
-                      loading="lazy"
+                      loading="eager"
+                      decoding="async"
                     />
                   </div>
-                  <h3 className="font-heading font-bold text-lg sm:text-xl text-amber-300 tracking-tight mb-2.5 leading-snug group-hover:text-amber-200 transition-colors m-0">
+                  <h3 className="font-heading font-bold text-lg sm:text-xl text-white tracking-tight mb-2.5 leading-snug group-hover:text-blue-200 transition-colors m-0">
                     Grassroots Impact
                   </h3>
                   <p className="font-sans text-[13px] sm:text-[13.5px] text-slate-200 leading-relaxed m-0 font-normal">
@@ -318,7 +319,7 @@ export const Rajagiri: React.FC = () => {
         {/* ── CARD 2: RECOGNITIONS & NATIONAL ACCOLADES (Exact dyuti.in/rajagiri section) ── */}
         <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] p-6 sm:p-8 lg:p-10 hd-card hd-card-dark text-white shadow-2xl relative overflow-hidden">
           {/* Subtle Background Glow */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 space-y-6">
             <div className="text-center pb-4 border-b border-white/15">
@@ -345,6 +346,7 @@ export const Rajagiri: React.FC = () => {
                       alt="India Elite Education & Institutional Excellence Awards & Conference 2026"
                       className="w-full h-full object-contain"
                       loading="lazy"
+                      decoding="async"
                     />
                   </div>
                   <span className="text-xs sm:text-[13px] font-sans font-extrabold uppercase tracking-wider text-slate-100 block mb-1">Award 2024</span>
@@ -366,6 +368,7 @@ export const Rajagiri: React.FC = () => {
                       alt="Eat Right Campus Award by FSSAI - Eat Right India"
                       className="w-full h-full object-contain"
                       loading="lazy"
+                      decoding="async"
                     />
                   </div>
                   <span className="text-xs sm:text-[13px] font-sans font-extrabold uppercase tracking-wider text-slate-100 block mb-1">2025–2027</span>
@@ -387,6 +390,7 @@ export const Rajagiri: React.FC = () => {
                       alt="Green Institution Certification - Haritha Keralam Mission"
                       className="w-full h-full object-contain"
                       loading="lazy"
+                      decoding="async"
                     />
                   </div>
                   <span className="text-xs sm:text-[13px] font-sans font-extrabold uppercase tracking-wider text-slate-100 block mb-1">Haritha Keralam</span>
@@ -408,6 +412,7 @@ export const Rajagiri: React.FC = () => {
                       alt="Best NSS Unit Award - National Service Scheme"
                       className="w-full h-full object-contain"
                       loading="lazy"
+                      decoding="async"
                     />
                   </div>
                   <span className="text-xs sm:text-[13px] font-sans font-extrabold uppercase tracking-wider text-slate-100 block mb-1">2023–24</span>
@@ -429,7 +434,7 @@ export const Rajagiri: React.FC = () => {
         >
           {/* Subtle Ambient Radial Glows */}
           <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-600/25 rounded-full blur-3xl pointer-events-none animate-pulse duration-[4000ms]" />
-          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none animate-pulse duration-[5000ms]" />
+          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none animate-pulse duration-[5000ms]" />
 
           {/* Background Angled Facet */}
           <div className="absolute top-0 left-0 w-[55%] h-full bg-black/25 transform -skew-x-12 -translate-x-16 pointer-events-none" />
@@ -438,7 +443,7 @@ export const Rajagiri: React.FC = () => {
           <button
             onClick={() => setSocialWorkSlide((prev) => (prev === 0 ? socialWorkSlides.length - 1 : prev - 1))}
             aria-label="Previous Slide"
-            className="group/btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 text-white/70 hover:text-amber-300 hover:scale-110 active:scale-95 transition-all duration-300 p-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 hover:border-amber-400/50 backdrop-blur-md shadow-lg focus:outline-none cursor-pointer"
+            className="group/btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 text-white/70 hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 p-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/50 backdrop-blur-md shadow-lg focus:outline-none cursor-pointer"
           >
             <svg className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg transition-transform duration-300 group-hover/btn:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
@@ -449,7 +454,7 @@ export const Rajagiri: React.FC = () => {
           <button
             onClick={() => setSocialWorkSlide((prev) => (prev === socialWorkSlides.length - 1 ? 0 : prev + 1))}
             aria-label="Next Slide"
-            className="group/btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 text-white/70 hover:text-amber-300 hover:scale-110 active:scale-95 transition-all duration-300 p-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 hover:border-amber-400/50 backdrop-blur-md shadow-lg focus:outline-none cursor-pointer"
+            className="group/btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 text-white/70 hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 p-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/50 backdrop-blur-md shadow-lg focus:outline-none cursor-pointer"
           >
             <svg className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg transition-transform duration-300 group-hover/btn:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
@@ -485,7 +490,8 @@ export const Rajagiri: React.FC = () => {
                     src={socialWorkSlides[socialWorkSlide].image}
                     alt={socialWorkSlides[socialWorkSlide].alt}
                     className="w-full h-full object-cover animate-fade-in"
-                    loading="lazy"
+                    loading="eager"
+                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity pointer-events-none" />
                 </div>
@@ -508,7 +514,7 @@ export const Rajagiri: React.FC = () => {
                   {socialWorkSlide === idx && (
                     <div
                       key={`progress-${socialWorkSlide}`}
-                      className="absolute inset-0 bg-gradient-to-r from-amber-400 to-amber-300 rounded-full shadow-[0_0_10px_rgba(251,191,36,0.8)]"
+                      className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-300 rounded-full shadow-[0_0_10px_rgba(96,165,250,0.8)]"
                       style={{
                         animation: 'progressFill 4.5s linear forwards'
                       }}
@@ -524,8 +530,8 @@ export const Rajagiri: React.FC = () => {
         {/* ── CARD 4: 28 YEARS OF INTERNATIONALISATION @ RAJAGIRI (Side-by-Side Layout) ── */}
         <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] p-6 sm:p-10 lg:p-12 hd-card hd-card-dark text-white shadow-2xl relative overflow-hidden">
           {/* Subtle Ambient Radial Glow */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Content Column */}
@@ -545,7 +551,7 @@ export const Rajagiri: React.FC = () => {
               {/* Body Paragraphs */}
               <div className="space-y-4 text-slate-200 text-sm sm:text-base leading-relaxed font-sans font-normal pt-2">
                 <p className="m-0">
-                  <strong className="text-white font-bold">&lsquo;Internationalisation&rsquo;</strong> has been a cornerstone of Rajagiri&apos;s academic ethos since inception. Celebrating <span className="text-amber-300 font-bold">28 years of formal international collaborations</span>, Rajagiri maintains active agreements with over <strong className="text-white font-semibold">60 premier universities across 30 countries</strong>. These global alliances facilitate faculty exchanges, joint research, curriculum co-creation, and international consultancy.
+                  <strong className="text-white font-bold">&lsquo;Internationalisation&rsquo;</strong> has been a cornerstone of Rajagiri&apos;s academic ethos since inception. Celebrating <span className="text-white font-bold">28 years of formal international collaborations</span>, Rajagiri maintains active agreements with over <strong className="text-white font-semibold">60 premier universities across 30 countries</strong>. These global alliances facilitate faculty exchanges, joint research, curriculum co-creation, and international consultancy.
                 </p>
                 <p className="m-0 text-slate-200">
                   Undergraduate and postgraduate students participate in semester-abroad and short-term study schemes ranging from <strong className="text-white font-semibold">1 to 6 months</strong>. Rajagiri also welcomes international scholars under the Government of India&apos;s <strong className="text-white font-semibold">Study in India (SII)</strong> initiative, alongside offering dual-degree and twinning pathways with distinguished global partner institutions.
@@ -561,6 +567,7 @@ export const Rajagiri: React.FC = () => {
                   alt="28 Years of Internationalisation - Rajagiri"
                   className="w-48 sm:w-60 md:w-72 lg:w-80 max-h-[300px] sm:max-h-[340px] h-auto object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-300"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>
@@ -571,7 +578,7 @@ export const Rajagiri: React.FC = () => {
         <div className="pt-4 pb-2 flex justify-center">
           <div className="inline-flex flex-col sm:flex-row items-center justify-between gap-4 px-6 sm:px-8 py-4 sm:py-5 rounded-2xl bg-white border-2 border-slate-200/80 shadow-md max-w-3xl w-full text-center sm:text-left transition-all hover:border-[#071A33]/40 hover:shadow-xl">
             <div className="space-y-1">
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-600 block">
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#071A33] block">
                 Official Institutional Portal
               </span>
               <p className="text-sm sm:text-base font-bold text-slate-900 m-0">
@@ -588,7 +595,7 @@ export const Rajagiri: React.FC = () => {
               className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#071A33] hover:bg-[#0b2952] text-white text-xs sm:text-sm font-bold shadow-sm hover:shadow-md transition-all hover:scale-105 active:scale-95"
             >
               <span>Visit rcss.rajagiri.edu</span>
-              <svg className="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
             </a>
