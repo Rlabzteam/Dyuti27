@@ -450,7 +450,7 @@ export const OurTeam: React.FC = () => {
                       {member.name}
                     </h4>
 
-                    <span className="inline-block mt-2.5 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-blue-200 text-[11px] font-mono font-bold tracking-wider uppercase">
+                    <span className="inline-block mt-2.5 px-3.5 py-1 rounded-full bg-blue-500/30 border border-blue-300 text-white text-xs font-sans font-bold tracking-wide shadow-sm">
                       Organizing Committee
                     </span>
                   </div>
