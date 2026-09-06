@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { PageHeader } from '@/components/ui/PageHeader';
 import { CONFERENCE_DATA } from '@/data/conference';
 import {
   Mail,
@@ -77,22 +76,33 @@ export const OurTeam: React.FC = () => {
   return (
     <div className="pt-8 sm:pt-10 lg:pt-12 pb-20 sm:pb-28 lg:pb-32 bg-[#FDFBF7] text-slate-800 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
-        {/* ── 08 / EDITORIAL PAGE HEADER ── */}
-        <PageHeader
-          number="08"
-          category="ORGANIZING COMMITTEE & SECRETARIAT"
-          metaRight="Academic Leadership &middot; Rajagiri College of Social Sciences"
-          eyebrow="Conference Governance"
-          title={
-            <>
-              Our Organizing Team
-              <span className="block font-heading text-[#071A33] text-[1.85rem] sm:text-[2.5rem] font-bold mt-1">
-                &amp; Academic Leadership
-              </span>
-            </>
-          }
-          subtitle="Meet the institutional leaders, conference conveners, faculty committee members, and administrative secretariat driving DYUTI 2027 — 26th National Conference on Social Work for Sustainable Development."
-        />
+        {/* ── PAGE HEADER ── */}
+        <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
+          {/* Eyebrow */}
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <span className="w-8 h-0.5 bg-[#071A33]" />
+            <span className="text-sm sm:text-[15px] font-sans font-extrabold uppercase tracking-[0.24em] text-slate-700">
+              Conference Governance
+            </span>
+            <span className="w-8 h-0.5 bg-[#071A33]" />
+          </div>
+
+          {/* Main Title */}
+          <h1 className="font-heading font-extrabold text-[#071A33] leading-none tracking-tight mb-6 text-[2.5rem] sm:text-[3.25rem] lg:text-[4rem]">
+            Our Organizing Team
+            <span className="block text-slate-850 mt-2 text-[1.85rem] sm:text-[2.5rem] lg:text-[2.75rem] font-bold">
+              &amp; Academic Leadership
+            </span>
+          </h1>
+
+          {/* Divider */}
+          <div className="w-16 h-1 bg-[#071A33] rounded-full mx-auto mb-6" />
+
+          {/* Subtitle */}
+          <p className="text-sm sm:text-base text-slate-650 leading-relaxed font-sans max-w-2xl mx-auto font-normal">
+            Meet the institutional leaders, conference conveners, faculty committee members, and administrative secretariat driving DYUTI 2027 — 26th National Conference on Social Work for Sustainable Development.
+          </p>
+        </div>
 
         {/* ── INTERACTIVE FILTER TABS & SEARCH BAR ── */}
         <div className="mb-12 lg:mb-16 flex flex-col md:flex-row items-center justify-between gap-4 p-3 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-md">
