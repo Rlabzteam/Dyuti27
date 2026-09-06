@@ -443,7 +443,7 @@ export const CONFERENCE_DATA = {
       { name: 'Dr. Anish K.R.', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
       { name: 'Dr. Sunirose I.P.', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
       { name: 'Dr. Rajeev S.P.', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
-      { name: 'Dr. Deepa Rasheed', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
+      { name: 'Dr. Deepa Rasheed', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)', imageUrl: '/images/team/dr_deepa_rasheed.png' },
       { name: 'Dr. Reena Merin Cherian', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
       { name: 'Dr. Lorane Scaria', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
       { name: 'Dr. Nycil Romis Thomas', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
