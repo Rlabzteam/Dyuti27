@@ -25,14 +25,14 @@ export const TopHeaderBanner: React.FC = () => {
           <img
             src="/images/rcss_green_logo.png"
             alt="Rajagiri College of Social Sciences (Autonomous)"
-            className="h-11 sm:h-14 md:h-18 lg:h-20 w-auto object-contain select-none"
+            className="h-10 sm:h-12 md:h-14 w-auto object-contain select-none"
             loading="eager"
             fetchPriority="high"
             decoding="async"
           />
         </a>
 
-        {/* 2. Center: DYUTI 27 Thematic Framework Banner (Enlarged) */}
+        {/* 2. Center: Official DYUTI 27 Thematic Emblem & Identity (Hero Position) */}
         <Link
           to="/"
           className="flex items-center justify-center shrink min-w-0 transition-transform duration-200 hover:scale-[1.015] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-lg p-0.5"
@@ -41,7 +41,7 @@ export const TopHeaderBanner: React.FC = () => {
           <img
             src="/images/dyuti27_theme_header.png"
             alt="DYUTI 27 — Social Work for Sustainable Development: Empowering Communities through Innovation, Inclusion, and Partnership"
-            className="h-12 sm:h-16 md:h-20 lg:h-24 xl:h-28 w-auto max-w-[200px] xs:max-w-[280px] sm:max-w-[440px] md:max-w-[580px] lg:max-w-[720px] xl:max-w-[800px] object-contain select-none"
+            className="h-16 sm:h-20 md:h-26 lg:h-32 xl:h-36 w-auto max-w-[260px] xs:max-w-[340px] sm:max-w-[540px] md:max-w-[700px] lg:max-w-[860px] xl:max-w-[980px] object-contain select-none"
             loading="eager"
             fetchPriority="high"
             decoding="async"
@@ -57,7 +57,7 @@ export const TopHeaderBanner: React.FC = () => {
           <img
             src="/images/dyuti_let_me_change.jpg"
             alt="DYUTI — let me change..."
-            className="h-11 sm:h-14 md:h-18 lg:h-20 w-auto object-contain select-none"
+            className="h-10 sm:h-12 md:h-14 w-auto object-contain select-none"
             loading="eager"
             decoding="async"
           />
