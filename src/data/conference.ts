@@ -418,6 +418,7 @@ export const CONFERENCE_DATA = {
         designation: 'Head, Department of Social Work',
         department: 'Department of Social Work',
         institution: 'Rajagiri College of Social Sciences (Autonomous)',
+        imageUrl: '/images/team/dr_kiran_thampi.png',
       },
     },
     conveners: [

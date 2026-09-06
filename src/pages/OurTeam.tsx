@@ -186,8 +186,16 @@ export const OurTeam: React.FC = () => {
                     </div>
 
                     <div className="flex items-start gap-4 mb-5">
-                      <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-gradient-to-tr from-amber-400 to-amber-200 text-[#071A33] flex items-center justify-center font-heading font-black text-2xl shadow-lg shrink-0 border-2 border-white/40">
-                        <span>SM</span>
+                      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-tr from-amber-400 to-amber-200 text-[#071A33] flex items-center justify-center font-heading font-black text-2xl shadow-lg shrink-0 border-2 border-white/40 overflow-hidden">
+                        {committee.executiveCommittee.chiefPatron.imageUrl ? (
+                          <img
+                            src={committee.executiveCommittee.chiefPatron.imageUrl}
+                            alt={committee.executiveCommittee.chiefPatron.name}
+                            className="w-full h-full object-cover object-top"
+                          />
+                        ) : (
+                          <span>SM</span>
+                        )}
                       </div>
                       <div>
                         <h3 className="font-heading text-2xl sm:text-[1.85rem] font-black text-white m-0 leading-tight">
@@ -236,8 +244,16 @@ export const OurTeam: React.FC = () => {
                     </div>
 
                     <div className="flex items-start gap-4 mb-5">
-                      <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-gradient-to-tr from-amber-400 to-amber-200 text-[#071A33] flex items-center justify-center font-heading font-black text-2xl shadow-lg shrink-0 border-2 border-white/40">
-                        <span>KT</span>
+                      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-tr from-amber-400 to-amber-200 text-[#071A33] flex items-center justify-center font-heading font-black text-2xl shadow-lg shrink-0 border-2 border-white/40 overflow-hidden">
+                        {committee.executiveCommittee.patron.imageUrl ? (
+                          <img
+                            src={committee.executiveCommittee.patron.imageUrl}
+                            alt={committee.executiveCommittee.patron.name}
+                            className="w-full h-full object-cover object-top"
+                          />
+                        ) : (
+                          <span>KT</span>
+                        )}
                       </div>
                       <div>
                         <h3 className="font-heading text-2xl sm:text-[1.85rem] font-black text-white m-0 leading-tight">
