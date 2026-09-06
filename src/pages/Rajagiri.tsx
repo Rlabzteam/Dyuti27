@@ -10,60 +10,77 @@ export const Rajagiri: React.FC = () => {
       id: 1,
       title: "Department of Social Work",
       content: (
-        <p className="m-0 text-slate-200 text-[14px] sm:text-[15.5px] leading-relaxed font-sans font-normal">
-          Rajagiri School of Social Work, started in the year 1955 was one of the pioneering institutions in south India, establishing programmes and setting standards in the field of social work education. The Department of Social Work at Rajagiri College of Social Sciences (Autonomous) has a legendary record in social work education, research, internationalisation, and community engagement. The Department has been <strong className="text-white font-semibold">ranked #2 among Social Work programmes in India by Outlook-ICARE (2024)</strong> and <strong className="text-white font-semibold">#2 by India Today (2020–2024)</strong>.
-        </p>
-      ),
-      image: "/images/gallery/6L6A7349.JPG",
-      alt: "Department of Social Work at Rajagiri - Institutional Excellence"
-    },
-    {
-      id: 2,
-      title: "Impactful Research & Government Consultancies",
-      content: (
-        <p className="m-0 text-slate-200 text-[14px] sm:text-[15.5px] leading-relaxed font-sans font-normal">
-          The Department has undertaken impactful research with the <strong className="text-white font-semibold">Vimukthi Mission</strong>, <strong className="text-white font-semibold">Department of Excise (Government of Kerala)</strong>, <strong className="text-white font-semibold">K-DISC</strong>, <strong className="text-white font-semibold">National Human Rights Commission</strong>, <strong className="text-white font-semibold">Kerala State Commission for Protection of Child Rights</strong>, and <strong className="text-white font-semibold">Department of Social Justice</strong>.
-        </p>
-      ),
-      image: "/images/gallery/6L6A7541.JPG",
-      alt: "Social Work Research Initiatives and Government Consultancies"
-    },
-    {
-      id: 3,
-      title: "UGC CARE Listed Journal & ICSSR Grant",
-      content: (
-        <p className="m-0 text-slate-200 text-[14px] sm:text-[15.5px] leading-relaxed font-sans font-normal">
-          The <em className="text-white italic not-italic font-semibold">Rajagiri Journal of Social Development</em> is listed in <strong className="text-amber-300 font-bold">UGC CARE</strong> and received the prestigious <strong className="text-white font-semibold">ICSSR Adhoc Annual Grant-in-Aid for 2024–2025</strong>.
-        </p>
-      ),
-      image: "/images/gallery/dyuti_brochure_release.jpg",
-      alt: "Rajagiri Journal of Social Development and Scholarly Publications"
-    },
-    {
-      id: 4,
-      title: "Flagship Academic Conferences",
-      content: (
-        <div className="space-y-3 text-slate-200 text-[14px] sm:text-[15.5px] leading-relaxed font-sans font-normal">
+        <div className="space-y-3 text-slate-200 text-[14px] sm:text-[15px] leading-relaxed font-sans font-normal">
           <p className="m-0">
-            The Department regularly hosts signature national and international academic conferences fostering global knowledge exchange and collaborative practice:
+            The Department of Social Work at Rajagiri College of Social Sciences (Autonomous) has a strong record in social work education, research, internationalisation, and community engagement.
           </p>
-          <div className="p-3.5 rounded-xl bg-white/10 border border-white/20 backdrop-blur-sm">
-            <span className="text-xs sm:text-[13px] text-amber-200 font-sans font-medium leading-relaxed block">
-              <strong className="text-amber-300 uppercase tracking-wider font-mono text-xs block mb-1">Conferences Series:</strong>
-              25 Years of Internationalisation (DYUTI 2024) &bull; 24th ICSD Biennial (DYUTI 2025) &bull; 10th International Summer University &bull; DYUTI 2027 (26th National Conference)
+          <div className="flex flex-wrap gap-2.5 pt-1">
+            <span className="px-3 py-1 rounded-lg bg-amber-400/15 border border-amber-400/30 text-amber-300 text-xs font-mono font-bold">
+              Ranked #2 in India &bull; Outlook-ICARE (2024)
+            </span>
+            <span className="px-3 py-1 rounded-lg bg-cyan-400/15 border border-cyan-400/30 text-cyan-300 text-xs font-mono font-bold">
+              Ranked #2 in India &bull; India Today (2020–2024)
             </span>
           </div>
         </div>
       ),
+      image: "https://dyuti.in/assets/images/rcss/department_of_social_work.png",
+      alt: "Department of Social Work at Rajagiri College of Social Sciences"
+    },
+    {
+      id: 2,
+      title: "Research, Consultancies & UGC CARE Journal",
+      content: (
+        <div className="space-y-3 text-slate-200 text-[14px] sm:text-[15px] leading-relaxed font-sans font-normal">
+          <p className="m-0">
+            The Department has undertaken research with the <strong className="text-white font-semibold">Vimukthi Mission</strong>, <strong className="text-white font-semibold">Department of Excise (Government of Kerala)</strong>, <strong className="text-white font-semibold">Kerala Development and Innovation Strategic Council (K-DISC)</strong>, <strong className="text-white font-semibold">National Human Rights Commission</strong>, <strong className="text-white font-semibold">Kerala State Commission for Protection of Child Rights</strong>, and <strong className="text-white font-semibold">Department of Social Justice</strong>.
+          </p>
+          <p className="m-0 text-slate-300">
+            The <em className="text-white font-semibold not-italic">Rajagiri Journal of Social Development</em> is listed in <strong className="text-amber-300 font-bold">UGC CARE</strong> and received the prestigious <strong className="text-white font-semibold">ICSSR Adhoc Annual Grant-in-Aid for 2024–2025</strong>.
+          </p>
+        </div>
+      ),
+      image: "/images/gallery/dyuti_brochure_release.jpg",
+      alt: "Social Work Research Consultancies and Scholarly Publications"
+    },
+    {
+      id: 3,
+      title: "Community Outreach & Frontline Action",
+      content: (
+        <div className="space-y-3 text-slate-200 text-[14px] sm:text-[15px] leading-relaxed font-sans font-normal">
+          <p className="m-0">
+            The Department has received appreciation for its contributions to the <strong className="text-white font-medium">Tele-Counselling Programme</strong>, <strong className="text-white font-medium">Nasha Mukt Bharat Abhiyaan</strong>, <strong className="text-white font-medium">Anti-Drug Awareness Campaign</strong>, and <strong className="text-white font-medium">Varnachirakukal Children&apos;s Fest</strong>.
+          </p>
+          <p className="m-0 text-slate-300">
+            Recognised nationally and internationally for exemplary frontline work in <strong className="text-amber-300 font-semibold">palliative care</strong> and <strong className="text-white font-semibold">COVID-19 pandemic management</strong>.
+          </p>
+        </div>
+      ),
+      image: "/images/gallery/6L6A7541.JPG",
+      alt: "Community Outreach and Extension Services"
+    },
+    {
+      id: 4,
+      title: "Internationalisation & Flagship Conferences",
+      content: (
+        <div className="space-y-2.5 text-slate-200 text-[13.5px] sm:text-[14.5px] leading-relaxed font-sans font-normal">
+          <p className="m-0">
+            The Department celebrated <strong className="text-amber-300 font-bold">25 years of internationalisation through DYUTI 2024</strong> and hosted the <strong className="text-white font-semibold">24th ICSD Biennial Conference (DYUTI 2025)</strong>, marking 25 years of DYUTI with three books published.
+          </p>
+          <p className="m-0 text-slate-300">
+            Host to the <strong className="text-white font-medium">10th International Summer University (2019)</strong>, the <strong className="text-white font-medium">Annual Symposium on Global Social Work (2018)</strong>, and <strong className="text-white font-medium">NAPCAIM 2nd International Conference on Palliative Care (2023)</strong>. Recipient of the <strong className="text-white font-medium">UGC-DAAD (2018)</strong> and <strong className="text-white font-medium">UGC-UKIERI Joint Research Programme (2017)</strong>.
+          </p>
+        </div>
+      ),
       image: "/images/gallery/IMG_9963.JPG",
-      alt: "Signature Academic Conferences and DYUTI Symposiums"
+      alt: "International Conferences and Collaborative Academic Symposiums"
     }
   ];
 
   useEffect(() => {
     const timer = setInterval(() => {
       setSocialWorkSlide((prev) => (prev === socialWorkSlides.length - 1 ? 0 : prev + 1));
-    }, 4000);
+    }, 4500);
     return () => clearInterval(timer);
   }, [socialWorkSlides.length]);
 
@@ -74,18 +91,18 @@ export const Rajagiri: React.FC = () => {
       <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pt-3 sm:pt-5 mb-10 sm:mb-14">
         <div className="relative w-full min-h-[540px] sm:min-h-[620px] lg:min-h-[700px] flex flex-col items-center justify-center overflow-hidden rounded-[28px] sm:rounded-[36px] bg-slate-950 text-white border border-slate-700/50 shadow-2xl">
 
-          {/* Background Building Photo */}
+          {/* Background Building Photo from dyuti.in */}
           <div className="absolute inset-0 z-0">
             <img
-              src="/images/rajagiri_building_main.jpg"
+              src="https://dyuti.in/assets/images/rcss/Rajagiri-College-of-Social-Sciences.jpg"
               alt="Rajagiri College of Social Sciences Main Building Campus"
-              className="w-full h-full object-cover object-center brightness-[0.78]"
+              className="w-full h-full object-cover object-center brightness-[0.75]"
               loading="eager"
               fetchPriority="high"
               decoding="async"
             />
             {/* Neutral Dark Gradient Overlay for high contrast */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/75" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/40 to-black/80" />
           </div>
 
           {/* Centered Hero Content */}
@@ -108,10 +125,10 @@ export const Rajagiri: React.FC = () => {
               </p>
             </div>
 
-            {/* Centered Accreditation Badges */}
+            {/* Centered Accreditation Badges matching dyuti.in live data */}
             <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 pt-2">
               <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
-                Established in 1955
+                Established in 1955 by CMI
               </span>
               <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
                 NAAC A++ Accredited (3.83 CGPA)
@@ -119,11 +136,14 @@ export const Rajagiri: React.FC = () => {
               <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
                 Ranked #12 in India (NIRF 2025)
               </span>
+              <span className="px-4 py-1.5 rounded-full bg-amber-400/25 border border-amber-300/40 text-amber-200 text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
+                Ranked #1 in Kerala (KIRF 2025)
+              </span>
               <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
                 UGC Autonomous (2014 &ndash; 2030)
               </span>
               <span className="px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
-                UGC College with Potential for Excellence (CPE)
+                UGC College with Potential for Excellence (CPE 2016)
               </span>
             </div>
 
@@ -134,7 +154,7 @@ export const Rajagiri: React.FC = () => {
       {/* ── MAIN CONTENT CARDS (EXTENDED FULL HORIZONTAL WIDTH MATCHING HERO BANNER) ── */}
       <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pb-16 sm:pb-20 lg:pb-24">
 
-        {/* ── CARD 1: A LEGACY OF DISTINCTION & SOCIAL COMMITMENT (icswhmh Achievements Card Design with Original Brand Colors & Content) ── */}
+        {/* ── CARD 1: A LEGACY OF DISTINCTION & SOCIAL COMMITMENT (Exact Text from dyuti.in/rajagiri) ── */}
         <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] hd-card hd-card-dark text-white p-6 sm:p-8 lg:p-12 shadow-2xl relative overflow-hidden">
           {/* Subtle background ambient glow */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -152,27 +172,27 @@ export const Rajagiri: React.FC = () => {
             {/* Top Header Row Centered */}
             <div className="flex flex-col items-center justify-center text-center pb-6 border-b border-white/15">
               <h2 className="text-2xl sm:text-3xl lg:text-[2.35rem] font-heading font-black text-white leading-tight tracking-tight m-0">
-                A Legacy of Distinction &amp; Social Commitment
+                Rajagiri College of Social Sciences (Autonomous)
               </h2>
             </div>
 
-            {/* Institutional Narrative Section */}
-            <div className="space-y-3.5 text-[14px] sm:text-[14.5px] text-slate-100 leading-relaxed font-sans font-normal pb-4 border-b border-white/15">
+            {/* Institutional Narrative Section (100% faithful to dyuti.in/rajagiri) */}
+            <div className="space-y-3.5 text-[14.5px] sm:text-[15.5px] text-slate-100 leading-relaxed font-sans font-normal pb-6 border-b border-white/15">
               <p className="m-0">
-                <strong className="text-white font-bold">Rajagiri College of Social Sciences (Autonomous), Kalamassery</strong>, established in 1955 by the Carmelites of Mary Immaculate (CMI) Congregation, is one of India&apos;s premier institutions for higher education. Guided by its motto, <em className="text-amber-300 italic font-semibold">&ldquo;Relentlessly Towards Excellence&rdquo;</em>, the college has built a rich legacy of academic distinction, innovation, and social commitment.
+                <strong className="text-white font-bold">Rajagiri College of Social Sciences (Autonomous), Kalamassery</strong>, established in 1955 by the Carmelites of Mary Immaculate (CMI) Congregation, is one of India&apos;s premier institutions for higher education. Guided by its motto, <em className="text-amber-300 italic font-semibold">&ldquo;Relentlessly Towards Excellence&rdquo;</em>, the college has built a legacy of academic distinction, innovation, and social commitment.
               </p>
               <p className="m-0 text-slate-200">
-                Rajagiri with its vision of <em className="text-amber-300 italic">&lsquo;becoming a centre of excellence in learning for enriching and fulfilling LIFE&rsquo;</em> has been regularly providing an annual forum for deliberations on vital issues of development from a Rights perspective.
+                Conferred autonomous status by the University Grants Commission (UGC) in 2014, the institution continues to enjoy autonomous status up to the academic year 2029–30. Rajagiri College of Social Sciences was ranked 12th among colleges in India by the <strong className="text-white font-semibold">National Institutional Ranking Framework (NIRF) 2025</strong> and the <strong className="text-amber-300 font-semibold">1st in Kerala under the Kerala Institutional Ranking Framework (KIRF) 2025</strong>.
               </p>
               <p className="m-0 text-slate-200">
-                The term &ldquo;Rajagiri&rdquo; translates to &ldquo;Hill of the King,&rdquo; symbolizing the heights of learning and developmental yearning. True to its acronym <strong className="text-white font-bold">DYUTI</strong> (&ldquo;Spark of Life&rdquo;), the institution fosters developmental dialogues that bridge academic theory with transformative field practice.
+                The institution is accredited with an <strong className="text-white font-semibold">A++ grade by NAAC with a CGPA of 3.83</strong>. Rajagiri has also earned international recognition by being placed in the <strong className="text-amber-300 font-semibold">601–800 global band for SDG 3 (Good Health and Well-being)</strong> in the Times Higher Education Impact Rankings 2026. Rajagiri was also granted the status of <strong className="text-white font-semibold">&lsquo;College with Potential for Excellence&rsquo; (CPE)</strong> by the University Grants Commission (UGC) in 2016.
               </p>
             </div>
 
-            {/* 4-Column Cards Grid with Horizontal Zigzag Flow (Motto + Foundational Institutional Pillars) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start py-4 sm:py-6 relative z-10">
+            {/* 4 Foundational Pillars Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start py-2 relative z-10">
               {/* Card 1: Relentlessly Towards Excellence */}
-              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[24px] p-6 sm:p-7 flex flex-col justify-between h-full lg:-translate-y-4 hover:lg:-translate-y-6">
+              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[24px] p-6 sm:p-7 flex flex-col justify-between h-full">
                 <div>
                   <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 hd-img-frame">
                     <img
@@ -192,7 +212,7 @@ export const Rajagiri: React.FC = () => {
               </div>
 
               {/* Card 2: Pedagogical Innovation */}
-              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[24px] p-6 sm:p-7 flex flex-col justify-between h-full lg:translate-y-4 hover:lg:translate-y-2">
+              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[24px] p-6 sm:p-7 flex flex-col justify-between h-full">
                 <div>
                   <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 hd-img-frame">
                     <img
@@ -206,13 +226,13 @@ export const Rajagiri: React.FC = () => {
                     Pedagogical Innovation
                   </h3>
                   <p className="font-sans text-[13px] sm:text-[13.5px] text-slate-200 leading-relaxed m-0 font-normal">
-                    70+ years pioneering standards, curriculum development, and academic excellence across higher education in India.
+                    Pioneering social work education standards, curriculum development, and academic excellence in India.
                   </p>
                 </div>
               </div>
 
               {/* Card 3: Autonomous Excellence */}
-              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[24px] p-6 sm:p-7 flex flex-col justify-between h-full lg:-translate-y-4 hover:lg:-translate-y-6">
+              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[24px] p-6 sm:p-7 flex flex-col justify-between h-full">
                 <div>
                   <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 hd-img-frame">
                     <img
@@ -232,7 +252,7 @@ export const Rajagiri: React.FC = () => {
               </div>
 
               {/* Card 4: Grassroots Impact */}
-              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[24px] p-6 sm:p-7 flex flex-col justify-between h-full lg:translate-y-4 hover:lg:translate-y-2">
+              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[24px] p-6 sm:p-7 flex flex-col justify-between h-full">
                 <div>
                   <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 hd-img-frame">
                     <img
@@ -254,136 +274,24 @@ export const Rajagiri: React.FC = () => {
           </div>
         </div>
 
-        {/* ── CARD 2: SDG & GLOBAL IMPACT ── */}
-        <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tr-[48px] sm:rounded-tr-[64px] rounded-bl-[48px] sm:rounded-bl-[64px] hd-card hd-card-dark text-white p-6 sm:p-8 lg:p-10 shadow-2xl relative overflow-hidden">
-          {/* Subtle background ambient glow */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="space-y-6 relative z-10">
-
-            {/* Top Header Row Centered */}
-            <div className="flex flex-col items-center justify-center text-center pb-6 border-b border-white/15">
-              <h2 className="text-2xl sm:text-3xl lg:text-[2.35rem] font-heading font-black text-white leading-tight tracking-tight m-0">
-                SDG &amp; Global Impact
-              </h2>
-            </div>
-
-            {/* 2-Column Side-by-Side Grid (Narrative Left, 4 SDG Focus Cards Right) */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-
-              {/* Left Column: THE Highlight Banner & Narrative */}
-              <div className="lg:col-span-5 space-y-4">
-                {/* THE Impact Rankings Box */}
-                <div className="p-4 sm:p-5 rounded-2xl hd-card hd-glass-dark text-white border-blue-400/50">
-                  <span className="text-xs sm:text-[13px] font-sans font-black uppercase tracking-[0.18em] text-amber-400 block mb-1.5">
-                    Times Higher Education Impact Rankings 2026
-                  </span>
-                  <h3 className="font-heading text-lg sm:text-xl font-black leading-tight text-white m-0 mb-1.5">
-                    Global Band 601&ndash;800 for SDG 3 (Good Health &amp; Well-Being)
-                  </h3>
-                  <p className="text-slate-100 text-xs sm:text-[13.5px] font-sans font-medium leading-relaxed m-0">
-                    Recognising Rajagiri&apos;s institutional commitment to public health, community psycho-social wellbeing, mental health services, and frontline health outreach.
-                  </p>
-                </div>
-
-                <div className="space-y-3 text-[14px] sm:text-[15px] text-slate-100 leading-relaxed font-sans font-medium">
-                  <p className="m-0">
-                    Rajagiri has earned international distinction in the <strong className="text-amber-400 font-extrabold">Times Higher Education (THE) Impact Rankings 2026</strong>, benchmarked against the United Nations Sustainable Development Goals.
-                  </p>
-                  <p className="m-0 text-slate-200">
-                    Through active community engagement, multidisciplinary research centres, and global academic partnerships across 30+ countries, the college fosters impactful health, education, and social sustainability initiatives.
-                  </p>
-                </div>
-              </div>
-
-              {/* Right Column: 4 SDG Focus Cards */}
-              <div className="lg:col-span-7 space-y-3 lg:border-l lg:border-white/15 lg:pl-6">
-                <div className="flex items-center gap-2.5 mb-2">
-                  <span className="w-5 h-0.5 bg-amber-400" />
-                  <h4 className="text-xs sm:text-[13px] font-sans font-black uppercase tracking-[0.16em] text-amber-400 m-0">
-                    UN Sustainable Development Goals &bull; Institutional Alignment
-                  </h4>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  <div className="p-4 rounded-2xl hd-card hd-glass-dark hd-glass-dark-hover space-y-1.5">
-                    <div>
-                      <span className="text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider text-amber-400 block mb-0.5">
-                        SDG 03
-                      </span>
-                      <h5 className="font-heading font-bold text-sm sm:text-base text-white m-0 leading-tight">
-                        Good Health &amp; Well-Being
-                      </h5>
-                    </div>
-                    <p className="text-xs sm:text-[12.5px] text-slate-100 leading-relaxed m-0 font-medium">
-                      Community mental health counselling, de-addiction research cell &amp; adolescent psycho-social interventions.
-                    </p>
-                  </div>
-
-                  <div className="p-4 rounded-2xl hd-card hd-glass-dark hd-glass-dark-hover space-y-1.5">
-                    <div>
-                      <span className="text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider text-amber-400 block mb-0.5">
-                        SDG 04
-                      </span>
-                      <h5 className="font-heading font-bold text-sm sm:text-base text-white m-0 leading-tight">
-                        Quality Education
-                      </h5>
-                    </div>
-                    <p className="text-xs sm:text-[12.5px] text-slate-100 leading-relaxed m-0 font-medium">
-                      Outcome-based learning, autonomous curricula, student research grants, and international summer universities.
-                    </p>
-                  </div>
-
-                  <div className="p-4 rounded-2xl hd-card hd-glass-dark hd-glass-dark-hover space-y-1.5">
-                    <div>
-                      <span className="text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider text-amber-400 block mb-0.5">
-                        SDG 10
-                      </span>
-                      <h5 className="font-heading font-bold text-sm sm:text-base text-white m-0 leading-tight">
-                        Reduced Inequalities
-                      </h5>
-                    </div>
-                    <p className="text-xs sm:text-[12.5px] text-slate-100 leading-relaxed m-0 font-medium">
-                      Rights-based social justice, child protection nodal desks, and inclusive tribal/rural development programmes.
-                    </p>
-                  </div>
-
-                  <div className="p-4 rounded-2xl hd-card hd-glass-dark hd-glass-dark-hover space-y-1.5">
-                    <div>
-                      <span className="text-xs sm:text-[13px] font-mono font-black uppercase tracking-wider text-amber-400 block mb-0.5">
-                        SDG 17
-                      </span>
-                      <h5 className="font-heading font-bold text-sm sm:text-base text-white m-0 leading-tight">
-                        Global Partnerships
-                      </h5>
-                    </div>
-                    <p className="text-xs sm:text-[12.5px] text-slate-100 leading-relaxed m-0 font-medium">
-                      Active collaborations with 60+ universities across 30 countries and international conference hosting (DYUTI/ICSD).
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        {/* ── RECOGNITIONS & INSTITUTIONAL ACCOLADES ── */}
+        {/* ── CARD 2: RECOGNITIONS & NATIONAL ACCOLADES (Exact dyuti.in/rajagiri section) ── */}
         <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] p-6 sm:p-8 lg:p-10 hd-card hd-card-dark text-white shadow-2xl relative overflow-hidden">
           {/* Subtle Background Glow */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 space-y-5">
+          <div className="relative z-10 space-y-6">
             <div className="text-center pb-4 border-b border-white/15">
-              <h2 className="text-2xl sm:text-3xl lg:text-[2rem] font-heading font-black text-white leading-tight tracking-tight m-0">
+              <h2 className="text-2xl sm:text-3xl lg:text-[2.2rem] font-heading font-black text-white leading-tight tracking-tight m-0">
                 Recognitions
               </h2>
             </div>
 
-            {/* Narrative & Badges in Wide Layout (Streamlined, Centered) */}
-            <div className="space-y-3 text-[14px] sm:text-[15px] text-slate-100 leading-relaxed font-sans font-medium max-w-4xl mx-auto text-center">
+            {/* Exact dyuti.in Narrative Text */}
+            <div className="space-y-3 text-[14.5px] sm:text-[15.5px] text-slate-100 leading-relaxed font-sans font-normal max-w-5xl mx-auto text-center">
               <p className="m-0">
+                The institution has also received many national recognitions, including the <strong className="text-amber-300 font-semibold">India Elite Education &amp; Institutional Excellence Award 2024</strong>, <strong className="text-white font-semibold">Eat Right Campus Award by FSSAI (2025–2027)</strong>, <strong className="text-emerald-300 font-semibold">Green Institution Certification from the Haritha Keralam Mission</strong>, and the <strong className="text-cyan-300 font-semibold">Best NSS Unit Award (2023–24)</strong>.
+              </p>
+              <p className="m-0 text-slate-200">
                 With excellent infrastructure, multidisciplinary academic programmes, international collaborations, research centres, placement opportunities, live labs (extension departments), and a strong commitment to innovation, sustainability, and community engagement, Rajagiri continues to set benchmarks in higher education at the national and international levels.
               </p>
             </div>
@@ -393,11 +301,11 @@ export const Rajagiri: React.FC = () => {
               {/* Recognition 1: India Elite Education Award */}
               <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[20px] p-4 sm:p-5 flex flex-col justify-between">
                 <div>
-                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 hd-img-frame">
+                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 hd-img-frame bg-white flex items-center justify-center p-3">
                     <img
-                      src="/images/gallery/6L6A7495.JPG"
-                      alt="India Elite Education & Institutional Excellence Award"
-                      className="w-full h-full object-cover"
+                      src="/images/india_elite_education_award.jpg"
+                      alt="India Elite Education & Institutional Excellence Awards & Conference 2026"
+                      className="w-full h-full object-contain"
                       loading="lazy"
                     />
                   </div>
@@ -414,11 +322,11 @@ export const Rajagiri: React.FC = () => {
               {/* Recognition 2: Eat Right Campus Award */}
               <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[20px] p-4 sm:p-5 flex flex-col justify-between">
                 <div>
-                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 hd-img-frame">
+                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 hd-img-frame bg-white flex items-center justify-center p-3">
                     <img
-                      src="/images/gallery/15137561.jpg"
-                      alt="Eat Right Campus Award by FSSAI"
-                      className="w-full h-full object-cover"
+                      src="/images/eat_right_campus_fssai.png"
+                      alt="Eat Right Campus Award by FSSAI - Eat Right India"
+                      className="w-full h-full object-contain"
                       loading="lazy"
                     />
                   </div>
@@ -435,11 +343,11 @@ export const Rajagiri: React.FC = () => {
               {/* Recognition 3: Green Institution Certification */}
               <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[20px] p-4 sm:p-5 flex flex-col justify-between">
                 <div>
-                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 hd-img-frame">
+                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 hd-img-frame bg-white flex items-center justify-center p-3">
                     <img
-                      src="/images/gallery/15168818.jpg"
-                      alt="Green Institution Certification"
-                      className="w-full h-full object-cover"
+                      src="/images/haritha_keralam_logo.jpg"
+                      alt="Green Institution Certification - Haritha Keralam Mission"
+                      className="w-full h-full object-contain"
                       loading="lazy"
                     />
                   </div>
@@ -456,11 +364,11 @@ export const Rajagiri: React.FC = () => {
               {/* Recognition 4: Best NSS Unit Award */}
               <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[20px] p-4 sm:p-5 flex flex-col justify-between">
                 <div>
-                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 hd-img-frame">
+                  <div className="w-full h-36 sm:h-40 rounded-[14px] overflow-hidden mb-3.5 hd-img-frame bg-white flex items-center justify-center p-3">
                     <img
-                      src="/images/gallery/IMG_1460.JPG"
-                      alt="Best NSS Unit Award"
-                      className="w-full h-full object-cover"
+                      src="/images/nss_logo.png"
+                      alt="Best NSS Unit Award - National Service Scheme"
+                      className="w-full h-full object-contain"
                       loading="lazy"
                     />
                   </div>
@@ -477,18 +385,18 @@ export const Rajagiri: React.FC = () => {
           </div>
         </div>
 
-        {/* ── DEPARTMENT OF SOCIAL WORK (Interactive Showcase with Continuous Auto-Advance) ── */}
+        {/* ── CARD 3: DEPARTMENT OF SOCIAL WORK (Interactive Showcase with Complete dyuti.in Data) ── */}
         <div
           className="relative w-full rounded-[28px] sm:rounded-[36px] lg:rounded-[42px] overflow-hidden hd-card hd-card-dark p-6 sm:p-10 lg:p-12 text-white mb-12 sm:mb-16"
         >
-          {/* Subtle Ambient Radial Glows with Breathing Animation */}
+          {/* Subtle Ambient Radial Glows */}
           <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-600/25 rounded-full blur-3xl pointer-events-none animate-pulse duration-[4000ms]" />
           <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none animate-pulse duration-[5000ms]" />
 
-          {/* Background Angled Facet (Matching icswhmh.com layout) */}
-          <div className="absolute top-0 left-0 w-[55%] h-full bg-black/25 transform -skew-x-12 -translate-x-16 pointer-events-none transition-transform duration-1000" />
+          {/* Background Angled Facet */}
+          <div className="absolute top-0 left-0 w-[55%] h-full bg-black/25 transform -skew-x-12 -translate-x-16 pointer-events-none" />
 
-          {/* Left Arrow Button with Micro-Animation */}
+          {/* Left Arrow Button */}
           <button
             onClick={() => setSocialWorkSlide((prev) => (prev === 0 ? socialWorkSlides.length - 1 : prev - 1))}
             aria-label="Previous Slide"
@@ -499,7 +407,7 @@ export const Rajagiri: React.FC = () => {
             </svg>
           </button>
 
-          {/* Right Arrow Button with Micro-Animation */}
+          {/* Right Arrow Button */}
           <button
             onClick={() => setSocialWorkSlide((prev) => (prev === socialWorkSlides.length - 1 ? 0 : prev + 1))}
             aria-label="Next Slide"
@@ -519,16 +427,19 @@ export const Rajagiri: React.FC = () => {
                 key={socialWorkSlide}
                 className="lg:col-span-7 flex flex-col justify-center animate-fade-in transition-all duration-500"
               >
-                <h3 className="font-heading text-2xl sm:text-3xl lg:text-[2.4rem] font-extrabold text-white m-0 mb-4 leading-tight tracking-tight">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-400/15 border border-amber-400/30 text-amber-300 text-xs font-mono font-bold uppercase tracking-wider mb-3 w-fit">
+                  Department of Social Work &bull; Legacy of Excellence
+                </div>
+                <h3 className="font-heading text-2xl sm:text-3xl lg:text-[2.2rem] font-extrabold text-white m-0 mb-4 leading-tight tracking-tight">
                   {socialWorkSlides[socialWorkSlide].title}
                 </h3>
 
-                <div className="min-h-[150px] sm:min-h-[160px] flex items-center">
+                <div className="min-h-[140px] sm:min-h-[150px] flex items-center">
                   {socialWorkSlides[socialWorkSlide].content}
                 </div>
               </div>
 
-              {/* Right Column: Featured Asymmetric Polygon / Curved Photo with Ken-Burns Transition */}
+              {/* Right Column: Photo Frame */}
               <div className="lg:col-span-5 flex justify-center items-center">
                 <div className="w-full h-[260px] sm:h-[320px] lg:h-[360px] rounded-[24px] sm:rounded-[32px] rounded-tr-[54px] sm:rounded-tr-[72px] rounded-bl-[54px] sm:rounded-bl-[72px] hd-img-frame relative group bg-black/40">
                   <img
@@ -545,7 +456,7 @@ export const Rajagiri: React.FC = () => {
             </div>
 
             {/* Continuous Auto-Advance Animated Pagination Dots */}
-            <div className="flex items-center justify-center gap-2 pt-5 mt-2">
+            <div className="flex items-center justify-center gap-2 pt-6 mt-2">
               {socialWorkSlides.map((_, idx) => (
                 <button
                   key={idx}
@@ -561,7 +472,7 @@ export const Rajagiri: React.FC = () => {
                       key={`progress-${socialWorkSlide}`}
                       className="absolute inset-0 bg-gradient-to-r from-amber-400 to-amber-300 rounded-full shadow-[0_0_10px_rgba(251,191,36,0.8)]"
                       style={{
-                        animation: 'progressFill 4s linear forwards'
+                        animation: 'progressFill 4.5s linear forwards'
                       }}
                     />
                   )}
@@ -572,50 +483,77 @@ export const Rajagiri: React.FC = () => {
           </div>
         </div>
 
-        {/* ── 25 YEARS OF INTERNATIONALISATION (Contrast Deep Navy Card in Asymmetric Curved Leaf Shape) ── */}
-        <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] p-6 sm:p-8 lg:p-10 hd-card hd-card-dark text-white shadow-2xl">
-          <div className="flex flex-col items-center text-center justify-center gap-3 mb-6 pb-5 border-b border-white/10">
-            <img
-              src="https://dyuti.in/assets/images/25.png"
-              alt="25 Years of Internationalisation Milestone"
-              className="h-12 sm:h-14 w-auto object-contain shrink-0 brightness-200 contrast-125 mb-1"
-            />
-            <div className="max-w-2xl mx-auto">
-              <h3 className="font-heading text-2xl sm:text-[1.85rem] font-bold text-white m-0 leading-tight">
-                25 Years of Internationalisation @ Rajagiri
+        {/* ── CARD 4: 28 YEARS OF INTERNATIONALISATION @ RAJAGIRI (100% Faithful to dyuti.in/rajagiri) ── */}
+        <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] p-6 sm:p-8 lg:p-10 hd-card hd-card-dark text-white shadow-2xl relative overflow-hidden">
+          {/* Subtle Ambient Radial Glow */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 space-y-6">
+            {/* Header */}
+            <div className="text-center pb-4 border-b border-white/15">
+              <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-amber-400 block mb-1">
+                Global Engagement &bull; 1998&ndash;2026
+              </span>
+              <h3 className="font-heading text-2xl sm:text-3xl lg:text-[2.2rem] font-black text-white m-0 leading-tight tracking-tight">
+                28 years of Internationalisation @ Rajagiri
               </h3>
-              <p className="text-xs sm:text-sm text-slate-300 font-sans font-semibold uppercase tracking-wider m-0 mt-1.5">
-                A Proud Milestone Towards Global Academic Excellence
+            </div>
+
+            {/* Intro text */}
+            <div className="text-center max-w-4xl mx-auto">
+              <p className="text-[14.5px] sm:text-[15.5px] text-slate-100 leading-relaxed font-sans font-normal m-0">
+                <strong className="text-white font-bold">Internationalisation</strong> has been a catchword for Rajagiri since its inception and we have completed <strong className="text-amber-300 font-bold">28 years of official International collaborations</strong>. A Legacy of Global engagement including:
               </p>
             </div>
-          </div>
 
-          <div className="space-y-3 text-slate-200 text-[14px] sm:text-[15px] leading-relaxed mb-6 font-sans font-normal">
-            <p className="m-0">
-              <strong className="text-white font-bold">&lsquo;Internationalisation&rsquo;</strong> has been a cornerstone of Rajagiri&apos;s academic ethos since inception. Celebrating <strong className="text-amber-300 font-bold">25 years of formal international collaborations</strong>, Rajagiri maintains active agreements with over <strong className="text-white font-bold">60 premier universities across 30 countries</strong>. These global alliances facilitate faculty exchanges, joint research, curriculum co-creation, and international consultancy.
-            </p>
-            <p className="m-0">
-              Undergraduate and postgraduate students participate in semester-abroad and short-term study schemes ranging from <strong className="text-white font-bold">1 to 6 months</strong>. Rajagiri also welcomes international scholars under the Government of India&apos;s <strong className="text-white font-bold">Study in India (SII)</strong> initiative, alongside offering dual-degree and twinning pathways with distinguished global partner institutions.
-            </p>
-          </div>
+            {/* Structured Points in a clean unified layout without extra colors */}
+            <div className="max-w-4xl mx-auto divide-y divide-white/10 pt-2">
+              <div className="py-3.5 flex items-start gap-3.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
+                <p className="text-[14px] sm:text-[15px] text-slate-200 leading-relaxed m-0 font-sans font-normal">
+                  A global academic network spanning <strong className="text-white font-semibold">60+ partner universities</strong> across <strong className="text-amber-300 font-semibold">30 countries</strong>.
+                </p>
+              </div>
 
-          {/* Key Global Metric Highlights (Concise, Non-Repetitive) */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-            <div className="p-3.5 rounded-2xl hd-card hd-glass-dark hd-glass-dark-hover text-center">
-              <span className="text-xl sm:text-2xl font-mono font-black text-amber-300 block">25+</span>
-              <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200 block mt-0.5">Years Collaborations</span>
+              <div className="py-3.5 flex items-start gap-3.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
+                <p className="text-[14px] sm:text-[15px] text-slate-200 leading-relaxed m-0 font-sans font-normal">
+                  Student exchange programmes promoting international learning and cross-cultural engagement, with short-term study opportunities ranging from <strong className="text-white font-semibold">one to six months</strong>.
+                </p>
+              </div>
+
+              <div className="py-3.5 flex items-start gap-3.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
+                <p className="text-[14px] sm:text-[15px] text-slate-200 leading-relaxed m-0 font-sans font-normal">
+                  Hosting full-time international students through regular academic programmes, supported by the Government of India&apos;s <strong className="text-white font-semibold">Study in India (SII) Programme</strong>.
+                </p>
+              </div>
+
+              <div className="py-3.5 flex items-start gap-3.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
+                <p className="text-[14px] sm:text-[15px] text-slate-200 leading-relaxed m-0 font-sans font-normal">
+                  Collaborative research and innovation with leading global academic and professional institutions.
+                </p>
+              </div>
+
+              <div className="py-3.5 flex items-start gap-3.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
+                <p className="text-[14px] sm:text-[15px] text-slate-200 leading-relaxed m-0 font-sans font-normal">
+                  Dual-degree, twinning, and international internship opportunities for enhanced global exposure.
+                </p>
+              </div>
             </div>
-            <div className="p-3.5 rounded-2xl hd-card hd-glass-dark hd-glass-dark-hover text-center">
-              <span className="text-xl sm:text-2xl font-mono font-black text-amber-300 block">60+</span>
-              <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200 block mt-0.5">Partner Universities</span>
-            </div>
-            <div className="p-3.5 rounded-2xl hd-card hd-glass-dark hd-glass-dark-hover text-center">
-              <span className="text-xl sm:text-2xl font-mono font-black text-amber-300 block">30+</span>
-              <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200 block mt-0.5">Countries</span>
-            </div>
-            <div className="p-3.5 rounded-2xl hd-card hd-glass-dark hd-glass-dark-hover text-center">
-              <span className="text-xl sm:text-2xl font-mono font-black text-amber-300 block">SII</span>
-              <span className="text-[11px] font-sans uppercase tracking-wider text-slate-200 block mt-0.5">Study in India Partner</span>
+
+            {/* 25 Years Milestone seamlessly within the single box */}
+            <div className="pt-6 border-t border-white/15 text-center flex flex-col items-center justify-center space-y-4">
+              <h4 className="font-heading text-base sm:text-lg md:text-xl font-bold text-white max-w-3xl mx-auto leading-snug m-0">
+                25 Years of Internationalisation &ndash; A proud milestone in Rajagiri&apos;s journey towards global academic excellence.
+              </h4>
+              <img
+                src="https://dyuti.in/assets/images/25.png"
+                alt="25 Years of Internationalisation Milestone"
+                className="h-14 sm:h-16 w-auto object-contain brightness-200 contrast-125"
+              />
             </div>
           </div>
         </div>
@@ -660,5 +598,6 @@ export const Rajagiri: React.FC = () => {
     </div>
   );
 };
+
 
 
