@@ -428,6 +428,7 @@ export const CONFERENCE_DATA = {
         department: 'Department of Social Work',
         institution: 'Rajagiri College of Social Sciences (Autonomous)',
         email: 'dyuti@rajagiri.edu',
+        imageUrl: '/images/team/dr_v_kalyani.png',
       },
       {
         name: 'Dr. Sr. Bincy C.C.',
@@ -453,6 +454,7 @@ export const CONFERENCE_DATA = {
       { name: 'Dr. Giji George', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)', imageUrl: '/images/team/dr_giji_george.png' },
       { name: 'Mr. Mathew T. John', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)', imageUrl: '/images/team/mathew_t_john.png' },
       { name: 'Sr. Shyba S Babu', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
+      { name: 'Ms. Anu Mohan', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)', imageUrl: '/images/team/ms_anu_mohan.png' },
     ] as CommitteeMember[],
     administrativeCommittee: {
       name: 'Jessymol K J',
