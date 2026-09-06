@@ -5,11 +5,6 @@ import {
   Mail,
   Check,
   Copy,
-  Users,
-  Award,
-  Crown,
-  Sparkles,
-  ShieldCheck,
   Search,
   Building2,
   MapPin,
@@ -157,36 +152,30 @@ export const OurTeam: React.FC = () => {
         ══════════════════════════════════════════════════════════ */}
         {showExecutive && (
           <section className="mb-16 lg:mb-24">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="p-2.5 rounded-xl bg-[#071A33] text-amber-300 shadow-md">
-                <Crown className="w-5 h-5" />
-              </div>
-              <div>
-                <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#071A33] font-bold block">
-                  Executive Leadership
-                </span>
-                <h2 className="font-heading text-2xl sm:text-3xl font-extrabold text-[#071A33] m-0">
-                  Executive Committee
-                </h2>
-              </div>
+            <div className="mb-8">
+              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#071A33] font-bold block mb-1">
+                Executive Leadership
+              </span>
+              <h2 className="font-heading text-2xl sm:text-3xl font-extrabold text-[#071A33] m-0">
+                Executive Committee
+              </h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
               {/* Chief Patron Card */}
               <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white p-8 sm:p-10 shadow-2xl border border-white/20 relative overflow-hidden group hover:shadow-[0_20px_50px_rgba(7,26,51,0.5)] transition-all duration-300">
                 {/* Decorative background glow */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-amber-400/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
 
                 <div className="relative z-10 flex flex-col h-full justify-between">
                   <div>
                     {/* Role Pill */}
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-400/20 border border-amber-300/40 text-amber-300 text-xs font-mono font-bold tracking-wider uppercase mb-6">
-                      <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-blue-200 text-xs font-mono font-bold tracking-wider uppercase mb-6">
                       <span>Executive Committee &middot; Chief Patron</span>
                     </div>
 
                     <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-6 mb-6 text-center sm:text-left">
-                      <div className="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-2xl sm:rounded-3xl bg-gradient-to-tr from-amber-400 to-amber-200 text-[#071A33] flex items-center justify-center font-heading font-black text-3xl shadow-xl shrink-0 border-2 border-white/50 overflow-hidden ring-4 ring-white/20">
+                      <div className="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-2xl sm:rounded-3xl bg-slate-800 text-white flex items-center justify-center font-heading font-black text-3xl shadow-xl shrink-0 border-2 border-white/50 overflow-hidden ring-4 ring-white/20">
                         {committee.executiveCommittee.chiefPatron.imageUrl ? (
                           <img
                             src={committee.executiveCommittee.chiefPatron.imageUrl}
@@ -201,7 +190,7 @@ export const OurTeam: React.FC = () => {
                         <h3 className="font-heading text-2xl sm:text-[1.85rem] font-black text-white m-0 leading-tight">
                           {committee.executiveCommittee.chiefPatron.name}
                         </h3>
-                        <p className="text-amber-300 font-sans font-bold text-base sm:text-lg mt-1.5">
+                        <p className="text-blue-200 font-sans font-bold text-base sm:text-lg mt-1.5">
                           {committee.executiveCommittee.chiefPatron.designation}
                         </p>
                       </div>
@@ -209,18 +198,18 @@ export const OurTeam: React.FC = () => {
 
                     <div className="pt-4 border-t border-white/15 space-y-2">
                       <div className="flex items-center gap-2 text-slate-200 text-xs sm:text-sm font-sans font-medium">
-                        <Building2 className="w-4 h-4 text-amber-300 shrink-0" />
+                        <Building2 className="w-4 h-4 text-blue-300 shrink-0" />
                         <span>{committee.executiveCommittee.chiefPatron.institution}</span>
                       </div>
                       <div className="flex items-center gap-2 text-slate-300 text-xs font-sans font-medium">
-                        <MapPin className="w-4 h-4 text-amber-300 shrink-0" />
+                        <MapPin className="w-4 h-4 text-blue-300 shrink-0" />
                         <span>Kalamassery, Kochi, Kerala, India</span>
                       </div>
                     </div>
                   </div>
 
                   <div className="mt-8 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-300">
-                    <span className="font-mono uppercase tracking-wider text-amber-300/90 font-bold">
+                    <span className="font-mono uppercase tracking-wider text-blue-200 font-bold">
                       Institutional Governance
                     </span>
                     <span className="px-2.5 py-1 rounded-md bg-white/10 text-white font-medium text-[11px]">
@@ -239,12 +228,11 @@ export const OurTeam: React.FC = () => {
                   <div>
                     {/* Role Pill */}
                     <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-400/20 border border-blue-300/40 text-blue-200 text-xs font-mono font-bold tracking-wider uppercase mb-6">
-                      <ShieldCheck className="w-3.5 h-3.5 text-amber-300" />
                       <span>Executive Committee &middot; Patron</span>
                     </div>
 
                     <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-6 mb-6 text-center sm:text-left">
-                      <div className="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-2xl sm:rounded-3xl bg-gradient-to-tr from-amber-400 to-amber-200 text-[#071A33] flex items-center justify-center font-heading font-black text-3xl shadow-xl shrink-0 border-2 border-white/50 overflow-hidden ring-4 ring-white/20">
+                      <div className="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-2xl sm:rounded-3xl bg-slate-800 text-white flex items-center justify-center font-heading font-black text-3xl shadow-xl shrink-0 border-2 border-white/50 overflow-hidden ring-4 ring-white/20">
                         {committee.executiveCommittee.patron.imageUrl ? (
                           <img
                             src={committee.executiveCommittee.patron.imageUrl}
@@ -259,7 +247,7 @@ export const OurTeam: React.FC = () => {
                         <h3 className="font-heading text-2xl sm:text-[1.85rem] font-black text-white m-0 leading-tight">
                           {committee.executiveCommittee.patron.name}
                         </h3>
-                        <p className="text-amber-300 font-sans font-bold text-base sm:text-lg mt-1.5">
+                        <p className="text-blue-200 font-sans font-bold text-base sm:text-lg mt-1.5">
                           {committee.executiveCommittee.patron.designation}
                         </p>
                       </div>
@@ -267,18 +255,18 @@ export const OurTeam: React.FC = () => {
 
                     <div className="pt-4 border-t border-white/15 space-y-2">
                       <div className="flex items-center gap-2 text-slate-200 text-xs sm:text-sm font-sans font-medium">
-                        <Building2 className="w-4 h-4 text-amber-300 shrink-0" />
+                        <Building2 className="w-4 h-4 text-blue-300 shrink-0" />
                         <span>{committee.executiveCommittee.patron.institution}</span>
                       </div>
                       <div className="flex items-center gap-2 text-slate-300 text-xs font-sans font-medium">
-                        <MapPin className="w-4 h-4 text-amber-300 shrink-0" />
+                        <MapPin className="w-4 h-4 text-blue-300 shrink-0" />
                         <span>Department of Social Work, Kalamassery</span>
                       </div>
                     </div>
                   </div>
 
                   <div className="mt-8 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-300">
-                    <span className="font-mono uppercase tracking-wider text-amber-300/90 font-bold">
+                    <span className="font-mono uppercase tracking-wider text-blue-200 font-bold">
                       Academic Guidance
                     </span>
                     <span className="px-2.5 py-1 rounded-md bg-white/10 text-white font-medium text-[11px]">
@@ -296,18 +284,13 @@ export const OurTeam: React.FC = () => {
         ══════════════════════════════════════════════════════════ */}
         {showConveners && (
           <section className="mb-16 lg:mb-24">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="p-2.5 rounded-xl bg-[#071A33] text-amber-300 shadow-md">
-                <Award className="w-5 h-5" />
-              </div>
-              <div>
-                <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#071A33] font-bold block">
-                  Core Organizers
-                </span>
-                <h2 className="font-heading text-2xl sm:text-3xl font-extrabold text-[#071A33] m-0">
-                  Conference Conveners
-                </h2>
-              </div>
+            <div className="mb-8">
+              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#071A33] font-bold block mb-1">
+                Core Organizers
+              </span>
+              <h2 className="font-heading text-2xl sm:text-3xl font-extrabold text-[#071A33] m-0">
+                Conference Conveners
+              </h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
@@ -318,7 +301,7 @@ export const OurTeam: React.FC = () => {
                 >
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-6">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-300/40 text-amber-300 text-xs font-mono font-bold tracking-wider uppercase">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-blue-200 text-xs font-mono font-bold tracking-wider uppercase">
                         <span>Convener {idx + 1}</span>
                       </span>
                       <span className="text-xs text-slate-300 font-mono">
@@ -326,18 +309,18 @@ export const OurTeam: React.FC = () => {
                       </span>
                     </div>
 
-                    <div className="flex items-start gap-4 mb-5">
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-6 mb-6 text-center sm:text-left">
                       {convener.imageUrl ? (
-                        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden shadow-lg shrink-0 border-2 border-amber-300/40 bg-white/10">
+                        <div className="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl shrink-0 border-2 border-white/50 bg-white/10 ring-4 ring-white/20 p-0.5">
                           <img
                             src={convener.imageUrl}
                             alt={convener.name}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover object-top rounded-[14px] sm:rounded-[22px]"
                             loading="lazy"
                           />
                         </div>
                       ) : (
-                        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/15 text-white flex items-center justify-center font-heading font-black text-xl shadow-md shrink-0 border border-white/30">
+                        <div className="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-2xl sm:rounded-3xl bg-slate-800 text-white flex items-center justify-center font-heading font-black text-3xl shadow-xl shrink-0 border-2 border-white/50 ring-4 ring-white/20">
                           <span>
                             {convener.name
                               .replace(/Dr\.|Sr\.|Fr\./g, '')
@@ -347,14 +330,14 @@ export const OurTeam: React.FC = () => {
                           </span>
                         </div>
                       )}
-                      <div>
-                        <h3 className="font-heading text-2xl sm:text-[1.65rem] font-bold text-white m-0 leading-tight">
+                      <div className="flex-1">
+                        <h3 className="font-heading text-2xl sm:text-[1.85rem] font-bold text-white m-0 leading-tight">
                           {convener.name}
                         </h3>
-                        <p className="text-amber-300 font-sans font-bold text-sm sm:text-[15px] mt-1">
+                        <p className="text-blue-200 font-sans font-bold text-base sm:text-lg mt-1.5">
                           {convener.designation}
                         </p>
-                        <p className="text-slate-200 text-xs sm:text-sm font-sans font-medium mt-0.5">
+                        <p className="text-slate-200 text-xs sm:text-sm font-sans font-medium mt-1">
                           {convener.department}
                         </p>
                       </div>
@@ -371,9 +354,9 @@ export const OurTeam: React.FC = () => {
                   <div className="mt-6 pt-4 border-t border-white/15 flex flex-wrap items-center justify-between gap-3">
                     <a
                       href={`mailto:${convener.email || 'dyuti@rajagiri.edu'}`}
-                      className="inline-flex items-center gap-2 text-xs sm:text-sm font-sans font-bold text-amber-300 hover:text-amber-200 transition-colors"
+                      className="inline-flex items-center gap-2 text-xs sm:text-sm font-sans font-bold text-blue-200 hover:text-white transition-colors"
                     >
-                      <Mail className="w-4 h-4 text-amber-400" />
+                      <Mail className="w-4 h-4 text-blue-300" />
                       <span>{convener.email || 'dyuti@rajagiri.edu'}</span>
                     </a>
 
@@ -405,23 +388,18 @@ export const OurTeam: React.FC = () => {
         )}
 
         {/* ══════════════════════════════════════════════════════════
-            SECTION 3: ORGANIZING COMMITTEE MEMBERS (14 MEMBERS)
+            SECTION 3: ORGANIZING COMMITTEE MEMBERS (16 MEMBERS)
         ══════════════════════════════════════════════════════════ */}
         {showOrganizing && (
           <section className="mb-16 lg:mb-24">
             <div className="flex items-center justify-between gap-4 mb-8 flex-wrap">
-              <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-[#071A33] text-amber-300 shadow-md">
-                  <Users className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#071A33] font-bold block">
-                    Faculty Committee
-                  </span>
-                  <h2 className="font-heading text-2xl sm:text-3xl font-extrabold text-[#071A33] m-0">
-                    Organizing Committee Members
-                  </h2>
-                </div>
+              <div>
+                <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#071A33] font-bold block mb-1">
+                  Faculty Committee
+                </span>
+                <h2 className="font-heading text-2xl sm:text-3xl font-extrabold text-[#071A33] m-0">
+                  Organizing Committee Members
+                </h2>
               </div>
 
               <span className="px-3.5 py-1.5 rounded-full bg-slate-200/80 text-slate-800 text-xs font-mono font-bold">
@@ -448,7 +426,7 @@ export const OurTeam: React.FC = () => {
                           />
                         </div>
                       ) : (
-                        <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-gradient-to-br from-[#071A33] to-[#123962] text-amber-300 flex items-center justify-center font-heading font-black text-lg shadow-md group-hover:scale-105 transition-transform">
+                        <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-gradient-to-br from-[#071A33] to-[#123962] text-white flex items-center justify-center font-heading font-black text-lg shadow-md group-hover:scale-105 transition-transform">
                           <span>
                             {member.name
                               .replace(/Dr\.|Sr\.|Fr\.|Mr\./g, '')
@@ -494,8 +472,7 @@ export const OurTeam: React.FC = () => {
                 {/* Secretariat Details (7 cols) */}
                 <div className="lg:col-span-7 space-y-6">
                   <div>
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-400/20 border border-amber-300/40 text-amber-300 text-xs font-mono font-bold tracking-wider uppercase mb-3">
-                      <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-blue-200 text-xs font-mono font-bold tracking-wider uppercase mb-3">
                       <span>Secretariat Coordination</span>
                     </div>
                     <h2 className="font-heading text-2xl sm:text-4xl font-black text-white m-0 leading-tight">
@@ -508,14 +485,14 @@ export const OurTeam: React.FC = () => {
 
                   <div className="p-6 rounded-2xl bg-white/10 border border-white/15 space-y-3">
                     <div className="flex items-center gap-3.5">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-amber-400 to-amber-200 text-[#071A33] flex items-center justify-center font-heading font-black text-lg shadow-md shrink-0">
+                      <div className="w-12 h-12 rounded-xl bg-slate-800 text-white flex items-center justify-center font-heading font-black text-lg shadow-md shrink-0 border border-white/20">
                         <span>JK</span>
                       </div>
                       <div>
                         <h4 className="font-heading text-xl font-bold text-white m-0">
                           {committee.administrativeCommittee.name}
                         </h4>
-                        <p className="text-amber-300 text-xs font-mono font-bold uppercase tracking-wider mt-0.5">
+                        <p className="text-blue-200 text-xs font-mono font-bold uppercase tracking-wider mt-0.5">
                           {committee.administrativeCommittee.role}
                         </p>
                       </div>
@@ -531,7 +508,7 @@ export const OurTeam: React.FC = () => {
                         {committee.administrativeCommittee.institution}
                       </p>
                       <p className="m-0 text-slate-300 flex items-center gap-1.5">
-                        <MapPin className="w-3.5 h-3.5 text-amber-300 shrink-0" />
+                        <MapPin className="w-3.5 h-3.5 text-blue-300 shrink-0" />
                         <span>{committee.administrativeCommittee.location}</span>
                       </p>
                     </div>
@@ -541,7 +518,7 @@ export const OurTeam: React.FC = () => {
                 {/* Direct Email Actions Box (5 cols) */}
                 <div className="lg:col-span-5 rounded-2xl bg-white/10 border border-white/20 p-6 sm:p-8 backdrop-blur-sm space-y-5">
                   <h3 className="font-heading text-lg sm:text-xl font-bold text-white m-0 flex items-center gap-2">
-                    <Mail className="w-5 h-5 text-amber-300" />
+                    <Mail className="w-5 h-5 text-blue-300" />
                     <span>Secretariat Contact Channels</span>
                   </h3>
 
@@ -554,7 +531,7 @@ export const OurTeam: React.FC = () => {
                         </span>
                         <a
                           href={`mailto:${committee.administrativeCommittee.email}`}
-                          className="text-amber-300 font-bold text-sm hover:underline font-mono"
+                          className="text-blue-200 font-bold text-sm hover:underline font-mono"
                         >
                           {committee.administrativeCommittee.email}
                         </a>
@@ -583,7 +560,7 @@ export const OurTeam: React.FC = () => {
                         </span>
                         <a
                           href={`mailto:${committee.administrativeCommittee.conferenceEmail}`}
-                          className="text-amber-300 font-bold text-sm hover:underline font-mono"
+                          className="text-blue-200 font-bold text-sm hover:underline font-mono"
                         >
                           {committee.administrativeCommittee.conferenceEmail}
                         </a>
@@ -611,16 +588,16 @@ export const OurTeam: React.FC = () => {
                   <div className="pt-2 flex flex-col gap-2.5">
                     <Link
                       to="/contactus"
-                      className="w-full h-11 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md transition-all hover:scale-[1.02]"
+                      className="w-full h-11 rounded-xl bg-white hover:bg-slate-100 text-[#071A33] font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md transition-all hover:scale-[1.02]"
                     >
-                      <Send className="w-4 h-4" />
+                      <Send className="w-4 h-4 text-[#071A33]" />
                       <span>Send an Online Inquiry</span>
                     </Link>
                     <Link
                       to="/travel"
                       className="w-full h-10 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-[13px] flex items-center justify-center gap-2 transition-all border border-white/15"
                     >
-                      <MapPin className="w-3.5 h-3.5" />
+                      <MapPin className="w-3.5 h-3.5 text-blue-200" />
                       <span>Campus Directions &amp; Transit</span>
                     </Link>
                   </div>
@@ -633,18 +610,18 @@ export const OurTeam: React.FC = () => {
         {/* ══════════════════════════════════════════════════════════
             SECTION 5: BOTTOM CALLOUT BANNER
         ══════════════════════════════════════════════════════════ */}
-        <div className="rounded-3xl bg-slate-900 text-white p-8 sm:p-12 text-center border border-slate-800 shadow-xl relative overflow-hidden">
+        <div className="rounded-3xl bg-[#071A33] text-white p-8 sm:p-12 text-center border border-white/10 shadow-xl relative overflow-hidden">
           <div className="relative z-10 max-w-2xl mx-auto space-y-4">
             <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-white m-0">
               Join the National Academic Dialogue
             </h3>
-            <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed m-0">
+            <p className="text-xs sm:text-sm text-slate-200 font-sans leading-relaxed m-0">
               Submit your research abstracts before <strong>25 September 2026</strong> or register online to attend the deliberations in Kochi, Kerala.
             </p>
             <div className="pt-3 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
               <Link
                 to="/register"
-                className="px-6 py-3 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-sans font-bold text-xs sm:text-sm shadow-md transition-all hover:scale-105 inline-flex items-center gap-2"
+                className="px-6 py-3 rounded-full bg-white hover:bg-slate-100 text-[#071A33] font-sans font-bold text-xs sm:text-sm shadow-md transition-all hover:scale-105 inline-flex items-center gap-2"
               >
                 <span>Register as Delegate</span>
                 <ArrowRight className="w-4 h-4" />
