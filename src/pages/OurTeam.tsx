@@ -311,15 +311,26 @@ export const OurTeam: React.FC = () => {
                     </div>
 
                     <div className="flex items-start gap-4 mb-5">
-                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/15 text-white flex items-center justify-center font-heading font-black text-xl shadow-md shrink-0 border border-white/30">
-                        <span>
-                          {convener.name
-                            .replace(/Dr\.|Sr\.|Fr\./g, '')
-                            .trim()
-                            .slice(0, 2)
-                            .toUpperCase()}
-                        </span>
-                      </div>
+                      {convener.imageUrl ? (
+                        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden shadow-lg shrink-0 border-2 border-amber-300/40 bg-white/10">
+                          <img
+                            src={convener.imageUrl}
+                            alt={convener.name}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/15 text-white flex items-center justify-center font-heading font-black text-xl shadow-md shrink-0 border border-white/30">
+                          <span>
+                            {convener.name
+                              .replace(/Dr\.|Sr\.|Fr\./g, '')
+                              .trim()
+                              .slice(0, 2)
+                              .toUpperCase()}
+                          </span>
+                        </div>
+                      )}
                       <div>
                         <h3 className="font-heading text-2xl sm:text-[1.65rem] font-bold text-white m-0 leading-tight">
                           {convener.name}
@@ -409,18 +420,29 @@ export const OurTeam: React.FC = () => {
                   className="rounded-2xl p-6 bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-[#071A33]/40 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
                 >
                   <div>
-                    {/* Monogram Badge & Index */}
-                    <div className="flex items-center justify-between gap-2 mb-4">
-                      <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#071A33] to-[#123962] text-amber-300 flex items-center justify-center font-heading font-black text-sm shadow-md group-hover:scale-105 transition-transform">
-                        <span>
-                          {member.name
-                            .replace(/Dr\.|Sr\.|Fr\.|Mr\./g, '')
-                            .trim()
-                            .slice(0, 2)
-                            .toUpperCase()}
-                        </span>
-                      </div>
-                      <span className="text-[11px] font-mono text-slate-400 font-bold">
+                    {/* Photo / Monogram Badge & Index */}
+                    <div className="flex items-start justify-between gap-3 mb-5">
+                      {member.imageUrl ? (
+                        <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-lg border-2 border-slate-200 group-hover:border-[#071A33] transition-all duration-300 shrink-0 bg-slate-100 p-0.5">
+                          <img
+                            src={member.imageUrl}
+                            alt={member.name}
+                            className="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
+                            loading="lazy"
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-gradient-to-br from-[#071A33] to-[#123962] text-amber-300 flex items-center justify-center font-heading font-black text-lg shadow-md group-hover:scale-105 transition-transform">
+                          <span>
+                            {member.name
+                              .replace(/Dr\.|Sr\.|Fr\.|Mr\./g, '')
+                              .trim()
+                              .slice(0, 2)
+                              .toUpperCase()}
+                          </span>
+                        </div>
+                      )}
+                      <span className="text-[11px] font-mono text-slate-400 font-bold px-2.5 py-1 rounded-md bg-slate-50 border border-slate-100 shadow-xs">
                         #{String(idx + 1).padStart(2, '0')}
                       </span>
                     </div>

@@ -58,6 +58,7 @@ export interface CommitteeMember {
   department?: string;
   institution?: string;
   email?: string;
+  imageUrl?: string;
 }
 
 export const CONFERENCE_DATA = {
@@ -448,9 +449,9 @@ export const CONFERENCE_DATA = {
       { name: 'Dr. Josephine Nongmaithem', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
       { name: 'Dr. Danishwar Rasool Dar', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
       { name: 'Dr. Shinto Thomas CMI', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
-      { name: 'Dr. Anil John', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
-      { name: 'Dr. Giji George', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
-      { name: 'Mr. Mathew T. John', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
+      { name: 'Dr. Anil John', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)', imageUrl: '/images/team/dr_anil_john.png' },
+      { name: 'Dr. Giji George', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)', imageUrl: '/images/team/dr_giji_george.png' },
+      { name: 'Mr. Mathew T. John', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)', imageUrl: '/images/team/mathew_t_john.png' },
       { name: 'Sr. Shyba S Babu', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
     ] as CommitteeMember[],
     administrativeCommittee: {
