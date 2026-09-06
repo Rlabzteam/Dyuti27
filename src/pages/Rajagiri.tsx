@@ -483,77 +483,59 @@ export const Rajagiri: React.FC = () => {
           </div>
         </div>
 
-        {/* ── CARD 4: 28 YEARS OF INTERNATIONALISATION @ RAJAGIRI (100% Faithful to dyuti.in/rajagiri) ── */}
-        <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] p-6 sm:p-8 lg:p-10 hd-card hd-card-dark text-white shadow-2xl relative overflow-hidden">
+        {/* ── CARD 4: 25 YEARS OF INTERNATIONALISATION @ RAJAGIRI (Matching dyuti27new.vercel.app/rajagiri) ── */}
+        <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] p-8 sm:p-10 lg:p-12 hd-card hd-card-dark text-white shadow-2xl relative overflow-hidden text-center">
           {/* Subtle Ambient Radial Glow */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 space-y-6">
-            {/* Header */}
-            <div className="text-center pb-4 border-b border-white/15">
-              <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-amber-400 block mb-1">
-                Global Engagement &bull; 1998&ndash;2026
-              </span>
-              <h3 className="font-heading text-2xl sm:text-3xl lg:text-[2.2rem] font-black text-white m-0 leading-tight tracking-tight">
-                28 years of Internationalisation @ Rajagiri
-              </h3>
+          <div className="relative z-10">
+            {/* Top Crest Emblem Logo */}
+            <div className="flex justify-center mb-4">
+              <img
+                src="https://dyuti.in/assets/images/25.png"
+                alt="25 Years of Internationalisation Emblem"
+                className="h-16 sm:h-20 w-auto object-contain brightness-200 contrast-125"
+                loading="lazy"
+              />
             </div>
 
-            {/* Intro text */}
-            <div className="text-center max-w-4xl mx-auto">
-              <p className="text-[14.5px] sm:text-[15.5px] text-slate-100 leading-relaxed font-sans font-normal m-0">
-                <strong className="text-white font-bold">Internationalisation</strong> has been a catchword for Rajagiri since its inception and we have completed <strong className="text-amber-300 font-bold">28 years of official International collaborations</strong>. A Legacy of Global engagement including:
+            {/* Heading */}
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-black text-white mb-2 tracking-tight">
+              25 Years of Internationalisation @ Rajagiri
+            </h2>
+            <p className="text-xs sm:text-sm font-mono font-bold tracking-wider text-slate-300 uppercase mb-8">
+              A Proud Milestone Towards Global Academic Excellence
+            </p>
+
+            {/* 2 Body Paragraphs */}
+            <div className="border-t border-white/10 pt-6 space-y-4 text-slate-200 text-sm sm:text-base leading-relaxed max-w-4xl mx-auto text-left sm:text-center mb-8 font-sans font-normal">
+              <p className="m-0">
+                <strong className="text-white font-bold">&lsquo;Internationalisation&rsquo;</strong> has been a cornerstone of Rajagiri&apos;s academic ethos since inception. Celebrating <span className="text-amber-300 font-bold">25 years of formal international collaborations</span>, Rajagiri maintains active agreements with over <strong className="text-white font-semibold">60 premier universities across 30 countries</strong>. These global alliances facilitate faculty exchanges, joint research, curriculum co-creation, and international consultancy.
+              </p>
+              <p className="m-0 text-slate-200">
+                Undergraduate and postgraduate students participate in semester-abroad and short-term study schemes ranging from <strong className="text-white font-semibold">1 to 6 months</strong>. Rajagiri also welcomes international scholars under the Government of India&apos;s <strong className="text-white font-semibold">Study in India (SII)</strong> initiative, alongside offering dual-degree and twinning pathways with distinguished global partner institutions.
               </p>
             </div>
 
-            {/* Structured Points in a clean unified layout without extra colors */}
-            <div className="max-w-4xl mx-auto divide-y divide-white/10 pt-2">
-              <div className="py-3.5 flex items-start gap-3.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
-                <p className="text-[14px] sm:text-[15px] text-slate-200 leading-relaxed m-0 font-sans font-normal">
-                  A global academic network spanning <strong className="text-white font-semibold">60+ partner universities</strong> across <strong className="text-amber-300 font-semibold">30 countries</strong>.
-                </p>
+            {/* Bottom 4 Stat Tiles Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center hover:border-amber-400/40 transition-colors">
+                <span className="text-2xl sm:text-3xl font-extrabold text-amber-300 font-heading">25+</span>
+                <span className="text-[11px] sm:text-xs font-semibold text-slate-300 tracking-wider mt-1 uppercase font-mono">Years Collaborations</span>
               </div>
-
-              <div className="py-3.5 flex items-start gap-3.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
-                <p className="text-[14px] sm:text-[15px] text-slate-200 leading-relaxed m-0 font-sans font-normal">
-                  Student exchange programmes promoting international learning and cross-cultural engagement, with short-term study opportunities ranging from <strong className="text-white font-semibold">one to six months</strong>.
-                </p>
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center hover:border-amber-400/40 transition-colors">
+                <span className="text-2xl sm:text-3xl font-extrabold text-amber-300 font-heading">60+</span>
+                <span className="text-[11px] sm:text-xs font-semibold text-slate-300 tracking-wider mt-1 uppercase font-mono">Partner Universities</span>
               </div>
-
-              <div className="py-3.5 flex items-start gap-3.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
-                <p className="text-[14px] sm:text-[15px] text-slate-200 leading-relaxed m-0 font-sans font-normal">
-                  Hosting full-time international students through regular academic programmes, supported by the Government of India&apos;s <strong className="text-white font-semibold">Study in India (SII) Programme</strong>.
-                </p>
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center hover:border-amber-400/40 transition-colors">
+                <span className="text-2xl sm:text-3xl font-extrabold text-amber-300 font-heading">30+</span>
+                <span className="text-[11px] sm:text-xs font-semibold text-slate-300 tracking-wider mt-1 uppercase font-mono">Countries</span>
               </div>
-
-              <div className="py-3.5 flex items-start gap-3.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
-                <p className="text-[14px] sm:text-[15px] text-slate-200 leading-relaxed m-0 font-sans font-normal">
-                  Collaborative research and innovation with leading global academic and professional institutions.
-                </p>
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center hover:border-amber-400/40 transition-colors">
+                <span className="text-2xl sm:text-3xl font-extrabold text-amber-300 font-heading">SII</span>
+                <span className="text-[11px] sm:text-xs font-semibold text-slate-300 tracking-wider mt-1 uppercase font-mono">Study in India Partner</span>
               </div>
-
-              <div className="py-3.5 flex items-start gap-3.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
-                <p className="text-[14px] sm:text-[15px] text-slate-200 leading-relaxed m-0 font-sans font-normal">
-                  Dual-degree, twinning, and international internship opportunities for enhanced global exposure.
-                </p>
-              </div>
-            </div>
-
-            {/* 25 Years Milestone seamlessly within the single box */}
-            <div className="pt-6 border-t border-white/15 text-center flex flex-col items-center justify-center space-y-4">
-              <h4 className="font-heading text-base sm:text-lg md:text-xl font-bold text-white max-w-3xl mx-auto leading-snug m-0">
-                25 Years of Internationalisation &ndash; A proud milestone in Rajagiri&apos;s journey towards global academic excellence.
-              </h4>
-              <img
-                src="https://dyuti.in/assets/images/25.png"
-                alt="25 Years of Internationalisation Milestone"
-                className="h-14 sm:h-16 w-auto object-contain brightness-200 contrast-125"
-              />
             </div>
           </div>
         </div>
