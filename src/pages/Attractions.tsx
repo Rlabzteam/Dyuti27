@@ -44,18 +44,6 @@ export const Attractions: React.FC = () => {
           </p>
         </div>
 
-        {/* ── SCENIC HERO BANNER ── */}
-        <div className="rounded-[28px] sm:rounded-[36px] overflow-hidden hd-card hd-card-dark shadow-2xl mb-20 lg:mb-28 group max-h-[480px]">
-          <div className="hd-img-frame w-full h-full">
-            <img
-              src="/images/dyuti27_kochi_watercolor_art.jpg"
-              alt="Artistic Watercolor Panorama of Kochi — Chinese Fishing Nets, Heritage Architecture, Water Metro, and Rajagiri Campus"
-              className="w-full h-full object-cover"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-        </div>
 
         {/* ── DETAILED ATTRACTIONS (Alternating Asymmetric Curved Leaf Cards) ── */}
         <div className="space-y-16 lg:space-y-24 mb-20 lg:mb-28">
