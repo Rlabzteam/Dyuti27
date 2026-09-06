@@ -33,7 +33,7 @@ export const Layout: React.FC = () => {
   const faqs = [
     {
       q: "When is the abstract submission deadline?",
-      a: "The extended abstract submission deadline is September 25, 2026. Submissions must be uploaded via the CMT portal."
+      a: "The extended abstract submission deadline is September 25, 2026. Submissions must be uploaded via the official submission portal."
     },
     {
       q: "Where is the conference venue located?",

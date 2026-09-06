@@ -34,7 +34,7 @@ export const CtaSection: React.FC = () => {
                 href={CONFERENCE_DATA.links.cmtSubmission}
                 icon={<ExternalLink className="w-4 h-4" />}
               >
-                Submit via Microsoft CMT
+                Submit Paper
               </Button>
               <Button
                 variant="outline"

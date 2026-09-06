@@ -22,7 +22,7 @@ export const CallForPapersSection: React.FC = () => {
             </span>
           </div>
           <span className="text-[11px] font-sans uppercase tracking-[0.14em] text-[#667085] font-semibold">
-            Scopus Indexed Proceedings &middot; Microsoft CMT Portal
+            Scopus Indexed Proceedings &middot; Peer-Reviewed Volume
           </span>
         </div>
 
@@ -60,7 +60,7 @@ export const CallForPapersSection: React.FC = () => {
                     25 Sept 2026
                   </div>
                   <span className="text-[12.5px] font-sans text-[#2563EB] font-semibold">
-                    Extended abstract via Microsoft CMT
+                    Extended abstract submission
                   </span>
                 </div>
 
@@ -130,7 +130,7 @@ export const CallForPapersSection: React.FC = () => {
                 </li>
                 <li className="flex items-start gap-3.5">
                   <CheckCircle2 className="w-4 h-4 text-[#60A5FA] shrink-0 mt-0.5" />
-                  <span><strong>Microsoft CMT Workflow:</strong> Transparent tracking from initial submission to final camera-ready volume.</span>
+                  <span><strong>Submission Workflow:</strong> Transparent tracking from initial submission to final camera-ready volume.</span>
                 </li>
               </ul>
 

@@ -216,7 +216,7 @@ export const CONFERENCE_DATA = {
 
   importantDates: [
     { event: 'Last Date of Abstract Submission', date: '25 September 2026' },
-    { event: 'Notification of Acceptance', date: 'Communicated via CMT Portal' },
+    { event: 'Notification of Acceptance', date: 'Communicated via Email / Portal' },
     { event: 'Conference Registration Commencement', date: '10 August 2026' },
     { event: 'Conference Days', date: 'Rajagiri College, Kalamassery' },
   ],

@@ -61,13 +61,13 @@ export const CallForPapers: React.FC = () => {
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 relative z-10">
             <div className="max-w-2xl">
               <span className="inline-flex items-center text-[11px] font-sans font-black uppercase tracking-[0.18em] text-amber-300 bg-white/10 px-3.5 py-1.5 rounded-[8px] mb-4 border border-white/30 backdrop-blur-sm shadow-sm">
-                Microsoft CMT Portal Active &middot; Deadline: 25 Sept 2026
+                Submissions Open &middot; Deadline: 25 Sept 2026
               </span>
               <h2 className="text-[2.25rem] sm:text-[2.85rem] font-heading font-black text-white mb-3 leading-tight">
                 Submit Your Abstract or Full Paper
               </h2>
               <p className="text-slate-100 text-sm sm:text-base m-0 font-sans font-normal leading-relaxed">
-                All submissions must be uploaded electronically via the official Microsoft Conference Management Toolkit (CMT). Peer review outcomes will be communicated systematically.
+                All submissions must be uploaded electronically via the official submission portal. Peer review outcomes will be communicated systematically.
               </p>
             </div>
 
@@ -377,7 +377,7 @@ export const CallForPapers: React.FC = () => {
                   Last Date of Abstract Submission
                 </h4>
                 <p className="text-xs text-slate-100 font-sans leading-relaxed mb-4 font-medium">
-                  Original empirical abstracts (max 300 words) submitted via Microsoft CMT.
+                  Original empirical abstracts (max 300 words) submitted online.
                 </p>
               </div>
               <div className="pt-4 border-t border-white/15 flex items-center justify-between">
@@ -404,7 +404,7 @@ export const CallForPapers: React.FC = () => {
               <div className="pt-4 border-t border-white/15 flex items-center justify-between">
                 <span className="text-[11px] text-slate-300 font-sans uppercase font-bold">Channel</span>
                 <span className="font-mono text-xs font-black text-white bg-white/15 border border-white/25 px-3 py-1 rounded-[8px]">
-                  CMT Portal
+                  Online Portal
                 </span>
               </div>
             </div>
@@ -665,17 +665,6 @@ export const CallForPapers: React.FC = () => {
           </div>
         </div>
 
-        {/* ── MICROSOFT CMT ACKNOWLEDGEMENT (Asymmetric Curved Leaf Shape) ── */}
-        <div className="rounded-[24px] sm:rounded-[28px] rounded-tl-[48px] rounded-br-[48px] p-7 sm:p-9 bg-gradient-to-br from-[#0a2540] via-[#123962] to-[#051424] text-white border border-white/20 shadow-2xl mb-20 lg:mb-28 relative overflow-hidden">
-          {/* Ambient Background Glow */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="relative z-10">
-            <h4 className="font-heading text-lg sm:text-xl text-white mb-2 font-black">Microsoft CMT Acknowledgement</h4>
-            <p className="text-xs sm:text-sm text-slate-100 leading-relaxed font-sans font-medium m-0">
-              The Microsoft CMT service was used for managing the peer-reviewing process for this conference. This service was provided for free by Microsoft and they bore all expenses, including costs for Azure cloud services as well as for software development and support.
-            </p>
-          </div>
-        </div>
 
         {/* ── RAJAGIRI INTERNATIONAL EXCHANGE PROGRAMME - PARTNERING UNIVERSITIES (Curved Leaf Shape) ── */}
         <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-8 sm:p-12 lg:p-14 bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] text-white border border-white/20 shadow-2xl relative overflow-hidden">

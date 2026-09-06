@@ -15,7 +15,7 @@ export const ImportantDatesTimeline: React.FC = () => {
       number: '02',
       title: 'Abstract Submission Deadline',
       date: '25 September 2026',
-      desc: 'Deadline for extended abstract submission via the Microsoft CMT portal.',
+      desc: 'Deadline for extended abstract submission via the online portal.',
       isHighlight: true,
     },
     {

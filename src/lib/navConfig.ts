@@ -8,7 +8,7 @@ export interface NavigationItem {
 export const MAIN_NAV_ITEMS: NavigationItem[] = [
   { label: 'Home', path: '/', exact: true, description: 'Conference Overview & Key Highlights' },
   { label: 'Rajagiri', path: '/rajagiri', description: 'Host Institution Legacy & Accreditation' },
-  { label: 'Call for Papers', path: '/call_for_papers', description: 'Tracks, Guidelines & CMT Submission' },
+  { label: 'Call for Papers', path: '/call_for_papers', description: 'Tracks, Guidelines & Paper Submission' },
   { label: 'Our Team', path: '/our-team', description: 'Organizing Committee & Academic Leadership' },
   { label: 'Attractions', path: '/attractions', description: 'Explore Kochi Tourism & Cultural Heritage' },
   { label: 'Travel', path: '/travel', description: 'Airport, Metro & Rail Connectivity Guide' },

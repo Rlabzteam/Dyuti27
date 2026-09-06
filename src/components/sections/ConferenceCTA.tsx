@@ -104,7 +104,7 @@ export const ConferenceCTA: React.FC = () => {
               </div>
               <div className="flex items-center justify-between py-3 border-b border-slate-250">
                 <span className="text-white/70">Review Outcomes</span>
-                <span className="text-white font-mono">Rolling CMT Notifications</span>
+                <span className="text-white font-mono">Rolling Acceptance Notices</span>
               </div>
               <div className="flex items-center justify-between py-3 border-b border-slate-250">
                 <span className="text-white/70">Registration Begins</span>
@@ -116,12 +116,12 @@ export const ConferenceCTA: React.FC = () => {
               </div>
               <div className="flex items-center justify-between py-3">
                 <span className="text-white/70">Submission Portal</span>
-                <span className="text-[#93C5FD] font-semibold">Microsoft CMT</span>
+                <span className="text-[#93C5FD] font-semibold">Online Portal</span>
               </div>
             </div>
 
             <div className="mt-6 pt-5 border-t border-slate-250 text-[11px] text-white/60 leading-relaxed">
-              * Extended abstracts must be 250–300 words with 4–5 keywords submitted in .docx format via Microsoft CMT.
+              * Extended abstracts must be 250–300 words with 4–5 keywords submitted in .docx format.
             </div>
           </div>
         </div>

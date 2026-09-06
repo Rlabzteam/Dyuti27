@@ -105,7 +105,7 @@ export const EditorialTracks: React.FC = () => {
                         {theme.title}
                       </h3>
                       <p className="text-[12.5px] sm:text-[13px] font-sans font-normal mt-2 m-0 text-[#CBD5E1]">
-                        {theme.topics.length} focus areas &middot; Extended Abstract submission via CMT
+                        {theme.topics.length} focus areas &middot; Extended Abstract Submission
                       </p>
                     </div>
                   </div>

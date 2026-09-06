@@ -137,7 +137,7 @@ export const Hero: React.FC = () => {
 
                 <div className="p-3 rounded-xl bg-black/40 border border-emerald-400/20 flex items-center justify-between gap-2 text-xs">
                   <span className="text-slate-650">Notification of Acceptance</span>
-                  <span className="font-semibold text-emerald-300 font-mono">Via CMT Portal</span>
+                  <span className="font-semibold text-emerald-300 font-mono">Online / Email</span>
                 </div>
               </div>
 
