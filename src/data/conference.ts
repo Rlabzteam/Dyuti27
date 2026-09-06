@@ -51,6 +51,15 @@ export interface ContactPerson {
   email?: string;
 }
 
+export interface CommitteeMember {
+  name: string;
+  role?: string;
+  designation?: string;
+  department?: string;
+  institution?: string;
+  email?: string;
+}
+
 export const CONFERENCE_DATA = {
   name: 'DYUTI 2027',
   edition: '26th Edition (Founded 1998)',
@@ -82,6 +91,7 @@ export const CONFERENCE_DATA = {
     { label: 'HOME', path: '/' },
     { label: 'RAJAGIRI', path: '/rajagiri' },
     { label: 'CALL FOR PAPERS', path: '/call_for_papers' },
+    { label: 'OUR TEAM', path: '/our-team' },
     { label: 'ACCOMMODATION', path: '/accomodation' },
     { label: 'ATTRACTIONS', path: '/attractions' },
     { label: 'TRAVEL', path: '/travel' },
@@ -319,4 +329,65 @@ export const CONFERENCE_DATA = {
     { id: '40', title: 'Raju Varghese Honouring Ceremony', year: '2010', category: 'Honours', imageUrl: '/images/gallery/12.jpg' },
     { id: '41', title: 'Civil Society & NGO Roundtable Consultation', year: '2010', category: 'Roundtables', imageUrl: '/images/gallery/22.jpg' },
   ] as GalleryItem[],
+
+  committee: {
+    executiveCommittee: {
+      chiefPatron: {
+        name: 'Dr. Fr. Saju MD CMI',
+        role: 'Chief Patron',
+        designation: 'Principal',
+        institution: 'Rajagiri College of Social Sciences (Autonomous)',
+      },
+      patron: {
+        name: 'Dr. Kiran Thampi',
+        role: 'Patron',
+        designation: 'Head, Department of Social Work',
+        department: 'Department of Social Work',
+        institution: 'Rajagiri College of Social Sciences (Autonomous)',
+      },
+    },
+    conveners: [
+      {
+        name: 'Dr. V. Kalyani',
+        role: 'Convener',
+        designation: 'Assistant Professor',
+        department: 'Department of Social Work',
+        institution: 'Rajagiri College of Social Sciences (Autonomous)',
+        email: 'dyuti@rajagiri.edu',
+      },
+      {
+        name: 'Dr. Sr. Bincy C.C.',
+        role: 'Convener',
+        designation: 'Assistant Professor',
+        department: 'Department of Social Work',
+        institution: 'Rajagiri College of Social Sciences (Autonomous)',
+        email: 'dyuti@rajagiri.edu',
+      },
+    ] as CommitteeMember[],
+    organizingCommittee: [
+      { name: 'Dr. Anish K.R.', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
+      { name: 'Dr. Sunirose I.P.', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
+      { name: 'Dr. Rajeev S.P.', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
+      { name: 'Dr. Deepa Rasheed', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
+      { name: 'Dr. Reena Merin Cherian', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
+      { name: 'Dr. Lorane Scaria', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
+      { name: 'Dr. Nycil Romis Thomas', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
+      { name: 'Dr. Josephine Nongmaithem', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
+      { name: 'Dr. Danishwar Rasool Dar', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
+      { name: 'Dr. Shinto Thomas CMI', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
+      { name: 'Dr. Anil John', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
+      { name: 'Dr. Giji George', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
+      { name: 'Mr. Mathew T. John', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
+      { name: 'Sr. Shyba S Babu', designation: 'Organizing Committee Member', department: 'Department of Social Work', institution: 'Rajagiri College of Social Sciences (Autonomous)' },
+    ] as CommitteeMember[],
+    administrativeCommittee: {
+      name: 'Jessymol K J',
+      role: 'Administrative Committee',
+      email: 'msw@rajagiri.edu',
+      department: 'Department of Social Work',
+      institution: 'Rajagiri College of Social Sciences (Autonomous)',
+      location: 'Kalamassery-683104, Kerala, India.',
+      conferenceEmail: 'dyuti@rajagiri.edu',
+    },
+  },
 };

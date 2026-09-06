@@ -4,6 +4,7 @@ import { Layout } from '@/components/layout/Layout';
 import { Home } from '@/pages/Home';
 import { Rajagiri } from '@/pages/Rajagiri';
 import { CallForPapers } from '@/pages/CallForPapers';
+import { OurTeam } from '@/pages/OurTeam';
 import { Accommodation } from '@/pages/Accommodation';
 import { Attractions } from '@/pages/Attractions';
 import { Travel } from '@/pages/Travel';
@@ -42,6 +43,13 @@ export const App: React.FC = () => {
           <Route path="call-for-papers" element={<CallForPapers />} />
           <Route path="callforpapers" element={<CallForPapers />} />
           <Route path="cfp" element={<CallForPapers />} />
+
+          {/* Our Team & Organizing Committee */}
+          <Route path="our-team" element={<OurTeam />} />
+          <Route path="team" element={<OurTeam />} />
+          <Route path="ourteam" element={<OurTeam />} />
+          <Route path="committee" element={<OurTeam />} />
+          <Route path="organizing-committee" element={<OurTeam />} />
 
           {/* Accommodation & Delegate Stay */}
           <Route path="accomodation" element={<Accommodation />} />

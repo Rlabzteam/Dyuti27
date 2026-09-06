@@ -7,11 +7,12 @@ const navLinks = [
   { label: 'Home', path: '/', exact: true },
   { label: 'Rajagiri', path: '/rajagiri' },
   { label: 'Call for Papers', path: '/call_for_papers' },
+  { label: 'Our Team', path: '/our-team' },
   { label: 'Registration', path: '/register' },
+  { label: 'Accommodation', path: '/accomodation' },
   { label: 'Attractions', path: '/attractions' },
   { label: 'Travel', path: '/travel' },
   { label: 'Gallery', path: '/gallery' },
-  { label: 'Accommodation', path: '/accomodation' },
 ];
 
 export const Header: React.FC = () => {
@@ -47,7 +48,7 @@ export const Header: React.FC = () => {
         {/* ── 1. MAIN NAVIGATION BAR (SOLID BLUE: NO GLASS/NO BLUR) ── */}
         <div
           className={cn(
-            'w-full bg-gradient-to-r from-[#0a2540] via-[#123962] to-[#0a2540] text-white rounded-full border border-blue-400/30 px-4 sm:px-8 lg:px-10 h-[72px] sm:h-[84px] lg:h-[88px] flex items-center justify-between gap-4 transition-all duration-300 shadow-[0_8px_30px_rgba(10,37,64,0.45)] relative z-20',
+            'w-full bg-gradient-to-r from-[#0a2540] via-[#123962] to-[#0a2540] text-white rounded-full border border-blue-400/30 px-3 sm:px-6 lg:px-8 h-[72px] sm:h-[84px] lg:h-[88px] flex items-center justify-between gap-2 sm:gap-4 transition-all duration-300 shadow-[0_8px_30px_rgba(10,37,64,0.45)] relative z-20',
             isScrolled && 'shadow-[0_16px_45px_rgba(10,37,64,0.65)] bg-gradient-to-r from-[#0a2540] via-[#123962] to-[#0a2540] border-blue-300/40'
           )}
         >
@@ -55,11 +56,11 @@ export const Header: React.FC = () => {
           <div className="flex items-center gap-3 shrink-0">
             <Link
               to="/"
-              className="flex items-center gap-2.5 sm:gap-3.5 group focus-visible:outline-none shrink-0"
+              className="flex items-center gap-2 sm:gap-3 group focus-visible:outline-none shrink-0"
               aria-label="DYUTI 2027 — Return to Homepage"
             >
               {/* Circular White Badge housing Logo */}
-              <div className="h-11 w-11 sm:h-13 sm:w-13 lg:h-14 lg:w-14 rounded-full bg-white p-1.5 shadow-md flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 border border-slate-200">
+              <div className="h-10 w-10 sm:h-12 sm:w-12 lg:h-13 lg:w-13 rounded-full bg-white p-1 shadow-md flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 border border-slate-200">
                 <img
                   src="https://dyuti.in/assets/images/dyutilogoog.jpg"
                   alt="DYUTI Emblem"
@@ -67,10 +68,10 @@ export const Header: React.FC = () => {
                 />
               </div>
               <div className="flex flex-col leading-none">
-                <span className="font-heading font-black text-[1.25rem] sm:text-[1.45rem] tracking-tight leading-none text-white transition-colors">
+                <span className="font-heading font-black text-[1.15rem] sm:text-[1.35rem] tracking-tight leading-none text-white transition-colors">
                   DYUTI
                 </span>
-                <span className="font-sans text-[9px] sm:text-[10.5px] uppercase tracking-[0.2em] font-extrabold leading-none mt-1 text-[#d4af37]">
+                <span className="font-sans text-[8.5px] sm:text-[10px] uppercase tracking-[0.2em] font-extrabold leading-none mt-0.5 text-[#d4af37]">
                   2027 &middot; Kochi
                 </span>
               </div>
@@ -80,9 +81,9 @@ export const Header: React.FC = () => {
           {/* Center: Desktop Navigation Links with Gold Active Indicator */}
           <nav
             aria-label="Main Navigation"
-            className="hidden lg:flex items-center justify-center flex-1 mx-4 lg:mx-8"
+            className="hidden xl:flex items-center justify-center flex-1 mx-2 lg:mx-4"
           >
-            <ul className="flex items-center gap-3 lg:gap-5 xl:gap-7 2xl:gap-8 list-none m-0 p-0">
+            <ul className="flex items-center gap-1.5 lg:gap-2.5 2xl:gap-5 list-none m-0 p-0">
               {navLinks.map((item) => (
                 <li key={item.path}>
                   <NavLink
@@ -90,9 +91,9 @@ export const Header: React.FC = () => {
                     end={item.exact}
                     className={({ isActive }) =>
                       cn(
-                        'relative px-3.5 xl:px-4 py-2 text-[13.5px] lg:text-[14.5px] 2xl:text-[15.5px] font-sans font-semibold transition-all duration-200 whitespace-nowrap focus-visible:outline-none',
+                        'relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold transition-all duration-200 whitespace-nowrap focus-visible:outline-none',
                         isActive
-                          ? 'text-[#d4af37] font-bold border-b-2 border-[#d4af37] pb-1'
+                          ? 'text-[#d4af37] font-bold border-b-2 border-[#d4af37] pb-0.5'
                           : 'text-white/90 hover:text-[#d4af37]'
                       )
                     }

@@ -29,6 +29,7 @@ export const Footer: React.FC = () => {
                 <Link to="/" className="hover:text-amber-300 transition-colors">HOME</Link>
                 <Link to="/rajagiri" className="hover:text-amber-300 transition-colors">RAJAGIRI</Link>
                 <Link to="/call_for_papers" className="hover:text-amber-300 transition-colors">CALL FOR PAPERS</Link>
+                <Link to="/our-team" className="hover:text-amber-300 transition-colors">OUR TEAM</Link>
                 <Link to="/accomodation" className="hover:text-amber-300 transition-colors">ACCOMMODATION</Link>
                 <Link
                   to="/register"
@@ -40,6 +41,7 @@ export const Footer: React.FC = () => {
                 <Link to="/gallery" className="hover:text-amber-300 transition-colors">GALLERY</Link>
                 <Link to="/attractions" className="hover:text-amber-300 transition-colors">ATTRACTIONS</Link>
                 <Link to="/travel" className="hover:text-amber-300 transition-colors">TRAVEL</Link>
+                <Link to="/contactus" className="hover:text-amber-300 transition-colors">CONTACT</Link>
               </div>
             </div>
 
