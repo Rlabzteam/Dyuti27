@@ -4,7 +4,7 @@ The official modern web platform for **DYUTI 2027**, the Annual National Academi
 
 ---
 
-## 🌟 Overview
+##  Overview
 
 **DYUTI** (*Developmental Yearnings for a United and Transformed India* — meaning *"Spark of Life"*) is a prestigious annual national symposium convened continuously since 1998. The 2027 edition focuses on **"Social Work for Sustainable Development: Empowering Communities through Innovation, Inclusion, and Partnership"**, bringing together scholars, researchers, development practitioners, and policy leaders aligned with the United Nations 2030 Agenda for Sustainable Development (UN SDGs).
 
@@ -12,7 +12,7 @@ This web application serves as the primary delegate and scholar portal, managing
 
 ---
 
-## 🚀 Key Features
+##  Key Features
 
 - **Single Page Application (SPA)**: Ultra-fast client-side routing with instant scroll restoration.
 - **Solid Royal Blue & Gold Navigation Capsule**: High-contrast, stadium-pill floating header with gold active indicators, circular emblem housing, and real-time marquee announcement banner.
@@ -29,7 +29,7 @@ This web application serves as the primary delegate and scholar portal, managing
 
 ---
 
-## 🎨 Design System & Color Palette
+##  Design System & Color Palette
 
 The DYUTI 2027 visual identity follows a **"Navy, Gold & Ivory"** aesthetic representing academic authority, trust, and the vibrant *Spark of Life*:
 
@@ -44,13 +44,13 @@ The DYUTI 2027 visual identity follows a **"Navy, Gold & Ivory"** aesthetic repr
 | **Slate Charcoal** | `#1E293B` / `#0F172A` | **Typography Text Color** — High-contrast text on light backgrounds. |
 | **Prestige Emerald** | `#054E38` | **Institutional Accent** — Present in the official Rajagiri crest seal. |
 
-### 🔤 Typography
+###  Typography
 - **Headings & Branding**: [Outfit](https://fonts.google.com/specimen/Outfit) (Bold, modern geometric sans-serif for editorial impact).
 - **Body & Editorial Content**: [Outfit](https://fonts.google.com/specimen/Outfit) & modern sans-serif stack for optimal readability.
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Core Framework**: [React 18](https://react.dev/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
@@ -62,7 +62,7 @@ The DYUTI 2027 visual identity follows a **"Navy, Gold & Ivory"** aesthetic repr
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 dyuti-2027/
@@ -95,7 +95,7 @@ dyuti-2027/
 
 ---
 
-## 💻 Getting Started
+## Getting Started
 
 ### Prerequisites
 - **Node.js**: v18.0.0 or higher
@@ -135,7 +135,7 @@ npm run preview
 
 ---
 
-## 🗺️ Page Routes
+##  Page Routes
 
 | Primary Route | Aliases / Short Paths | Description |
 | :--- | :--- | :--- |
