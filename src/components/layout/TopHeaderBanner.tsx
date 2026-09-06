@@ -11,8 +11,8 @@ import { CONFERENCE_DATA } from '@/data/conference';
  */
 export const TopHeaderBanner: React.FC = () => {
   return (
-    <div className="w-full bg-white relative z-40 border-b border-slate-100">
-      <div className="max-w-[1520px] mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3.5 flex items-center justify-between gap-3 sm:gap-6 md:gap-8">
+    <div className="w-full bg-white relative z-40">
+      <div className="max-w-[1520px] mx-auto px-3 sm:px-6 lg:px-8 pt-2 sm:pt-2.5 pb-0 flex items-center justify-between gap-3 sm:gap-6 md:gap-8">
         {/* 1. Left: RCSS Official Seal / Logo */}
         <a
           href={CONFERENCE_DATA.links.rajagiriPortal}

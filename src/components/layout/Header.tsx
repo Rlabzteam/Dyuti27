@@ -41,7 +41,7 @@ export const Header: React.FC = () => {
 
   return (
     <header
-      className="sticky top-2 sm:top-3.5 z-50 w-full pointer-events-none transition-all duration-300"
+      className="sticky top-0 z-50 w-full pointer-events-none transition-all duration-300 pt-0"
       role="banner"
     >
       <div className="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pointer-events-auto flex flex-col items-center">
