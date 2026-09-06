@@ -127,12 +127,12 @@ export const Rajagiri: React.FC = () => {
           {/* Centered Hero Content */}
           <div className="relative z-10 py-16 sm:py-24 lg:py-28 px-4 sm:px-8 text-center max-w-5xl mx-auto flex flex-col items-center justify-center space-y-6 sm:space-y-8">
 
-            {/* Centered College Crest Seal Logo */}
-            <div className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full overflow-hidden p-1.5 bg-black/60 border-2 border-white/50 shadow-2xl backdrop-blur-md flex items-center justify-center hover:scale-105 transition-transform duration-300">
+            {/* Centered College Crest Seal Logo (Rendered As Is) */}
+            <div className="flex justify-center">
               <img
                 src="/images/rajagiri_white_seal.png"
-                alt="Rajagiri College of Social Sciences Official Crest Seal"
-                className="w-full h-full object-contain rounded-full"
+                alt="Rajagiri College of Social Sciences Seal"
+                className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 object-contain"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
@@ -200,12 +200,12 @@ export const Rajagiri: React.FC = () => {
           </div>
 
           <div className="relative z-10 space-y-8">
-            {/* Top Header Row Centered with Crest */}
+            {/* Top Header Row Centered with Crest (As Is) */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 text-center pb-6 border-b border-white/15">
               <img
                 src="/images/rajagiri_white_seal.png"
                 alt="Rajagiri Seal"
-                className="w-12 h-12 sm:w-14 sm:h-14 object-contain rounded-full border border-white/30 bg-black/50 p-0.5 shadow-md"
+                className="w-14 h-14 sm:w-16 sm:h-16 object-contain"
                 loading="eager"
                 decoding="async"
               />
