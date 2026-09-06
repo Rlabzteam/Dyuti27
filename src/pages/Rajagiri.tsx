@@ -284,13 +284,10 @@ export const Rajagiri: React.FC = () => {
               </h2>
             </div>
 
-            {/* Exact dyuti.in Narrative Text */}
-            <div className="space-y-3 text-[14.5px] sm:text-[15.5px] text-slate-100 leading-relaxed font-sans font-normal max-w-5xl mx-auto text-center">
-              <p className="m-0">
-                The institution has also received many national recognitions, including the <strong className="text-amber-300 font-semibold">India Elite Education &amp; Institutional Excellence Award 2024</strong>, <strong className="text-white font-semibold">Eat Right Campus Award by FSSAI (2025–2027)</strong>, <strong className="text-emerald-300 font-semibold">Green Institution Certification from the Haritha Keralam Mission</strong>, and the <strong className="text-cyan-300 font-semibold">Best NSS Unit Award (2023–24)</strong>.
-              </p>
+            {/* Institutional Distinction Narrative */}
+            <div className="text-[14.5px] sm:text-[15.5px] text-slate-100 leading-relaxed font-sans font-normal max-w-5xl mx-auto text-center">
               <p className="m-0 text-slate-200">
-                With excellent infrastructure, multidisciplinary academic programmes, international collaborations, research centres, placement opportunities, live labs (extension departments), and a strong commitment to innovation, sustainability, and community engagement, Rajagiri continues to set benchmarks in higher education at the national and international levels.
+                With state-of-the-art infrastructure, multidisciplinary academic programmes, international collaborations, research centres, placement opportunities, and live labs (extension departments), Rajagiri continuously sets benchmarks in higher education, institutional distinction, and community sustainability.
               </p>
             </div>
 
