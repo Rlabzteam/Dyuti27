@@ -483,39 +483,48 @@ export const Rajagiri: React.FC = () => {
           </div>
         </div>
 
-        {/* ── CARD 4: 28 YEARS OF INTERNATIONALISATION @ RAJAGIRI (Matching dyuti27new.vercel.app/rajagiri layout) ── */}
-        <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] p-8 sm:p-10 lg:p-12 hd-card hd-card-dark text-white shadow-2xl relative overflow-hidden text-center">
+        {/* ── CARD 4: 28 YEARS OF INTERNATIONALISATION @ RAJAGIRI (Side-by-Side Layout) ── */}
+        <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] p-6 sm:p-10 lg:p-12 hd-card hd-card-dark text-white shadow-2xl relative overflow-hidden">
           {/* Subtle Ambient Radial Glow */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative z-10">
-            {/* Top Crest Emblem Logo */}
-            <div className="flex justify-center mb-4">
-              <img
-                src="/images/28_years_internationalisation.png"
-                alt="28 Years of Internationalisation Emblem"
-                className="h-20 sm:h-24 w-auto object-contain drop-shadow-lg"
-                loading="lazy"
-              />
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left Content Column */}
+            <div className="lg:col-span-7 xl:col-span-8 space-y-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-400/15 border border-amber-400/30 text-amber-300 text-xs font-mono font-bold uppercase tracking-wider w-fit">
+                Global Engagement &bull; 1998&ndash;2026
+              </div>
+
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-black text-white m-0 tracking-tight leading-tight">
+                28 Years of Internationalisation @ Rajagiri
+              </h2>
+
+              <p className="text-xs sm:text-sm font-mono font-bold tracking-wider text-slate-300 uppercase pb-2 border-b border-white/10 m-0">
+                A Proud Milestone Towards Global Academic Excellence
+              </p>
+
+              {/* Body Paragraphs */}
+              <div className="space-y-4 text-slate-200 text-sm sm:text-base leading-relaxed font-sans font-normal pt-2">
+                <p className="m-0">
+                  <strong className="text-white font-bold">&lsquo;Internationalisation&rsquo;</strong> has been a cornerstone of Rajagiri&apos;s academic ethos since inception. Celebrating <span className="text-amber-300 font-bold">28 years of formal international collaborations</span>, Rajagiri maintains active agreements with over <strong className="text-white font-semibold">60 premier universities across 30 countries</strong>. These global alliances facilitate faculty exchanges, joint research, curriculum co-creation, and international consultancy.
+                </p>
+                <p className="m-0 text-slate-200">
+                  Undergraduate and postgraduate students participate in semester-abroad and short-term study schemes ranging from <strong className="text-white font-semibold">1 to 6 months</strong>. Rajagiri also welcomes international scholars under the Government of India&apos;s <strong className="text-white font-semibold">Study in India (SII)</strong> initiative, alongside offering dual-degree and twinning pathways with distinguished global partner institutions.
+                </p>
+              </div>
             </div>
 
-            {/* Heading */}
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-black text-white mb-2 tracking-tight">
-              28 Years of Internationalisation @ Rajagiri
-            </h2>
-            <p className="text-xs sm:text-sm font-mono font-bold tracking-wider text-slate-300 uppercase mb-8">
-              A Proud Milestone Towards Global Academic Excellence
-            </p>
-
-            {/* 2 Body Paragraphs */}
-            <div className="border-t border-white/10 pt-6 space-y-4 text-slate-200 text-sm sm:text-base leading-relaxed max-w-4xl mx-auto text-left sm:text-center font-sans font-normal">
-              <p className="m-0">
-                <strong className="text-white font-bold">&lsquo;Internationalisation&rsquo;</strong> has been a cornerstone of Rajagiri&apos;s academic ethos since inception. Celebrating <span className="text-amber-300 font-bold">28 years of formal international collaborations</span>, Rajagiri maintains active agreements with over <strong className="text-white font-semibold">60 premier universities across 30 countries</strong>. These global alliances facilitate faculty exchanges, joint research, curriculum co-creation, and international consultancy.
-              </p>
-              <p className="m-0 text-slate-200">
-                Undergraduate and postgraduate students participate in semester-abroad and short-term study schemes ranging from <strong className="text-white font-semibold">1 to 6 months</strong>. Rajagiri also welcomes international scholars under the Government of India&apos;s <strong className="text-white font-semibold">Study in India (SII)</strong> initiative, alongside offering dual-degree and twinning pathways with distinguished global partner institutions.
-              </p>
+            {/* Right Column: Large 28 Years Emblem */}
+            <div className="lg:col-span-5 xl:col-span-4 flex items-center justify-center">
+              <div className="relative group p-2 sm:p-4 flex items-center justify-center">
+                <img
+                  src="/images/28_years_internationalisation.png"
+                  alt="28 Years of Internationalisation - Rajagiri"
+                  className="w-48 sm:w-60 md:w-72 lg:w-80 max-h-[300px] sm:max-h-[340px] h-auto object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                />
+              </div>
             </div>
           </div>
         </div>
