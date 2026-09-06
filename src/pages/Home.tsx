@@ -1,6 +1,5 @@
 import { HeroBanner } from '@/components/sections/HeroBanner';
 import { ConferenceOverview } from '@/components/sections/ConferenceOverview';
-import { ImportantDatesTimeline } from '@/components/sections/ImportantDatesTimeline';
 import { MajorSubThemes } from '@/components/sections/MajorSubThemes';
 
 /**
@@ -15,10 +14,7 @@ export const Home: React.FC = () => {
       {/* 02 — DYUTI 2027 Overview, About DYUTI & Background */}
       <ConferenceOverview />
 
-      {/* 04 — Important Dates */}
-      <ImportantDatesTimeline />
-
-      {/* 05 — The 8 Major Sub-Themes */}
+      {/* 03 — The 8 Major Sub-Themes */}
       <MajorSubThemes />
     </div>
   );
