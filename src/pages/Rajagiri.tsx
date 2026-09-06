@@ -12,11 +12,11 @@ export const Rajagiri: React.FC = () => {
           <p className="m-0">
             The Department of Social Work at Rajagiri College of Social Sciences (Autonomous) has a strong record in social work education, research, internationalisation, and community engagement.
           </p>
-          <div className="flex flex-wrap gap-2.5 pt-1">
-            <span className="px-3 py-1 rounded-lg bg-amber-400/15 border border-amber-400/30 text-amber-300 text-xs font-mono font-bold">
+          <div className="flex flex-wrap gap-2.5 pt-2">
+            <span className="px-3.5 py-1.5 rounded-full bg-white/20 border border-white/40 text-white text-xs sm:text-[13px] font-sans font-extrabold shadow-sm backdrop-blur-md">
               Ranked #2 in India &bull; Outlook-ICARE (2024)
             </span>
-            <span className="px-3 py-1 rounded-lg bg-cyan-400/15 border border-cyan-400/30 text-cyan-300 text-xs font-mono font-bold">
+            <span className="px-3.5 py-1.5 rounded-full bg-white/20 border border-white/40 text-white text-xs sm:text-[13px] font-sans font-extrabold shadow-sm backdrop-blur-md">
               Ranked #2 in India &bull; India Today (2020–2024)
             </span>
           </div>
