@@ -425,7 +425,7 @@ export const Rajagiri: React.FC = () => {
                 key={socialWorkSlide}
                 className="lg:col-span-7 flex flex-col justify-center animate-fade-in transition-all duration-500"
               >
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-400/15 border border-amber-400/30 text-amber-300 text-xs font-mono font-bold uppercase tracking-wider mb-3 w-fit">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 border border-white/40 text-white text-xs sm:text-sm font-sans font-extrabold uppercase tracking-wider shadow-sm backdrop-blur-md mb-3 w-fit">
                   Department of Social Work &bull; Legacy of Excellence
                 </div>
                 <h3 className="font-heading text-2xl sm:text-3xl lg:text-[2.2rem] font-extrabold text-white m-0 mb-4 leading-tight tracking-tight">
