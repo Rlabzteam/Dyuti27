@@ -200,11 +200,10 @@ export const CallForPapers: React.FC = () => {
                   key={idx}
                   type="button"
                   onClick={() => setActiveThemeIndex(idx)}
-                  className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                    activeThemeIndex === idx
-                      ? 'w-8 bg-white shadow-[0_0_10px_rgba(255,255,255,0.7)]'
-                      : 'w-2.5 bg-white/25 hover:bg-white/50'
-                  }`}
+                  className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${activeThemeIndex === idx
+                    ? 'w-8 bg-white shadow-[0_0_10px_rgba(255,255,255,0.7)]'
+                    : 'w-2.5 bg-white/25 hover:bg-white/50'
+                    }`}
                   aria-label={`Go to sub-theme ${idx + 1}`}
                 />
               ))}
