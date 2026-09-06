@@ -12,7 +12,7 @@ import { CONFERENCE_DATA } from '@/data/conference';
 export const TopHeaderBanner: React.FC = () => {
   return (
     <div className="w-full bg-white relative z-40">
-      <div className="max-w-[1520px] mx-auto px-3 sm:px-6 lg:px-8 pt-2 sm:pt-2.5 pb-0 flex items-center justify-between gap-3 sm:gap-6 md:gap-8">
+      <div className="max-w-[1520px] mx-auto px-3 sm:px-6 lg:px-8 py-1.5 sm:py-2 flex items-center justify-between gap-3 sm:gap-6 md:gap-8">
         {/* 1. Left: RCSS Official Seal / Logo */}
         <a
           href={CONFERENCE_DATA.links.rajagiriPortal}
@@ -25,14 +25,14 @@ export const TopHeaderBanner: React.FC = () => {
           <img
             src="/images/rcss_green_logo.png"
             alt="Rajagiri College of Social Sciences (Autonomous)"
-            className="h-10 sm:h-12 md:h-14 w-auto object-contain select-none"
+            className="h-14 sm:h-16 md:h-20 lg:h-24 xl:h-28 w-auto object-contain select-none"
             loading="eager"
             fetchPriority="high"
             decoding="async"
           />
         </a>
 
-        {/* 2. Center: Official DYUTI 27 Thematic Emblem & Identity (Hero Position) */}
+        {/* 2. Center: Official DYUTI 27 Thematic Emblem & Identity */}
         <Link
           to="/"
           className="flex items-center justify-center shrink min-w-0 transition-transform duration-200 hover:scale-[1.015] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-lg p-0.5"
@@ -41,7 +41,7 @@ export const TopHeaderBanner: React.FC = () => {
           <img
             src="/images/dyuti27_theme_header.png"
             alt="DYUTI 27 — Social Work for Sustainable Development: Empowering Communities through Innovation, Inclusion, and Partnership"
-            className="h-16 sm:h-20 md:h-26 lg:h-32 xl:h-36 w-auto max-w-[260px] xs:max-w-[340px] sm:max-w-[540px] md:max-w-[700px] lg:max-w-[860px] xl:max-w-[980px] object-contain select-none"
+            className="h-14 sm:h-16 md:h-20 lg:h-24 xl:h-28 w-auto max-w-[280px] xs:max-w-[360px] sm:max-w-[500px] md:max-w-[640px] lg:max-w-[780px] object-contain select-none"
             loading="eager"
             fetchPriority="high"
             decoding="async"
@@ -57,7 +57,7 @@ export const TopHeaderBanner: React.FC = () => {
           <img
             src="/images/dyuti_let_me_change.jpg"
             alt="DYUTI — let me change..."
-            className="h-10 sm:h-12 md:h-14 w-auto object-contain select-none"
+            className="h-14 sm:h-16 md:h-20 lg:h-24 xl:h-28 w-auto object-contain select-none"
             loading="eager"
             decoding="async"
           />
