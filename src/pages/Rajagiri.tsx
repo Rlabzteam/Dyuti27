@@ -509,33 +509,13 @@ export const Rajagiri: React.FC = () => {
             </p>
 
             {/* 2 Body Paragraphs */}
-            <div className="border-t border-white/10 pt-6 space-y-4 text-slate-200 text-sm sm:text-base leading-relaxed max-w-4xl mx-auto text-left sm:text-center mb-8 font-sans font-normal">
+            <div className="border-t border-white/10 pt-6 space-y-4 text-slate-200 text-sm sm:text-base leading-relaxed max-w-4xl mx-auto text-left sm:text-center font-sans font-normal">
               <p className="m-0">
                 <strong className="text-white font-bold">&lsquo;Internationalisation&rsquo;</strong> has been a cornerstone of Rajagiri&apos;s academic ethos since inception. Celebrating <span className="text-amber-300 font-bold">28 years of formal international collaborations</span>, Rajagiri maintains active agreements with over <strong className="text-white font-semibold">60 premier universities across 30 countries</strong>. These global alliances facilitate faculty exchanges, joint research, curriculum co-creation, and international consultancy.
               </p>
               <p className="m-0 text-slate-200">
                 Undergraduate and postgraduate students participate in semester-abroad and short-term study schemes ranging from <strong className="text-white font-semibold">1 to 6 months</strong>. Rajagiri also welcomes international scholars under the Government of India&apos;s <strong className="text-white font-semibold">Study in India (SII)</strong> initiative, alongside offering dual-degree and twinning pathways with distinguished global partner institutions.
               </p>
-            </div>
-
-            {/* Bottom 4 Stat Tiles Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center hover:border-amber-400/40 transition-colors">
-                <span className="text-2xl sm:text-3xl font-extrabold text-amber-300 font-heading">28+</span>
-                <span className="text-[11px] sm:text-xs font-semibold text-slate-300 tracking-wider mt-1 uppercase font-mono">Years Collaborations</span>
-              </div>
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center hover:border-amber-400/40 transition-colors">
-                <span className="text-2xl sm:text-3xl font-extrabold text-amber-300 font-heading">60+</span>
-                <span className="text-[11px] sm:text-xs font-semibold text-slate-300 tracking-wider mt-1 uppercase font-mono">Partner Universities</span>
-              </div>
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center hover:border-amber-400/40 transition-colors">
-                <span className="text-2xl sm:text-3xl font-extrabold text-amber-300 font-heading">30+</span>
-                <span className="text-[11px] sm:text-xs font-semibold text-slate-300 tracking-wider mt-1 uppercase font-mono">Countries</span>
-              </div>
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center hover:border-amber-400/40 transition-colors">
-                <span className="text-2xl sm:text-3xl font-extrabold text-amber-300 font-heading">SII</span>
-                <span className="text-[11px] sm:text-xs font-semibold text-slate-300 tracking-wider mt-1 uppercase font-mono">Study in India Partner</span>
-              </div>
             </div>
           </div>
         </div>
