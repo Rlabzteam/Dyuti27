@@ -25,7 +25,7 @@ export const TopHeaderBanner: React.FC = () => {
           <img
             src="/images/rcss_green_logo.png"
             alt="Rajagiri College of Social Sciences (Autonomous)"
-            className="h-14 sm:h-16 md:h-20 lg:h-24 xl:h-28 w-auto object-contain select-none"
+            className="h-10 sm:h-12 md:h-14 lg:h-16 xl:h-[72px] w-auto object-contain select-none"
             loading="eager"
             fetchPriority="high"
             decoding="async"
@@ -41,7 +41,7 @@ export const TopHeaderBanner: React.FC = () => {
           <img
             src="/images/dyuti27_theme_header.png"
             alt="DYUTI 27 — Social Work for Sustainable Development: Empowering Communities through Innovation, Inclusion, and Partnership"
-            className="h-14 sm:h-16 md:h-20 lg:h-24 xl:h-28 w-auto max-w-[280px] xs:max-w-[360px] sm:max-w-[500px] md:max-w-[640px] lg:max-w-[780px] object-contain select-none"
+            className="h-10 sm:h-12 md:h-14 lg:h-16 xl:h-[72px] w-auto max-w-[240px] xs:max-w-[300px] sm:max-w-[420px] md:max-w-[560px] lg:max-w-[680px] object-contain select-none"
             loading="eager"
             fetchPriority="high"
             decoding="async"
@@ -57,7 +57,7 @@ export const TopHeaderBanner: React.FC = () => {
           <img
             src="/images/dyuti_let_me_change.jpg"
             alt="DYUTI — let me change..."
-            className="h-14 sm:h-16 md:h-20 lg:h-24 xl:h-28 w-auto object-contain select-none"
+            className="h-10 sm:h-12 md:h-14 lg:h-16 xl:h-[72px] w-auto object-contain select-none"
             loading="eager"
             decoding="async"
           />
