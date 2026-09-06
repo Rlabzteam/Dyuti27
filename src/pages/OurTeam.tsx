@@ -100,50 +100,59 @@ export const OurTeam: React.FC = () => {
         </div>
 
         {/* ── INTERACTIVE FILTER TABS & SEARCH BAR ── */}
-        <div className="mb-12 lg:mb-16 flex flex-col md:flex-row items-center justify-between gap-4 p-3 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-md">
-          {/* Category Pills */}
-          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
+        <div className="mb-14 lg:mb-20 max-w-4xl mx-auto space-y-5">
+          {/* Modern Search Bar */}
+          <div className="relative group">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#071A33]/20 via-blue-600/20 to-[#071A33]/20 rounded-2xl blur-sm opacity-60 group-focus-within:opacity-100 transition duration-300" />
+            <div className="relative flex items-center bg-white rounded-2xl border border-slate-200/90 shadow-lg shadow-slate-900/5 group-focus-within:border-[#071A33] group-focus-within:ring-4 group-focus-within:ring-[#071A33]/10 transition-all duration-300">
+              <div className="pl-5 pr-3 text-slate-400 group-focus-within:text-[#071A33] transition-colors">
+                <Search className="w-5 h-5" />
+              </div>
+              <input
+                type="text"
+                placeholder="Search committee members, conveners, or faculty..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full py-4 pr-12 text-sm sm:text-base font-sans text-slate-850 placeholder:text-slate-400 bg-transparent focus:outline-none"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-4 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-colors text-xs font-bold font-sans cursor-pointer"
+                  title="Clear search"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Category Filter Pills */}
+          <div className="flex items-center justify-center gap-2 sm:gap-2.5 flex-wrap pt-1">
             {[
               { id: 'all', label: 'All Team Members' },
               { id: 'executive', label: 'Executive Committee' },
               { id: 'conveners', label: 'Conveners' },
               { id: 'organizing', label: 'Organizing Committee' },
               { id: 'admin', label: 'Secretariat & Admin' },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setSelectedCategory(tab.id)}
-                className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-[13px] font-sans font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${
-                  selectedCategory === tab.id
-                    ? 'bg-[#071A33] text-white shadow-sm ring-2 ring-[#071A33]/20'
-                    : 'bg-slate-100 text-slate-650 hover:bg-slate-200 hover:text-slate-900'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Quick Search */}
-          <div className="relative w-full md:w-72 shrink-0">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <input
-              type="text"
-              placeholder="Search faculty or member..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9.5 pr-4 py-2 text-xs sm:text-[13px] font-sans rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#071A33] focus:ring-2 focus:ring-[#071A33]/15 transition-all"
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 hover:text-slate-600"
-              >
-                Clear
-              </button>
-            )}
+            ].map((tab) => {
+              const isActive = selectedCategory === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setSelectedCategory(tab.id)}
+                  className={`px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-[13px] font-sans font-bold transition-all duration-200 cursor-pointer ${
+                    isActive
+                      ? 'bg-[#071A33] text-white shadow-md shadow-[#071A33]/20 ring-2 ring-[#071A33]/30 scale-[1.03]'
+                      : 'bg-white text-slate-650 hover:text-[#071A33] hover:bg-slate-100 border border-slate-200/80 shadow-xs'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -605,6 +614,31 @@ export const OurTeam: React.FC = () => {
               </div>
             </div>
           </section>
+        )}
+
+        {/* ── EMPTY STATE FOR ZERO SEARCH RESULTS ── */}
+        {!showExecutive && !showConveners && !showOrganizing && !showAdministrative && (
+          <div className="text-center py-16 px-4 bg-white rounded-3xl border border-slate-200 shadow-sm max-w-xl mx-auto mb-16">
+            <div className="w-16 h-16 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-4">
+              <Search className="w-8 h-8" />
+            </div>
+            <h3 className="font-heading text-xl font-bold text-slate-800 m-0">
+              No committee members found
+            </h3>
+            <p className="text-sm text-slate-500 mt-2">
+              We couldn&apos;t find any faculty or members matching &ldquo;{searchQuery}&rdquo;.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setSearchQuery('');
+                setSelectedCategory('all');
+              }}
+              className="mt-6 px-5 py-2.5 rounded-xl bg-[#071A33] text-white text-xs font-sans font-bold shadow-md hover:bg-[#0d2a4f] transition-all cursor-pointer"
+            >
+              Reset Search &amp; Filters
+            </button>
+          </div>
         )}
 
         {/* ══════════════════════════════════════════════════════════
