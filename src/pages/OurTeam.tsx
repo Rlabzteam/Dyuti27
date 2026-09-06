@@ -302,7 +302,7 @@ export const OurTeam: React.FC = () => {
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-6">
                       <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-blue-200 text-xs font-mono font-bold tracking-wider uppercase">
-                        <span>Convener {idx + 1}</span>
+                        <span>Conference Convener</span>
                       </span>
                       <span className="text-xs text-slate-300 font-mono">
                         DYUTI 2027 Secretariat
@@ -415,11 +415,6 @@ export const OurTeam: React.FC = () => {
                 >
                   {/* Subtle decorative glow */}
                   <div className="absolute top-0 right-0 w-32 h-32 bg-blue-400/10 rounded-full blur-2xl pointer-events-none -mr-10 -mt-10" />
-
-                  {/* Number Badge */}
-                  <span className="absolute top-3.5 right-3.5 text-[11px] font-mono text-blue-200 font-bold px-2 py-0.5 rounded-md bg-white/10 border border-white/15 shadow-xs">
-                    #{String(idx + 1).padStart(2, '0')}
-                  </span>
 
                   <div className="w-full flex flex-col items-center relative z-10">
                     {/* Photo / Monogram */}
