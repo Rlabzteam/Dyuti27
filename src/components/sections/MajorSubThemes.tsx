@@ -48,7 +48,7 @@ export const MajorSubThemes: React.FC = () => {
               id="themes-heading"
               className="text-[2.25rem] sm:text-[3rem] lg:text-[3.5rem] font-heading font-black text-[#071A33] leading-[1.08] tracking-tight m-0"
             >
-              Thematic areas &amp; focus tracks.
+              Major Sub Themes
             </h2>
             <p className="text-sm sm:text-base text-slate-800 font-sans font-medium mt-4 max-w-[620px] leading-relaxed">
               Deliberating across 8 pivotal sub-themes on sustainable development. Authors, practitioners, and researchers are invited to submit abstracts aligned with these focus tracks.
