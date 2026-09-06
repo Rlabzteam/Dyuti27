@@ -179,7 +179,7 @@ export const OurTeam: React.FC = () => {
                 <div className="relative z-10 flex flex-col h-full justify-between">
                   <div>
                     {/* Role Pill */}
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-blue-200 text-xs font-mono font-bold tracking-wider uppercase mb-6">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/30 border border-blue-300 text-white text-xs sm:text-[13px] font-sans font-extrabold tracking-wide uppercase shadow-sm mb-6">
                       <span>Executive Committee &middot; Chief Patron</span>
                     </div>
 
@@ -236,7 +236,7 @@ export const OurTeam: React.FC = () => {
                 <div className="relative z-10 flex flex-col h-full justify-between">
                   <div>
                     {/* Role Pill */}
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-400/20 border border-blue-300/40 text-blue-200 text-xs font-mono font-bold tracking-wider uppercase mb-6">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/30 border border-blue-300 text-white text-xs sm:text-[13px] font-sans font-extrabold tracking-wide uppercase shadow-sm mb-6">
                       <span>Executive Committee &middot; Patron</span>
                     </div>
 
@@ -310,7 +310,7 @@ export const OurTeam: React.FC = () => {
                 >
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-6">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-blue-200 text-xs font-mono font-bold tracking-wider uppercase">
+                      <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-blue-500/30 border border-blue-300 text-white text-xs font-sans font-extrabold tracking-wide uppercase shadow-sm">
                         <span>Conference Convener</span>
                       </span>
                       <span className="text-xs text-slate-300 font-mono">
@@ -481,7 +481,7 @@ export const OurTeam: React.FC = () => {
                 {/* Secretariat Details (7 cols) */}
                 <div className="lg:col-span-7 space-y-6">
                   <div>
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-blue-200 text-xs font-mono font-bold tracking-wider uppercase mb-3">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/30 border border-blue-300 text-white text-xs sm:text-[13px] font-sans font-extrabold tracking-wide uppercase shadow-sm mb-3">
                       <span>Secretariat Coordination</span>
                     </div>
                     <h2 className="font-heading text-2xl sm:text-4xl font-black text-white m-0 leading-tight">
