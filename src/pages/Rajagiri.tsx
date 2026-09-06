@@ -10,14 +10,14 @@ export const Rajagiri: React.FC = () => {
       content: (
         <div className="space-y-3 text-slate-200 text-[14px] sm:text-[15px] leading-relaxed font-sans font-normal">
           <p className="m-0">
-            The Department of Social Work at Rajagiri College of Social Sciences (Autonomous) has a strong record in social work education, research, internationalisation, and community engagement.
+            The Department of Social Work at Rajagiri College of Social Sciences (Autonomous), established in 1955, is one of the pioneering departments of social work in India, recognised for excellence in social work education, research, internationalisation, and community engagement. The Department has consistently been ranked 2nd Best Social Work College in India in the India Today–MDRA Best Colleges Survey 2026 and the Outlook–ICARE Rankings 2026.
           </p>
           <div className="flex flex-wrap gap-2.5 pt-2">
             <span className="px-3.5 py-1.5 rounded-full bg-white/20 border border-white/40 text-white text-xs sm:text-[13px] font-sans font-extrabold shadow-sm backdrop-blur-md">
-              Ranked #2 in India &bull; Outlook-ICARE (2024)
+              Ranked 2nd Best in India &bull; India Today–MDRA (2026)
             </span>
             <span className="px-3.5 py-1.5 rounded-full bg-white/20 border border-white/40 text-white text-xs sm:text-[13px] font-sans font-extrabold shadow-sm backdrop-blur-md">
-              Ranked #2 in India &bull; India Today (2020–2024)
+              Ranked 2nd Best in India &bull; Outlook–ICARE (2026)
             </span>
           </div>
         </div>
@@ -27,14 +27,14 @@ export const Rajagiri: React.FC = () => {
     },
     {
       id: 2,
-      title: "Research, Consultancies & UGC CARE Journal",
+      title: "Research, Consultancies & Scholarly Publications",
       content: (
         <div className="space-y-3 text-slate-200 text-[14px] sm:text-[15px] leading-relaxed font-sans font-normal">
           <p className="m-0">
-            The Department has undertaken research with the <strong className="text-white font-semibold">Vimukthi Mission</strong>, <strong className="text-white font-semibold">Department of Excise (Government of Kerala)</strong>, <strong className="text-white font-semibold">Kerala Development and Innovation Strategic Council (K-DISC)</strong>, <strong className="text-white font-semibold">National Human Rights Commission</strong>, <strong className="text-white font-semibold">Kerala State Commission for Protection of Child Rights</strong>, and <strong className="text-white font-semibold">Department of Social Justice</strong>.
+            The Department has undertaken research and consultancy projects in collaboration with leading national and state agencies, including the Vimukthi Mission, Department of Excise, Government of Kerala, K-DISC, National Human Rights Commission, Kerala State Commission for Protection of Child Rights, and the Department of Social Justice.
           </p>
           <p className="m-0 text-slate-300">
-            The <em className="text-white font-semibold not-italic">Rajagiri Journal of Social Development</em> is listed in <strong className="text-white font-bold">UGC CARE</strong> and received the prestigious <strong className="text-white font-semibold">ICSSR Adhoc Annual Grant-in-Aid for 2024–2025</strong>.
+            The <em className="text-white font-semibold not-italic">Rajagiri Journal of Social Development</em> is indexed in the UGC CARE List and has received the ICSSR Ad hoc Annual Grant-in-Aid for 2024–2025. The Department has also been recognised for its contributions to the Nasha Mukt Bharat Abhiyaan and for its outstanding initiatives in palliative care and COVID-19 pandemic management.
           </p>
         </div>
       ),
@@ -43,35 +43,19 @@ export const Rajagiri: React.FC = () => {
     },
     {
       id: 3,
-      title: "Community Outreach & Frontline Action",
+      title: "Internationalisation & Landmark Conferences",
       content: (
         <div className="space-y-3 text-slate-200 text-[14px] sm:text-[15px] leading-relaxed font-sans font-normal">
           <p className="m-0">
-            The Department has received appreciation for its contributions to the <strong className="text-white font-medium">Tele-Counselling Programme</strong>, <strong className="text-white font-medium">Nasha Mukt Bharat Abhiyaan</strong>, <strong className="text-white font-medium">Anti-Drug Awareness Campaign</strong>, and <strong className="text-white font-medium">Varnachirakukal Children&apos;s Fest</strong>.
+            The Department celebrated 25 years of internationalisation during DYUTI 2024 and published three books during the DYUTI 2025-24th ICSD Biennial Conference. The Department has also hosted several landmark international events, including the NAPCAIM 2nd International Conference on Palliative Care (2023), the 10th International Summer University (2019) and the Annual Symposium on Building Networks and Frameworks for Global Social Work (2018).
           </p>
           <p className="m-0 text-slate-300">
-            Recognised nationally and internationally for exemplary frontline work in <strong className="text-white font-semibold">palliative care</strong> and <strong className="text-white font-semibold">COVID-19 pandemic management</strong>.
-          </p>
-        </div>
-      ),
-      image: "/images/gallery/6L6A7541.JPG",
-      alt: "Community Outreach and Extension Services"
-    },
-    {
-      id: 4,
-      title: "Internationalisation & Flagship Conferences",
-      content: (
-        <div className="space-y-2.5 text-slate-200 text-[13.5px] sm:text-[14.5px] leading-relaxed font-sans font-normal">
-          <p className="m-0">
-            The Department celebrated <strong className="text-white font-bold">25 years of internationalisation through DYUTI 2024</strong> and hosted the <strong className="text-white font-semibold">24th ICSD Biennial Conference (DYUTI 2025)</strong>, marking 25 years of DYUTI with three books published.
-          </p>
-          <p className="m-0 text-slate-300">
-            Host to the <strong className="text-white font-medium">10th International Summer University (2019)</strong>, the <strong className="text-white font-medium">Annual Symposium on Global Social Work (2018)</strong>, and <strong className="text-white font-medium">NAPCAIM 2nd International Conference on Palliative Care (2023)</strong>. Recipient of the <strong className="text-white font-medium">UGC-DAAD (2018)</strong> and <strong className="text-white font-medium">UGC-UKIERI Joint Research Programme (2017)</strong>.
+            The department was granted the prestigious UGC–DAAD Project-based Personnel Exchange Programme (2018) and the UGC–UKIERI Joint Research Programme (2017), along with academic partnerships with over 60 universities across 30 countries.
           </p>
         </div>
       ),
       image: "/images/gallery/IMG_9963.JPG",
-      alt: "International Conferences and Collaborative Academic Symposiums"
+      alt: "International Conferences and Collaborative Academic Partnerships"
     }
   ];
 
@@ -214,7 +198,7 @@ export const Rajagiri: React.FC = () => {
               </h2>
             </div>
 
-            {/* Institutional Narrative Section (100% faithful to dyuti.in/rajagiri) */}
+            {/* Institutional Narrative Section */}
             <div className="space-y-3.5 text-[14.5px] sm:text-[15.5px] text-slate-100 leading-relaxed font-sans font-normal pb-6 border-b border-white/15">
               <p className="m-0">
                 <strong className="text-white font-bold">Rajagiri College of Social Sciences (Autonomous), Kalamassery</strong>, established in 1955 by the Carmelites of Mary Immaculate (CMI) Congregation, is one of India&apos;s premier institutions for higher education. Guided by its motto, <em className="text-white italic font-semibold">&ldquo;Relentlessly Towards Excellence&rdquo;</em>, the college has built a legacy of academic distinction, innovation, and social commitment.
@@ -223,7 +207,10 @@ export const Rajagiri: React.FC = () => {
                 Conferred autonomous status by the University Grants Commission (UGC) in 2014, the institution continues to enjoy autonomous status up to the academic year 2029–30. Rajagiri College of Social Sciences was ranked 12th among colleges in India by the <strong className="text-white font-semibold">National Institutional Ranking Framework (NIRF) 2025</strong> and the <strong className="text-white font-semibold">1st in Kerala under the Kerala Institutional Ranking Framework (KIRF) 2025</strong>.
               </p>
               <p className="m-0 text-slate-200">
-                The institution is accredited with an <strong className="text-white font-semibold">A++ grade by NAAC with a CGPA of 3.83</strong>. Rajagiri has also earned international recognition by being placed in the <strong className="text-white font-semibold">601–800 global band for SDG 3 (Good Health and Well-being)</strong> in the Times Higher Education Impact Rankings 2026. Rajagiri was also granted the status of <strong className="text-white font-semibold">&lsquo;College with Potential for Excellence&rsquo; (CPE)</strong> by the University Grants Commission (UGC) in 2016.
+                The institution is accredited with an <strong className="text-white font-semibold">A++ grade by the National Assessment and Accreditation Council (NAAC) with a CGPA of 3.83</strong>. Rajagiri was also granted the status of <strong className="text-white font-semibold">&lsquo;College with Potential for Excellence&rsquo; (CPE)</strong> by the University Grants Commission (UGC) in 2016.
+              </p>
+              <p className="m-0 text-slate-200">
+                With excellent infrastructure, multidisciplinary academic programmes, international collaborations, research centres, live labs (extension departments), excellent placement opportunities, and a strong culture of innovation, sustainability, and social responsibility, Rajagiri continues to set benchmarks in higher education at the national and international levels.
               </p>
             </div>
 
@@ -340,10 +327,13 @@ export const Rajagiri: React.FC = () => {
               </h2>
             </div>
 
-            {/* Institutional Distinction Narrative */}
-            <div className="text-[14.5px] sm:text-[15.5px] text-slate-100 leading-relaxed font-sans font-normal max-w-5xl mx-auto text-center">
+            {/* Institutional Distinction Narrative (Left-aligned) */}
+            <div className="space-y-3 text-[14.5px] sm:text-[15.5px] text-slate-100 leading-relaxed font-sans font-normal text-left sm:text-justify">
               <p className="m-0 text-slate-200">
-                With state-of-the-art infrastructure, multidisciplinary academic programmes, international collaborations, research centres, placement opportunities, and live labs (extension departments), Rajagiri continuously sets benchmarks in higher education, institutional distinction, and community sustainability.
+                Rajagiri College of Social Sciences has received numerous national and institutional recognitions for its commitment to academic excellence, sustainability, innovation, and community engagement.
+              </p>
+              <p className="m-0 text-slate-200">
+                Rajagiri has also earned international recognition by being placed in the <strong className="text-white font-semibold">601–800 global band for SDG 3 (Good Health and Well-being)</strong> in the <strong className="text-white font-semibold">Times Higher Education Impact Rankings 2026</strong>. Further strengthening its commitment to environmental stewardship, the <strong className="text-white font-semibold">Biodiversity Club of Rajagiri College of Social Sciences</strong> has been officially registered with the <strong className="text-white font-semibold">Kerala State Biodiversity Board</strong>.
               </p>
             </div>
 
@@ -553,21 +543,36 @@ export const Rajagiri: React.FC = () => {
               </div>
 
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-black text-white m-0 tracking-tight leading-tight">
-                28 Years of Internationalisation @ Rajagiri
+                28 years of Internationalisation @ Rajagiri
               </h2>
 
-              <p className="text-xs sm:text-sm font-mono font-bold tracking-wider text-slate-300 uppercase pb-2 border-b border-white/10 m-0">
-                A Proud Milestone Towards Global Academic Excellence
-              </p>
-
-              {/* Body Paragraphs */}
-              <div className="space-y-4 text-slate-200 text-sm sm:text-base leading-relaxed font-sans font-normal pt-2">
+              {/* Body Paragraphs & Bullet Points */}
+              <div className="space-y-3.5 text-slate-200 text-sm sm:text-base leading-relaxed font-sans font-normal pt-2">
                 <p className="m-0">
-                  <strong className="text-white font-bold">&lsquo;Internationalisation&rsquo;</strong> has been a cornerstone of Rajagiri&apos;s academic ethos since inception. Celebrating <span className="text-white font-bold">28 years of formal international collaborations</span>, Rajagiri maintains active agreements with over <strong className="text-white font-semibold">60 premier universities across 30 countries</strong>. These global alliances facilitate faculty exchanges, joint research, curriculum co-creation, and international consultancy.
+                  Internationalisation has been a catchword for Rajagiri since its inception and we have completed 28 years of official International collaborations. A Legacy of Global engagement including,
                 </p>
-                <p className="m-0 text-slate-200">
-                  Undergraduate and postgraduate students participate in semester-abroad and short-term study schemes ranging from <strong className="text-white font-semibold">1 to 6 months</strong>. Rajagiri also welcomes international scholars under the Government of India&apos;s <strong className="text-white font-semibold">Study in India (SII)</strong> initiative, alongside offering dual-degree and twinning pathways with distinguished global partner institutions.
-                </p>
+                <ul className="space-y-2.5 pt-1 m-0 pl-1 list-none">
+                  <li className="flex items-start gap-2.5 text-slate-100">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0 shadow-xs" />
+                    <span>A global academic network spanning 60+ partner universities across 30 countries.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5 text-slate-100">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0 shadow-xs" />
+                    <span>Student exchange programmes promoting international learning and cross-cultural engagement, with short-term study opportunities ranging from one to six months.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5 text-slate-100">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0 shadow-xs" />
+                    <span>Hosting full-time international students through regular academic programmes, supported by the Government of India&apos;s Study in India (SII) Programme</span>
+                  </li>
+                  <li className="flex items-start gap-2.5 text-slate-100">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0 shadow-xs" />
+                    <span>Collaborative research and innovation with leading global institutions.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5 text-slate-100">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0 shadow-xs" />
+                    <span>Dual-degree, twinning, and international internship opportunities for enhanced global exposure.</span>
+                  </li>
+                </ul>
               </div>
             </div>
 
@@ -583,34 +588,6 @@ export const Rajagiri: React.FC = () => {
                 />
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* ── HIGH-VISIBILITY RAJAGIRI PORTAL CALLOUT ── */}
-        <div className="pt-4 pb-2 flex justify-center">
-          <div className="inline-flex flex-col sm:flex-row items-center justify-between gap-4 px-6 sm:px-8 py-4 sm:py-5 rounded-2xl bg-white border-2 border-slate-200/80 shadow-md max-w-3xl w-full text-center sm:text-left transition-all hover:border-[#071A33]/40 hover:shadow-xl">
-            <div className="space-y-1">
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#071A33] block">
-                Official Institutional Portal
-              </span>
-              <p className="text-sm sm:text-base font-bold text-slate-900 m-0">
-                Explore Rajagiri College of Social Sciences (Autonomous)
-              </p>
-              <p className="text-xs text-slate-500 m-0 font-normal">
-                Academic programmes, research centres, live labs, and institutional updates
-              </p>
-            </div>
-            <a
-              href="https://rcss.rajagiri.edu"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#071A33] hover:bg-[#0b2952] text-white text-xs sm:text-sm font-bold shadow-sm hover:shadow-md transition-all hover:scale-105 active:scale-95"
-            >
-              <span>Visit rcss.rajagiri.edu</span>
-              <svg className="w-4 h-4 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </a>
           </div>
         </div>
 
