@@ -16,18 +16,18 @@ export const ConferenceOverview: React.FC = () => {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-8 space-y-16 sm:space-y-20 relative z-10">
 
-        {/* ── 01: THEME NARRATIVE (Asymmetric Curved Leaf Shape Card in Deep Ocean Navy Gradient) ── */}
+        {/* ── 01: DYUTI 2027 (Asymmetric Curved Leaf Shape Card in Deep Ocean Navy Gradient) ── */}
         <div className="rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] hd-card hd-card-dark text-white p-8 sm:p-12 lg:p-14 shadow-2xl relative overflow-hidden">
           {/* Subtle background glow */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="space-y-6 relative z-10">
             <div className="inline-flex items-center px-5 py-2 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] shadow-md hd-chip">
-              <span>DYUTI 2027 &bull; Thematic Narrative</span>
+              <span>National Conference</span>
             </div>
 
             <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-white leading-snug max-w-4xl tracking-tight">
-              Deliberating Innovative &amp; Collaborative Approaches for Sustainable Development
+              DYUTI 2027
             </h2>
 
             <div className="w-20 h-1.5 bg-gradient-to-r from-amber-400 to-amber-200 rounded-full" />
