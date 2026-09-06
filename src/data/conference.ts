@@ -324,6 +324,31 @@ export const CONFERENCE_DATA = {
   ] as AttractionItem[],
 
   gallery: [
+    // DYUTI 2026
+    { id: '2026-1', title: 'Panel Dialogue: Global to Local Impact in Social Work & Public Health', year: '2026', category: 'Panels', imageUrl: '/images/gallery/dyuti2026_panel_discussion.jpg' },
+    { id: '2026-2', title: 'Keynote Address: Shared Pathways in Public Health & Social Work Disciplines', year: '2026', category: 'Plenary', imageUrl: '/images/gallery/dyuti2026_keynote_address.jpg' },
+    { id: '2026-3', title: 'DYUTI 2026 Cultural Night & Classical Dance Performance', year: '2026', category: 'Cultural', imageUrl: '/images/gallery/dyuti2026_cultural_night.jpg' },
+
+    // DYUTI 2025
+    { id: '2025-1', title: 'Distinguished Speaker Address & Memento Presentation', year: '2025', category: 'Honours', imageUrl: '/images/gallery/dyuti2025_felicitation.jpg' },
+    { id: '2025-2', title: 'International & National Delegates Academic Deliberations', year: '2025', category: 'Sessions', imageUrl: '/images/gallery/dyuti2025_international_delegates.jpg' },
+    { id: '2025-3', title: 'DYUTI 2025 Cultural Night & Candle Dance Ceremony', year: '2025', category: 'Cultural', imageUrl: '/images/gallery/dyuti2025_cultural_night.jpg' },
+
+    // DYUTI 2024
+    { id: '2024-1', title: 'DYUTI 2024 Thematic Dance & Cultural Performance', year: '2024', category: 'Cultural', imageUrl: '/images/gallery/dyuti2024_cultural_performance.jpg' },
+    { id: '2024-2', title: 'International Delegates & Research Scholars in Plenary Hall', year: '2024', category: 'Sessions', imageUrl: '/images/gallery/dyuti2024_delegates_auditorium.jpg' },
+    { id: '2024-3', title: 'DYUTI 2024 Inaugural Ceremony & Global Partnership Summit', year: '2024', category: 'Inauguration', imageUrl: '/images/gallery/dyuti2024_inaugural_ceremony.jpg' },
+
+    // DYUTI 2023
+    { id: '2023-1', title: 'Academic Workshop & Interactive Presentation Session', year: '2023', category: 'Workshops', imageUrl: '/images/gallery/dyuti2023_academic_workshop.jpg' },
+    { id: '2023-2', title: 'Distinguished Keynote Address at Rajagiri Podium', year: '2023', category: 'Plenary', imageUrl: '/images/gallery/dyuti2023_speaker_address.jpg' },
+
+    // DYUTI 2022
+    { id: '2022-1', title: 'Keynote Address at Rajagiri Main Stage', year: '2022', category: 'Plenary', imageUrl: '/images/gallery/dyuti2022_keynote_address.jpg' },
+    { id: '2022-2', title: 'Auditorium Academic Deliberations & Delegate Gathering', year: '2022', category: 'Sessions', imageUrl: '/images/gallery/dyuti2022_auditorium_delegates.jpg' },
+    { id: '2022-3', title: 'Distinguished Dignitaries & Faculty Gathering', year: '2022', category: 'Honours', imageUrl: '/images/gallery/dyuti2022_dignitaries_frontrow.jpg' },
+    { id: '2022-4', title: 'Expert Panel Session & Presentation Evaluation', year: '2022', category: 'Panels', imageUrl: '/images/gallery/dyuti2022_panel_evaluation.jpg' },
+
     // DYUTI 2019
     { id: '1', title: 'DYUTI 2019 Inaugural Ceremony', year: '2019', category: 'Inauguration', imageUrl: '/images/gallery/IMG_9887.JPG' },
     { id: '2', title: 'DYUTI 2019 Academic Dialogue & Valedictory', year: '2019', category: 'Conferences', imageUrl: '/images/gallery/IMG_4438.JPG' },
