@@ -411,13 +411,21 @@ export const OurTeam: React.FC = () => {
               {filteredOrganizingMembers.map((member, idx) => (
                 <div
                   key={idx}
-                  className="rounded-2xl p-6 bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-[#071A33]/40 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
+                  className="relative rounded-[24px] p-6 bg-gradient-to-br from-[#071A33] via-[#0b2447] to-[#040e1c] text-white border border-white/15 shadow-lg hover:shadow-2xl hover:border-blue-400/50 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center justify-between group overflow-hidden"
                 >
-                  <div>
-                    {/* Photo / Monogram Badge & Index */}
-                    <div className="flex items-start justify-between gap-3 mb-5">
+                  {/* Subtle decorative glow */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-400/10 rounded-full blur-2xl pointer-events-none -mr-10 -mt-10" />
+
+                  {/* Number Badge */}
+                  <span className="absolute top-3.5 right-3.5 text-[11px] font-mono text-blue-200 font-bold px-2 py-0.5 rounded-md bg-white/10 border border-white/15 shadow-xs">
+                    #{String(idx + 1).padStart(2, '0')}
+                  </span>
+
+                  <div className="w-full flex flex-col items-center relative z-10">
+                    {/* Photo / Monogram */}
+                    <div className="mb-4">
                       {member.imageUrl ? (
-                        <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-lg border-2 border-slate-200 group-hover:border-[#071A33] transition-all duration-300 shrink-0 bg-slate-100 p-0.5">
+                        <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-xl border-2 border-white/40 group-hover:border-blue-300 transition-all duration-300 shrink-0 bg-white/10 p-0.5 mx-auto ring-4 ring-white/10">
                           <img
                             src={member.imageUrl}
                             alt={member.name}
@@ -426,7 +434,7 @@ export const OurTeam: React.FC = () => {
                           />
                         </div>
                       ) : (
-                        <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-gradient-to-br from-[#071A33] to-[#123962] text-white flex items-center justify-center font-heading font-black text-lg shadow-md group-hover:scale-105 transition-transform">
+                        <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl bg-slate-800 text-white flex items-center justify-center font-heading font-black text-2xl shadow-xl mx-auto border-2 border-white/40 ring-4 ring-white/10 group-hover:scale-105 transition-transform">
                           <span>
                             {member.name
                               .replace(/Dr\.|Sr\.|Fr\.|Mr\./g, '')
@@ -436,23 +444,20 @@ export const OurTeam: React.FC = () => {
                           </span>
                         </div>
                       )}
-                      <span className="text-[11px] font-mono text-slate-400 font-bold px-2.5 py-1 rounded-md bg-slate-50 border border-slate-100 shadow-xs">
-                        #{String(idx + 1).padStart(2, '0')}
-                      </span>
                     </div>
 
-                    <h4 className="font-heading font-bold text-slate-900 text-lg leading-snug group-hover:text-[#071A33] transition-colors m-0">
+                    <h4 className="font-heading font-bold text-white text-lg leading-snug group-hover:text-blue-200 transition-colors m-0 text-center">
                       {member.name}
                     </h4>
 
-                    <span className="inline-block mt-2 px-2.5 py-1 rounded-md bg-blue-50 border border-blue-200/60 text-[#071A33] text-[11px] font-mono font-semibold">
+                    <span className="inline-block mt-2.5 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-blue-200 text-[11px] font-mono font-bold tracking-wider uppercase">
                       Organizing Committee
                     </span>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500 font-sans font-medium space-y-0.5">
-                    <p className="m-0 text-slate-600 font-semibold">{member.department}</p>
-                    <p className="m-0 text-slate-400 text-[11px] truncate">
+                  <div className="mt-5 pt-3.5 border-t border-white/15 text-xs text-slate-300 font-sans font-medium space-y-1 w-full text-center relative z-10">
+                    <p className="m-0 text-slate-200 font-semibold">{member.department}</p>
+                    <p className="m-0 text-slate-300 text-[11px]">
                       Rajagiri College of Social Sciences
                     </p>
                   </div>
