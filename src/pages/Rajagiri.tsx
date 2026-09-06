@@ -492,7 +492,7 @@ export const Rajagiri: React.FC = () => {
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Content Column */}
             <div className="lg:col-span-7 xl:col-span-8 space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-400/15 border border-amber-400/30 text-amber-300 text-xs font-mono font-bold uppercase tracking-wider w-fit">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 border border-white/40 text-white text-xs sm:text-sm font-sans font-extrabold uppercase tracking-wider shadow-sm backdrop-blur-md w-fit">
                 Global Engagement &bull; 1998&ndash;2026
               </div>
 
