@@ -227,87 +227,99 @@ export const Rajagiri: React.FC = () => {
               </p>
             </div>
 
-            {/* 4 Foundational Pillars Grid with High Speed Local Cached Images */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start py-2 relative z-10">
+            {/* 4 Foundational Pillars Grid (HD Style & Shape Matching Reference) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch py-2 relative z-10">
               {/* Card 1: Relentlessly Towards Excellence */}
-              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[24px] p-6 sm:p-7 flex flex-col justify-between h-full">
+              <div className="group relative bg-gradient-to-br from-[#0F2B4D] via-[#0A1F38] to-[#061426] border border-[#1E3F6D]/80 hover:border-blue-400/60 rounded-[32px] sm:rounded-[36px] p-6 sm:p-7 flex flex-col justify-between h-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.12),0_16px_36px_rgba(0,0,0,0.45)] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.18),0_20px_42px_rgba(0,0,0,0.6)] transition-all duration-300 hover:-translate-y-1.5">
                 <div>
-                  <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 hd-img-frame">
+                  <div className="w-full h-40 sm:h-44 rounded-[22px] overflow-hidden mb-5 border border-white/10 shadow-md">
                     <img
                       src="/images/pillar_excellence.jpg"
                       alt="Relentlessly Towards Excellence"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="eager"
                       decoding="async"
                     />
                   </div>
-                  <h3 className="font-heading font-bold text-lg sm:text-xl text-white tracking-tight mb-2.5 leading-snug group-hover:text-blue-200 transition-colors m-0">
+                  <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-blue-500/15 border border-blue-400/30 text-[11px] font-mono font-semibold tracking-widest text-sky-200 uppercase mb-3 shadow-inner">
+                    PILLAR 01
+                  </div>
+                  <h3 className="font-heading font-bold text-lg sm:text-xl text-white tracking-tight mb-2.5 leading-snug group-hover:text-blue-100 transition-colors m-0">
                     &ldquo;Relentlessly Towards Excellence&rdquo;
                   </h3>
-                  <p className="font-sans text-[13px] sm:text-[13.5px] text-slate-200 leading-relaxed m-0 font-normal">
+                  <p className="font-sans text-[13px] sm:text-[13.5px] text-slate-200/90 leading-relaxed m-0 font-normal">
                     70+ years of pedagogical innovation, autonomous academic rigor, and transformative community impact.
                   </p>
                 </div>
               </div>
 
               {/* Card 2: Pedagogical Innovation */}
-              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[24px] p-6 sm:p-7 flex flex-col justify-between h-full">
+              <div className="group relative bg-gradient-to-br from-[#0F2B4D] via-[#0A1F38] to-[#061426] border border-[#1E3F6D]/80 hover:border-blue-400/60 rounded-[32px] sm:rounded-[36px] p-6 sm:p-7 flex flex-col justify-between h-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.12),0_16px_36px_rgba(0,0,0,0.45)] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.18),0_20px_42px_rgba(0,0,0,0.6)] transition-all duration-300 hover:-translate-y-1.5">
                 <div>
-                  <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 hd-img-frame">
+                  <div className="w-full h-40 sm:h-44 rounded-[22px] overflow-hidden mb-5 border border-white/10 shadow-md">
                     <img
                       src="/images/pillar_innovation.jpg"
                       alt="Pedagogical Innovation"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="eager"
                       decoding="async"
                     />
                   </div>
-                  <h3 className="font-heading font-bold text-lg sm:text-xl text-white tracking-tight mb-2.5 leading-snug group-hover:text-blue-200 transition-colors m-0">
+                  <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-blue-500/15 border border-blue-400/30 text-[11px] font-mono font-semibold tracking-widest text-sky-200 uppercase mb-3 shadow-inner">
+                    PILLAR 02
+                  </div>
+                  <h3 className="font-heading font-bold text-lg sm:text-xl text-white tracking-tight mb-2.5 leading-snug group-hover:text-blue-100 transition-colors m-0">
                     Pedagogical Innovation
                   </h3>
-                  <p className="font-sans text-[13px] sm:text-[13.5px] text-slate-200 leading-relaxed m-0 font-normal">
+                  <p className="font-sans text-[13px] sm:text-[13.5px] text-slate-200/90 leading-relaxed m-0 font-normal">
                     Pioneering social work education standards, curriculum development, and academic excellence in India.
                   </p>
                 </div>
               </div>
 
               {/* Card 3: Autonomous Excellence */}
-              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[24px] p-6 sm:p-7 flex flex-col justify-between h-full">
+              <div className="group relative bg-gradient-to-br from-[#0F2B4D] via-[#0A1F38] to-[#061426] border border-[#1E3F6D]/80 hover:border-blue-400/60 rounded-[32px] sm:rounded-[36px] p-6 sm:p-7 flex flex-col justify-between h-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.12),0_16px_36px_rgba(0,0,0,0.45)] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.18),0_20px_42px_rgba(0,0,0,0.6)] transition-all duration-300 hover:-translate-y-1.5">
                 <div>
-                  <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 hd-img-frame">
+                  <div className="w-full h-40 sm:h-44 rounded-[22px] overflow-hidden mb-5 border border-white/10 shadow-md">
                     <img
                       src="/images/pillar_autonomy.jpg"
                       alt="Autonomous Excellence"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="eager"
                       decoding="async"
                     />
                   </div>
-                  <h3 className="font-heading font-bold text-lg sm:text-xl text-white tracking-tight mb-2.5 leading-snug group-hover:text-blue-200 transition-colors m-0">
+                  <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-blue-500/15 border border-blue-400/30 text-[11px] font-mono font-semibold tracking-widest text-sky-200 uppercase mb-3 shadow-inner">
+                    PILLAR 03
+                  </div>
+                  <h3 className="font-heading font-bold text-lg sm:text-xl text-white tracking-tight mb-2.5 leading-snug group-hover:text-blue-100 transition-colors m-0">
                     Autonomous Excellence
                   </h3>
-                  <p className="font-sans text-[13px] sm:text-[13.5px] text-slate-200 leading-relaxed m-0 font-normal">
+                  <p className="font-sans text-[13px] sm:text-[13.5px] text-slate-200/90 leading-relaxed m-0 font-normal">
                     Conferred UGC Autonomy (2014&ndash;2030) and CPE status, enabling dynamic industry-aligned curricula and global research partnerships.
                   </p>
                 </div>
               </div>
 
               {/* Card 4: Grassroots Impact */}
-              <div className="group hd-card hd-glass-dark hd-glass-dark-hover rounded-[24px] p-6 sm:p-7 flex flex-col justify-between h-full">
+              <div className="group relative bg-gradient-to-br from-[#0F2B4D] via-[#0A1F38] to-[#061426] border border-[#1E3F6D]/80 hover:border-blue-400/60 rounded-[32px] sm:rounded-[36px] p-6 sm:p-7 flex flex-col justify-between h-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.12),0_16px_36px_rgba(0,0,0,0.45)] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.18),0_20px_42px_rgba(0,0,0,0.6)] transition-all duration-300 hover:-translate-y-1.5">
                 <div>
-                  <div className="w-full h-40 sm:h-44 rounded-[16px] overflow-hidden mb-5 hd-img-frame">
+                  <div className="w-full h-40 sm:h-44 rounded-[22px] overflow-hidden mb-5 border border-white/10 shadow-md">
                     <img
                       src="/images/pillar_grassroots.jpg"
                       alt="Grassroots Impact"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="eager"
                       decoding="async"
                     />
                   </div>
-                  <h3 className="font-heading font-bold text-lg sm:text-xl text-white tracking-tight mb-2.5 leading-snug group-hover:text-blue-200 transition-colors m-0">
+                  <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-blue-500/15 border border-blue-400/30 text-[11px] font-mono font-semibold tracking-widest text-sky-200 uppercase mb-3 shadow-inner">
+                    PILLAR 04
+                  </div>
+                  <h3 className="font-heading font-bold text-lg sm:text-xl text-white tracking-tight mb-2.5 leading-snug group-hover:text-blue-100 transition-colors m-0">
                     Grassroots Impact
                   </h3>
-                  <p className="font-sans text-[13px] sm:text-[13.5px] text-slate-200 leading-relaxed m-0 font-normal">
+                  <p className="font-sans text-[13px] sm:text-[13.5px] text-slate-200/90 leading-relaxed m-0 font-normal">
                     Community live labs, child protection desks, and rights-based field action translating classroom theory into measurable social good.
                   </p>
                 </div>
