@@ -90,8 +90,6 @@ const GENDER_OPTIONS = [
 const FOOD_OPTIONS = [
   { id: 'veg', label: 'Vegetarian' },
   { id: 'non-veg', label: 'Non-Vegetarian' },
-  { id: 'jain', label: 'Jain Food' },
-  { id: 'special', label: 'Specific Dietary Requirement' },
 ];
 
 const CATEGORY_DETAILS: Record<string, { label: string; fee: string; amount: number; desc: string; badge: string }> = {
@@ -713,17 +711,6 @@ export const Registration: React.FC = () => {
                         );
                       })}
                     </div>
-
-                    {formData.foodPreference === 'special' && (
-                      <input
-                        type="text"
-                        name="foodDetails"
-                        value={formData.foodDetails}
-                        onChange={handleChange}
-                        placeholder="Please specify your dietary requirements (e.g., Gluten-Free, Vegan, Allergies)"
-                        className="w-full h-13 sm:h-14 px-4 rounded-xl bg-white border-2 border-slate-300 text-slate-950 text-sm sm:text-base focus:outline-none focus:ring-4 focus:ring-slate-900/10 focus:border-[#071A33] mt-2.5 font-semibold"
-                      />
-                    )}
                   </div>
 
                   {/* 10. Do you require accommodation? * */}
@@ -1323,9 +1310,8 @@ export const Registration: React.FC = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
                       <span className="text-xs sm:text-sm text-slate-600 font-semibold block uppercase tracking-wider mb-1">9. Food Preference</span>
-                      <strong className="text-slate-950 text-base sm:text-lg font-bold capitalize">
-                        {formData.foodPreference}
-                        {formData.foodDetails && ` (${formData.foodDetails})`}
+                      <strong className="text-slate-950 text-base sm:text-lg font-bold">
+                        {formData.foodPreference === 'veg' ? 'Vegetarian' : formData.foodPreference === 'non-veg' ? 'Non-Vegetarian' : formData.foodPreference}
                       </strong>
                     </div>
 
