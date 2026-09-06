@@ -53,22 +53,12 @@ export const ConferenceOverview: React.FC = () => {
 
               {/* Right Column: Uploaded DYUTI 27 Official Logo (5 cols) */}
               <div className="lg:col-span-5 flex justify-center lg:justify-end">
-                <div className="rounded-[24px] bg-white p-5 sm:p-6 shadow-2xl border border-white/40 max-w-[380px] w-full hd-card hd-card-light hd-card-light-hover flex flex-col items-center justify-center">
-                  <div className="w-full flex items-center justify-center py-2">
-                    <img
-                      src="/images/dyuti27_theme_header.png"
-                      alt="DYUTI 27 — Official Thematic Logo"
-                      className="w-full h-auto max-h-[120px] object-contain"
-                    />
-                  </div>
-                  <div className="text-center pt-3 border-t border-slate-200 w-full mt-2">
-                    <span className="text-slate-900 font-sans text-xs font-black uppercase tracking-wider block">
-                      DYUTI 2027 Official Logo
-                    </span>
-                    <span className="text-slate-500 font-sans text-[11px] font-medium block">
-                      Social Work for Sustainable Development
-                    </span>
-                  </div>
+                <div className="rounded-[24px] bg-white p-5 sm:p-7 shadow-2xl border border-white/40 max-w-[380px] w-full hd-card hd-card-light hd-card-light-hover flex items-center justify-center">
+                  <img
+                    src="/images/dyuti27_theme_header.png"
+                    alt="DYUTI 27 — Social Work for Sustainable Development"
+                    className="w-full h-auto object-contain select-none"
+                  />
                 </div>
               </div>
             </div>
