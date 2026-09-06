@@ -483,7 +483,7 @@ export const Rajagiri: React.FC = () => {
           </div>
         </div>
 
-        {/* ── CARD 4: 25 YEARS OF INTERNATIONALISATION @ RAJAGIRI (Matching dyuti27new.vercel.app/rajagiri) ── */}
+        {/* ── CARD 4: 28 YEARS OF INTERNATIONALISATION @ RAJAGIRI (Matching dyuti27new.vercel.app/rajagiri layout) ── */}
         <div className="mb-12 sm:mb-16 rounded-[24px] sm:rounded-[32px] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-br-[48px] sm:rounded-br-[64px] p-8 sm:p-10 lg:p-12 hd-card hd-card-dark text-white shadow-2xl relative overflow-hidden text-center">
           {/* Subtle Ambient Radial Glow */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -493,16 +493,16 @@ export const Rajagiri: React.FC = () => {
             {/* Top Crest Emblem Logo */}
             <div className="flex justify-center mb-4">
               <img
-                src="https://dyuti.in/assets/images/25.png"
-                alt="25 Years of Internationalisation Emblem"
-                className="h-16 sm:h-20 w-auto object-contain brightness-200 contrast-125"
+                src="/images/28_years_internationalisation.png"
+                alt="28 Years of Internationalisation Emblem"
+                className="h-20 sm:h-24 w-auto object-contain drop-shadow-lg"
                 loading="lazy"
               />
             </div>
 
             {/* Heading */}
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-black text-white mb-2 tracking-tight">
-              25 Years of Internationalisation @ Rajagiri
+              28 Years of Internationalisation @ Rajagiri
             </h2>
             <p className="text-xs sm:text-sm font-mono font-bold tracking-wider text-slate-300 uppercase mb-8">
               A Proud Milestone Towards Global Academic Excellence
@@ -511,7 +511,7 @@ export const Rajagiri: React.FC = () => {
             {/* 2 Body Paragraphs */}
             <div className="border-t border-white/10 pt-6 space-y-4 text-slate-200 text-sm sm:text-base leading-relaxed max-w-4xl mx-auto text-left sm:text-center mb-8 font-sans font-normal">
               <p className="m-0">
-                <strong className="text-white font-bold">&lsquo;Internationalisation&rsquo;</strong> has been a cornerstone of Rajagiri&apos;s academic ethos since inception. Celebrating <span className="text-amber-300 font-bold">25 years of formal international collaborations</span>, Rajagiri maintains active agreements with over <strong className="text-white font-semibold">60 premier universities across 30 countries</strong>. These global alliances facilitate faculty exchanges, joint research, curriculum co-creation, and international consultancy.
+                <strong className="text-white font-bold">&lsquo;Internationalisation&rsquo;</strong> has been a cornerstone of Rajagiri&apos;s academic ethos since inception. Celebrating <span className="text-amber-300 font-bold">28 years of formal international collaborations</span>, Rajagiri maintains active agreements with over <strong className="text-white font-semibold">60 premier universities across 30 countries</strong>. These global alliances facilitate faculty exchanges, joint research, curriculum co-creation, and international consultancy.
               </p>
               <p className="m-0 text-slate-200">
                 Undergraduate and postgraduate students participate in semester-abroad and short-term study schemes ranging from <strong className="text-white font-semibold">1 to 6 months</strong>. Rajagiri also welcomes international scholars under the Government of India&apos;s <strong className="text-white font-semibold">Study in India (SII)</strong> initiative, alongside offering dual-degree and twinning pathways with distinguished global partner institutions.
@@ -521,7 +521,7 @@ export const Rajagiri: React.FC = () => {
             {/* Bottom 4 Stat Tiles Grid */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center hover:border-amber-400/40 transition-colors">
-                <span className="text-2xl sm:text-3xl font-extrabold text-amber-300 font-heading">25+</span>
+                <span className="text-2xl sm:text-3xl font-extrabold text-amber-300 font-heading">28+</span>
                 <span className="text-[11px] sm:text-xs font-semibold text-slate-300 tracking-wider mt-1 uppercase font-mono">Years Collaborations</span>
               </div>
               <div className="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center hover:border-amber-400/40 transition-colors">

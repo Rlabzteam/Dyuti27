@@ -75,9 +75,9 @@ export const Footer: React.FC = () => {
             {/* Col 3: Emblem & Logo (3 cols) */}
             <div className="md:col-span-3 lg:col-span-3 flex flex-col items-start md:items-end justify-between space-y-4">
               <img
-                src="https://dyuti.in/assets/images/25.png"
-                alt="DYUTI - 25 Years of Internationalism"
-                className="w-24 sm:w-28 h-auto object-contain drop-shadow-md brightness-110"
+                src="/images/28_years_internationalisation.png"
+                alt="28 Years of Internationalisation - Rajagiri"
+                className="w-24 sm:w-28 h-auto object-contain drop-shadow-md"
                 loading="lazy"
               />
               <div className="text-left md:text-right">
