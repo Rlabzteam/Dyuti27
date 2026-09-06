@@ -250,6 +250,12 @@ export const CONFERENCE_DATA = {
 
   attractions: [
     {
+      id: 'cial',
+      title: 'Cochin International Airport',
+      description: "Cochin International Airport (CIAL) is the world's first airport fully powered by solar energy, making it a globally recognised model of sustainable infrastructure. Its large-scale solar power plant generates clean energy to meet the airport's electricity needs, significantly reducing carbon emissions and dependence on conventional energy sources. The airport has demonstrated that renewable energy can be successfully integrated into large-scale public infrastructure without compromising efficiency. CIAL continues to strengthen its commitment to sustainability through initiatives such as rainwater harvesting, waste management, and the planned introduction of hydrogen-powered buses for passenger transport.",
+      imageUrl: '/images/cochin_international_airport_cial.jpg',
+    },
+    {
       id: 'cherai',
       title: 'Cherai Beach',
       description: 'Located in Kochi Taluk, Cherai boasts the longest beach in Kochi with shallow waters, serene backwaters, and pristine coconut groves, situated about 25 km from High Court Junction.',
@@ -272,6 +278,48 @@ export const CONFERENCE_DATA = {
       title: 'Mattancherry & Jew Town',
       description: 'Home to the historic Mattancherry Palace (Dutch Palace) and Paradesi Synagogue (built in 1568), reflecting the rich multicultural tapestry of ancient Cochin.',
       imageUrl: 'https://dyuti.in/uploads/attractions/1.png',
+    },
+    {
+      id: 'mangalavanam',
+      title: 'Mangalavanam Bird Sanctuary',
+      description: 'It is a peaceful green oasis located in the heart of Kochi, behind the Kerala High Court. Popularly known as the "Green Lung of Kochi," it is home to mangrove forests, migratory birds, butterflies, and many other species. It is an ideal picnic destination for nature lovers, bird watchers, and students who want to enjoy a calm environment while learning about biodiversity. The sanctuary plays an important role in conserving urban wildlife and maintaining ecological balance.',
+      imageUrl: '/images/mangalavanam_bird_sanctuary.jpg',
+    },
+    {
+      id: 'paniyeli-poru',
+      title: 'Paniyeli Poru Eco Tourism Centre, Perumbavoor',
+      description: "Paniyeli Poru Eco Tourism Centre is an ecotourism destination located on the banks of the Periyar River near Ezhattumugham in Ernakulam district. Surrounded by forests and scenic river rapids, it attracts visitors for nature walks, trekking, and wildlife observation. The centre promotes sustainable development by encouraging responsible tourism while conserving the area's rich biodiversity and natural ecosystem. It also supports local livelihoods by creating employment opportunities and fostering community participation in environmental conservation.",
+      imageUrl: '/images/paniyeli_poru_eco_tourism.jpg',
+    },
+    {
+      id: 'chellanam',
+      title: 'Chellanam Beach',
+      description: 'Chellanam Beach is a popular coastal destination in Kochi, known for its peaceful surroundings, fresh sea breeze, and beautiful sunset views. One of its main attractions is the tetrapods—large four-legged concrete structures placed along the shoreline. These tetrapods are designed to reduce the force of sea waves, prevent coastal erosion, and protect nearby houses and roads from damage during high tides and storms. The beach is an ideal place for picnics, photography, and enjoying the natural beauty of the Arabian Sea.',
+      imageUrl: '/images/chellanam_beach.jpg',
+    },
+    {
+      id: 'kochi-water-metro',
+      title: 'Kochi Water Metro: A Step Towards Sustainable Urban Mobility',
+      description: "The Kochi Water Metro is India's first integrated water-based public transport system, connecting Kochi with its surrounding islands through a network of modern electric ferries and terminals. It was introduced to provide a safe, affordable, and sustainable mode of transportation while improving connectivity for island communities and reducing traffic congestion on the city's roads. By promoting clean energy, innovative infrastructure, accessible public transport, and environmentally responsible travel, the Water Metro contributes to a more inclusive and sustainable Kochi. It is a remarkable example of how a single initiative can support multiple Sustainable Development Goals (SDGs) while improving the everyday lives of people.",
+      imageUrl: '/images/kochi_water_metro.jpg',
+    },
+    {
+      id: 'kumbalangi',
+      title: 'Kumbalangi Integrated Model Tourism Village',
+      description: "Kumbalangi is a beautiful backwater village located about 15 km from Kochi. It is India's first model tourism village and is well known for its scenic beauty, Chinese fishing nets, mangrove forests, and traditional village life. Visitors can enjoy boating, fresh seafood, coir making, crab farming, and local cultural experiences. The village promotes eco-friendly tourism and supports the livelihood of local communities, making it a perfect place for a relaxing picnic and nature exploration.",
+      imageUrl: '/images/kumbalangi_village.jpg',
+    },
+    {
+      id: 'mangrove-park-malipuram',
+      title: 'Mangrove Park, Malipuram: Conserving Nature Through Sustainable Development',
+      description: "Located in Malipuram, Vypin, the Mangrove Park is an eco-tourism destination that showcases the importance of conserving Kerala's mangrove ecosystems. The park allows visitors to explore the rich biodiversity of mangrove forests through boardwalks and nature trails while creating awareness about the need to protect these fragile coastal habitats. It promotes environmental conservation, sustainable tourism, biodiversity protection, and climate resilience, making it a great example of how local initiatives can contribute to the Sustainable Development Goals (SDGs) while preserving nature for future generations.",
+      imageUrl: '/images/mangrove_park_malipuram.jpg',
+    },
+    {
+      id: 'abhayaranyam-kaprikkad',
+      title: 'Abhayaranyam, Kaprikkad',
+      description: 'Abhayaranyam at Kaprikkad is an eco-tourism destination located in a natural forest setting near Perumbavoor, Ernakulam. It is known for wildlife conservation and provides a safe environment for animals, including elephants and other rescued wildlife. Visitors can explore the natural surroundings and learn about wildlife protection, conservation, and the importance of preserving natural habitats. By combining wildlife conservation, environmental education, and responsible tourism, Abhayaranyam provides an opportunity to understand SDG 15 – Life on Land and the importance of protecting biodiversity.',
+      imageUrl: '/images/abhayaranyam_kaprikkad.jpg',
     },
   ] as AttractionItem[],
 
