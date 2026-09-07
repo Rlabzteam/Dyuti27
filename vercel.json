@@ -1,3 +1,7 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/register", "destination": "/registration.html" },
+    { "source": "/contactus", "destination": "/contact.html" }
+  ]
 }
