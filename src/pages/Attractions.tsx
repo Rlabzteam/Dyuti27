@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, Trees, HeartHandshake } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { CONFERENCE_DATA } from '@/data/conference';
 
 export const Attractions: React.FC = () => {
@@ -86,18 +86,6 @@ export const Attractions: React.FC = () => {
                     <span className="font-mono text-xs font-black px-4 py-1.5 rounded-full bg-white/20 border border-white/30 text-white uppercase tracking-widest shadow-xs hd-chip">
                       Destination {String(idx + 1).padStart(2, '0')}
                     </span>
-                    {attraction.id === 'mangrove-park-malipuram' && (
-                      <span className="font-sans text-xs font-extrabold px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 uppercase tracking-wider shadow-xs flex items-center gap-1.5">
-                        <Trees className="w-3.5 h-3.5 text-emerald-400" />
-                        <span>Mangrove Eco-Park &amp; SDGs Conservation</span>
-                      </span>
-                    )}
-                    {attraction.id === 'abhayaranyam-kaprikkad' && (
-                      <span className="font-sans text-xs font-extrabold px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 uppercase tracking-wider shadow-xs flex items-center gap-1.5">
-                        <HeartHandshake className="w-3.5 h-3.5 text-emerald-400" />
-                        <span>SDG 15 &middot; Wildlife Conservation &amp; Eco-Tourism</span>
-                      </span>
-                    )}
                     <span className="text-xs font-sans uppercase tracking-[0.16em] text-slate-300 font-bold">
                       Kochi &middot; Ernakulam
                     </span>
