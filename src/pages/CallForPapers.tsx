@@ -1,30 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/Button';
 import { Download } from 'lucide-react';
 import { CONFERENCE_DATA } from '@/data/conference';
 
 export const CallForPapers: React.FC = () => {
-  const [activeThemeIndex, setActiveThemeIndex] = useState(0);
-  const totalThemes = CONFERENCE_DATA.subThemes.length;
-
-  const handlePrevTheme = () => {
-    setActiveThemeIndex((prev) => (prev > 0 ? prev - 1 : totalThemes - 1));
-  };
-
-  const handleNextTheme = () => {
-    setActiveThemeIndex((prev) => (prev < totalThemes - 1 ? prev + 1 : 0));
-  };
-
-  const activeTheme = CONFERENCE_DATA.subThemes[activeThemeIndex];
-
   const participantTypes = [
     'Graduate Students',
     'Post Graduate Students',
-    'Academicians / Faculty Members',
+    'Academicians',
     'Research Scholars',
     'NGO Delegates',
-    'CSR Delegates & Development Practitioners',
+    'CSR Delegates',
+    'Govt Policy Makers',
   ];
 
   return (
@@ -32,7 +20,7 @@ export const CallForPapers: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
 
         {/* ── PAGE HEADER ── */}
-        <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
+        <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
           {/* Eyebrow */}
           <div className="flex items-center justify-center gap-3 mb-6">
             <span className="w-8 h-0.5 bg-[#071A33]" />
@@ -49,16 +37,64 @@ export const CallForPapers: React.FC = () => {
             </span>
           </h1>
 
-          <div className="w-16 h-1 bg-[#071A33] rounded-full mx-auto mb-6" />
+          <div className="w-16 h-1 bg-[#071A33] rounded-full mx-auto mb-8" />
 
-          <p className="text-sm sm:text-base text-slate-650 leading-relaxed font-sans max-w-2xl mx-auto font-normal">
-            Abstracts based on original empirical research, theoretical inquiries, and innovative practice models are invited for Oral and Poster Presentations across the 8 conference themes.
-          </p>
+          {/* Invitation Statement & Presentation Formats */}
+          <div className="max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-slate-800 font-sans font-medium leading-relaxed mb-6">
+              Abstracts based on original research and practice models are invited for the following
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3.5 sm:gap-5 mb-8">
+              <div className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#071A33] text-white font-sans text-sm sm:text-base font-bold shadow-lg border border-slate-700/30">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0 shadow-xs" />
+                <span>Oral Presentation</span>
+              </div>
+              <div className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#071A33] text-white font-sans text-sm sm:text-base font-bold shadow-lg border border-slate-700/30">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0 shadow-xs" />
+                <span>Poster Presentation</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── CONFERENCE BROCHURE BANNER (Matching Submit Your Abstract Banner Design) ── */}
+        <div className="bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] border border-white/20 text-white rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-8 sm:p-12 lg:p-14 mb-16 lg:mb-20 shadow-2xl overflow-hidden relative">
+          {/* Ambient Background Glow */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 relative z-10">
+            <div className="max-w-2xl">
+              <span className="inline-flex items-center text-[11px] font-sans font-black uppercase tracking-[0.18em] text-amber-300 bg-white/10 px-3.5 py-1.5 rounded-[8px] mb-4 border border-white/30 backdrop-blur-sm shadow-sm">
+                Official Guide &middot; Comprehensive Overview
+              </span>
+              <h2 className="text-[2.25rem] sm:text-[2.85rem] font-heading font-black text-white mb-3 leading-tight">
+                Conference Brochure
+              </h2>
+              <p className="text-slate-100 text-sm sm:text-base m-0 font-sans font-normal leading-relaxed">
+                Access the official conference brochure for detailed session schedules, thematic frameworks, keynote speakers, and submission guidelines. <span className="text-slate-300 text-xs sm:text-sm block mt-1.5 font-medium">(link for the brochure will be provided separately)</span>
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-3.5 shrink-0">
+              <Button
+                variant="primary"
+                size="lg"
+                asLink
+                href="https://dyuti.in/pdf/Dyuti%202026%20International%20Conference%20Brochure_V8.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                icon={<Download className="w-5 h-5" />}
+                className="font-sans font-black uppercase tracking-wider text-xs sm:text-sm shadow-xl"
+              >
+                Click here to View/ Download
+              </Button>
+            </div>
+          </div>
         </div>
 
         {/* ── MAIN SUBMISSION ACTION BANNER (Deep Navy #071A33 Asymmetric Curved Leaf Shape) ── */}
         <div className="bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] border border-white/20 text-white rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] p-8 sm:p-12 lg:p-14 mb-20 lg:mb-28 shadow-2xl overflow-hidden relative">
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 relative z-10">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 relative z-10 mb-8">
             <div className="max-w-2xl">
               <span className="inline-flex items-center text-[11px] font-sans font-black uppercase tracking-[0.18em] text-amber-300 bg-white/10 px-3.5 py-1.5 rounded-[8px] mb-4 border border-white/30 backdrop-blur-sm shadow-sm">
                 Submissions Open &middot; Deadline: 25 Sept 2026
@@ -67,7 +103,7 @@ export const CallForPapers: React.FC = () => {
                 Submit Your Abstract or Full Paper
               </h2>
               <p className="text-slate-100 text-sm sm:text-base m-0 font-sans font-normal leading-relaxed">
-                All submissions must be uploaded electronically via the official submission portal. Peer review outcomes will be communicated systematically.
+                All submissions must be uploaded electronically via the official Microsoft CMT submission portal. Peer review outcomes will be communicated systematically.
               </p>
             </div>
 
@@ -81,7 +117,7 @@ export const CallForPapers: React.FC = () => {
                 rel="noopener noreferrer"
                 showArrow
               >
-                Submit Your Paper
+                Click Here to Submit Abstract / Full Paper
               </Button>
               <Button
                 variant="white"
@@ -96,121 +132,18 @@ export const CallForPapers: React.FC = () => {
               </Button>
             </div>
           </div>
-        </div>
 
-        {/* ── OFFICIAL CONFERENCE THEME BANNER (Asymmetric Inverted Leaf Shape in Deep Navy Gradient) ── */}
-        <div className="bg-gradient-to-br from-[#0a2540] via-[#123962] to-[#051424] border border-white/20 text-white rounded-[28px] sm:rounded-[36px] rounded-tr-[56px] sm:rounded-tr-[72px] rounded-bl-[56px] sm:rounded-bl-[72px] p-8 sm:p-10 lg:p-12 mb-20 lg:mb-28 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
-          {/* Ambient Background Glow */}
-          <div className="absolute top-0 right-0 w-72 h-72 bg-white/5 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="max-w-xl relative z-10">
-            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] mb-3 shadow-md">
-              <span>Official Conference Identity &amp; Scope</span>
-            </div>
-            <h3 className="text-2xl sm:text-3xl font-heading font-black text-white mb-2 leading-snug">
-              DYUTI 2027 Thematic Framework
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-100 font-sans font-medium m-0 leading-relaxed">
-              Advancing empirical research across community innovation, social inclusion, human rights, and global partnership initiatives.
+          {/* Acknowledgement Callout */}
+          <div className="p-5 sm:p-6 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm relative z-10">
+            <span className="text-xs font-mono uppercase tracking-[0.18em] text-amber-300 font-black block mb-2">
+              Acknowledgement
+            </span>
+            <p className="text-xs sm:text-sm text-slate-100 font-sans leading-relaxed m-0 font-medium">
+              The Microsoft CMT service was used for managing the peer-reviewing process for this conference. This service was provided for free by Microsoft and they bore all expenses, including costs for Azure cloud services as well as for software development and support.
             </p>
           </div>
-          <div className="w-full md:w-auto shrink-0 max-w-[380px] bg-white p-4 rounded-2xl rounded-tr-3xl rounded-bl-3xl border border-white/30 shadow-xl relative z-10">
-            <img
-              src="/images/dyuti27_theme_banner.png"
-              alt="DYUTI 27 — Social Work for Sustainable Development"
-              className="w-full h-auto object-contain brightness-100"
-              loading="lazy"
-            />
-          </div>
         </div>
 
-        {/* ── EIGHT CONFERENCE SUB-THEMES (Showcase Card with Fixed Shape & Signature Navy Blue Gradient) ── */}
-        <div className="relative w-full rounded-[28px] sm:rounded-[36px] rounded-tl-[56px] sm:rounded-tl-[72px] rounded-br-[56px] sm:rounded-br-[72px] overflow-hidden bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] border border-white/20 hover:border-white/30 shadow-2xl p-6 sm:p-10 lg:p-12 text-white mb-20 lg:mb-28">
-          {/* Ambient Background Radial Glows */}
-          <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
-
-          {/* Left Arrow Button with Micro-Animation */}
-          <button
-            type="button"
-            onClick={handlePrevTheme}
-            aria-label="Previous Sub-Theme"
-            className="group/btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 text-white/60 hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 p-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 hover:border-white/40 backdrop-blur-md shadow-lg focus:outline-none cursor-pointer"
-          >
-            <svg className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg transition-transform duration-300 group-hover/btn:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-
-          {/* Right Arrow Button with Micro-Animation */}
-          <button
-            type="button"
-            onClick={handleNextTheme}
-            aria-label="Next Sub-Theme"
-            className="group/btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 text-white/60 hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 p-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 hover:border-white/40 backdrop-blur-md shadow-lg focus:outline-none cursor-pointer"
-          >
-            <svg className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg transition-transform duration-300 group-hover/btn:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-
-          {/* Inner Content */}
-          <div className="relative z-10 px-4 sm:px-8 lg:px-12">
-            {/* Section Header */}
-            <div className="flex items-center justify-between pb-5 mb-5 border-b border-white/15">
-              <div className="flex items-center gap-3">
-                <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-sans font-black uppercase tracking-[0.2em] shadow-sm">
-                  Eight Conference Sub-Themes
-                </span>
-              </div>
-            </div>
-
-            {/* Active Theme Dynamic Body with Fade-In Animation & Rigid Fixed Heights */}
-            <div
-              key={activeTheme.id || activeThemeIndex}
-              className="space-y-4 animate-fade-in transition-opacity duration-300 min-h-[440px] sm:min-h-[380px] flex flex-col justify-between"
-            >
-              {/* Sub-Theme Title (Fixed Height Slot) */}
-              <div className="h-[72px] sm:h-[78px] flex items-center">
-                <h3 className="font-heading text-xl sm:text-2xl lg:text-[1.95rem] font-extrabold text-white m-0 leading-snug tracking-tight">
-                  {activeTheme.title}
-                </h3>
-              </div>
-
-              {/* Research Focus Areas Grid with Enhanced Font Visibility */}
-              <div className="p-4 sm:p-6 rounded-[22px] bg-white/[0.08] hover:bg-white/[0.11] border border-white/15 backdrop-blur-md transition-all duration-300 min-h-[330px] sm:min-h-[260px] flex flex-col justify-center">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5 items-stretch">
-                  {activeTheme.topics.map((topic, topicIdx) => (
-                    <div
-                      key={topicIdx}
-                      className="flex items-start gap-3 p-3 sm:p-3.5 rounded-xl bg-white/[0.12] hover:bg-white/[0.18] border border-white/20 text-white text-[13.5px] sm:text-[15px] font-sans font-semibold leading-snug shadow-sm transition-all duration-200 group/topic"
-                    >
-                      <span className="w-2 h-2 rounded-full bg-white/80 mt-1.5 shrink-0 group-hover/topic:scale-125 transition-transform" />
-                      <span className="group-hover/topic:text-white transition-colors">{topic}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Manual Pagination Dots (No Numbers, Pure White Glow) */}
-            <div className="flex items-center justify-center gap-2 pt-5 mt-1">
-              {CONFERENCE_DATA.subThemes.map((_, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => setActiveThemeIndex(idx)}
-                  className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${activeThemeIndex === idx
-                    ? 'w-8 bg-white shadow-[0_0_10px_rgba(255,255,255,0.7)]'
-                    : 'w-2.5 bg-white/25 hover:bg-white/50'
-                    }`}
-                  aria-label={`Go to sub-theme ${idx + 1}`}
-                />
-              ))}
-            </div>
-
-          </div>
-        </div>
 
         {/* ── GUIDELINES FOR ABSTRACT & PUBLICATION (STUNNING ASYMMETRIC CURVED LEAF CARDS) ── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 mb-20 lg:mb-28 items-stretch">
@@ -239,7 +172,7 @@ export const CallForPapers: React.FC = () => {
                     01
                   </span>
                   <span className="text-xs sm:text-sm text-slate-100 font-sans font-medium leading-relaxed">
-                    The abstract should be <strong className="text-white font-black">within 300 words</strong> of text including the title and keywords (MS Word document).
+                    The abstract should be <strong className="text-white font-black">within 300 words</strong> of text, including the title and keywords (MS Word Doc.)
                   </span>
                 </div>
 
@@ -248,7 +181,7 @@ export const CallForPapers: React.FC = () => {
                     02
                   </span>
                   <span className="text-xs sm:text-sm text-slate-100 font-sans font-medium leading-relaxed">
-                    The text should be arranged according to the following headlines: <strong className="text-white font-black">Objectives, Design, Model, Result, and Conclusion</strong>.
+                    The text should be arranged according to the following headlines: <strong className="text-white font-black">Objectives, Design, Model, Results, and Conclusion</strong>.
                   </span>
                 </div>
 
@@ -257,7 +190,7 @@ export const CallForPapers: React.FC = () => {
                     03
                   </span>
                   <span className="text-xs sm:text-sm text-slate-100 font-sans font-medium leading-relaxed">
-                    The abstract&apos;s title page must include the paper title, Author&apos;s full name, academic designation, institutional affiliation, mailing address, contact phone, and email ID.
+                    The abstract&apos;s title page should include the paper&apos;s title, Author&apos;s name, designation, institution affiliation, mailing address, contact number and email id.
                   </span>
                 </div>
 
@@ -293,7 +226,7 @@ export const CallForPapers: React.FC = () => {
               {/* Scopus Highlight Box */}
               <div className="p-6 rounded-[20px] bg-white/10 text-white shadow-xl border border-white/20">
                 <p className="text-xs sm:text-sm font-sans font-extrabold leading-relaxed m-0 text-white">
-                  Selected papers presented at the conference will be published as <span className="underline decoration-white/40 underline-offset-4 font-black">Scopus-indexed book chapters / peer-reviewed conference volumes</span> following double-blind peer review.
+                  Selected papers presented at the conference will be considered for publication in <span className="underline decoration-white/40 underline-offset-4 font-black">Scopus-index book chapters</span> after the due review process.
                 </p>
               </div>
 
@@ -312,6 +245,15 @@ export const CallForPapers: React.FC = () => {
                     All submissions undergo rigorous double-blind peer review by an international scientific review panel.
                   </p>
                 </div>
+
+                <div className="p-5 rounded-2xl bg-white/10 border border-white/15 space-y-1.5">
+                  <span className="text-amber-300 block font-mono text-xs uppercase tracking-wider font-black">
+                    Acknowledgement
+                  </span>
+                  <p className="text-xs sm:text-sm text-slate-100 font-sans font-medium leading-relaxed m-0">
+                    The Microsoft CMT service was used for managing the peer-reviewing process for this conference. This service was provided for free by Microsoft and they bore all expenses, including costs for Azure cloud services as well as for software development and support.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -328,18 +270,18 @@ export const CallForPapers: React.FC = () => {
               <span>Delegates &amp; Attendees</span>
             </div>
             <h3 className="font-heading text-2xl sm:text-3xl text-white font-black m-0">
-              Eligible Participant Categories
+              Type of Participants
             </h3>
             <p className="text-xs sm:text-sm text-slate-100 font-sans font-medium m-0 mt-1">
-              Scholars and practitioners eligible to register and present papers
+              Scholars, practitioners, and policymakers eligible to register and present papers
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 relative z-10">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3.5 relative z-10">
             {participantTypes.map((type, idx) => (
               <div
                 key={idx}
-                className="p-4 sm:p-5 rounded-2xl rounded-tr-3xl rounded-bl-3xl bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/40 text-center font-sans text-xs sm:text-sm font-bold text-white shadow-md flex items-center justify-center transition-all cursor-default backdrop-blur-sm"
+                className="p-4 sm:p-5 rounded-2xl rounded-tr-3xl rounded-bl-3xl bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/40 text-center font-sans text-xs sm:text-[13px] font-bold text-white shadow-md flex items-center justify-center transition-all cursor-default backdrop-blur-sm leading-tight"
               >
                 <span>{type}</span>
               </div>
@@ -347,19 +289,33 @@ export const CallForPapers: React.FC = () => {
           </div>
         </div>
 
-        {/* ── 01. SUBMISSION DEADLINES & MILESTONES (FULL WIDTH CARDS) ── */}
+        {/* ── 01. IMPORTANT DATES & DEADLINES (FULL WIDTH CARDS) ── */}
         <div className="mb-20 lg:mb-28">
-          <div className="mb-8 pb-4 border-b border-slate-400">
+          <div className="mb-8 pb-4 border-b border-slate-400 flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
               <span className="text-[11px] font-mono font-black uppercase tracking-[0.18em] text-slate-900 block mb-1">
                 Timeline &amp; Dates
               </span>
               <h3 className="font-heading text-2xl sm:text-3xl text-slate-950 font-black m-0">
-                Submission Deadlines &amp; Key Milestones
+                Important Dates &amp; Deadlines
               </h3>
               <p className="text-xs sm:text-sm text-slate-900 font-sans font-medium m-0 mt-0.5">
                 Critical timeline for abstract review, author acceptance, and conference attendance
               </p>
+            </div>
+            <div>
+              <Button
+                variant="primary"
+                size="md"
+                asLink
+                href={CONFERENCE_DATA.links.cmtSubmission}
+                target="_blank"
+                rel="noopener noreferrer"
+                showArrow
+                className="font-sans font-black uppercase tracking-wider text-xs sm:text-sm"
+              >
+                Click Here to Submit Abstract / Full Paper
+              </Button>
             </div>
           </div>
 
@@ -377,13 +333,13 @@ export const CallForPapers: React.FC = () => {
                   Last Date of Abstract Submission
                 </h4>
                 <p className="text-xs text-slate-100 font-sans leading-relaxed mb-4 font-medium">
-                  Original empirical abstracts (max 300 words) submitted online.
+                  Original research and practice model abstracts (max 300 words) submitted online.
                 </p>
               </div>
               <div className="pt-4 border-t border-white/15 flex items-center justify-between">
                 <span className="text-[11px] text-slate-300 font-sans uppercase font-bold">Deadline</span>
                 <span className="font-mono text-sm font-black text-slate-950 bg-amber-400 border border-amber-300 px-3 py-1 rounded-[8px] shadow-sm">
-                  25 Sept 2026
+                  25 September 2026
                 </span>
               </div>
             </div>
