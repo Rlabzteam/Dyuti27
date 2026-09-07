@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, Sparkles, Trees, Waves, Shield, Zap, Compass, HeartHandshake } from 'lucide-react';
+import { ExternalLink, Trees, HeartHandshake } from 'lucide-react';
 import { CONFERENCE_DATA } from '@/data/conference';
 
 export const Attractions: React.FC = () => {
@@ -49,7 +49,6 @@ export const Attractions: React.FC = () => {
         <div className="space-y-16 lg:space-y-24 mb-20 lg:mb-28">
           {CONFERENCE_DATA.attractions.map((attraction, idx) => {
             const isEven = idx % 2 === 1;
-            const isCial = attraction.id === 'cial';
 
             return (
               <div
@@ -87,42 +86,6 @@ export const Attractions: React.FC = () => {
                     <span className="font-mono text-xs font-black px-4 py-1.5 rounded-full bg-white/20 border border-white/30 text-white uppercase tracking-widest shadow-xs hd-chip">
                       Destination {String(idx + 1).padStart(2, '0')}
                     </span>
-                    {isCial && (
-                      <span className="font-sans text-xs font-extrabold px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 uppercase tracking-wider shadow-xs flex items-center gap-1.5">
-                        <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-                        <span>100% Solar Powered</span>
-                      </span>
-                    )}
-                    {attraction.id === 'mangalavanam' && (
-                      <span className="font-sans text-xs font-extrabold px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 uppercase tracking-wider shadow-xs flex items-center gap-1.5">
-                        <Trees className="w-3.5 h-3.5 text-emerald-400" />
-                        <span>Green Lung of Kochi</span>
-                      </span>
-                    )}
-                    {attraction.id === 'paniyeli-poru' && (
-                      <span className="font-sans text-xs font-extrabold px-3.5 py-1.5 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 uppercase tracking-wider shadow-xs flex items-center gap-1.5">
-                        <Waves className="w-3.5 h-3.5 text-cyan-400" />
-                        <span>Community Ecotourism &amp; River Rapids</span>
-                      </span>
-                    )}
-                    {attraction.id === 'chellanam' && (
-                      <span className="font-sans text-xs font-extrabold px-3.5 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/40 text-blue-300 uppercase tracking-wider shadow-xs flex items-center gap-1.5">
-                        <Shield className="w-3.5 h-3.5 text-blue-400" />
-                        <span>Tetrapod Coastal Seawall Walkway</span>
-                      </span>
-                    )}
-                    {attraction.id === 'kochi-water-metro' && (
-                      <span className="font-sans text-xs font-extrabold px-3.5 py-1.5 rounded-full bg-teal-500/20 border border-teal-400/40 text-teal-300 uppercase tracking-wider shadow-xs flex items-center gap-1.5">
-                        <Zap className="w-3.5 h-3.5 text-teal-400" />
-                        <span>Electric Water Transit &amp; SDGs Model</span>
-                      </span>
-                    )}
-                    {attraction.id === 'kumbalangi' && (
-                      <span className="font-sans text-xs font-extrabold px-3.5 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 uppercase tracking-wider shadow-xs flex items-center gap-1.5">
-                        <Compass className="w-3.5 h-3.5 text-amber-400" />
-                        <span>India&apos;s 1st Model Tourism Village</span>
-                      </span>
-                    )}
                     {attraction.id === 'mangrove-park-malipuram' && (
                       <span className="font-sans text-xs font-extrabold px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 uppercase tracking-wider shadow-xs flex items-center gap-1.5">
                         <Trees className="w-3.5 h-3.5 text-emerald-400" />
