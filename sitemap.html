@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DYUTI 2027 — Site Map</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Inter", sans-serif; background: #f0f4f8; min-height: 100vh; padding: 40px 20px 60px; color: #1e293b; }
+    .container { max-width: 900px; margin: 0 auto; }
+    .site-header { text-align: center; margin-bottom: 48px; }
+    .site-header .badge { display: inline-block; background: #071A33; color: #d4af37; font-family: "Outfit", sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; padding: 6px 18px; border-radius: 999px; margin-bottom: 18px; }
+    .site-header h1 { font-family: "Outfit", sans-serif; font-size: 2.4rem; font-weight: 800; color: #071A33; margin-bottom: 10px; }
+    .site-header p { color: #64748b; font-size: 0.95rem; }
+    .section-label { font-family: "Outfit", sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #94a3b8; margin-bottom: 14px; padding-left: 4px; }
+    .pages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 40px; }
+    .page-card { background: #fff; border-radius: 16px; border: 1.5px solid #e2e8f0; padding: 22px 24px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 8px; transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; position: relative; overflow: hidden; }
+    .page-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #071A33, #1a3a5c); opacity: 0; transition: opacity 0.18s ease; }
+    .page-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(7,26,51,0.12); border-color: #071A33; }
+    .page-card:hover::before { opacity: 1; }
+    .card-icon { font-size: 1.6rem; }
+    .card-name { font-family: "Outfit", sans-serif; font-size: 1.05rem; font-weight: 700; color: #071A33; }
+    .card-filename { font-size: 0.78rem; color: #94a3b8; font-family: "Courier New", monospace; }
+    .card-desc { font-size: 0.82rem; color: #64748b; line-height: 1.5; margin-top: 2px; }
+    .card-size { font-size: 0.72rem; color: #cbd5e1; margin-top: auto; padding-top: 10px; border-top: 1px solid #f1f5f9; }
+    .page-card.featured { background: #071A33; border-color: #071A33; grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 20px; }
+    .page-card.featured::before { background: linear-gradient(90deg, #d4af37, #fde047); opacity: 1; }
+    .page-card.featured .card-name { color: #fff; font-size: 1.2rem; }
+    .page-card.featured .card-filename { color: #64748b; }
+    .page-card.featured .card-desc { color: #94a3b8; }
+    .page-card.featured .card-size { color: #475569; border-color: #1e3a5f; }
+    .page-card.featured .card-icon { font-size: 2.2rem; }
+    .arrow { margin-left: auto; color: #d4af37; font-size: 1.4rem; opacity: 0.7; }
+    .page-card.error-card { border-style: dashed; background: #fafafa; }
+    .footer { text-align: center; color: #94a3b8; font-size: 0.8rem; margin-top: 48px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="site-header">
+      <div class="badge">DYUTI 2027 &middot; National Academic Conference</div>
+      <h1>Website Pages</h1>
+      <p>All 11 HTML pages of the DYUTI 2027 conference website</p>
+    </header>
+
+    <p class="section-label">Main Pages</p>
+    <div class="pages-grid">
+      <a class="page-card featured" href="index.html">
+        <div class="card-icon">&#127968;</div>
+        <div>
+          <div class="card-name">Home</div>
+          <div class="card-filename">index.html</div>
+          <div class="card-desc">Conference landing page with hero banner, about section, and key highlights.</div>
+          <div class="card-size">52.5 KB</div>
+        </div>
+        <div class="arrow">&#8599;</div>
+      </a>
+      <a class="page-card" href="rajagiri.html">
+        <div class="card-icon">&#127963;</div>
+        <div class="card-name">Rajagiri</div>
+        <div class="card-filename">rajagiri.html</div>
+        <div class="card-desc">About Rajagiri College of Social Sciences, the host institution.</div>
+        <div class="card-size">59.5 KB</div>
+      </a>
+      <a class="page-card" href="call-for-papers.html">
+        <div class="card-icon">&#128196;</div>
+        <div class="card-name">Call for Papers</div>
+        <div class="card-filename">call-for-papers.html</div>
+        <div class="card-desc">Submission guidelines, themes, and abstract deadline information.</div>
+        <div class="card-size">73.2 KB</div>
+      </a>
+      <a class="page-card" href="our-team.html">
+        <div class="card-icon">&#128101;</div>
+        <div class="card-name">Our Team</div>
+        <div class="card-filename">our-team.html</div>
+        <div class="card-desc">Organising committee, advisory board, and conference chairs.</div>
+        <div class="card-size">85.4 KB</div>
+      </a>
+    </div>
+
+    <p class="section-label">Delegate Pages</p>
+    <div class="pages-grid">
+      <a class="page-card" href="registration.html">
+        <div class="card-icon">&#128221;</div>
+        <div class="card-name">Registration</div>
+        <div class="card-filename">registration.html</div>
+        <div class="card-desc">Online registration form, fee categories, and payment details.</div>
+        <div class="card-size">81.3 KB</div>
+      </a>
+      <a class="page-card" href="accommodation.html">
+        <div class="card-icon">&#127976;</div>
+        <div class="card-name">Accommodation</div>
+        <div class="card-filename">accommodation.html</div>
+        <div class="card-desc">Curated hotels near Rajagiri campus with contact and pricing info.</div>
+        <div class="card-size">40.4 KB</div>
+      </a>
+      <a class="page-card" href="attractions.html">
+        <div class="card-icon">&#127796;</div>
+        <div class="card-name">Attractions</div>
+        <div class="card-filename">attractions.html</div>
+        <div class="card-desc">Tourist spots and points of interest in and around Kochi.</div>
+        <div class="card-size">56.2 KB</div>
+      </a>
+      <a class="page-card" href="travel.html">
+        <div class="card-icon">&#9992;</div>
+        <div class="card-name">Travel</div>
+        <div class="card-filename">travel.html</div>
+        <div class="card-desc">How to reach Rajagiri by air, rail, road, and local transit.</div>
+        <div class="card-size">38.5 KB</div>
+      </a>
+    </div>
+
+    <p class="section-label">Additional Pages</p>
+    <div class="pages-grid">
+      <a class="page-card" href="gallery.html">
+        <div class="card-icon">&#128444;</div>
+        <div class="card-name">Gallery</div>
+        <div class="card-filename">gallery.html</div>
+        <div class="card-desc">Historical conference photo archive across 25+ editions of DYUTI.</div>
+        <div class="card-size">132.8 KB</div>
+      </a>
+      <a class="page-card" href="contact.html">
+        <div class="card-icon">&#128236;</div>
+        <div class="card-name">Contact Us</div>
+        <div class="card-filename">contact.html</div>
+        <div class="card-desc">Contact the organising committee, venue address, and enquiry form.</div>
+        <div class="card-size">38.8 KB</div>
+      </a>
+      <a class="page-card error-card" href="404.html">
+        <div class="card-icon">&#9888;</div>
+        <div class="card-name">404 &mdash; Not Found</div>
+        <div class="card-filename">404.html</div>
+        <div class="card-desc">Error page shown when a visitor navigates to a non-existent URL.</div>
+        <div class="card-size">29 KB</div>
+      </a>
+    </div>
+
+    <footer class="footer">
+      DYUTI 2027 &middot; Rajagiri College of Social Sciences (Autonomous) &middot; Kalamassery, Kochi, Kerala, India
+    </footer>
+  </div>
+</body>
+</html>
