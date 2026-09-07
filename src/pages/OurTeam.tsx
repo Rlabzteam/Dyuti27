@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import { CONFERENCE_DATA } from '@/data/conference';
 import {
   Mail,
@@ -8,7 +7,6 @@ import {
   Search,
   Building2,
   MapPin,
-  Send,
 } from 'lucide-react';
 
 export const OurTeam: React.FC = () => {
@@ -591,23 +589,6 @@ export const OurTeam: React.FC = () => {
                         )}
                       </button>
                     </div>
-                  </div>
-
-                  <div className="pt-2 flex flex-col gap-2.5">
-                    <Link
-                      to="/contactus"
-                      className="w-full h-11 rounded-xl bg-white hover:bg-slate-100 text-[#071A33] font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md transition-all hover:scale-[1.02]"
-                    >
-                      <Send className="w-4 h-4 text-[#071A33]" />
-                      <span>Send an Online Inquiry</span>
-                    </Link>
-                    <Link
-                      to="/travel"
-                      className="w-full h-10 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-[13px] flex items-center justify-center gap-2 transition-all border border-white/15"
-                    >
-                      <MapPin className="w-3.5 h-3.5 text-blue-200" />
-                      <span>Campus Directions &amp; Transit</span>
-                    </Link>
                   </div>
                 </div>
               </div>

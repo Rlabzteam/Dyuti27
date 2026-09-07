@@ -105,13 +105,13 @@ export const Header: React.FC = () => {
             </ul>
           </nav>
 
-          {/* Right: White Pill Register Button */}
+          {/* Right: White Pill Contact Us Button */}
           <div className="hidden sm:flex items-center gap-3 shrink-0">
             <Link
-              to="/register"
+              to="/contactus"
               className="group h-[42px] sm:h-[46px] px-7 sm:px-9 inline-flex items-center gap-2 text-[13.5px] sm:text-[15px] font-sans font-bold bg-white text-[#071A33] hover:bg-slate-100 rounded-full transition-all duration-200 shadow-sm focus-visible:outline-none hover:scale-105"
             >
-              <span>Register</span>
+              <span>Contact Us</span>
               <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
           </div>
@@ -119,10 +119,10 @@ export const Header: React.FC = () => {
           {/* Mobile Actions */}
           <div className="flex sm:hidden items-center gap-2 shrink-0">
             <Link
-              to="/register"
+              to="/contactus"
               className="px-4 h-9 inline-flex items-center text-[12.5px] font-sans font-bold bg-white text-slate-950 hover:bg-slate-100 rounded-full focus-visible:outline-none shadow-xs"
             >
-              Register
+              Contact Us
             </Link>
             <button
               type="button"
