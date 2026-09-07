@@ -8,7 +8,6 @@ import {
   Search,
   Building2,
   MapPin,
-  ArrowRight,
   Send,
 } from 'lucide-react';
 
@@ -179,8 +178,8 @@ export const OurTeam: React.FC = () => {
                 <div className="relative z-10 flex flex-col h-full justify-between">
                   <div>
                     {/* Role Pill */}
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/30 border border-blue-300 text-white text-xs sm:text-[13px] font-sans font-extrabold tracking-wide uppercase shadow-sm mb-6">
-                      <span>Executive Committee &middot; Chief Patron</span>
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/30 border border-blue-300 text-white text-xs sm:text-[13px] font-sans shadow-sm mb-6">
+                      <span className="font-extrabold tracking-wider uppercase">Executive Committee &middot; Chief Patron</span>
                     </div>
 
                     <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-6 mb-6 text-center sm:text-left">
@@ -236,8 +235,8 @@ export const OurTeam: React.FC = () => {
                 <div className="relative z-10 flex flex-col h-full justify-between">
                   <div>
                     {/* Role Pill */}
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/30 border border-blue-300 text-white text-xs sm:text-[13px] font-sans font-extrabold tracking-wide uppercase shadow-sm mb-6">
-                      <span>Executive Committee &middot; Patron</span>
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/30 border border-blue-300 text-white text-xs sm:text-[13px] font-sans shadow-sm mb-6">
+                      <span className="font-extrabold tracking-wider uppercase">Executive Committee &middot; Patron</span>
                     </div>
 
                     <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-6 mb-6 text-center sm:text-left">
@@ -640,35 +639,6 @@ export const OurTeam: React.FC = () => {
             </button>
           </div>
         )}
-
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 5: BOTTOM CALLOUT BANNER
-        ══════════════════════════════════════════════════════════ */}
-        <div className="rounded-3xl bg-[#071A33] text-white p-8 sm:p-12 text-center border border-white/10 shadow-xl relative overflow-hidden">
-          <div className="relative z-10 max-w-2xl mx-auto space-y-4">
-            <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-white m-0">
-              Join the National Academic Dialogue
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-200 font-sans leading-relaxed m-0">
-              Submit your research abstracts before <strong>25 September 2026</strong> or register online to attend the deliberations in Kochi, Kerala.
-            </p>
-            <div className="pt-3 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-              <Link
-                to="/register"
-                className="px-6 py-3 rounded-full bg-white hover:bg-slate-100 text-[#071A33] font-sans font-bold text-xs sm:text-sm shadow-md transition-all hover:scale-105 inline-flex items-center gap-2"
-              >
-                <span>Register as Delegate</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                to="/call_for_papers"
-                className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-sans font-semibold text-xs sm:text-sm border border-white/20 transition-all inline-flex items-center gap-2"
-              >
-                <span>Call for Papers &amp; Submissions</span>
-              </Link>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
