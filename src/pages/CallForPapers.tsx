@@ -453,15 +453,11 @@ export const CallForPapers: React.FC = () => {
                 <ul className="space-y-3 text-xs sm:text-sm text-slate-100 font-sans font-medium mb-8">
                   <li className="flex items-start gap-2.5">
                     <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
-                    <span>Access to all technical presentation tracks</span>
+                    <span>Lunch on both conference days</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
-                    <span>Author Certificate of Presentation</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
-                    <span>Executive lunch &amp; refreshments on both days</span>
+                    <span>Access to all conference session</span>
                   </li>
                 </ul>
               </div>
@@ -502,15 +498,11 @@ export const CallForPapers: React.FC = () => {
                 <ul className="space-y-3 text-xs sm:text-sm text-slate-100 font-sans font-medium mb-8">
                   <li className="flex items-start gap-2.5">
                     <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
-                    <span>Access to all keynotes, plenaries &amp; paper tracks</span>
+                    <span>Lunch on both conference days</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
-                    <span>Official Conference Kit, badge &amp; certificate</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-xs" />
-                    <span>Executive lunch &amp; banquet tea on both days</span>
+                    <span>Access to all conference session</span>
                   </li>
                 </ul>
               </div>
@@ -523,12 +515,23 @@ export const CallForPapers: React.FC = () => {
             </div>
           </div>
 
-          {/* Unified Inclusions Banner (Inverted Leaf Shape) */}
-          <div className="p-7 sm:p-8 rounded-[24px] rounded-tr-[44px] rounded-bl-[44px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] border border-white/20 text-white text-xs sm:text-sm font-sans leading-relaxed shadow-xl relative overflow-hidden">
+          {/* Registration Fee Includes Banner (Inverted Leaf Shape) */}
+          <div className="p-7 sm:p-8 rounded-[24px] rounded-tr-[44px] rounded-bl-[44px] bg-gradient-to-br from-[#071A33] via-[#0e2a52] to-[#040e1c] border border-white/20 text-white shadow-xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none" />
             <div className="relative z-10">
-              <strong className="font-black text-amber-300 text-sm sm:text-base block mb-2">Every Registration Pass Includes:</strong>
-              <span className="text-slate-100 font-medium leading-relaxed">Conference kit, official delegate badge, verified certificate of participation/presentation, executive buffet lunch on both conference days (7 &amp; 8 January 2027), morning and evening tea/refreshments, and unrestricted entry to all plenaries and thematic paper tracks.</span>
+              <strong className="font-black text-amber-300 text-sm sm:text-base block mb-3 font-heading uppercase tracking-wide">
+                Registration Fee Includes:
+              </strong>
+              <ul className="space-y-2.5 text-xs sm:text-sm text-slate-100 font-sans font-medium">
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0 shadow-xs" />
+                  <span>Lunch on both conference days</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0 shadow-xs" />
+                  <span>Access to all conference session</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

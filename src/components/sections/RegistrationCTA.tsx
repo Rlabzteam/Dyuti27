@@ -102,11 +102,11 @@ export const RegistrationCTA: React.FC = () => {
                   <ul className="space-y-3 text-[13px] text-white/90 font-sans mb-8">
                     <li className="flex items-start gap-3">
                       <Check className="w-4 h-4 text-[#60A5FA] shrink-0 mt-0.5" />
-                      <span>Access to all 8 thematic tracks &amp; plenaries</span>
+                      <span>Lunch on both conference days</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <Check className="w-4 h-4 text-[#60A5FA] shrink-0 mt-0.5" />
-                      <span>Conference delegate kit &amp; documentation</span>
+                      <span>Access to all conference session</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <Check className="w-4 h-4 text-[#60A5FA] shrink-0 mt-0.5" />
