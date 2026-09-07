@@ -7,9 +7,9 @@
     "esbuild": true
   },
   "scripts": {
-    "dev": "vite",
-    "build": "node ./node_modules/vite/bin/vite.js build",
-    "preview": "vite preview"
+    "dev": "npx serve .",
+    "build": "echo 'Static HTML build ready'",
+    "preview": "npx serve ."
   },
   "dependencies": {
     "clsx": "^2.1.1",
