@@ -95,7 +95,7 @@ flowchart TB
 
     subgraph T4["4. External Services & Integrations"]
         direction LR
-        MSCMT["Microsoft CMT Portal\n(Blind Peer Review & Submissions)"]
+        MSCMT["Google forms\n(Blind Peer Review & Submissions)"]
         Payment["Payment Gateways\n(Razorpay / Bank Wire / NEFT)"]
         CDN["Cloudflare Edge CDN\n(DDoS Protection, Caching & SSL)"]
     end
