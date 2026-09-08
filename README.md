@@ -78,7 +78,7 @@ flowchart TB
 
     subgraph T2["2. Application & API Processing Tier"]
         direction LR
-        WebServer["Web Server Routing\n(Nginx / Apache / Vercel Edge)"]
+        WebServer["Web Server Routing\n(Nginx / Apache )"]
         PHP["PHP REST Microservices\n(/public/api/*.php)"]
         Security["Security & Validation\n(CORS, Rate Limiting, Sanitization)"]
         WebServer --> PHP
