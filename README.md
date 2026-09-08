@@ -57,6 +57,68 @@ The DYUTI 2027 visual identity follows a **"Navy, Gold & Ivory"** aesthetic repr
 
 ---
 
+## 🏛️ System Architecture
+
+The DYUTI 2027 platform is engineered using a decoupled, high-performance **4-Tier Architecture** separating the client experience, API services, data persistence, and external academic integrations:
+
+![DYUTI 2027 System Architecture](images/system_architecture_diagram.jpg)
+
+```mermaid
+flowchart TB
+    subgraph T1["1. Client & Presentation Tier"]
+        direction LR
+        Browser["User Web Browser\n(Chrome / Safari / Firefox / Edge)"]
+        UI["HTML5 & Tailwind CSS\n(Responsive UI & Themes)"]
+        JS["Vanilla JavaScript (ES6+)\n(Dynamic Interactivity & DOM)"]
+        Icons["Lucide Icons Library"]
+        Browser --> UI
+        UI --- JS
+        UI --- Icons
+    end
+
+    subgraph T2["2. Application & API Processing Tier"]
+        direction LR
+        WebServer["Web Server Routing\n(Nginx / Apache / Vercel Edge)"]
+        PHP["PHP REST Microservices\n(/public/api/*.php)"]
+        Security["Security & Validation\n(CORS, Rate Limiting, Sanitization)"]
+        WebServer --> PHP
+        PHP <--> Security
+    end
+
+    subgraph T3["3. Data Persistence & Storage Tier"]
+        direction LR
+        SQL["Relational SQL Database\n(MySQL / MariaDB Engine)"]
+        Schemas["Normalized Schemas\n(Delegates, Registrations, Logs)"]
+        Assets["Static Media Storage\n(PDF Brochures, Schedules, Photos)"]
+        SQL --- Schemas
+    end
+
+    subgraph T4["4. External Services & Integrations"]
+        direction LR
+        MSCMT["Microsoft CMT Portal\n(Blind Peer Review & Submissions)"]
+        Payment["Payment Gateways\n(Razorpay / Bank Wire / NEFT)"]
+        CDN["Cloudflare Edge CDN\n(DDoS Protection, Caching & SSL)"]
+    end
+
+    %% Cross-Tier Data Flow
+    T1 -- "HTTPS / Fetch API (JSON)" --> T2
+    T2 -- "Prepared PDO Queries" --> T3
+    T1 -- "Direct Submission Redirection" --> MSCMT
+    T2 -- "Webhook / Signature Verification" --> Payment
+    CDN -- "Cached Global Delivery" --> T1
+```
+
+### Architecture Layer Summary
+
+| Tier | Primary Role | Technologies & Components |
+| :--- | :--- | :--- |
+| **1. Client Tier** | Presentation, Accessibility & Dynamic UI | Semantic HTML5, Tailwind CSS v3, Vanilla JS (ES6+), Lucide Icons |
+| **2. Application Tier** | Request Validation & REST Routing | Nginx/Apache Web Server, PHP Microservices (`/public/api/`), Rate Limiting |
+| **3. Data Tier** | Persistent Storage & Media Assets | Relational SQL (MySQL/MariaDB), Normalized Tables, Local Object/Static Storage |
+| **4. External Services** | Specialized Academic & Financial Integrations | Microsoft CMT (Peer Review), Payment Gateways (Razorpay/Bank Wire), Cloudflare CDN |
+
+---
+
 ## 📂 Project Structure
 
 ```
