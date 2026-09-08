@@ -244,6 +244,11 @@ function initGalleryLightbox() {
     currentVisibleList = Array.from(galleryItems).filter(item => item.style.display !== 'none');
   }
 
+  const allBadge = document.querySelector('.gallery-tab-btn[data-year="all"] .font-mono');
+  if (allBadge && galleryItems.length) {
+    allBadge.textContent = galleryItems.length;
+  }
+
   filterTabs.forEach(tab => {
     tab.addEventListener('click', () => {
       filterTabs.forEach(t => {
