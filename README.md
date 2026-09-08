@@ -46,6 +46,17 @@ The DYUTI 2027 visual identity follows a **"Navy, Gold & Ivory"** aesthetic repr
 
 ---
 
+## 💻 Technologies Used
+
+- **Markup & Structure**: **HTML5** (Semantic elements, accessible ARIA attributes, responsive viewport metadata, and SEO optimizations).
+- **Styling & Design System**: **Tailwind CSS v3** (Utility-first framework with custom HSL/Hex color tokens, dark glassmorphism gradients, and mobile-first responsive breakpoints) & **Vanilla CSS** for custom keyframe animations.
+- **Client-Side Logic & Interactivity**: **Vanilla JavaScript (ES6+)** (Dynamic DOM manipulation, team category filters, interactive tab sliders, modal lightboxes, multi-step registration forms, and clipboard handlers).
+- **Typography**: Google Fonts — [Outfit](https://fonts.google.com/specimen/Outfit) (Geometric sans-serif for editorial headings) & modern system sans-serif typography stack.
+- **Iconography & Graphics**: **SVG Vector Graphics** & optimized WebP/PNG high-resolution visual assets.
+- **Hosting & Infrastructure**: **Static Web Architecture** — Zero Node.js backend required for production; deploys seamlessly to Vercel, Netlify, GitHub Pages, Apache, Nginx, or IIS.
+
+---
+
 ## 📂 Project Structure
 
 ```
