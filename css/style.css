@@ -440,28 +440,35 @@ html {
 
 
 .top-branding-banner .top-banner-logo {
-  height: 48px !important;
+  height: 32px !important;
   width: auto !important;
-  max-height: 48px !important;
-  max-width: 140px !important;
+  max-height: 32px !important;
+  max-width: 95px !important;
   object-fit: contain !important;
   display: block !important;
   flex-shrink: 0 !important;
 }
 
 .top-branding-banner .top-banner-theme-logo {
-  height: 48px !important;
-  max-height: 48px !important;
+  height: 32px !important;
+  max-height: 32px !important;
   width: auto !important;
-  max-width: 260px !important;
+  max-width: 170px !important;
   object-fit: contain !important;
   display: block !important;
   flex-shrink: 1 !important;
 }
 
 @media (min-width: 480px) {
+  .top-branding-banner .top-banner-logo {
+    height: 40px !important;
+    max-height: 40px !important;
+    max-width: 120px !important;
+  }
   .top-branding-banner .top-banner-theme-logo {
-    max-width: 360px !important;
+    height: 40px !important;
+    max-height: 40px !important;
+    max-width: 260px !important;
   }
 }
 
