@@ -666,7 +666,7 @@ function initRegistrationForm() {
     }
     if (revPaperContainer) {
       if (isPresentingPaper === 'yes' && paperTitle) {
-        revPaperContainer.textContent = `“${paperTitle}” ${cmtPaperId ? `[${cmtPaperId}]` : ''}`;
+        revPaperContainer.textContent = `"${paperTitle}" ${cmtPaperId ? `[${cmtPaperId}]` : ''}`;
         revPaperContainer.classList.remove('hidden');
       } else {
         revPaperContainer.classList.add('hidden');
@@ -1202,4 +1202,3 @@ function reinitializePageComponents() {
   initRegistrationForm();
   initContactForm();
 }
-
