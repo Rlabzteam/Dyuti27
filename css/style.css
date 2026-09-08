@@ -578,4 +578,22 @@ header .navbar-container {
   pointer-events: auto !important;
 }
 
+/* ── CENTERED MOBILE MENU MODAL OVERRIDES ── */
+#mobile-drawer {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%) scale(0.95) !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#mobile-drawer.open,
+#mobile-drawer.opacity-100 {
+  transform: translate(-50%, -50%) scale(1) !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
 

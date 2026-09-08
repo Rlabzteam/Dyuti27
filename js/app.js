@@ -42,7 +42,7 @@ function initNavbar() {
   updateNavbarScroll();
 }
 
-/* ── 2. MOBILE MENU DRAWER ── */
+/* ── 2. MOBILE MENU MODAL ── */
 function initMobileMenu() {
   const toggleBtn = document.getElementById('mobile-menu-toggle');
   const drawer = document.getElementById('mobile-drawer');
@@ -53,8 +53,8 @@ function initMobileMenu() {
 
   const openDrawer = () => {
     drawer.classList.add('open');
-    drawer.classList.remove('translate-x-full');
-    drawer.classList.add('translate-x-0');
+    drawer.classList.remove('opacity-0', 'pointer-events-none', 'scale-95', 'translate-x-full');
+    drawer.classList.add('opacity-100', 'pointer-events-auto', 'scale-100');
     overlay.classList.add('open');
     overlay.classList.remove('opacity-0', 'pointer-events-none');
     overlay.classList.add('opacity-100', 'pointer-events-auto');
@@ -62,11 +62,9 @@ function initMobileMenu() {
   };
 
   const closeDrawer = () => {
-    drawer.classList.remove('open');
-    drawer.classList.remove('translate-x-0');
-    drawer.classList.add('translate-x-full');
-    overlay.classList.remove('open');
-    overlay.classList.remove('opacity-100', 'pointer-events-auto');
+    drawer.classList.remove('open', 'opacity-100', 'pointer-events-auto', 'scale-100');
+    drawer.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+    overlay.classList.remove('open', 'opacity-100', 'pointer-events-auto');
     overlay.classList.add('opacity-0', 'pointer-events-none');
     document.body.style.overflow = '';
   };
