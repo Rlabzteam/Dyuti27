@@ -1,4 +1,4 @@
-# DYUTI 2027 — National Academic Conference Web Platform
+# DYUTI 2027 — National Conference 
 
 The official modern web platform for **DYUTI 2027**, the 27th Annual National Academic Conference hosted by the **Department of Social Work**, [Rajagiri College of Social Sciences (Autonomous)](https://rcss.rajagiri.edu), Kalamassery, Kochi, Kerala, India.
 
