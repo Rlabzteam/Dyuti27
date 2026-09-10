@@ -1,10 +1,10 @@
-# DYUTI 2027 — National Academic Conference Web Platform
+# DYUTI 2027 — National Conference 
 
 The official modern web platform for **DYUTI 2027**, the 27th Annual National Academic Conference hosted by the **Department of Social Work**, [Rajagiri College of Social Sciences (Autonomous)](https://rcss.rajagiri.edu), Kalamassery, Kochi, Kerala, India.
 
 ---
 
-## 🌟 Overview
+##  Overview
 
 **DYUTI** (*Developmental Yearnings for a United and Transformed India* — meaning *"Spark of Life"*) is a prestigious annual national symposium convened continuously since 1998. The 2027 edition focuses on **"Social Work for Sustainable Development: Empowering Communities through Innovation, Inclusion, and Partnership"**, bringing together scholars, researchers, development practitioners, and policy leaders aligned with the United Nations 2030 Agenda for Sustainable Development (UN SDGs).
 
@@ -12,7 +12,7 @@ This platform serves as the primary delegate and scholar portal, managing academ
 
 ---
 
-## ✨ Key Features & Architecture
+##  Key Features & Architecture
 
 - **Static HTML5 & Tailwind CSS**: Built with semantic HTML5 and Utility-First Tailwind CSS for ultra-fast static web hosting. Zero Node.js runtime required for production deployment (runs directly on Vercel, GitHub Pages, Apache, Nginx, or IIS).
 - **Solid Royal Blue & Gold Navigation Capsule**: High-contrast, stadium-pill floating header with gold active indicators, circular emblem housing, and real-time marquee announcement banner.
@@ -30,7 +30,7 @@ This platform serves as the primary delegate and scholar portal, managing academ
 
 ---
 
-## 🎨 Design System & Color Palette
+##  Design System & Color Palette
 
 The DYUTI 2027 visual identity follows a **"Navy, Gold & Ivory"** aesthetic representing academic authority, trust, and the vibrant *Spark of Life*:
 
@@ -46,7 +46,7 @@ The DYUTI 2027 visual identity follows a **"Navy, Gold & Ivory"** aesthetic repr
 
 ---
 
-## 💻 Technologies Used
+##  Technologies Used
 
 - **Markup & Structure**: **HTML5** (Semantic elements, accessible ARIA attributes, responsive viewport metadata, and SEO optimizations).
 - **Styling & Design System**: **Tailwind CSS v3** (Utility-first framework with custom HSL/Hex color tokens, dark glassmorphism gradients, and mobile-first responsive breakpoints) & **Vanilla CSS** for custom keyframe animations.
@@ -57,7 +57,7 @@ The DYUTI 2027 visual identity follows a **"Navy, Gold & Ivory"** aesthetic repr
 
 ---
 
-## 🏛️ System Architecture
+##  System Architecture
 
 The DYUTI 2027 platform is engineered using a decoupled, high-performance **4-Tier Architecture** separating the client experience, API services, data persistence, and external academic integrations:
 
@@ -119,7 +119,7 @@ flowchart TB
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 new website/
@@ -144,7 +144,7 @@ new website/
 
 ---
 
-## 🛠️ Local Execution & Hosting
+##  Local Execution & Hosting
 
 ### Option A: Static Preview (Recommended)
 Because the application is static HTML5 & JavaScript, you can open `index.html` directly in any web browser, or serve it using Python's built-in HTTP server:
@@ -165,6 +165,6 @@ npx serve .
 
 ---
 
-## 📄 License & Attribution
+##  License & Attribution
 
-&copy; 2026–2027 **Rajagiri College of Social Sciences (Autonomous)** &bull; Department of Social Work. All Rights Reserved.
+&copy; 2026–2027 **Rajagiri College of Social Sciences (Autonomous)** &bull;  All Rights Reserved.
