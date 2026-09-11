@@ -4,7 +4,7 @@
  * Compatible with PHP 5.6, 7.x, and 8.x
  */
 
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: https://dyuti.in');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Accept');
 header('Content-Type: application/json');
@@ -49,9 +49,8 @@ try {
         $paymentMode = 'online';
     }
 
-    $rawStatus = strtolower(val($data, 'paymentStatus', val($data, 'payment_status', 'pending')));
-    $allowedStatuses = ['pending', 'success', 'failed', 'refunded', 'cancelled'];
-    $paymentStatus = in_array($rawStatus, $allowedStatuses) ? $rawStatus : 'pending';
+    // Always start as pending — webhook will update to success after payment confirmation
+    $paymentStatus = 'pending';
 
     $defaultRegId = 'DYUTI27-' . ($paymentMode === 'bank_transfer' ? 'REG-' : 'ONLINE-') . mt_rand(10000, 99999);
     $regId = val($data, 'registration_id', val($data, 'regId', $defaultRegId));

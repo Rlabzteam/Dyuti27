@@ -6,7 +6,7 @@
  */
 
 // Enable CORS for frontend clients
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: https://dyuti.in');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Accept, Authorization');
 
@@ -79,11 +79,17 @@ if (strlen($cleanMobile) > 10) {
     $cleanMobile = substr($cleanMobile, -10);
 }
 
-$redirectUrl = !empty($input['redirect_url']) ? $input['redirect_url'] : "https://dyuti.in/rcss/registration.html";
+// Whitelist redirect_url to dyuti.in only
+$rawRedirect = !empty($input['redirect_url']) ? $input['redirect_url'] : 'https://dyuti.in/rcss/registration.html';
+$redirectHost = parse_url($rawRedirect, PHP_URL_HOST);
+$allowedHosts = ['dyuti.in', 'www.dyuti.in'];
+$redirectUrl = in_array($redirectHost, $allowedHosts) ? $rawRedirect : 'https://dyuti.in/rcss/registration.html';
 $currency = !empty($input['currency']) ? strtoupper(trim($input['currency'])) : "INR";
 
-// Production pricing: Dynamic amount from input with fallback to 750.00
-$amount = isset($input['amount']) ? (float)$input['amount'] : 750.00;
+// Validate amount against allowed registration fee tiers
+$allowedAmounts = [750, 1000, 1500, 2000, 2500, 3000];
+$requestedAmount = isset($input['amount']) ? (float)$input['amount'] : 750.00;
+$amount = in_array($requestedAmount, $allowedAmounts) ? $requestedAmount : 750.00;
 
 
 $data = [
@@ -109,9 +115,8 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, [
 ]);
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
 curl_setopt($ch, CURLOPT_TIMEOUT, 25);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
 curl_setopt($ch, CURLOPT_TCP_NODELAY, 1);
 

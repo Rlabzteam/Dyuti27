@@ -1,5 +1,5 @@
 <?php
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: https://dyuti.in');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Accept, X-Razorpay-Signature');
 header('Content-Type: application/json');
@@ -26,9 +26,15 @@ if (!$vortexSignature && function_exists('getallheaders')) {
 
 $webhookSecret = getenv('VORTEX_WEBHOOK_SECRET') ?: '';
 
-if ($vortexSignature && $webhookSecret) {
+// Signature verification is mandatory when a secret is configured
+if ($webhookSecret) {
+    if (!$vortexSignature) {
+        http_response_code(401);
+        echo json_encode(['status' => 'error', 'message' => 'Missing webhook signature.']);
+        exit;
+    }
     $expectedHmac = hash_hmac('sha256', $rawInput, $webhookSecret);
-    if (!hash_equals($expectedHmac, $vortexSignature) && $vortexSignature !== $webhookSecret) {
+    if (!hash_equals($expectedHmac, $vortexSignature)) {
         http_response_code(401);
         echo json_encode(['status' => 'error', 'message' => 'Invalid webhook signature.']);
         exit;
