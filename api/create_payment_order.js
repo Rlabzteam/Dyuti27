@@ -4,10 +4,10 @@
 import https from 'https';
 import { URL } from 'url';
 
-const VORTEXX_API_URL = process.env.VORTEXX_API_URL || 'https://icswhmh.com/vortex/api/create_payment_order.php';
-const VORTEXX_API_KEY = process.env.VORTEXX_API_KEY || '51e60f98b5b217688d0fe537a1a58033';
-const VORTEXX_API_SECRET = process.env.VORTEXX_API_SECRET || 'e605e71a192a6eba29416f3931e5abf3';
-const VORTEXX_EVENT_ID = process.env.VORTEXX_EVENT_ID || 'DYUT20260913MU01TMQ67BK';
+const VORTEXX_API_URL = process.env.VORTEX_API_URL || process.env.VORTEXX_API_URL || 'https://icswhmh.com/vortex/api/create_payment_order.php';
+const VORTEXX_API_KEY = process.env.VORTEX_API_KEY || process.env.VORTEXX_API_KEY || '';
+const VORTEXX_API_SECRET = process.env.VORTEX_API_SECRET || process.env.VORTEXX_API_SECRET || '';
+const VORTEXX_EVENT_ID = process.env.VORTEX_EVENT_ID || process.env.VORTEXX_EVENT_ID || '';
 
 // Shared HTTPS Agent for persistent TCP connection & TLS session reuse with IPv4
 const httpsAgent = new https.Agent({
@@ -35,9 +35,14 @@ export default async function handler(req, res) {
     // Parse payload from body or query
     const input = req.method === 'POST' ? (req.body || {}) : (req.query || {});
 
-    const apiKey = input.api_key && input.api_key !== 'YOUR_API_KEY' ? input.api_key : VORTEXX_API_KEY;
-    const apiSecret = input.api_secret && input.api_secret !== 'YOUR_API_SECRET' ? input.api_secret : VORTEXX_API_SECRET;
-    const eventId = input.event_id && input.event_id !== 'youEventId' ? input.event_id : VORTEXX_EVENT_ID;
+    const apiKey = process.env.VORTEX_API_KEY || process.env.VORTEXX_API_KEY || (input.api_key !== 'YOUR_API_KEY' ? input.api_key : '');
+    const apiSecret = process.env.VORTEX_API_SECRET || process.env.VORTEXX_API_SECRET || (input.api_secret !== 'YOUR_API_SECRET' ? input.api_secret : '');
+    const eventId = process.env.VORTEX_EVENT_ID || process.env.VORTEXX_EVENT_ID || (input.event_id !== 'youEventId' ? input.event_id : '');
+
+    let targetUrl = process.env.VORTEXX_API_URL || process.env.VORTEX_API_URL || 'https://icswhmh.com/vortex/api/create_payment_order.php';
+    if (!targetUrl.endsWith('.php')) {
+      targetUrl = targetUrl.replace(/\/+$/, '') + '/create_payment_order.php';
+    }
 
     const customerName = (input.customer_name || input.name || 'Delegate Participant').trim();
     const customerEmail = (input.customer_email || input.email || '').trim();
@@ -73,7 +78,7 @@ export default async function handler(req, res) {
 
     // Forward to Vortexx API
     const responseData = await new Promise((resolve, reject) => {
-      const parsedUrl = new URL(VORTEXX_API_URL);
+      const parsedUrl = new URL(targetUrl);
       const options = {
         hostname: parsedUrl.hostname,
         port: parsedUrl.port || 443,

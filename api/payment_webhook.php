@@ -9,24 +9,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-// If request is from PayVortex gateway, route to root webhook.php
-$isVortex = !empty($_SERVER['HTTP_X_VORTEX_SIGNATURE']);
-if (!$isVortex && function_exists('getallheaders')) {
-    foreach (getallheaders() as $k => $v) {
-        if (strcasecmp($k, 'X-Vortex-Signature') === 0) { $isVortex = true; break; }
-    }
-}
-if ($isVortex) {
-    require_once __DIR__ . '/../../webhook.php';
-    exit;
-}
-
 require_once __DIR__ . '/db_config.php';
 require_once __DIR__ . '/mailer_helper.php'; // dyutiSendMail()
 
 // Read raw JSON webhook/server payload
 $rawInput = file_get_contents('php://input');
 $payload = json_decode($rawInput, true) ?: $_POST;
+
+// Check for Vortex Webhook Signature
+$vortexSignature = !empty($_SERVER['HTTP_X_VORTEX_SIGNATURE']) ? $_SERVER['HTTP_X_VORTEX_SIGNATURE'] : '';
+if (!$vortexSignature && function_exists('getallheaders')) {
+    foreach (getallheaders() as $k => $v) {
+        if (strcasecmp($k, 'X-Vortex-Signature') === 0) { $vortexSignature = $v; break; }
+    }
+}
+
+$webhookSecret = getenv('VORTEX_WEBHOOK_SECRET') ?: '';
+
+if ($vortexSignature && $webhookSecret) {
+    $expectedHmac = hash_hmac('sha256', $rawInput, $webhookSecret);
+    if (!hash_equals($expectedHmac, $vortexSignature) && $vortexSignature !== $webhookSecret) {
+        http_response_code(401);
+        echo json_encode(['status' => 'error', 'message' => 'Invalid webhook signature.']);
+        exit;
+    }
+}
+
 
 if (empty($payload)) {
     echo json_encode([

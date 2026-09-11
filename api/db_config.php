@@ -3,8 +3,13 @@
  * DYUTI 2027 Database Connection Helper (PDO)
  */
 
-// Automatically load .env if present in root or api directory
-$envPaths = [__DIR__ . '/../.env', __DIR__ . '/.env'];
+// Automatically load .env if present in parent directories (supports outside public_html)
+$envPaths = [
+    __DIR__ . '/../../../.env', // Subfolder hosting (above public_html when hosted at /rcss/api/)
+    __DIR__ . '/../../.env',    // cPanel recommended: one directory above public_html
+    __DIR__ . '/../.env',       // Root directory
+    __DIR__ . '/.env'           // api directory
+];
 foreach ($envPaths as $envPath) {
     if (file_exists($envPath)) {
         $lines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -25,9 +30,9 @@ foreach ($envPaths as $envPath) {
 
 $dbHost = getenv('DB_HOST') ?: 'localhost';
 $dbPort = getenv('DB_PORT') ?: '3306';
-$dbName = getenv('DB_NAME') ?: 'dyuti_dyuti2027';
-$dbUser = getenv('DB_USER') ?: 'dyuti_dyuti';
-$dbPass = getenv('DB_PASS') ?: 'Dyuti@27#5';
+$dbName = getenv('DB_NAME') ?: '';
+$dbUser = getenv('DB_USER') ?: '';
+$dbPass = getenv('DB_PASS') ?: '';
 
 function getDbConnection() {
     global $dbHost, $dbPort, $dbName, $dbUser, $dbPass;

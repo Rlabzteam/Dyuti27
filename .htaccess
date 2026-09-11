@@ -3,10 +3,21 @@
 # Designed for subfolder hosting (/rcss/) and domain root hosting
 # ==============================================================================
 
+# 1. Block Direct Browser Access to .env, dotfiles, and sensitive extensions
+<FilesMatch "^\.env|\.(env|sql|md|lock|git.*)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # 1. Protect Sensitive Files (.env, .sql, etc.)
+    # Fallback Rewrite Rules for Sensitive Files
     RewriteRule ^\.env - [F,L,NC]
     RewriteRule \.(sql|md|lock)$ - [F,L,NC]
 
@@ -15,6 +26,9 @@
     RewriteRule ^contactus/?$ contact.html [L,QSA]
 
     # 3. Direct API Endpoint Rewrites (extensionless -> .php)
+    RewriteRule ^api/test_mail(\.php)?$ - [F,L,NC]
+    RewriteRule ^api/migrate_db(\.php)?$ - [F,L,NC]
+    RewriteRule ^api/migrate_email_sent(\.php)?$ - [F,L,NC]
     RewriteRule ^api/create_payment_order/?$ api/create_payment_order.php [L,QSA]
     RewriteRule ^api/save_registration/?$ api/save_registration.php [L,QSA]
     RewriteRule ^api/send_registration_notification/?$ api/send_registration_notification.php [L,QSA]

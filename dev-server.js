@@ -8,6 +8,23 @@ import sendNotificationHandler from './api/send_registration_notification.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Load .env variables into process.env for local development
+const envPath = path.join(__dirname, '.env');
+if (fs.existsSync(envPath)) {
+  const envContent = fs.readFileSync(envPath, 'utf8');
+  for (const line of envContent.split(/\r?\n/)) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#') || !trimmed.includes('=')) continue;
+    const [k, ...vParts] = trimmed.split('=');
+    const key = k.trim();
+    const val = vParts.join('=').trim().replace(/^['"]|['"]$/g, '');
+    if (!process.env[key]) {
+      process.env[key] = val;
+    }
+  }
+}
+
 const PORT = process.env.PORT || 3000;
 
 const MIME_TYPES = {

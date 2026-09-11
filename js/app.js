@@ -882,8 +882,7 @@ function initRegistrationForm() {
       mobile: phone.trim(),
       amount: testAmount !== null ? testAmount : selectedCat.amount,
       currency: 'INR',
-      redirect_url: returnUrl,
-      event_id: 'DYUT20260913MU01TMQ67BK'
+      redirect_url: returnUrl
     };
   }
 

@@ -15,8 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-// Automatically load .env if present in root or api directory
-$envPaths = [__DIR__ . '/../.env', __DIR__ . '/.env'];
+// Automatically load .env if present in parent directories (supports outside public_html)
+$envPaths = [
+    __DIR__ . '/../../../.env', // Subfolder hosting (above public_html when hosted at /rcss/api/)
+    __DIR__ . '/../../.env',    // cPanel recommended: one directory above public_html
+    __DIR__ . '/../.env',       // Root directory
+    __DIR__ . '/.env'           // api directory
+];
 foreach ($envPaths as $envPath) {
     if (file_exists($envPath)) {
         $lines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -35,8 +40,10 @@ foreach ($envPaths as $envPath) {
     }
 }
 
-// Vortexx API Gateway endpoint
-$url = getenv('VORTEXX_API_URL') ? getenv('VORTEXX_API_URL') : "https://icswhmh.com/vortex/api/create_payment_order.php";
+$url = getenv('VORTEXX_API_URL') ?: (getenv('VORTEX_API_URL') ? rtrim(getenv('VORTEX_API_URL'), '/') . '/create_payment_order.php' : "https://icswhmh.com/vortex/api/create_payment_order.php");
+if (substr($url, -4) !== '.php') {
+    $url = rtrim($url, '/') . '/create_payment_order.php';
+}
 
 // Parse incoming input from JSON body, standard POST, or GET
 $rawInput = file_get_contents('php://input');
@@ -47,10 +54,19 @@ if (empty($input)) {
     $input = $_GET;
 }
 
-// Prepare credentials & payload with fallbacks to defaults or env
-$apiKey    = !empty($input['api_key']) && $input['api_key'] !== 'YOUR_API_KEY' ? $input['api_key'] : (getenv('VORTEXX_API_KEY') ? getenv('VORTEXX_API_KEY') : "51e60f98b5b217688d0fe537a1a58033");
-$apiSecret = !empty($input['api_secret']) && $input['api_secret'] !== 'YOUR_API_SECRET' ? $input['api_secret'] : (getenv('VORTEXX_API_SECRET') ? getenv('VORTEXX_API_SECRET') : "e605e71a192a6eba29416f3931e5abf3");
-$eventId   = !empty($input['event_id']) && $input['event_id'] !== 'youEventId' ? $input['event_id'] : (getenv('VORTEXX_EVENT_ID') ? getenv('VORTEXX_EVENT_ID') : "DYUT20260913MU01TMQ67BK");
+// Prepare credentials strictly from .env / environment variables (no hardcoded keys in code)
+$apiKey    = getenv('VORTEX_API_KEY') ?: getenv('VORTEXX_API_KEY');
+$apiSecret = getenv('VORTEX_API_SECRET') ?: getenv('VORTEXX_API_SECRET');
+$eventId   = getenv('VORTEX_EVENT_ID') ?: getenv('VORTEXX_EVENT_ID');
+
+if (empty($apiKey) || empty($apiSecret) || empty($eventId)) {
+    http_response_code(500);
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Payment gateway credentials are not configured in .env'
+    ]);
+    exit;
+}
 
 $customerName = !empty($input['name']) ? trim($input['name']) : (!empty($input['customer_name']) ? trim($input['customer_name']) : "Delegate Participant");
 
