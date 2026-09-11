@@ -280,7 +280,12 @@ function initGalleryLightbox() {
     const title = item.getAttribute('data-title');
     const year = item.getAttribute('data-year');
 
-    if (lightboxImg) lightboxImg.src = src;
+    if (lightboxImg) {
+      lightboxImg.onerror = function() { handleGalleryImgError(this); };
+      const thumbnailImg = item.querySelector('img');
+      const workingSrc = (thumbnailImg && thumbnailImg.currentSrc && !thumbnailImg.dataset.failed) ? thumbnailImg.currentSrc : src;
+      lightboxImg.src = workingSrc;
+    }
     if (lightboxCaption) lightboxCaption.textContent = `${year ? year + ' — ' : ''}${title}`;
     if (lightbox) {
       lightbox.classList.remove('hidden');
@@ -1202,4 +1207,66 @@ function reinitializePageComponents() {
   initRegistrationForm();
   initContactForm();
 }
+
+/* ── 10. GLOBAL RESILIENT IMAGE FALLBACK HANDLERS ── */
+window.handleGalleryImgError = function(img) {
+  if (!img || img.dataset.failed) return;
+  const filename = img.src.split('/').pop().split('?')[0];
+
+  // Step 1: try cPanel hosting mirror where all conference gallery images are hosted
+  if (!img.dataset.triedCpanel) {
+    img.dataset.triedCpanel = '1';
+    img.src = 'https://positive-cyan-dolphin.198-187-29-67.cpanel.site/images/gallery/' + filename;
+    return;
+  }
+
+  // Step 2: try legacy dyuti uploads folder for archive editions
+  if (!img.dataset.triedUploads) {
+    img.dataset.triedUploads = '1';
+    img.src = 'https://dyuti.in/uploads/gallery/' + filename;
+    return;
+  }
+
+  // Step 3: if still failing, load graceful placeholder
+  img.dataset.failed = '1';
+  img.src = 'images/dyuti_let_me_change.jpg';
+};
+
+window.handleTeamImgError = function(img) {
+  if (!img || img.dataset.failed) return;
+  const filename = img.src.split('/').pop().split('?')[0];
+
+  // Step 1: try cPanel hosting mirror where all 20 team photos are hosted
+  if (!img.dataset.triedCpanel) {
+    img.dataset.triedCpanel = '1';
+    img.src = 'https://positive-cyan-dolphin.198-187-29-67.cpanel.site/images/team/' + filename;
+    return;
+  }
+
+  // Step 2: graceful initials SVG fallback
+  img.dataset.failed = '1';
+  const alt = img.getAttribute('alt') || 'DYUTI Team';
+  const initials = alt.replace(/^Dr\.\s*|Fr\.\s*|Sr\.\s*|Ms\.\s*|Mr\.\s*/gi, '')
+                     .split(' ')
+                     .filter(Boolean)
+                     .map(s => s[0])
+                     .slice(0, 2)
+                     .join('')
+                     .toUpperCase() || 'DT';
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%"><rect width="100%" height="100%" fill="#0a2540"/><circle cx="60" cy="60" r="45" fill="none" stroke="#d4af37" stroke-width="2" opacity="0.4"/><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#d4af37" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="800" letter-spacing="1">${initials}</text></svg>`;
+  img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+};
+
+// Blanket capture-phase error listener for dynamically or lazy-loaded images
+window.addEventListener('error', function(e) {
+  if (e.target && e.target.tagName === 'IMG') {
+    const img = e.target;
+    const src = img.getAttribute('src') || '';
+    if (src.includes('images/team/') || src.includes('/team/')) {
+      window.handleTeamImgError(img);
+    } else if (src.includes('images/gallery/') || src.includes('/gallery/')) {
+      window.handleGalleryImgError(img);
+    }
+  }
+}, true);
 

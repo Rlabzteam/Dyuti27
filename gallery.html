@@ -22,6 +22,29 @@
   <link rel="preload" as="image" href="images/dyuti27_theme_header.png">
   <link rel="preload" as="image" href="images/dyuti_let_me_change.jpg">
   <link rel="preload" as="image" href="https://dyuti.in/assets/images/dyutilogoog.jpg">
+
+  <script>
+    function handleGalleryImgError(img) {
+      if (!img || img.dataset.failed) return;
+      var filename = img.src.split('/').pop().split('?')[0];
+      // Step 1: try cPanel hosting mirror where all conference gallery images are hosted
+      if (!img.dataset.triedCpanel) {
+        img.dataset.triedCpanel = '1';
+        img.src = 'https://positive-cyan-dolphin.198-187-29-67.cpanel.site/images/gallery/' + filename;
+        return;
+      }
+      // Step 2: try legacy dyuti uploads folder for archive editions
+      if (!img.dataset.triedUploads) {
+        img.dataset.triedUploads = '1';
+        img.src = 'https://dyuti.in/uploads/gallery/' + filename;
+        return;
+      }
+      // Step 3: if still failing, load graceful placeholder
+      img.dataset.failed = '1';
+      img.src = 'images/dyuti_let_me_change.jpg';
+    }
+  </script>
+
 </head>
 <body class="bg-[#FDFBF7] text-slate-800 antialiased selection:bg-[#071A33] selection:text-amber-300">
 
@@ -48,18 +71,25 @@
       <!-- ── 1. SOLID ROYAL BLUE FLOATING NAVIGATION CAPSULE (MATCHING VERCEL /rajagiri) ── -->
   <header class="sticky top-0 z-50 w-full pointer-events-none transition-all duration-300 pt-0" role="banner">
     <div class="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pointer-events-auto flex flex-col items-center">
-      <!-- MAIN NAVIGATION BAR (SOLID BLUE: NO GLASS/NO BLUR) -->
-      <div class="navbar-container w-full bg-gradient-to-r from-[#0a2540] via-[#123962] to-[#0a2540] text-white rounded-full border border-blue-400/30 px-3 sm:px-6 lg:px-8 h-[72px] sm:h-[84px] lg:h-[88px] flex items-center justify-between gap-2 sm:gap-4 transition-all duration-300 shadow-[0_8px_30px_rgba(10,37,64,0.45)] relative z-20">
-        
+            <!-- MAIN NAVIGATION BAR (SOLID BLUE: NO GLASS/NO BLUR) -->
+      <div
+        class="navbar-container w-full bg-gradient-to-r from-[#0a2540] via-[#123962] to-[#0a2540] text-white rounded-full border border-blue-400/30 px-3 sm:px-6 lg:px-8 h-[72px] sm:h-[84px] lg:h-[88px] flex items-center justify-between gap-2 sm:gap-4 transition-all duration-300 shadow-[0_8px_30px_rgba(10,37,64,0.45)] relative z-20">
+
         <!-- Left: Circular Logo Badge + Title -->
         <div class="flex items-center gap-3 shrink-0">
-          <a href="index.html" class="flex items-center gap-2 sm:gap-3 group focus-visible:outline-none shrink-0" aria-label="DYUTI 2027 — Return to Homepage">
-            <div class="h-10 w-10 sm:h-12 sm:w-12 lg:h-13 lg:w-13 rounded-full bg-white p-1 shadow-md flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 border border-slate-200">
-              <img src="images/dyuti_let_me_change.jpg" alt="DYUTI let me change..." class="h-full w-full object-contain rounded-full" loading="eager" fetchpriority="high" decoding="sync">
+          <a href="index.html" class="flex items-center gap-2 sm:gap-3 group focus-visible:outline-none shrink-0"
+            aria-label="DYUTI 2027 — Return to Homepage">
+            <div
+              class="h-10 w-10 sm:h-12 sm:w-12 lg:h-13 lg:w-13 rounded-full bg-white p-1 shadow-md flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 border border-slate-200">
+              <img src="images/dyuti_let_me_change.jpg" alt="DYUTI let me change..."
+                class="h-full w-full object-contain rounded-full" loading="eager" fetchpriority="high" decoding="sync">
             </div>
             <div class="flex flex-col leading-none">
-              <span class="font-heading font-black text-[1.15rem] sm:text-[1.35rem] tracking-tight leading-none text-white">DYUTI</span>
-              <span class="font-sans text-[8.5px] sm:text-[10px] uppercase tracking-[0.2em] font-extrabold leading-none mt-0.5 text-[#d4af37]">2027 &middot; Kochi</span>
+              <span
+                class="font-heading font-black text-[1.15rem] sm:text-[1.35rem] tracking-tight leading-none text-white">DYUTI</span>
+              <span
+                class="font-sans text-[8.5px] sm:text-[10px] uppercase tracking-[0.2em] font-extrabold leading-none mt-0.5 text-[#d4af37]">2027
+                &middot; Kochi</span>
             </div>
           </a>
         </div>
@@ -67,30 +97,57 @@
         <!-- Center: Desktop Navigation Links -->
         <nav aria-label="Main Navigation" class="hidden xl:flex items-center justify-center flex-1 mx-2 lg:mx-4">
           <ul class="flex items-center gap-1.5 lg:gap-2.5 2xl:gap-5 list-none m-0 p-0">
-            <li><a href="index.html" class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold text-white/90 hover:text-[#d4af37] transition-all whitespace-nowrap focus-visible:outline-none">Home</a></li>
-            <li><a href="rajagiri.html" class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold text-white/90 hover:text-[#d4af37] transition-all whitespace-nowrap focus-visible:outline-none">Rajagiri</a></li>
-            <li><a href="call-for-papers.html" class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold text-white/90 hover:text-[#d4af37] transition-all whitespace-nowrap focus-visible:outline-none">Call for Papers</a></li>
-            <li><a href="our-team.html" class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold text-white/90 hover:text-[#d4af37] transition-all whitespace-nowrap focus-visible:outline-none">Our Team</a></li>
-            <li><a href="registration.html" class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold text-white/90 hover:text-[#d4af37] transition-all whitespace-nowrap focus-visible:outline-none">Registration</a></li>
-            <li><a href="accommodation.html" class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold text-white/90 hover:text-[#d4af37] transition-all whitespace-nowrap focus-visible:outline-none">Accommodation</a></li>
-            <li><a href="attractions.html" class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold text-white/90 hover:text-[#d4af37] transition-all whitespace-nowrap focus-visible:outline-none">Attractions</a></li>
-            <li><a href="travel.html" class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold text-white/90 hover:text-[#d4af37] transition-all whitespace-nowrap focus-visible:outline-none">Travel</a></li>
-            <li><a href="gallery.html" class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-bold text-[#d4af37] border-b-2 border-[#d4af37] pb-0.5 whitespace-nowrap focus-visible:outline-none">Gallery</a></li>
+            <li><a href="index.html"
+                class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold text-white/90 hover:text-[#d4af37] transition-all whitespace-nowrap focus-visible:outline-none">Home</a>
+            </li>
+            <li><a href="rajagiri.html"
+                class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold text-white/90 hover:text-[#d4af37] transition-all whitespace-nowrap focus-visible:outline-none">Rajagiri</a>
+            </li>
+            <li><a href="call-for-papers.html"
+                class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold text-white/90 hover:text-[#d4af37] transition-all whitespace-nowrap focus-visible:outline-none">Call
+                for Papers</a>
+            </li>
+            <li><a href="our-team.html"
+                class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold text-white/90 hover:text-[#d4af37] transition-all whitespace-nowrap focus-visible:outline-none">Our
+                Team</a>
+            </li>
+            <li><a href="registration.html"
+                class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold text-white/90 hover:text-[#d4af37] transition-all whitespace-nowrap focus-visible:outline-none">Registration</a>
+            </li>
+            <li><a href="accommodation.html"
+                class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold text-white/90 hover:text-[#d4af37] transition-all whitespace-nowrap focus-visible:outline-none">Accommodation</a>
+            </li>
+            <li><a href="attractions.html"
+                class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold text-white/90 hover:text-[#d4af37] transition-all whitespace-nowrap focus-visible:outline-none">Attractions</a>
+            </li>
+            <li><a href="travel.html"
+                class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold text-white/90 hover:text-[#d4af37] transition-all whitespace-nowrap focus-visible:outline-none">Travel</a>
+            </li>
+            <li><a href="gallery.html"
+                class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-bold text-[#d4af37] border-b-2 border-[#d4af37] pb-0.5 whitespace-nowrap focus-visible:outline-none">Gallery</a>
+            </li>
           </ul>
         </nav>
 
         <!-- Right: Contact Us Button & Mobile Toggle -->
         <div class="hidden sm:flex items-center gap-3 shrink-0">
-          <a href="contact.html" class="group h-[42px] sm:h-[46px] px-7 sm:px-9 inline-flex items-center gap-2 text-[13.5px] sm:text-[15px] font-sans font-bold bg-white text-[#071A33] hover:bg-slate-100 rounded-full transition-all duration-200 shadow-sm focus-visible:outline-none hover:scale-105">
+          <a href="contact.html"
+            class="group h-[42px] sm:h-[46px] px-7 sm:px-9 inline-flex items-center gap-2 text-[13.5px] sm:text-[15px] font-sans font-bold bg-white text-[#071A33] hover:bg-slate-100 rounded-full transition-all duration-200 shadow-sm focus-visible:outline-none hover:scale-105">
             <span>Contact Us</span>
-            <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
           </a>
         </div>
 
         <!-- Mobile Actions -->
         <div class="flex sm:hidden items-center gap-2 shrink-0">
-          <button id="mobile-menu-toggle" type="button" aria-label="Open navigation menu" class="w-9 h-9 flex items-center justify-center text-white border border-white/30 rounded-full bg-white/10 shadow-xs focus-visible:outline-none hover:bg-white/20 transition-colors">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <button id="mobile-menu-toggle" type="button" aria-label="Open navigation menu"
+            class="w-9 h-9 flex items-center justify-center text-white border border-white/30 rounded-full bg-white/10 shadow-xs focus-visible:outline-none hover:bg-white/20 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
           </button>
         </div>
 
@@ -318,7 +375,7 @@
 
         <!-- DYUTI 2026 -->
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2026" data-src="images/gallery/dyuti2026_panel_discussion.jpg" data-title="Panel Dialogue: Global to Local Impact in Social Work &amp; Public Health">
-          <img src="images/gallery/dyuti2026_panel_discussion.jpg" alt="Panel Dialogue: Global to Local Impact in Social Work &amp; Public Health" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/dyuti2026_panel_discussion.jpg" alt="Panel Dialogue: Global to Local Impact in Social Work &amp; Public Health" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2026 &middot; Panels</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Panel Dialogue: Global to Local Impact in Social Work &amp; Public Health</h4>
@@ -329,7 +386,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2026" data-src="images/gallery/dyuti2026_keynote_address.jpg" data-title="Keynote Address: Shared Pathways in Public Health &amp; Social Work Disciplines">
-          <img src="images/gallery/dyuti2026_keynote_address.jpg" alt="Keynote Address: Shared Pathways in Public Health &amp; Social Work Disciplines" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/dyuti2026_keynote_address.jpg" alt="Keynote Address: Shared Pathways in Public Health &amp; Social Work Disciplines" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2026 &middot; Plenary</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Keynote Address: Shared Pathways in Public Health &amp; Social Work Disciplines</h4>
@@ -340,7 +397,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2026" data-src="images/gallery/dyuti2026_cultural_night.jpg" data-title="DYUTI 2026 Cultural Night &amp; Classical Dance Performance">
-          <img src="images/gallery/dyuti2026_cultural_night.jpg" alt="DYUTI 2026 Cultural Night &amp; Classical Dance Performance" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/dyuti2026_cultural_night.jpg" alt="DYUTI 2026 Cultural Night &amp; Classical Dance Performance" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2026 &middot; Cultural</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">DYUTI 2026 Cultural Night &amp; Classical Dance Performance</h4>
@@ -352,7 +409,7 @@
 
         <!-- DYUTI 2025 -->
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2025" data-src="images/gallery/dyuti2025_felicitation.jpg" data-title="Distinguished Speaker Address &amp; Memento Presentation">
-          <img src="images/gallery/dyuti2025_felicitation.jpg" alt="Distinguished Speaker Address &amp; Memento Presentation" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/dyuti2025_felicitation.jpg" alt="Distinguished Speaker Address &amp; Memento Presentation" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2025 &middot; Honours</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Distinguished Speaker Address &amp; Memento Presentation</h4>
@@ -363,7 +420,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2025" data-src="images/gallery/dyuti2025_international_delegates.jpg" data-title="International &amp; National Delegates Academic Deliberations">
-          <img src="images/gallery/dyuti2025_international_delegates.jpg" alt="International &amp; National Delegates Academic Deliberations" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/dyuti2025_international_delegates.jpg" alt="International &amp; National Delegates Academic Deliberations" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2025 &middot; Sessions</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">International &amp; National Delegates Academic Deliberations</h4>
@@ -374,7 +431,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2025" data-src="images/gallery/dyuti2025_cultural_night.jpg" data-title="DYUTI 2025 Cultural Night &amp; Candle Dance Ceremony">
-          <img src="images/gallery/dyuti2025_cultural_night.jpg" alt="DYUTI 2025 Cultural Night &amp; Candle Dance Ceremony" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/dyuti2025_cultural_night.jpg" alt="DYUTI 2025 Cultural Night &amp; Candle Dance Ceremony" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2025 &middot; Cultural</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">DYUTI 2025 Cultural Night &amp; Candle Dance Ceremony</h4>
@@ -386,7 +443,7 @@
 
         <!-- DYUTI 2024 -->
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2024" data-src="images/gallery/dyuti2024_cultural_performance.jpg" data-title="DYUTI 2024 Thematic Dance &amp; Cultural Performance">
-          <img src="images/gallery/dyuti2024_cultural_performance.jpg" alt="DYUTI 2024 Thematic Dance &amp; Cultural Performance" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/dyuti2024_cultural_performance.jpg" alt="DYUTI 2024 Thematic Dance &amp; Cultural Performance" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2024 &middot; Cultural</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">DYUTI 2024 Thematic Dance &amp; Cultural Performance</h4>
@@ -397,7 +454,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2024" data-src="images/gallery/dyuti2024_delegates_auditorium.jpg" data-title="International Delegates &amp; Research Scholars in Plenary Hall">
-          <img src="images/gallery/dyuti2024_delegates_auditorium.jpg" alt="International Delegates &amp; Research Scholars in Plenary Hall" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/dyuti2024_delegates_auditorium.jpg" alt="International Delegates &amp; Research Scholars in Plenary Hall" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2024 &middot; Sessions</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">International Delegates &amp; Research Scholars in Plenary Hall</h4>
@@ -408,7 +465,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2024" data-src="images/gallery/dyuti2024_inaugural_ceremony.jpg" data-title="DYUTI 2024 Inaugural Ceremony &amp; Global Partnership Summit">
-          <img src="images/gallery/dyuti2024_inaugural_ceremony.jpg" alt="DYUTI 2024 Inaugural Ceremony &amp; Global Partnership Summit" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/dyuti2024_inaugural_ceremony.jpg" alt="DYUTI 2024 Inaugural Ceremony &amp; Global Partnership Summit" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2024 &middot; Inauguration</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">DYUTI 2024 Inaugural Ceremony &amp; Global Partnership Summit</h4>
@@ -420,7 +477,7 @@
 
         <!-- DYUTI 2023 -->
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2023" data-src="images/gallery/dyuti2023_academic_workshop.jpg" data-title="Academic Workshop &amp; Interactive Presentation Session">
-          <img src="images/gallery/dyuti2023_academic_workshop.jpg" alt="Academic Workshop &amp; Interactive Presentation Session" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/dyuti2023_academic_workshop.jpg" alt="Academic Workshop &amp; Interactive Presentation Session" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2023 &middot; Workshops</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Academic Workshop &amp; Interactive Presentation Session</h4>
@@ -431,7 +488,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2023" data-src="images/gallery/dyuti2023_speaker_address.jpg" data-title="Distinguished Keynote Address at Rajagiri Podium">
-          <img src="images/gallery/dyuti2023_speaker_address.jpg" alt="Distinguished Keynote Address at Rajagiri Podium" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/dyuti2023_speaker_address.jpg" alt="Distinguished Keynote Address at Rajagiri Podium" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2023 &middot; Plenary</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Distinguished Keynote Address at Rajagiri Podium</h4>
@@ -443,7 +500,7 @@
 
         <!-- DYUTI 2022 -->
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2022" data-src="images/gallery/dyuti2022_keynote_address.jpg" data-title="Keynote Address at Rajagiri Main Stage">
-          <img src="images/gallery/dyuti2022_keynote_address.jpg" alt="Keynote Address at Rajagiri Main Stage" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/dyuti2022_keynote_address.jpg" alt="Keynote Address at Rajagiri Main Stage" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2022 &middot; Plenary</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Keynote Address at Rajagiri Main Stage</h4>
@@ -454,7 +511,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2022" data-src="images/gallery/dyuti2022_auditorium_delegates.jpg" data-title="Auditorium Academic Deliberations &amp; Delegate Gathering">
-          <img src="images/gallery/dyuti2022_auditorium_delegates.jpg" alt="Auditorium Academic Deliberations &amp; Delegate Gathering" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/dyuti2022_auditorium_delegates.jpg" alt="Auditorium Academic Deliberations &amp; Delegate Gathering" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2022 &middot; Sessions</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Auditorium Academic Deliberations &amp; Delegate Gathering</h4>
@@ -465,7 +522,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2022" data-src="images/gallery/dyuti2022_dignitaries_frontrow.jpg" data-title="Distinguished Dignitaries &amp; Faculty Gathering">
-          <img src="images/gallery/dyuti2022_dignitaries_frontrow.jpg" alt="Distinguished Dignitaries &amp; Faculty Gathering" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/dyuti2022_dignitaries_frontrow.jpg" alt="Distinguished Dignitaries &amp; Faculty Gathering" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2022 &middot; Honours</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Distinguished Dignitaries &amp; Faculty Gathering</h4>
@@ -476,7 +533,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2022" data-src="images/gallery/dyuti2022_panel_evaluation.jpg" data-title="Expert Panel Session &amp; Presentation Evaluation">
-          <img src="images/gallery/dyuti2022_panel_evaluation.jpg" alt="Expert Panel Session &amp; Presentation Evaluation" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/dyuti2022_panel_evaluation.jpg" alt="Expert Panel Session &amp; Presentation Evaluation" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2022 &middot; Panels</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Expert Panel Session &amp; Presentation Evaluation</h4>
@@ -488,7 +545,7 @@
 
         <!-- DYUTI 2019 -->
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2019" data-src="images/gallery/IMG_9887.JPG" data-title="DYUTI 2019 Inaugural Ceremony">
-          <img src="images/gallery/IMG_9887.JPG" alt="DYUTI 2019 Inaugural Ceremony" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/IMG_9887.JPG" alt="DYUTI 2019 Inaugural Ceremony" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2019 &middot; Inauguration</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">DYUTI 2019 Inaugural Ceremony</h4>
@@ -499,7 +556,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2019" data-src="images/gallery/IMG_4438.JPG" data-title="DYUTI 2019 Academic Dialogue &amp; Valedictory">
-          <img src="images/gallery/IMG_4438.JPG" alt="DYUTI 2019 Academic Dialogue &amp; Valedictory" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/IMG_4438.JPG" alt="DYUTI 2019 Academic Dialogue &amp; Valedictory" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2019 &middot; Conferences</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">DYUTI 2019 Academic Dialogue &amp; Valedictory</h4>
@@ -511,7 +568,7 @@
 
         <!-- DYUTI 2018 -->
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2018" data-src="images/gallery/DSC_02071.jpg" data-title="DYUTI 2018 Logo Launch Ceremony">
-          <img src="images/gallery/DSC_02071.jpg" alt="DYUTI 2018 Logo Launch Ceremony" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/DSC_02071.jpg" alt="DYUTI 2018 Logo Launch Ceremony" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2018 &middot; Milestones</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">DYUTI 2018 Logo Launch Ceremony</h4>
@@ -523,7 +580,7 @@
 
         <!-- DYUTI 2017 (24 items) -->
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/dyuti_brochure_release.jpg" data-title="Shri Rajamanikkam IAS Releasing DYUTI 2017 Brochure">
-          <img src="images/gallery/dyuti_brochure_release.jpg" alt="Shri Rajamanikkam IAS Releasing DYUTI 2017 Brochure" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/dyuti_brochure_release.jpg" alt="Shri Rajamanikkam IAS Releasing DYUTI 2017 Brochure" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Milestones</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Shri Rajamanikkam IAS Releasing DYUTI 2017 Brochure</h4>
@@ -534,7 +591,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/IMG_1460.JPG" data-title="Flash Mob — A Step Towards Healthy Ageing">
-          <img src="images/gallery/IMG_1460.JPG" alt="Flash Mob — A Step Towards Healthy Ageing" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/IMG_1460.JPG" alt="Flash Mob — A Step Towards Healthy Ageing" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Events</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Flash Mob — A Step Towards Healthy Ageing</h4>
@@ -545,7 +602,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/dyuti_countdown.jpg" data-title="&quot;The Losing Memories&quot; — Conference Countdown">
-          <img src="images/gallery/dyuti_countdown.jpg" alt="&quot;The Losing Memories&quot; — Conference Countdown" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/dyuti_countdown.jpg" alt="&quot;The Losing Memories&quot; — Conference Countdown" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Events</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">&quot;The Losing Memories&quot; — Conference Countdown</h4>
@@ -556,7 +613,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/ddd.jpg" data-title="DYUTI 2017 Countdown Launch">
-          <img src="images/gallery/ddd.jpg" alt="DYUTI 2017 Countdown Launch" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/ddd.jpg" alt="DYUTI 2017 Countdown Launch" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Events</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">DYUTI 2017 Countdown Launch</h4>
@@ -567,7 +624,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/15168818.jpg" data-title="DYUTI '17 Pre-Conference Inauguration">
-          <img src="images/gallery/15168818.jpg" alt="DYUTI '17 Pre-Conference Inauguration" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/15168818.jpg" alt="DYUTI '17 Pre-Conference Inauguration" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Inauguration</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">DYUTI '17 Pre-Conference Inauguration</h4>
@@ -578,7 +635,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/15137561.jpg" data-title="DYUTI '17 Pre-Conference Dignitary Welcome">
-          <img src="images/gallery/15137561.jpg" alt="DYUTI '17 Pre-Conference Dignitary Welcome" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/15137561.jpg" alt="DYUTI '17 Pre-Conference Dignitary Welcome" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Inauguration</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">DYUTI '17 Pre-Conference Dignitary Welcome</h4>
@@ -589,7 +646,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/15129491.jpg" data-title="Student Research Presentations &amp; Creative Deliberations">
-          <img src="images/gallery/15129491.jpg" alt="Student Research Presentations &amp; Creative Deliberations" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/15129491.jpg" alt="Student Research Presentations &amp; Creative Deliberations" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Student Sessions</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Student Research Presentations &amp; Creative Deliberations</h4>
@@ -600,7 +657,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/fb1_ina.jpg" data-title="Inauguration of DYUTI International Conference 2017">
-          <img src="images/gallery/fb1_ina.jpg" alt="Inauguration of DYUTI International Conference 2017" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/fb1_ina.jpg" alt="Inauguration of DYUTI International Conference 2017" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Inauguration</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Inauguration of DYUTI International Conference 2017</h4>
@@ -611,7 +668,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/6L6A6365.JPG" data-title="Book Publishing Ceremony">
-          <img src="images/gallery/6L6A6365.JPG" alt="Book Publishing Ceremony" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/6L6A6365.JPG" alt="Book Publishing Ceremony" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Conferences</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Book Publishing Ceremony</h4>
@@ -622,7 +679,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/IMG_7414_fina_edtng.jpg" data-title="DYUTI 2K17 Cultural Night &amp; Celebrations">
-          <img src="images/gallery/IMG_7414_fina_edtng.jpg" alt="DYUTI 2K17 Cultural Night &amp; Celebrations" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/IMG_7414_fina_edtng.jpg" alt="DYUTI 2K17 Cultural Night &amp; Celebrations" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Cultural</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">DYUTI 2K17 Cultural Night &amp; Celebrations</h4>
@@ -633,7 +690,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/IMG_9963.JPG" data-title="Plenary Sessions: Dr. Lynette Joubert, Dr. Tina Wu &amp; Dr. Illango Ponnusamy">
-          <img src="images/gallery/IMG_9963.JPG" alt="Plenary Sessions: Dr. Lynette Joubert, Dr. Tina Wu &amp; Dr. Illango Ponnusamy" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/IMG_9963.JPG" alt="Plenary Sessions: Dr. Lynette Joubert, Dr. Tina Wu &amp; Dr. Illango Ponnusamy" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Plenary</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Plenary Sessions: Dr. Lynette Joubert, Dr. Tina Wu &amp; Dr. Illango Ponnusamy</h4>
@@ -644,7 +701,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/IMG_0030.JPG" data-title="Plenary Academic Session Address">
-          <img src="images/gallery/IMG_0030.JPG" alt="Plenary Academic Session Address" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/IMG_0030.JPG" alt="Plenary Academic Session Address" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Plenary</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Plenary Academic Session Address</h4>
@@ -655,7 +712,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/IMG_9985.JPG" data-title="DYUTI 2017 International Panel Dialogue">
-          <img src="images/gallery/IMG_9985.JPG" alt="DYUTI 2017 International Panel Dialogue" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/IMG_9985.JPG" alt="DYUTI 2017 International Panel Dialogue" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Conferences</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">DYUTI 2017 International Panel Dialogue</h4>
@@ -666,7 +723,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/IMG_0061.JPG" data-title="Research Paper Presentations &amp; Scholarly Debate">
-          <img src="images/gallery/IMG_0061.JPG" alt="Research Paper Presentations &amp; Scholarly Debate" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/IMG_0061.JPG" alt="Research Paper Presentations &amp; Scholarly Debate" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Presentations</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Research Paper Presentations &amp; Scholarly Debate</h4>
@@ -677,7 +734,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/IMG_8177.JPG" data-title="DYUTI 2017 International Delegates Gathering">
-          <img src="images/gallery/IMG_8177.JPG" alt="DYUTI 2017 International Delegates Gathering" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/IMG_8177.JPG" alt="DYUTI 2017 International Delegates Gathering" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Conferences</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">DYUTI 2017 International Delegates Gathering</h4>
@@ -688,7 +745,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/IMG_8174.JPG" data-title="Official Conference Theme Book Release">
-          <img src="images/gallery/IMG_8174.JPG" alt="Official Conference Theme Book Release" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/IMG_8174.JPG" alt="Official Conference Theme Book Release" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Milestones</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Official Conference Theme Book Release</h4>
@@ -699,7 +756,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/IMG_8358.JPG" data-title="DYUTI Commemorative Scrap Book Release">
-          <img src="images/gallery/IMG_8358.JPG" alt="DYUTI Commemorative Scrap Book Release" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/IMG_8358.JPG" alt="DYUTI Commemorative Scrap Book Release" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Milestones</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">DYUTI Commemorative Scrap Book Release</h4>
@@ -710,7 +767,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/IMG_8374.JPG" data-title="Workshop: Research on Healthy Ageing">
-          <img src="images/gallery/IMG_8374.JPG" alt="Workshop: Research on Healthy Ageing" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/IMG_8374.JPG" alt="Workshop: Research on Healthy Ageing" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Workshops</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Workshop: Research on Healthy Ageing</h4>
@@ -721,7 +778,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/IMG_1548.JPG" data-title="Theme Book Presentation with Dr. Lynette Joubert">
-          <img src="images/gallery/IMG_1548.JPG" alt="Theme Book Presentation with Dr. Lynette Joubert" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/IMG_1548.JPG" alt="Theme Book Presentation with Dr. Lynette Joubert" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Milestones</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Theme Book Presentation with Dr. Lynette Joubert</h4>
@@ -732,7 +789,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/6L6A7359.JPG" data-title="Valedictory Function — Day 3 Proceedings">
-          <img src="images/gallery/6L6A7359.JPG" alt="Valedictory Function — Day 3 Proceedings" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/6L6A7359.JPG" alt="Valedictory Function — Day 3 Proceedings" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Valedictory</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Valedictory Function — Day 3 Proceedings</h4>
@@ -743,7 +800,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/6L6A7349.JPG" data-title="Valedictory Function Address to Delegates">
-          <img src="images/gallery/6L6A7349.JPG" alt="Valedictory Function Address to Delegates" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/6L6A7349.JPG" alt="Valedictory Function Address to Delegates" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Valedictory</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Valedictory Function Address to Delegates</h4>
@@ -754,7 +811,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/6L6A7412.JPG" data-title="Valedictory Session Dignitaries on Dais">
-          <img src="images/gallery/6L6A7412.JPG" alt="Valedictory Session Dignitaries on Dais" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/6L6A7412.JPG" alt="Valedictory Session Dignitaries on Dais" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Valedictory</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Valedictory Session Dignitaries on Dais</h4>
@@ -765,7 +822,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/6L6A7495.JPG" data-title="Valedictory Concluding Remarks &amp; Felicitations">
-          <img src="images/gallery/6L6A7495.JPG" alt="Valedictory Concluding Remarks &amp; Felicitations" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/6L6A7495.JPG" alt="Valedictory Concluding Remarks &amp; Felicitations" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Valedictory</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Valedictory Concluding Remarks &amp; Felicitations</h4>
@@ -776,7 +833,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2017" data-src="images/gallery/6L6A7541.JPG" data-title="DYUTI 2017 Awareness Flash Mob Performance">
-          <img src="images/gallery/6L6A7541.JPG" alt="DYUTI 2017 Awareness Flash Mob Performance" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/6L6A7541.JPG" alt="DYUTI 2017 Awareness Flash Mob Performance" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2017 &middot; Events</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">DYUTI 2017 Awareness Flash Mob Performance</h4>
@@ -788,7 +845,7 @@
 
         <!-- DYUTI 2015 (10 items) -->
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2015" data-src="images/gallery/1.jpg" data-title="Keynote Address &amp; Plenary Deliberations">
-          <img src="images/gallery/1.jpg" alt="Keynote Address &amp; Plenary Deliberations" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/1.jpg" alt="Keynote Address &amp; Plenary Deliberations" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2015 &middot; Sessions</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Keynote Address &amp; Plenary Deliberations</h4>
@@ -799,7 +856,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2015" data-src="images/gallery/2.jpg" data-title="International Delegates Panel Discussion">
-          <img src="images/gallery/2.jpg" alt="International Delegates Panel Discussion" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/2.jpg" alt="International Delegates Panel Discussion" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2015 &middot; Panels</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">International Delegates Panel Discussion</h4>
@@ -810,7 +867,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2015" data-src="images/gallery/3.jpg" data-title="Interactive Academic Workshop">
-          <img src="images/gallery/3.jpg" alt="Interactive Academic Workshop" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/3.jpg" alt="Interactive Academic Workshop" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2015 &middot; Workshops</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Interactive Academic Workshop</h4>
@@ -821,7 +878,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2015" data-src="images/gallery/4.jpg" data-title="Research Paper Presentation Session">
-          <img src="images/gallery/4.jpg" alt="Research Paper Presentation Session" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/4.jpg" alt="Research Paper Presentation Session" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2015 &middot; Presentations</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Research Paper Presentation Session</h4>
@@ -832,7 +889,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2015" data-src="images/gallery/5.jpg" data-title="Faculty &amp; Scholar Collaborative Exchange">
-          <img src="images/gallery/5.jpg" alt="Faculty &amp; Scholar Collaborative Exchange" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/5.jpg" alt="Faculty &amp; Scholar Collaborative Exchange" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2015 &middot; Sessions</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Faculty &amp; Scholar Collaborative Exchange</h4>
@@ -843,7 +900,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2015" data-src="images/gallery/6.jpg" data-title="Academic Discourse on Contemporary Social Issues">
-          <img src="images/gallery/6.jpg" alt="Academic Discourse on Contemporary Social Issues" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/6.jpg" alt="Academic Discourse on Contemporary Social Issues" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2015 &middot; Panels</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Academic Discourse on Contemporary Social Issues</h4>
@@ -854,7 +911,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2015" data-src="images/gallery/7.jpg" data-title="Valedictory Reflections &amp; Summary">
-          <img src="images/gallery/7.jpg" alt="Valedictory Reflections &amp; Summary" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/7.jpg" alt="Valedictory Reflections &amp; Summary" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2015 &middot; Sessions</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Valedictory Reflections &amp; Summary</h4>
@@ -865,7 +922,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2015" data-src="images/gallery/8.jpg" data-title="Distinguished Delegate Felicitation">
-          <img src="images/gallery/8.jpg" alt="Distinguished Delegate Felicitation" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/8.jpg" alt="Distinguished Delegate Felicitation" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2015 &middot; Honours</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Distinguished Delegate Felicitation</h4>
@@ -876,7 +933,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2015" data-src="images/gallery/9.jpg" data-title="Student Delegate Academic Interactions">
-          <img src="images/gallery/9.jpg" alt="Student Delegate Academic Interactions" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/9.jpg" alt="Student Delegate Academic Interactions" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2015 &middot; Sessions</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Student Delegate Academic Interactions</h4>
@@ -887,7 +944,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2015" data-src="images/gallery/10.jpg" data-title="Conference Proceedings &amp; Thematic Synthesis">
-          <img src="images/gallery/10.jpg" alt="Conference Proceedings &amp; Thematic Synthesis" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/10.jpg" alt="Conference Proceedings &amp; Thematic Synthesis" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2015 &middot; Sessions</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Conference Proceedings &amp; Thematic Synthesis</h4>
@@ -899,7 +956,7 @@
 
         <!-- DYUTI 2013 (2 items) -->
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2013" data-src="images/gallery/11.jpg" data-title="Inaugural Lamp Lighting Ceremony">
-          <img src="images/gallery/11.jpg" alt="Inaugural Lamp Lighting Ceremony" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/11.jpg" alt="Inaugural Lamp Lighting Ceremony" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2013 &middot; Inauguration</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Inaugural Lamp Lighting Ceremony</h4>
@@ -910,7 +967,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2013" data-src="images/gallery/21.jpg" data-title="Plenary Session &amp; Academic Discourse">
-          <img src="images/gallery/21.jpg" alt="Plenary Session &amp; Academic Discourse" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/21.jpg" alt="Plenary Session &amp; Academic Discourse" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2013 &middot; Conferences</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Plenary Session &amp; Academic Discourse</h4>
@@ -922,7 +979,7 @@
 
         <!-- DYUTI 2010 (2 items) -->
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2010" data-src="images/gallery/12.jpg" data-title="Raju Varghese Honouring Ceremony">
-          <img src="images/gallery/12.jpg" alt="Raju Varghese Honouring Ceremony" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/12.jpg" alt="Raju Varghese Honouring Ceremony" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2010 &middot; Honours</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Raju Varghese Honouring Ceremony</h4>
@@ -933,7 +990,7 @@
         </div>
 
         <div class="gallery-item group relative bg-slate-900 border border-slate-200 hover:border-[#071A33]/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-500 cursor-pointer h-80 flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#071A33]" data-year="2010" data-src="images/gallery/22.jpg" data-title="Civil Society &amp; NGO Roundtable Consultation">
-          <img src="images/gallery/22.jpg" alt="Civil Society &amp; NGO Roundtable Consultation" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="if(!this.src.startsWith('https://dyuti.in')){this.src='https://dyuti.in/uploads/gallery/' + this.src.split('/').pop();}">
+          <img src="images/gallery/22.jpg" alt="Civil Society &amp; NGO Roundtable Consultation" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105" onerror="handleGalleryImgError(this)">
           <div class="absolute inset-0 bg-gradient-to-t from-[#071A33]/95 via-[#071A33]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white z-10">
             <span class="text-[10.5px] font-mono font-bold text-slate-350 uppercase tracking-[0.16em] mb-1.5 block">DYUTI 2010 &middot; Roundtables</span>
             <h4 class="font-heading text-base sm:text-[17px] leading-snug line-clamp-2 text-white font-bold m-0">Civil Society &amp; NGO Roundtable Consultation</h4>

@@ -26,6 +26,32 @@
   <link rel="preload" as="image" href="images/dyuti27_theme_header.png">
   <link rel="preload" as="image" href="images/dyuti_let_me_change.jpg">
   <link rel="preload" as="image" href="https://dyuti.in/assets/images/dyutilogoog.jpg">
+
+  <script>
+    function handleTeamImgError(img) {
+      if (!img || img.dataset.failed) return;
+      var filename = img.src.split('/').pop().split('?')[0];
+      // Step 1: try cPanel hosting mirror where all 20 team photos are hosted
+      if (!img.dataset.triedCpanel) {
+        img.dataset.triedCpanel = '1';
+        img.src = 'https://positive-cyan-dolphin.198-187-29-67.cpanel.site/images/team/' + filename;
+        return;
+      }
+      // Step 2: graceful initials SVG fallback
+      img.dataset.failed = '1';
+      var alt = img.getAttribute('alt') || 'DYUTI Team';
+      var initials = alt.replace(/^Dr\.\s*|Fr\.\s*|Sr\.\s*|Ms\.\s*|Mr\.\s*/gi, '')
+                         .split(' ')
+                         .filter(Boolean)
+                         .map(function(s) { return s[0]; })
+                         .slice(0, 2)
+                         .join('')
+                         .toUpperCase() || 'DT';
+      var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%"><rect width="100%" height="100%" fill="#0a2540"/><circle cx="60" cy="60" r="45" fill="none" stroke="#d4af37" stroke-width="2" opacity="0.4"/><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#d4af37" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="800" letter-spacing="1">' + initials + '</text></svg>';
+      img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+    }
+  </script>
+
 </head>
 
 <body class="bg-[#FDFBF7] text-slate-800 antialiased selection:bg-[#071A33] selection:text-amber-300">
@@ -69,7 +95,7 @@
   <header class="sticky top-0 z-50 w-full pointer-events-none transition-all duration-300 pt-0" role="banner">
     <div
       class="w-[96%] sm:w-[97%] 2xl:w-[98%] max-w-[1680px] mx-auto px-1 sm:px-2 pointer-events-auto flex flex-col items-center">
-      <!-- MAIN NAVIGATION BAR (SOLID BLUE: NO GLASS/NO BLUR) -->
+            <!-- MAIN NAVIGATION BAR (SOLID BLUE: NO GLASS/NO BLUR) -->
       <div
         class="navbar-container w-full bg-gradient-to-r from-[#0a2540] via-[#123962] to-[#0a2540] text-white rounded-full border border-blue-400/30 px-3 sm:px-6 lg:px-8 h-[72px] sm:h-[84px] lg:h-[88px] flex items-center justify-between gap-2 sm:gap-4 transition-all duration-300 shadow-[0_8px_30px_rgba(10,37,64,0.45)] relative z-20">
 
@@ -79,7 +105,8 @@
             aria-label="DYUTI 2027 — Return to Homepage">
             <div
               class="h-10 w-10 sm:h-12 sm:w-12 lg:h-13 lg:w-13 rounded-full bg-white p-1 shadow-md flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 border border-slate-200">
-              <img src="images/dyuti_let_me_change.jpg" alt="DYUTI let me change..." class="h-full w-full object-contain rounded-full" loading="eager" fetchpriority="high" decoding="sync">
+              <img src="images/dyuti_let_me_change.jpg" alt="DYUTI let me change..."
+                class="h-full w-full object-contain rounded-full" loading="eager" fetchpriority="high" decoding="sync">
             </div>
             <div class="flex flex-col leading-none">
               <span
@@ -102,10 +129,12 @@
             </li>
             <li><a href="call-for-papers.html"
                 class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold text-white/90 hover:text-[#d4af37] transition-all whitespace-nowrap focus-visible:outline-none">Call
-                for Papers</a></li>
+                for Papers</a>
+            </li>
             <li><a href="our-team.html"
                 class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-bold text-[#d4af37] border-b-2 border-[#d4af37] pb-0.5 whitespace-nowrap focus-visible:outline-none">Our
-                Team</a></li>
+                Team</a>
+            </li>
             <li><a href="registration.html"
                 class="relative px-2.5 lg:px-3 2xl:px-3.5 py-1.5 text-[13px] 2xl:text-[14.5px] font-sans font-semibold text-white/90 hover:text-[#d4af37] transition-all whitespace-nowrap focus-visible:outline-none">Registration</a>
             </li>
@@ -426,7 +455,7 @@
                     <div
                       class="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-2xl sm:rounded-3xl bg-slate-800 text-white flex items-center justify-center font-heading font-black text-3xl shadow-xl shrink-0 border-2 border-white/50 overflow-hidden ring-4 ring-white/20">
                       <img src="images/team/dr_fr_saju_md_cmi.png" alt="Dr. Fr. Saju MD CMI"
-                        class="w-full h-full object-cover object-top">
+                        class="w-full h-full object-cover object-top" onerror="handleTeamImgError(this)">
                     </div>
                     <div class="flex-1">
                       <h3 class="font-heading text-2xl sm:text-[1.85rem] font-black text-white m-0 leading-tight">
@@ -490,7 +519,7 @@
                     <div
                       class="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-2xl sm:rounded-3xl bg-slate-800 text-white flex items-center justify-center font-heading font-black text-3xl shadow-xl shrink-0 border-2 border-white/50 overflow-hidden ring-4 ring-white/20">
                       <img src="images/team/dr_kiran_thampi.png" alt="Dr. Kiran Thampi"
-                        class="w-full h-full object-cover object-top">
+                        class="w-full h-full object-cover object-top" onerror="handleTeamImgError(this)">
                     </div>
                     <div class="flex-1">
                       <h3 class="font-heading text-2xl sm:text-[1.85rem] font-black text-white m-0 leading-tight">
@@ -570,7 +599,7 @@
                   <div
                     class="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl shrink-0 border-2 border-white/50 bg-white/10 ring-4 ring-white/20 p-0.5">
                     <img src="images/team/dr_v_kalyani.png" alt="Dr. V. Kalyani"
-                      class="w-full h-full object-cover object-top rounded-[14px] sm:rounded-[22px]" loading="lazy">
+                      class="w-full h-full object-cover object-top rounded-[14px] sm:rounded-[22px]" loading="lazy" onerror="handleTeamImgError(this)">
                   </div>
                   <div class="flex-1">
                     <h3 class="font-heading text-2xl sm:text-[1.85rem] font-bold text-white m-0 leading-tight">
@@ -635,7 +664,7 @@
                   <div
                     class="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl shrink-0 border-2 border-white/50 bg-white/10 ring-4 ring-white/20 p-0.5">
                     <img src="images/team/dr_sr_bincy_cc.png" alt="Dr. Sr. Bincy C.C."
-                      class="w-full h-full object-cover object-top rounded-[14px] sm:rounded-[22px]" loading="lazy">
+                      class="w-full h-full object-cover object-top rounded-[14px] sm:rounded-[22px]" loading="lazy" onerror="handleTeamImgError(this)">
                   </div>
                   <div class="flex-1">
                     <h3 class="font-heading text-2xl sm:text-[1.85rem] font-bold text-white m-0 leading-tight">
@@ -715,7 +744,7 @@
                     class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-xl border-2 border-white/40 group-hover:border-blue-300 transition-all duration-300 shrink-0 bg-white/10 p-0.5 mx-auto ring-4 ring-white/10">
                     <img src="images/team/dr_shinto_thomas_cmi.png" alt="Dr. Shinto Thomas CMI"
                       class="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy">
+                      loading="lazy" onerror="handleTeamImgError(this)">
                   </div>
                 </div>
                 <h4
@@ -744,7 +773,7 @@
                     class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-xl border-2 border-white/40 group-hover:border-blue-300 transition-all duration-300 shrink-0 bg-white/10 p-0.5 mx-auto ring-4 ring-white/10">
                     <img src="images/team/dr_anish_kr.png" alt="Dr. Anish K.R."
                       class="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy">
+                      loading="lazy" onerror="handleTeamImgError(this)">
                   </div>
                 </div>
                 <h4
@@ -773,7 +802,7 @@
                     class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-xl border-2 border-white/40 group-hover:border-blue-300 transition-all duration-300 shrink-0 bg-white/10 p-0.5 mx-auto ring-4 ring-white/10">
                     <img src="images/team/dr_sunirose_ip.png" alt="Dr. Sunirose I.P."
                       class="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy">
+                      loading="lazy" onerror="handleTeamImgError(this)">
                   </div>
                 </div>
                 <h4
@@ -802,7 +831,7 @@
                     class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-xl border-2 border-white/40 group-hover:border-blue-300 transition-all duration-300 shrink-0 bg-white/10 p-0.5 mx-auto ring-4 ring-white/10">
                     <img src="images/team/dr_rajeev_sp.png" alt="Dr. Rajeev S.P."
                       class="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy">
+                      loading="lazy" onerror="handleTeamImgError(this)">
                   </div>
                 </div>
                 <h4
@@ -832,7 +861,7 @@
                     class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-xl border-2 border-white/40 group-hover:border-blue-300 transition-all duration-300 shrink-0 bg-white/10 p-0.5 mx-auto ring-4 ring-white/10">
                     <img src="images/team/dr_nycil_romis_thomas.png" alt="Dr. Nycil Romis Thomas"
                       class="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy">
+                      loading="lazy" onerror="handleTeamImgError(this)">
                   </div>
                 </div>
                 <h4
@@ -861,7 +890,7 @@
                     class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-xl border-2 border-white/40 group-hover:border-blue-300 transition-all duration-300 shrink-0 bg-white/10 p-0.5 mx-auto ring-4 ring-white/10">
                     <img src="images/team/dr_giji_george.png" alt="Dr. Giji George"
                       class="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy">
+                      loading="lazy" onerror="handleTeamImgError(this)">
                   </div>
                 </div>
                 <h4
@@ -890,7 +919,7 @@
                     class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-xl border-2 border-white/40 group-hover:border-blue-300 transition-all duration-300 shrink-0 bg-white/10 p-0.5 mx-auto ring-4 ring-white/10">
                     <img src="images/team/dr_anil_john.png" alt="Dr. Anil John"
                       class="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy">
+                      loading="lazy" onerror="handleTeamImgError(this)">
                   </div>
                 </div>
                 <h4
@@ -919,7 +948,7 @@
                     class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-xl border-2 border-white/40 group-hover:border-blue-300 transition-all duration-300 shrink-0 bg-white/10 p-0.5 mx-auto ring-4 ring-white/10">
                     <img src="images/team/mathew_t_john.png" alt="Mr. Mathew T. John"
                       class="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy">
+                      loading="lazy" onerror="handleTeamImgError(this)">
                   </div>
                 </div>
                 <h4
@@ -948,7 +977,7 @@
                     class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-xl border-2 border-white/40 group-hover:border-blue-300 transition-all duration-300 shrink-0 bg-white/10 p-0.5 mx-auto ring-4 ring-white/10">
                     <img src="images/team/dr_deepa_rasheed.png" alt="Dr. Deepa Rasheed"
                       class="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy">
+                      loading="lazy" onerror="handleTeamImgError(this)">
                   </div>
                 </div>
                 <h4
@@ -977,7 +1006,7 @@
                     class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-xl border-2 border-white/40 group-hover:border-blue-300 transition-all duration-300 shrink-0 bg-white/10 p-0.5 mx-auto ring-4 ring-white/10">
                     <img src="images/team/sr_shyba_s_babu.png" alt="Sr. Shyba Babu"
                       class="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy">
+                      loading="lazy" onerror="handleTeamImgError(this)">
                   </div>
                 </div>
                 <h4
@@ -1007,7 +1036,7 @@
                     class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-xl border-2 border-white/40 group-hover:border-blue-300 transition-all duration-300 shrink-0 bg-white/10 p-0.5 mx-auto ring-4 ring-white/10">
                     <img src="images/team/dr_reena_merin_cherian.png" alt="Dr. Reena Merin Cherian"
                       class="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy">
+                      loading="lazy" onerror="handleTeamImgError(this)">
                   </div>
                 </div>
                 <h4
@@ -1036,7 +1065,7 @@
                     class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-xl border-2 border-white/40 group-hover:border-blue-300 transition-all duration-300 shrink-0 bg-white/10 p-0.5 mx-auto ring-4 ring-white/10">
                     <img src="images/team/dr_lorane_scaria.png" alt="Dr. Lorane Scaria"
                       class="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy">
+                      loading="lazy" onerror="handleTeamImgError(this)">
                   </div>
                 </div>
                 <h4
@@ -1066,7 +1095,7 @@
                     class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-xl border-2 border-white/40 group-hover:border-blue-300 transition-all duration-300 shrink-0 bg-white/10 p-0.5 mx-auto ring-4 ring-white/10">
                     <img src="images/team/dr_shilpa_v_yohannan.png" alt="Dr. Shilpa V Yohanan"
                       class="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy">
+                      loading="lazy" onerror="handleTeamImgError(this)">
                   </div>
                 </div>
                 <h4
@@ -1096,7 +1125,7 @@
                     class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-xl border-2 border-white/40 group-hover:border-blue-300 transition-all duration-300 shrink-0 bg-white/10 p-0.5 mx-auto ring-4 ring-white/10">
                     <img src="images/team/dr_josephine_nongmaithem.png" alt="Dr. Josephine Nongmaithem"
                       class="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy">
+                      loading="lazy" onerror="handleTeamImgError(this)">
                   </div>
                 </div>
                 <h4
@@ -1126,7 +1155,7 @@
                     class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-xl border-2 border-white/40 group-hover:border-blue-300 transition-all duration-300 shrink-0 bg-white/10 p-0.5 mx-auto ring-4 ring-white/10">
                     <img src="images/team/dr_danishwar_rasool_dar.png" alt="Dr. Danishwar Rasool Dar"
                       class="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy">
+                      loading="lazy" onerror="handleTeamImgError(this)">
                   </div>
                 </div>
                 <h4
@@ -1155,7 +1184,7 @@
                     class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-xl border-2 border-white/40 group-hover:border-blue-300 transition-all duration-300 shrink-0 bg-white/10 p-0.5 mx-auto ring-4 ring-white/10">
                     <img src="images/team/ms_anu_mohan.png" alt="Dr. Anu Mohan"
                       class="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy">
+                      loading="lazy" onerror="handleTeamImgError(this)">
                   </div>
                 </div>
                 <h4
