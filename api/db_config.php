@@ -29,6 +29,9 @@ foreach ($envPaths as $envPath) {
 }
 
 $dbHost = getenv('DB_HOST') ?: 'localhost';
+if ($dbHost === 'dyuti.in' || $dbHost === 'www.dyuti.in') {
+    $dbHost = 'localhost';
+}
 $dbPort = getenv('DB_PORT') ?: '3306';
 $dbName = getenv('DB_NAME') ?: '';
 $dbUser = getenv('DB_USER') ?: '';
@@ -47,6 +50,7 @@ function getDbConnection() {
     try {
         return new PDO($dsn, $dbUser, $dbPass, $options);
     } catch (PDOException $e) {
+        $GLOBALS['db_connection_error'] = $e->getMessage();
         error_log("Database connection failed: " . $e->getMessage());
         return null;
     }

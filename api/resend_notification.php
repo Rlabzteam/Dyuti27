@@ -8,7 +8,7 @@
  * Compatible with PHP 5.6+
  */
 
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: https://dyuti.in');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Accept');
 
@@ -21,9 +21,21 @@ require_once __DIR__ . '/db_config.php';
 require_once __DIR__ . '/mailer_helper.php';
 require_once __DIR__ . '/fpdf.php';
 
+// --- Admin Token Guard ---
+$adminToken = getenv('ADMIN_SECRET_TOKEN') ?: '';
+$providedToken = isset($_GET['token']) ? trim($_GET['token'])
+    : (isset($_SERVER['HTTP_X_ADMIN_TOKEN']) ? trim($_SERVER['HTTP_X_ADMIN_TOKEN']) : '');
+if (empty($adminToken) || !hash_equals($adminToken, $providedToken)) {
+    http_response_code(403);
+    header('Content-Type: application/json');
+    die(json_encode(['status' => 'error', 'message' => 'Forbidden: valid admin token required.']));
+}
+// --- End Guard ---
+
 $pdo = getDbConnection();
 if (!$pdo) {
-    die("Database connection failed. Please check db_config.php.");
+    $detail = !empty($GLOBALS['db_connection_error']) ? ' (' . $GLOBALS['db_connection_error'] . ')' : '';
+    die("Database connection failed" . htmlspecialchars($detail) . ". Please check db_config.php.");
 }
 
 $rawInput = file_get_contents('php://input');
