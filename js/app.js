@@ -651,19 +651,19 @@ function initRegistrationForm() {
       if (stepSuccessView) stepSuccessView.classList.add('hidden');
 
       if (stepInd1) {
-        stepInd1.className = 'step-tab flex-1 py-2.5 px-3 sm:px-5 rounded-full text-center text-sm sm:text-base font-sans font-extrabold transition-all flex items-center justify-center gap-2.5 bg-[#071A33] text-white shadow-md';
+        stepInd1.className = 'step-tab flex-1 py-2 px-1.5 sm:py-2.5 sm:px-5 rounded-full text-center text-xs sm:text-base font-sans font-extrabold transition-all flex items-center justify-center gap-1.5 sm:gap-2.5 bg-[#071A33] text-white shadow-md';
         const b = stepInd1.querySelector('span:first-child');
-        if (b) b.className = 'w-6 h-6 rounded-full bg-white/20 text-white text-xs font-mono flex items-center justify-center font-black shrink-0';
+        if (b) b.className = 'w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/20 text-white text-[10px] sm:text-xs font-mono flex items-center justify-center font-black shrink-0';
       }
       if (stepInd2) {
-        stepInd2.className = 'step-tab flex-1 py-2.5 px-3 sm:px-5 rounded-full text-center text-sm sm:text-base font-sans font-extrabold transition-all flex items-center justify-center gap-2.5 text-slate-600';
+        stepInd2.className = 'step-tab flex-1 py-2 px-1.5 sm:py-2.5 sm:px-5 rounded-full text-center text-xs sm:text-base font-sans font-extrabold transition-all flex items-center justify-center gap-1.5 sm:gap-2.5 text-slate-600';
         const b = stepInd2.querySelector('span:first-child');
-        if (b) b.className = 'w-6 h-6 rounded-full bg-slate-200 text-slate-800 text-xs font-mono flex items-center justify-center font-black shrink-0';
+        if (b) b.className = 'w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-200 text-slate-800 text-[10px] sm:text-xs font-mono flex items-center justify-center font-black shrink-0';
       }
       if (stepInd3) {
-        stepInd3.className = 'step-tab flex-1 py-2.5 px-3 sm:px-5 rounded-full text-center text-sm sm:text-base font-sans font-extrabold transition-all flex items-center justify-center gap-2.5 text-slate-500';
+        stepInd3.className = 'step-tab flex-1 py-2 px-1.5 sm:py-2.5 sm:px-5 rounded-full text-center text-xs sm:text-base font-sans font-extrabold transition-all flex items-center justify-center gap-1.5 sm:gap-2.5 text-slate-500';
         const b = stepInd3.querySelector('span:first-child');
-        if (b) b.className = 'w-6 h-6 rounded-full bg-slate-200 text-slate-800 text-xs font-mono flex items-center justify-center font-black shrink-0';
+        if (b) b.className = 'w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-200 text-slate-800 text-[10px] sm:text-xs font-mono flex items-center justify-center font-black shrink-0';
       }
     } else if (step === 'review') {
       if (stepFormView) stepFormView.classList.add('hidden');
@@ -671,19 +671,19 @@ function initRegistrationForm() {
       if (stepSuccessView) stepSuccessView.classList.add('hidden');
 
       if (stepInd1) {
-        stepInd1.className = 'step-tab flex-1 py-2.5 px-3 sm:px-5 rounded-full text-center text-sm sm:text-base font-sans font-extrabold transition-all flex items-center justify-center gap-2.5 text-slate-700 hover:text-slate-950';
+        stepInd1.className = 'step-tab flex-1 py-2 px-1.5 sm:py-2.5 sm:px-5 rounded-full text-center text-xs sm:text-base font-sans font-extrabold transition-all flex items-center justify-center gap-1.5 sm:gap-2.5 text-slate-700 hover:text-slate-950';
         const b = stepInd1.querySelector('span:first-child');
-        if (b) b.className = 'w-6 h-6 rounded-full bg-slate-200 text-slate-800 text-xs font-mono flex items-center justify-center font-black shrink-0';
+        if (b) b.className = 'w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-200 text-slate-800 text-[10px] sm:text-xs font-mono flex items-center justify-center font-black shrink-0';
       }
       if (stepInd2) {
-        stepInd2.className = 'step-tab flex-1 py-2.5 px-3 sm:px-5 rounded-full text-center text-sm sm:text-base font-sans font-extrabold transition-all flex items-center justify-center gap-2.5 bg-[#071A33] text-white shadow-md';
+        stepInd2.className = 'step-tab flex-1 py-2 px-1.5 sm:py-2.5 sm:px-5 rounded-full text-center text-xs sm:text-base font-sans font-extrabold transition-all flex items-center justify-center gap-1.5 sm:gap-2.5 bg-[#071A33] text-white shadow-md';
         const b = stepInd2.querySelector('span:first-child');
-        if (b) b.className = 'w-6 h-6 rounded-full bg-white/20 text-white text-xs font-mono flex items-center justify-center font-black shrink-0';
+        if (b) b.className = 'w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/20 text-white text-[10px] sm:text-xs font-mono flex items-center justify-center font-black shrink-0';
       }
       if (stepInd3) {
-        stepInd3.className = 'step-tab flex-1 py-2.5 px-3 sm:px-5 rounded-full text-center text-sm sm:text-base font-sans font-extrabold transition-all flex items-center justify-center gap-2.5 text-slate-500';
+        stepInd3.className = 'step-tab flex-1 py-2 px-1.5 sm:py-2.5 sm:px-5 rounded-full text-center text-xs sm:text-base font-sans font-extrabold transition-all flex items-center justify-center gap-1.5 sm:gap-2.5 text-slate-500';
         const b = stepInd3.querySelector('span:first-child');
-        if (b) b.className = 'w-6 h-6 rounded-full bg-slate-200 text-slate-800 text-xs font-mono flex items-center justify-center font-black shrink-0';
+        if (b) b.className = 'w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-200 text-slate-800 text-[10px] sm:text-xs font-mono flex items-center justify-center font-black shrink-0';
       }
     } else if (step === 'success') {
       if (stepFormView) stepFormView.classList.add('hidden');
@@ -691,19 +691,19 @@ function initRegistrationForm() {
       if (stepSuccessView) stepSuccessView.classList.remove('hidden');
 
       if (stepInd1) {
-        stepInd1.className = 'step-tab flex-1 py-2.5 px-3 sm:px-5 rounded-full text-center text-sm sm:text-base font-sans font-extrabold transition-all flex items-center justify-center gap-2.5 text-slate-500';
+        stepInd1.className = 'step-tab flex-1 py-2 px-1.5 sm:py-2.5 sm:px-5 rounded-full text-center text-xs sm:text-base font-sans font-extrabold transition-all flex items-center justify-center gap-1.5 sm:gap-2.5 text-slate-500';
         const b = stepInd1.querySelector('span:first-child');
-        if (b) b.className = 'w-6 h-6 rounded-full bg-slate-200 text-slate-800 text-xs font-mono flex items-center justify-center font-black shrink-0';
+        if (b) b.className = 'w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-200 text-slate-800 text-[10px] sm:text-xs font-mono flex items-center justify-center font-black shrink-0';
       }
       if (stepInd2) {
-        stepInd2.className = 'step-tab flex-1 py-2.5 px-3 sm:px-5 rounded-full text-center text-sm sm:text-base font-sans font-extrabold transition-all flex items-center justify-center gap-2.5 text-slate-500';
+        stepInd2.className = 'step-tab flex-1 py-2 px-1.5 sm:py-2.5 sm:px-5 rounded-full text-center text-xs sm:text-base font-sans font-extrabold transition-all flex items-center justify-center gap-1.5 sm:gap-2.5 text-slate-500';
         const b = stepInd2.querySelector('span:first-child');
-        if (b) b.className = 'w-6 h-6 rounded-full bg-slate-200 text-slate-800 text-xs font-mono flex items-center justify-center font-black shrink-0';
+        if (b) b.className = 'w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-200 text-slate-800 text-[10px] sm:text-xs font-mono flex items-center justify-center font-black shrink-0';
       }
       if (stepInd3) {
-        stepInd3.className = 'step-tab flex-1 py-2.5 px-3 sm:px-5 rounded-full text-center text-sm sm:text-base font-sans font-extrabold transition-all flex items-center justify-center gap-2.5 bg-[#071A33] text-white shadow-md';
+        stepInd3.className = 'step-tab flex-1 py-2 px-1.5 sm:py-2.5 sm:px-5 rounded-full text-center text-xs sm:text-base font-sans font-extrabold transition-all flex items-center justify-center gap-1.5 sm:gap-2.5 bg-[#071A33] text-white shadow-md';
         const b = stepInd3.querySelector('span:first-child');
-        if (b) b.className = 'w-6 h-6 rounded-full bg-white/20 text-white text-xs font-mono flex items-center justify-center font-black shrink-0';
+        if (b) b.className = 'w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/20 text-white text-[10px] sm:text-xs font-mono flex items-center justify-center font-black shrink-0';
       }
     }
 
