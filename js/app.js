@@ -364,7 +364,6 @@ function initRegistrationForm() {
   const pillCards = form.querySelectorAll('.reg-pill-card');
   const categoryCards = form.querySelectorAll('.reg-category-card');
   const paymentCards = form.querySelectorAll('.payment-mode-card');
-  const paperConditional = document.getElementById('paper-details-conditional');
   const bankDetailsBox = document.getElementById('bank-transfer-details-box');
   const proceedReviewLabel = document.getElementById('btn-proceed-review-label');
 
@@ -572,15 +571,6 @@ function initRegistrationForm() {
       card.classList.add('active', 'bg-[#071A33]', 'text-white', 'border-[#071A33]', 'shadow-md');
       card.classList.remove('bg-slate-50/90', 'border-slate-200', 'text-slate-900');
       radio.checked = true;
-
-      // Conditional paper details toggle
-      if (groupName === 'isPresentingPaper') {
-        if (radio.value === 'yes') {
-          if (paperConditional) paperConditional.classList.remove('hidden');
-        } else {
-          if (paperConditional) paperConditional.classList.add('hidden');
-        }
-      }
     });
   });
 
@@ -744,9 +734,6 @@ function initRegistrationForm() {
     const paperRadio = form.querySelector('input[name="isPresentingPaper"]:checked');
     const isPresentingPaper = paperRadio ? paperRadio.value : '';
 
-    const paperTitle = document.getElementById('reg-paper-title')?.value.trim() || '';
-    const cmtPaperId = document.getElementById('reg-cmt-id')?.value.trim() || '';
-    const paperTheme = document.getElementById('reg-paper-theme')?.value || '';
     const transactionRef = document.getElementById('reg-transaction-ref')?.value.trim() || '';
 
     // Validation checks matching Registration.tsx
@@ -817,17 +804,8 @@ function initRegistrationForm() {
     }
 
     const revPaper = document.getElementById('rev-paper');
-    const revPaperContainer = document.getElementById('rev-paper-title-container');
     if (revPaper) {
       revPaper.textContent = isPresentingPaper === 'yes' ? 'Yes (Author / Presenter)' : 'No (Delegate)';
-    }
-    if (revPaperContainer) {
-      if (isPresentingPaper === 'yes' && paperTitle) {
-        revPaperContainer.textContent = `“${paperTitle}” ${cmtPaperId ? `[${cmtPaperId}]` : ''}`;
-        revPaperContainer.classList.remove('hidden');
-      } else {
-        revPaperContainer.classList.add('hidden');
-      }
     }
 
     const revCategory = document.getElementById('rev-category');
@@ -907,9 +885,6 @@ function initRegistrationForm() {
       const foodPreference = foodRadio ? foodRadio.value : 'veg';
       const paperRadio = form.querySelector('input[name="isPresentingPaper"]:checked');
       const isPresentingPaper = paperRadio ? paperRadio.value : 'no';
-      const paperTitle = document.getElementById('reg-paper-title')?.value.trim() || '';
-      const cmtPaperId = document.getElementById('reg-cmt-id')?.value.trim() || '';
-      const paperTheme = document.getElementById('reg-paper-theme')?.value || '';
 
       const selectedCat = categories[currentCategoryKey] || categories.student;
       const randomCode = Math.floor(10000 + Math.random() * 90000);
@@ -933,9 +908,6 @@ function initRegistrationForm() {
         requireAccommodation,
         foodPreference,
         isPresentingPaper,
-        paperTitle,
-        cmtPaperId,
-        paperTheme,
         categoryKey: currentCategoryKey,
         categoryLabel: selectedCat.label,
         amount: selectedCat.amount,

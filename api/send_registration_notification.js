@@ -89,7 +89,7 @@ LOGISTICS & PREFERENCES:
 Food Preference:        ${foodLabel}
 Accommodation:          ${accomLabel}
 Paper Presenter:        ${presentingLabel}
-${isPresenting === 'yes' || paperTitle ? `Paper Title:            ${paperTitle}\nCMT Paper ID:           ${cmtPaperId}\nTheme Track:            ${paperTheme}\n` : ''}
+${paperTitle || cmtPaperId ? `Paper Title:            ${paperTitle}\nCMT Paper ID:           ${cmtPaperId}\nTheme Track:            ${paperTheme}\n` : ''}
 --
 DYUTI 2027 Conference Secretariat, Rajagiri College of Social Sciences
 dyuti@rajagiri.edu
