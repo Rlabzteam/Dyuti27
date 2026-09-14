@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // Vortexx API Gateway endpoint
-$url = getenv('VORTEXX_API_URL') ?: "http://vortexx/api/create_payment_order.php";
+$url = getenv('VORTEXX_API_URL') ?: "https://icswhmh.com/vortex/api/create_payment_order.php";
 
 // Parse incoming input from JSON body, standard POST, or GET
 $rawInput = file_get_contents('php://input');
@@ -27,23 +27,34 @@ if (empty($input)) {
 }
 
 // Prepare credentials & payload with fallbacks to defaults or env
-$apiKey    = !empty($input['api_key']) && $input['api_key'] !== 'YOUR_API_KEY' ? $input['api_key'] : (getenv('VORTEXX_API_KEY') ?: "YOUR_API_KEY");
-$apiSecret = !empty($input['api_secret']) && $input['api_secret'] !== 'YOUR_API_SECRET' ? $input['api_secret'] : (getenv('VORTEXX_API_SECRET') ?: "YOUR_API_SECRET");
-$eventId   = !empty($input['event_id']) ? $input['event_id'] : (getenv('VORTEXX_EVENT_ID') ?: "youEventId");
+$apiKey    = !empty($input['api_key']) && $input['api_key'] !== 'YOUR_API_KEY' ? $input['api_key'] : (getenv('VORTEXX_API_KEY') ?: "51e60f98b5b217688d0fe537a1a58033");
+$apiSecret = !empty($input['api_secret']) && $input['api_secret'] !== 'YOUR_API_SECRET' ? $input['api_secret'] : (getenv('VORTEXX_API_SECRET') ?: "e605e71a192a6eba29416f3931e5abf3");
+$eventId   = !empty($input['event_id']) && $input['event_id'] !== 'youEventId' ? $input['event_id'] : (getenv('VORTEXX_EVENT_ID') ?: "DYUT20260913MU01TMQ67BK");
+
+$customerName   = $input['customer_name'] ?? $input['name'] ?? "Delegate Participant";
+$customerEmail  = $input['customer_email'] ?? $input['email'] ?? "delegate@rajagiri.edu";
+$rawMobile      = $input['customer_mobile'] ?? $input['mobile'] ?? $input['phone'] ?? "9876543210";
+$cleanMobile    = preg_replace('/\D/', '', $rawMobile);
+if (strlen($cleanMobile) > 10) {
+    $cleanMobile = substr($cleanMobile, -10);
+}
 
 $data = [
     "api_key"         => $apiKey,
     "api_secret"      => $apiSecret,
     "event_id"        => $eventId,
 
-    "customer_name"   => $input['customer_name']   ?? "Test Customer",
-    "customer_email"  => $input['customer_email']  ?? "test@example.com",
-    "customer_mobile" => $input['customer_mobile'] ?? "9876543210",
+    "customer_name"   => $customerName,
+    "name"            => $customerName,
+    "customer_email"  => $customerEmail,
+    "email"           => $customerEmail,
+    "customer_mobile" => $cleanMobile ?: $rawMobile,
+    "mobile"          => $cleanMobile ?: $rawMobile,
 
-    "amount"          => isset($input['amount']) ? (int)$input['amount'] : 100,
+    "amount"          => isset($input['amount']) ? (int)$input['amount'] : 750,
     "currency"        => $input['currency'] ?? "INR",
 
-    "redirect_url"    => $input['redirect_url'] ?? "your redirection url"
+    "redirect_url"    => $input['redirect_url'] ?? "https://dyuti27new.vercel.app/registration.html"
 ];
 
 $ch = curl_init($url);

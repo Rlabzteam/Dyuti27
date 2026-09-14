@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /var/www/html
 
 # Copy the API backend files
-COPY public/api/ /var/www/html/api/
+COPY api/ /var/www/html/api/
 
 # Health check index file
 RUN echo "<?php header('Content-Type: application/json'); echo json_encode(['status' => 'online', 'service' => 'DYUTI 2027 API Server']); ?>" > /var/www/html/index.php

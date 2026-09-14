@@ -296,6 +296,13 @@
         <p class="text-sm sm:text-base text-slate-650 leading-relaxed font-sans max-w-2xl mx-auto font-normal">
           Please fill in your participant coordinates accurately. Cross-check all details before final submission to ensure a smooth conference check-in, certificate issuance, and hospitality arrangement.
         </p>
+      <!-- ── GATEWAY RETURN / STATUS BANNER ── -->
+      <div id="payment-return-banner" class="hidden mb-8 max-w-4xl mx-auto p-5 rounded-2xl border-2 flex items-start gap-4 animate-fadeIn">
+        <div id="payment-return-icon" class="shrink-0 mt-0.5"></div>
+        <div class="flex-1 text-sm sm:text-base font-sans">
+          <h4 id="payment-return-title" class="font-bold text-base sm:text-lg mb-1"></h4>
+          <p id="payment-return-desc" class="leading-relaxed font-medium m-0"></p>
+        </div>
       </div>
 
       <!-- ── STEP INDICATOR BANNER ── -->
@@ -945,12 +952,18 @@
             </div>
             <div id="success-gateway-order" class="pt-2.5 border-t border-slate-200">
               <span class="text-xs text-slate-600 uppercase font-mono font-bold block">
-                Gateway Order ID
+                Vortexx Transaction ID
               </span>
-              <span id="success-gateway-order-id" class="font-mono text-base font-bold text-emerald-800">
-                VORTEX-982410
+              <span id="success-gateway-order-id" class="font-mono text-base font-bold text-emerald-800 break-all">
+                VTX-PENDING
               </span>
             </div>
+          </div>
+
+          <!-- Secretariat Notification Badge -->
+          <div class="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-blue-50 border border-blue-200 text-[#071A33] text-xs sm:text-sm font-sans font-semibold mb-8 max-w-lg mx-auto shadow-xs">
+            <svg class="w-4 h-4 text-[#071A33] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <span>Registration &amp; payment coordinates dispatched to <strong>dyuti@rajagiri.edu</strong></span>
           </div>
 
           <!-- Summary Details Box -->

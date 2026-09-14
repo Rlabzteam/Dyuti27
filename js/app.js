@@ -400,6 +400,158 @@ function initRegistrationForm() {
   let currentCategoryKey = 'student';
   let currentPaymentMode = 'online';
 
+  // ── Gateway Return Redirect Handler (when delegate returns from Vortexx checkout) ──
+  const urlParams = new URLSearchParams(window.location.search);
+  const vortexTxId = urlParams.get('vortex_transaction_id');
+  const statusCode = urlParams.get('status_code');
+  const returnAmount = urlParams.get('amount');
+
+  const returnBanner = document.getElementById('payment-return-banner');
+  const returnIcon = document.getElementById('payment-return-icon');
+  const returnTitle = document.getElementById('payment-return-title');
+  const returnDesc = document.getElementById('payment-return-desc');
+
+  if (vortexTxId) {
+    let savedReg = null;
+    try {
+      savedReg = JSON.parse(sessionStorage.getItem('dyuti_pending_registration') || '{}');
+    } catch (e) {
+      console.warn('Could not read pending registration:', e);
+    }
+
+    if (String(statusCode) === '200') {
+      // Dispatch official registration and payment notification to dyuti@rajagiri.edu
+      const notificationKey = 'dyuti_notified_' + vortexTxId;
+      if (!sessionStorage.getItem(notificationKey)) {
+        sessionStorage.setItem(notificationKey, 'true');
+
+        const notificationData = {
+          regId: savedReg?.regId || `DYUTI27-ONLINE-${vortexTxId.slice(-6).toUpperCase()}`,
+          vortex_transaction_id: vortexTxId,
+          amount: returnAmount || savedReg?.amount || '750',
+          currency: 'INR',
+          payment_status: 'SUCCESS',
+          date_time: new Date().toISOString().replace('T', ' ').substring(0, 19),
+          title: savedReg?.title || '',
+          name: savedReg?.name || '',
+          full_name: savedReg?.name || '',
+          designation: savedReg?.designation || '',
+          gender: savedReg?.gender || '',
+          organization: savedReg?.organization || '',
+          discipline: savedReg?.discipline || '',
+          address: savedReg?.address || '',
+          pincode: savedReg?.pincode || '',
+          phone: savedReg?.phone || '',
+          email: savedReg?.email || '',
+          foodPreference: savedReg?.foodPreference || 'veg',
+          requireAccommodation: savedReg?.requireAccommodation || 'no',
+          isPresentingPaper: savedReg?.isPresentingPaper || 'no',
+          paperTitle: savedReg?.paperTitle || '',
+          cmtPaperId: savedReg?.cmtPaperId || '',
+          paperTheme: savedReg?.paperTheme || '',
+          categoryLabel: savedReg?.categoryLabel || 'UG / PG Student'
+        };
+
+        // Post to serverless notification endpoint with fallback to PHP endpoint
+        fetch('/api/send_registration_notification', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(notificationData)
+        }).catch(() => {
+          fetch('/api/send_registration_notification.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(notificationData)
+          }).catch(e => console.warn('Notification endpoint fallback error:', e));
+        });
+
+        // Also save to database
+        fetch('/api/save_registration.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(notificationData)
+        }).catch(() => {});
+      }
+
+      // 1. SUCCESS: Show confirmation banner and activate Step 3 Confirmed Screen
+      if (returnBanner && returnIcon && returnTitle && returnDesc) {
+        returnBanner.className = 'mb-8 max-w-4xl mx-auto p-5 rounded-2xl border-2 flex items-start gap-4 animate-fadeIn bg-emerald-50 border-emerald-300 text-emerald-950 shadow-sm';
+        returnIcon.innerHTML = '<svg class="w-7 h-7 text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+        returnTitle.textContent = 'Payment Completed Successfully!';
+        returnDesc.innerHTML = `Your registration payment of <strong>₹ ${returnAmount ? parseFloat(returnAmount).toLocaleString() : (savedReg?.amount ? savedReg.amount.toLocaleString() : '750')}</strong> was verified by Vortexx Gateway. Transaction ID: <strong class="font-mono">${vortexTxId}</strong>.`;
+        returnBanner.classList.remove('hidden');
+      }
+
+      // Populate Step 3 Success View
+      const succGreeting = document.getElementById('success-greeting');
+      if (succGreeting) succGreeting.textContent = `Thank You, ${savedReg?.title || 'Dr.'} ${savedReg?.name || 'Participant'}!`;
+
+      const succBadge = document.getElementById('success-status-badge');
+      if (succBadge) succBadge.textContent = 'Payment Verified & Registration Confirmed';
+
+      const succRegId = document.getElementById('success-reg-id');
+      if (succRegId) succRegId.textContent = savedReg?.regId || `DYUTI27-ONLINE-${vortexTxId.slice(-6).toUpperCase()}`;
+
+      const succOrderBox = document.getElementById('success-gateway-order');
+      const succOrderId = document.getElementById('success-gateway-order-id');
+      if (succOrderBox && succOrderId) {
+        succOrderId.textContent = vortexTxId;
+        succOrderBox.classList.remove('hidden');
+      }
+
+      const succCategory = document.getElementById('success-category');
+      if (succCategory) succCategory.textContent = savedReg?.categoryLabel || 'UG / PG Student';
+
+      const succAmount = document.getElementById('success-amount');
+      if (succAmount) succAmount.textContent = returnAmount ? `₹ ${parseFloat(returnAmount).toLocaleString()}` : `₹ ${savedReg?.amount || '750'}`;
+
+      const succPayStatus = document.getElementById('success-payment-status');
+      if (succPayStatus) succPayStatus.textContent = 'Completed via Vortexx Gateway (Online)';
+
+      const succOrg = document.getElementById('success-org');
+      if (succOrg && savedReg?.organization) succOrg.textContent = savedReg.organization;
+
+      const succPhone = document.getElementById('success-phone');
+      if (succPhone && savedReg?.phone) succPhone.textContent = savedReg.phone;
+
+      const succEmail = document.getElementById('success-email');
+      if (succEmail && savedReg?.email) succEmail.textContent = savedReg.email;
+
+      const succAccom = document.getElementById('success-accom');
+      if (succAccom && savedReg?.requireAccommodation) {
+        succAccom.textContent = savedReg.requireAccommodation === 'yes' ? 'Requested' : 'Self-arranged';
+      }
+
+      setStep('success');
+
+      try {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      } catch (e) {}
+
+    } else {
+      // 2. FAILED / CANCELLED: Show alert banner and restore saved data
+      if (returnBanner && returnIcon && returnTitle && returnDesc) {
+        returnBanner.className = 'mb-8 max-w-4xl mx-auto p-5 rounded-2xl border-2 flex items-start gap-4 animate-fadeIn bg-red-50 border-red-300 text-red-950 shadow-sm';
+        returnIcon.innerHTML = '<svg class="w-7 h-7 text-red-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>';
+        returnTitle.textContent = 'Payment Incomplete or Cancelled';
+        returnDesc.innerHTML = `Your payment attempt (Transaction ID: <span class="font-mono">${vortexTxId}</span>) was not completed. Your participant details have been restored below so you can try again.`;
+        returnBanner.classList.remove('hidden');
+      }
+
+      if (savedReg && typeof savedReg === 'object') {
+        const fields = ['title', 'name', 'designation', 'gender', 'organization', 'discipline', 'address', 'pincode', 'phone', 'email'];
+        fields.forEach(f => {
+          const el = document.getElementById(`reg-${f}`);
+          if (el && savedReg[f]) el.value = savedReg[f];
+        });
+      }
+
+      try {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      } catch (e) {}
+    }
+  }
+
   // 1. Pill Cards click handler (Food, Accommodation, Paper Presenter)
   pillCards.forEach(card => {
     card.addEventListener('click', (e) => {
@@ -730,7 +882,7 @@ function initRegistrationForm() {
 
   // 6. Confirm & Submit in Step 2
   if (btnConfirmSubmit) {
-    btnConfirmSubmit.addEventListener('click', () => {
+    btnConfirmSubmit.addEventListener('click', async () => {
       if (!agreeTermsCheckbox || !agreeTermsCheckbox.checked) {
         if (reviewErrorMsg) reviewErrorMsg.textContent = 'Please check the verification declaration box to confirm your details.';
         if (reviewErrorBox) reviewErrorBox.classList.remove('hidden');
@@ -741,17 +893,184 @@ function initRegistrationForm() {
 
       const title = document.getElementById('reg-title')?.value || 'Dr.';
       const name = document.getElementById('reg-name')?.value.trim() || 'Participant';
+      const designation = document.getElementById('reg-designation')?.value.trim() || '';
+      const gender = document.getElementById('reg-gender')?.value || '';
       const organization = document.getElementById('reg-organization')?.value.trim() || 'Rajagiri College';
+      const discipline = document.getElementById('reg-discipline')?.value.trim() || '';
+      const address = document.getElementById('reg-address')?.value.trim() || '';
+      const pincode = document.getElementById('reg-pincode')?.value.trim() || '';
       const phone = document.getElementById('reg-phone')?.value.trim() || '';
       const email = document.getElementById('reg-email')?.value.trim() || '';
       const accomRadio = form.querySelector('input[name="requireAccommodation"]:checked');
       const requireAccommodation = accomRadio ? accomRadio.value : 'no';
+      const foodRadio = form.querySelector('input[name="foodPreference"]:checked');
+      const foodPreference = foodRadio ? foodRadio.value : 'veg';
+      const paperRadio = form.querySelector('input[name="isPresentingPaper"]:checked');
+      const isPresentingPaper = paperRadio ? paperRadio.value : 'no';
+      const paperTitle = document.getElementById('reg-paper-title')?.value.trim() || '';
+      const cmtPaperId = document.getElementById('reg-cmt-id')?.value.trim() || '';
+      const paperTheme = document.getElementById('reg-paper-theme')?.value || '';
 
       const selectedCat = categories[currentCategoryKey] || categories.student;
       const randomCode = Math.floor(10000 + Math.random() * 90000);
       const generatedId = currentPaymentMode === 'online'
         ? `DYUTI27-ONLINE-${randomCode}`
         : `DYUTI27-REG-${randomCode}`;
+
+      // Save registration state in sessionStorage before redirect
+      const registrationState = {
+        regId: generatedId,
+        title,
+        name,
+        designation,
+        gender,
+        organization,
+        discipline,
+        address,
+        pincode,
+        phone,
+        email,
+        requireAccommodation,
+        foodPreference,
+        isPresentingPaper,
+        paperTitle,
+        cmtPaperId,
+        paperTheme,
+        categoryKey: currentCategoryKey,
+        categoryLabel: selectedCat.label,
+        amount: selectedCat.amount,
+        feeString: selectedCat.fee
+      };
+
+      try {
+        sessionStorage.setItem('dyuti_pending_registration', JSON.stringify(registrationState));
+      } catch (e) {
+        console.warn('sessionStorage not accessible:', e);
+      }
+
+      // Online payment via Vortexx Payment Gateway
+      if (currentPaymentMode === 'online') {
+        const originalBtnHtml = btnConfirmSubmitLabel ? btnConfirmSubmitLabel.innerHTML : '';
+        btnConfirmSubmit.disabled = true;
+        btnConfirmSubmit.classList.add('opacity-80', 'cursor-wait');
+        if (btnConfirmSubmitLabel) {
+          btnConfirmSubmitLabel.innerHTML = `
+            <span class="inline-flex items-center gap-2">
+              <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Connecting to Vortexx Gateway...
+            </span>
+          `;
+        }
+
+        const returnUrl = window.location.origin + window.location.pathname;
+        const orderData = {
+          customer_name: `${title} ${name}`.trim(),
+          name: `${title} ${name}`.trim(),
+          customer_email: email.trim(),
+          email: email.trim(),
+          customer_mobile: phone.trim(),
+          mobile: phone.trim(),
+          amount: selectedCat.amount,
+          currency: 'INR',
+          redirect_url: returnUrl,
+          event_id: 'DYUT20260913MU01TMQ67BK'
+        };
+
+        let paymentUrl = null;
+        let errorMessage = null;
+
+        // Try primary Vercel Serverless / Node endpoint first
+        try {
+          const res = await fetch('/api/create_payment_order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(orderData)
+          });
+          
+          if (res.status === 404) {
+            throw new Error('ENDPOINT_404');
+          }
+
+          const json = await res.json();
+          if (res.ok && json.status === 'success' && json.data && json.data.payment_url) {
+            paymentUrl = json.data.payment_url;
+          } else {
+            errorMessage = json.message || 'Payment gateway initialization failed.';
+          }
+        } catch (apiErr) {
+          console.warn('Primary endpoint failed, attempting fallback:', apiErr);
+
+          // If 404 on localhost, try the deployed Vercel endpoint
+          if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            try {
+              const vercelRes = await fetch('https://dyuti27new.vercel.app/api/create_payment_order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(orderData)
+              });
+              if (vercelRes.ok) {
+                const vercelJson = await vercelRes.json();
+                if (vercelJson.status === 'success' && vercelJson.data && vercelJson.data.payment_url) {
+                  paymentUrl = vercelJson.data.payment_url;
+                }
+              }
+            } catch (vercelErr) {
+              console.warn('Vercel production fallback failed:', vercelErr);
+            }
+          }
+
+          // Fallback to PHP endpoint if running on Apache / PHP
+          if (!paymentUrl) {
+            try {
+              const phpRes = await fetch('/api/create_payment_order.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(orderData)
+              });
+              const text = await phpRes.text();
+              const phpJson = JSON.parse(text);
+              if (phpRes.ok && phpJson.status === 'success' && phpJson.data && phpJson.data.payment_url) {
+                paymentUrl = phpJson.data.payment_url;
+              } else {
+                errorMessage = phpJson.message || 'Payment gateway initialization failed.';
+              }
+            } catch (phpErr) {
+              if (apiErr.message === 'ENDPOINT_404') {
+                errorMessage = 'Payment API endpoint returned 404. If testing locally, please run "npm run dev" (which runs dev-server.js) instead of a static server like "serve".';
+              } else {
+                errorMessage = 'Unable to establish connection with the payment gateway. Please verify your internet connection or try again shortly.';
+              }
+            }
+          }
+        }
+
+        if (paymentUrl) {
+          // Redirect user to the Vortexx checkout page!
+          window.location.href = paymentUrl;
+          return;
+        }
+
+        // If order creation failed, re-enable button and show error
+        btnConfirmSubmit.disabled = false;
+        btnConfirmSubmit.classList.remove('opacity-80', 'cursor-wait');
+        if (btnConfirmSubmitLabel) {
+          btnConfirmSubmitLabel.innerHTML = originalBtnHtml || `Register &amp; Pay ₹ ${selectedCat.amount.toLocaleString()} Now`;
+        }
+
+        if (reviewErrorMsg) {
+          reviewErrorMsg.textContent = errorMessage || 'Unable to create payment order. Please verify your details and try again.';
+        }
+        if (reviewErrorBox) {
+          reviewErrorBox.classList.remove('hidden');
+          reviewErrorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+
+      // Fallback for direct bank wire / offline mode
       const gatewayOrder = `VORTEX-${Math.floor(100000 + Math.random() * 900000)}`;
 
       // Populate Step 3 Success View
@@ -760,24 +1079,14 @@ function initRegistrationForm() {
 
       const succBadge = document.getElementById('success-status-badge');
       if (succBadge) {
-        succBadge.textContent = currentPaymentMode === 'online'
-          ? 'Payment Verified & Registration Confirmed'
-          : 'Registration Recorded (Bank Wire Pending Verification)';
+        succBadge.textContent = 'Registration Recorded (Bank Wire Pending Verification)';
       }
 
       const succRegId = document.getElementById('success-reg-id');
       if (succRegId) succRegId.textContent = generatedId;
 
       const succOrderBox = document.getElementById('success-gateway-order');
-      const succOrderId = document.getElementById('success-gateway-order-id');
-      if (succOrderBox && succOrderId) {
-        if (currentPaymentMode === 'online') {
-          succOrderId.textContent = gatewayOrder;
-          succOrderBox.classList.remove('hidden');
-        } else {
-          succOrderBox.classList.add('hidden');
-        }
-      }
+      if (succOrderBox) succOrderBox.classList.add('hidden');
 
       const succCategory = document.getElementById('success-category');
       if (succCategory) succCategory.textContent = selectedCat.label;
@@ -787,9 +1096,7 @@ function initRegistrationForm() {
 
       const succPayStatus = document.getElementById('success-payment-status');
       if (succPayStatus) {
-        succPayStatus.textContent = currentPaymentMode === 'online'
-          ? 'Completed via Vortexx Gateway'
-          : 'Direct Bank Wire Transfer';
+        succPayStatus.textContent = 'Direct Bank Wire Transfer';
       }
 
       const succOrg = document.getElementById('success-org');

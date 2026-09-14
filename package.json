@@ -7,9 +7,11 @@
     "esbuild": true
   },
   "scripts": {
-    "dev": "npx serve .",
+    "dev": "node dev-server.js",
+    "start": "node dev-server.js",
+    "serve": "npx serve .",
     "build": "echo 'Static HTML build ready'",
-    "preview": "npx serve ."
+    "preview": "node dev-server.js"
   },
   "dependencies": {
     "clsx": "^2.1.1",
