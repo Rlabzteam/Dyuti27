@@ -24,7 +24,7 @@ flowchart TB
     subgraph T2["2. Application & API Processing Tier"]
         direction LR
         WebServer["Web Server Routing\n(Nginx / Apache / Vercel Edge)"]
-        PHP["PHP REST Microservices\n(/public/api/*.php)"]
+        PHP["REST Microservices\n(/api/*)"]
         Security["Security & Validation\n(CORS, Rate Limiting, Sanitization)"]
         WebServer --> PHP
         PHP <--> Security
@@ -65,7 +65,7 @@ flowchart TB
 
 ### 2. Application & API Processing Tier (Backend & Middleware)
 - **Web Server Routing:** Nginx / Apache / Vercel Edge routing with automated SSL/TLS termination.
-- **PHP REST Microservices:** Modular, stateless endpoints (`/public/api/`) handling registrations and contact inquiries.
+- **REST Microservices:** Modular, stateless endpoints (`/api/`) handling registrations and contact inquiries.
 - **Security Middleware:** Strict CORS headers, payload sanitization to mitigate XSS/SQLi, and rate limiting against automated spam.
 
 ### 3. Data Persistence & Storage Tier

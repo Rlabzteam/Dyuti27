@@ -108,12 +108,12 @@ flowchart TB
     CDN -- "Cached Global Delivery" --> T1
 ```
 
-### Architecture Layer Summary
+### Tier Descriptions
 
-| Tier | Primary Role | Technologies & Components |
+| Tier | Component | Responsibilities & Technologies |
 | :--- | :--- | :--- |
-| **1. Client Tier** | Presentation, Accessibility & Dynamic UI | Semantic HTML5, Tailwind CSS v3, Vanilla JS (ES6+), Lucide Icons |
-| **2. Application Tier** | Request Validation & REST Routing | Nginx/Apache Web Server, PHP Microservices (`/public/api/`), Rate Limiting |
+| **1. Presentation Tier** | Client Application | Static HTML5, Tailwind CSS, Vanilla JavaScript, DOM Routing |
+| **2. Application Tier** | Request Validation & REST Routing | Vercel Serverless / Node & PHP Microservices (`/api/`), Rate Limiting |
 | **3. Data Tier** | Persistent Storage & Media Assets | Relational SQL (MySQL/MariaDB), Normalized Tables, Local Object/Static Storage |
 | **4. External Services** | Specialized Academic & Financial Integrations | Microsoft CMT (Peer Review), Payment Gateways (Razorpay/Bank Wire), Cloudflare CDN |
 
