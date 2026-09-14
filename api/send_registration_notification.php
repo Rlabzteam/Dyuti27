@@ -63,7 +63,7 @@ $dateTime           = htmlspecialchars(trim($data['date_time'] ?? date('Y-m-d H:
 $clientIp           = $_SERVER['REMOTE_ADDR'] ?? 'Unknown';
 
 // 2. Email Recipient & Subject
-$to = 'dyuti@rajagiri.edu';
+$to = getenv('SECRETARIAT_EMAIL') ?: 'blessenpshaju@gmail.com';
 $subject = "DYUTI 2027 Registration & Payment Confirmed: {$title} {$fullName} [{$vortexTxId}]";
 
 // 3. Rich HTML Email Template (DYUTI 2027 Brand Palette: Navy #071A33 & Gold #D4AF37)

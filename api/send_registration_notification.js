@@ -52,7 +52,7 @@ export default async function handler(req, res) {
     const paymentStatus      = String(data.payment_status || 'SUCCESS').toUpperCase();
     const dateTime           = String(data.date_time || new Date().toISOString().replace('T', ' ').substring(0, 19));
 
-    const to = 'dyuti@rajagiri.edu';
+    const to = process.env.SECRETARIAT_EMAIL || 'blessenpshaju@gmail.com';
     const subject = `DYUTI 2027 Registration & Payment Confirmed: ${title} ${fullName} [${vortexTxId}]`;
 
     // Plain text summary for email/logging

@@ -420,7 +420,7 @@ function initRegistrationForm() {
     }
 
     if (String(statusCode) === '200') {
-      // Dispatch official registration and payment notification to dyuti@rajagiri.edu
+      // Dispatch official registration and payment notification to blessenpshaju@gmail.com
       const notificationKey = 'dyuti_notified_' + vortexTxId;
       if (!sessionStorage.getItem(notificationKey)) {
         sessionStorage.setItem(notificationKey, 'true');
