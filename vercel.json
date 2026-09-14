@@ -1,7 +1,4 @@
 {
-  "framework": null,
-  "buildCommand": null,
-  "outputDirectory": ".",
   "cleanUrls": true,
   "rewrites": [
     { "source": "/api/create_payment_order.php", "destination": "/api/create_payment_order" },
