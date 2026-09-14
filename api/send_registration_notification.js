@@ -108,7 +108,7 @@ dyuti@rajagiri.edu
           },
           body: JSON.stringify({
             from: 'DYUTI 2027 Portal <noreply@dyuti.in>',
-            to: [to],
+            to: email ? [to, email] : [to],
             reply_to: email || undefined,
             subject: subject,
             text: textSummary
