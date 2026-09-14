@@ -69,6 +69,8 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, [
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+curl_setopt($ch, CURLOPT_TCP_NODELAY, 1);
 
 $response = curl_exec($ch);
 

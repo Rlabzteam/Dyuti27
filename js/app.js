@@ -844,12 +844,142 @@ function initRegistrationForm() {
       }
     }
 
-    if (agreeTermsCheckbox) agreeTermsCheckbox.checked = false;
+    if (agreeTermsCheckbox) agreeTermsCheckbox.checked = true;
     if (reviewErrorBox) reviewErrorBox.classList.add('hidden');
 
     updateButtonLabels();
     setStep('review');
+
+    // Start background creation of Vortexx payment order immediately so there is zero delay on Step 2
+    if (currentPaymentMode === 'online') {
+      startPaymentPreload();
+    }
   });
+
+  // Background Preloading & Instant Gateway Execution State
+  let preloadedPayment = {
+    hash: '',
+    promise: null,
+    url: null,
+    errorMessage: null
+  };
+
+  function getOrderPayload() {
+    const title = document.getElementById('reg-title')?.value || 'Dr.';
+    const name = document.getElementById('reg-name')?.value.trim() || 'Participant';
+    const phone = document.getElementById('reg-phone')?.value.trim() || '';
+    const email = document.getElementById('reg-email')?.value.trim() || '';
+    const selectedCat = categories[currentCategoryKey] || categories.student;
+    const returnUrl = window.location.origin + window.location.pathname;
+
+    return {
+      customer_name: `${title} ${name}`.trim(),
+      name: `${title} ${name}`.trim(),
+      customer_email: email.trim(),
+      email: email.trim(),
+      customer_mobile: phone.trim(),
+      mobile: phone.trim(),
+      amount: selectedCat.amount,
+      currency: 'INR',
+      redirect_url: returnUrl,
+      event_id: 'DYUT20260913MU01TMQ67BK'
+    };
+  }
+
+  async function fetchPaymentUrl(orderData) {
+    let paymentUrl = null;
+    let errorMessage = null;
+
+    // Try primary endpoint first
+    try {
+      const res = await fetch('/api/create_payment_order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(orderData)
+      });
+
+      if (res.status === 404) {
+        throw new Error('ENDPOINT_404');
+      }
+
+      const json = await res.json();
+      if (res.ok && json.status === 'success' && json.data && json.data.payment_url) {
+        return json.data.payment_url;
+      } else {
+        errorMessage = json.message || 'Payment gateway initialization failed.';
+      }
+    } catch (apiErr) {
+      console.warn('Primary endpoint failed, attempting fallback:', apiErr);
+
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        try {
+          const vercelRes = await fetch('https://dyuti27new.vercel.app/api/create_payment_order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(orderData)
+          });
+          if (vercelRes.ok) {
+            const vercelJson = await vercelRes.json();
+            if (vercelJson.status === 'success' && vercelJson.data && vercelJson.data.payment_url) {
+              return vercelJson.data.payment_url;
+            }
+          }
+        } catch (vercelErr) {
+          console.warn('Vercel fallback failed:', vercelErr);
+        }
+      }
+
+      try {
+        const phpRes = await fetch('/api/create_payment_order.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(orderData)
+        });
+        const text = await phpRes.text();
+        const phpJson = JSON.parse(text);
+        if (phpRes.ok && phpJson.status === 'success' && phpJson.data && phpJson.data.payment_url) {
+          return phpJson.data.payment_url;
+        } else {
+          errorMessage = phpJson.message || 'Payment gateway initialization failed.';
+        }
+      } catch (phpErr) {
+        errorMessage = 'Unable to establish connection with the payment gateway. Please try again.';
+      }
+    }
+
+    if (errorMessage) {
+      throw new Error(errorMessage);
+    }
+    return paymentUrl;
+  }
+
+  function startPaymentPreload() {
+    if (currentPaymentMode !== 'online') return;
+    const orderData = getOrderPayload();
+    if (!orderData.email || !orderData.mobile) return;
+
+    const hash = `${orderData.customer_email}|${orderData.customer_mobile}|${orderData.amount}`;
+    if (preloadedPayment.hash === hash && (preloadedPayment.url || preloadedPayment.promise)) {
+      return; // Already prepared or in progress
+    }
+
+    preloadedPayment = {
+      hash,
+      url: null,
+      errorMessage: null,
+      promise: null
+    };
+
+    preloadedPayment.promise = fetchPaymentUrl(orderData)
+      .then(url => {
+        preloadedPayment.url = url;
+        return url;
+      })
+      .catch(err => {
+        preloadedPayment.errorMessage = err.message;
+        throw err;
+      });
+  }
 
   // 5. Back to Form button in Step 2
   if (btnBackToForm) {
@@ -922,6 +1052,12 @@ function initRegistrationForm() {
 
       // Online payment via Vortexx Payment Gateway
       if (currentPaymentMode === 'online') {
+        // INSTANT REDIRECTION: If the preloaded payment URL is already resolved, redirect immediately with zero delay!
+        if (preloadedPayment.url) {
+          window.location.href = preloadedPayment.url;
+          return;
+        }
+
         const originalBtnHtml = btnConfirmSubmitLabel ? btnConfirmSubmitLabel.innerHTML : '';
         btnConfirmSubmit.disabled = true;
         btnConfirmSubmit.classList.add('opacity-80', 'cursor-wait');
@@ -937,90 +1073,23 @@ function initRegistrationForm() {
           `;
         }
 
-        const returnUrl = window.location.origin + window.location.pathname;
-        const orderData = {
-          customer_name: `${title} ${name}`.trim(),
-          name: `${title} ${name}`.trim(),
-          customer_email: email.trim(),
-          email: email.trim(),
-          customer_mobile: phone.trim(),
-          mobile: phone.trim(),
-          amount: selectedCat.amount,
-          currency: 'INR',
-          redirect_url: returnUrl,
-          event_id: 'DYUT20260913MU01TMQ67BK'
-        };
-
         let paymentUrl = null;
         let errorMessage = null;
 
-        // Try primary Vercel Serverless / Node endpoint first
         try {
-          const res = await fetch('/api/create_payment_order', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify(orderData)
-          });
-
-          if (res.status === 404) {
-            throw new Error('ENDPOINT_404');
-          }
-
-          const json = await res.json();
-          if (res.ok && json.status === 'success' && json.data && json.data.payment_url) {
-            paymentUrl = json.data.payment_url;
+          // If preloading is already in flight, await it directly!
+          if (preloadedPayment.promise) {
+            paymentUrl = await preloadedPayment.promise;
           } else {
-            errorMessage = json.message || 'Payment gateway initialization failed.';
+            const orderData = getOrderPayload();
+            paymentUrl = await fetchPaymentUrl(orderData);
           }
-        } catch (apiErr) {
-          console.warn('Primary endpoint failed, attempting fallback:', apiErr);
-
-          // If 404 on localhost, try the deployed Vercel endpoint
-          if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-            try {
-              const vercelRes = await fetch('https://dyuti27new.vercel.app/api/create_payment_order', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(orderData)
-              });
-              if (vercelRes.ok) {
-                const vercelJson = await vercelRes.json();
-                if (vercelJson.status === 'success' && vercelJson.data && vercelJson.data.payment_url) {
-                  paymentUrl = vercelJson.data.payment_url;
-                }
-              }
-            } catch (vercelErr) {
-              console.warn('Vercel production fallback failed:', vercelErr);
-            }
-          }
-
-          // Fallback to PHP endpoint if running on Apache / PHP
-          if (!paymentUrl) {
-            try {
-              const phpRes = await fetch('/api/create_payment_order.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(orderData)
-              });
-              const text = await phpRes.text();
-              const phpJson = JSON.parse(text);
-              if (phpRes.ok && phpJson.status === 'success' && phpJson.data && phpJson.data.payment_url) {
-                paymentUrl = phpJson.data.payment_url;
-              } else {
-                errorMessage = phpJson.message || 'Payment gateway initialization failed.';
-              }
-            } catch (phpErr) {
-              if (apiErr.message === 'ENDPOINT_404') {
-                errorMessage = 'Payment API endpoint returned 404. If testing locally, please run "npm run dev" (which runs dev-server.js) instead of a static server like "serve".';
-              } else {
-                errorMessage = 'Unable to establish connection with the payment gateway. Please verify your internet connection or try again shortly.';
-              }
-            }
-          }
+        } catch (err) {
+          errorMessage = err.message || 'Unable to create payment order. Please verify your details and try again.';
         }
 
         if (paymentUrl) {
-          // Redirect user to the Vortexx checkout page!
+          // Immediately redirect to Vortexx checkout page!
           window.location.href = paymentUrl;
           return;
         }

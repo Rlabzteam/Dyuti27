@@ -9,6 +9,14 @@ const VORTEXX_API_KEY = process.env.VORTEXX_API_KEY || '51e60f98b5b217688d0fe537
 const VORTEXX_API_SECRET = process.env.VORTEXX_API_SECRET || 'e605e71a192a6eba29416f3931e5abf3';
 const VORTEXX_EVENT_ID = process.env.VORTEXX_EVENT_ID || 'DYUT20260913MU01TMQ67BK';
 
+// Shared HTTPS Agent for persistent TCP connection & TLS session reuse with IPv4
+const httpsAgent = new https.Agent({
+  keepAlive: true,
+  family: 4,
+  maxSockets: 50,
+  keepAliveMsecs: 30000
+});
+
 export default async function handler(req, res) {
   // 1. Handle CORS Preflight and headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -74,6 +82,8 @@ export default async function handler(req, res) {
         port: parsedUrl.port || 443,
         path: parsedUrl.pathname + parsedUrl.search,
         method: 'POST',
+        agent: httpsAgent,
+        family: 4,
         headers: {
           'Content-Type': 'application/json',
           'Content-Length': Buffer.byteLength(postData),
