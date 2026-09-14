@@ -34,7 +34,7 @@ export default async function handler(req, res) {
     const customerName = (input.customer_name || input.name || 'Delegate Participant').trim();
     const customerEmail = (input.customer_email || input.email || '').trim();
     const customerMobile = (input.customer_mobile || input.mobile || input.phone || '').trim().replace(/[^\d+]/g, '');
-    const amount = Number(input.amount) || 750;
+    const amount = Number(input.amount) > 0 ? Number(input.amount) : 1;
     const currency = (input.currency || 'INR').toUpperCase();
     const redirectUrl = input.redirect_url || 'https://dyuti27new.vercel.app/registration.html';
 

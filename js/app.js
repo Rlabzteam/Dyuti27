@@ -379,20 +379,20 @@ function initRegistrationForm() {
   const categories = {
     student: {
       label: 'UG / PG Student',
-      fee: '₹ 750',
-      amount: 750,
+      fee: '₹ 1 (Test Fee)',
+      amount: 1,
       desc: 'Graduate & Postgraduate Students'
     },
     scholar: {
       label: 'M.Phil / Research Scholars',
-      fee: '₹ 750',
-      amount: 750,
+      fee: '₹ 1 (Test Fee)',
+      amount: 1,
       desc: 'Full-time & PhD Research Scholars'
     },
     professional: {
       label: 'Professionals / Academicians',
-      fee: '₹ 1,000',
-      amount: 1000,
+      fee: '₹ 1 (Test Fee)',
+      amount: 1,
       desc: 'Faculty Members, NGO & CSR Delegates'
     }
   };
