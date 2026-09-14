@@ -51,7 +51,7 @@ $data = [
     "customer_mobile" => $cleanMobile ?: $rawMobile,
     "mobile"          => $cleanMobile ?: $rawMobile,
 
-    "amount"          => (isset($input['amount']) && (int)$input['amount'] > 0) ? (int)$input['amount'] : 1,
+    "amount"          => isset($input['amount']) ? (int)$input['amount'] : 750,
     "currency"        => $input['currency'] ?? "INR",
 
     "redirect_url"    => $input['redirect_url'] ?? "https://dyuti27new.vercel.app/registration.html"

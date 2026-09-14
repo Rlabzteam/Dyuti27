@@ -281,7 +281,7 @@ function initGalleryLightbox() {
     const year = item.getAttribute('data-year');
 
     if (lightboxImg) {
-      lightboxImg.onerror = function() { handleGalleryImgError(this); };
+      lightboxImg.onerror = function () { handleGalleryImgError(this); };
       const thumbnailImg = item.querySelector('img');
       const workingSrc = (thumbnailImg && thumbnailImg.currentSrc && !thumbnailImg.dataset.failed) ? thumbnailImg.currentSrc : src;
       lightboxImg.src = workingSrc;
@@ -379,20 +379,20 @@ function initRegistrationForm() {
   const categories = {
     student: {
       label: 'UG / PG Student',
-      fee: '₹ 1 (Test Fee)',
-      amount: 1,
+      fee: '₹ 750',
+      amount: 750,
       desc: 'Graduate & Postgraduate Students'
     },
     scholar: {
       label: 'M.Phil / Research Scholars',
-      fee: '₹ 1 (Test Fee)',
-      amount: 1,
+      fee: '₹ 750',
+      amount: 750,
       desc: 'Full-time & PhD Research Scholars'
     },
     professional: {
       label: 'Professionals / Academicians',
-      fee: '₹ 1 (Test Fee)',
-      amount: 1,
+      fee: '₹ 1,000',
+      amount: 1000,
       desc: 'Faculty Members, NGO & CSR Delegates'
     }
   };
@@ -420,7 +420,7 @@ function initRegistrationForm() {
     }
 
     if (String(statusCode) === '200') {
-      // Dispatch official registration and payment notification to blessenpshaju@gmail.com
+      // Dispatch official registration and payment notification to dyuti@rajagiri.edu
       const notificationKey = 'dyuti_notified_' + vortexTxId;
       if (!sessionStorage.getItem(notificationKey)) {
         sessionStorage.setItem(notificationKey, 'true');
@@ -470,7 +470,7 @@ function initRegistrationForm() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(notificationData)
-        }).catch(() => {});
+        }).catch(() => { });
       }
 
       // 1. SUCCESS: Show confirmation banner and activate Step 3 Confirmed Screen
@@ -526,7 +526,7 @@ function initRegistrationForm() {
 
       try {
         window.history.replaceState({}, document.title, window.location.pathname);
-      } catch (e) {}
+      } catch (e) { }
 
     } else {
       // 2. FAILED / CANCELLED: Show alert banner and restore saved data
@@ -548,7 +548,7 @@ function initRegistrationForm() {
 
       try {
         window.history.replaceState({}, document.title, window.location.pathname);
-      } catch (e) {}
+      } catch (e) { }
     }
   }
 
@@ -989,7 +989,7 @@ function initRegistrationForm() {
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
             body: JSON.stringify(orderData)
           });
-          
+
           if (res.status === 404) {
             throw new Error('ENDPOINT_404');
           }
@@ -1155,7 +1155,7 @@ let isNavigating = false;
 try {
   const initialKey = window.location.pathname.split('/').pop() || 'index.html';
   pageCache.set(initialKey, document.documentElement.outerHTML);
-} catch (e) {}
+} catch (e) { }
 
 function initSmoothPageNavigation() {
   createProgressBar();
@@ -1209,8 +1209,8 @@ function prefetchPage(url) {
       .then(html => {
         pageCache.set(key, html);
       })
-      .catch(() => {});
-  } catch (e) {}
+      .catch(() => { });
+  } catch (e) { }
 }
 
 function prefetchKnownPages() {
@@ -1516,7 +1516,7 @@ function reinitializePageComponents() {
 }
 
 /* ── 10. GLOBAL RESILIENT IMAGE FALLBACK HANDLERS ── */
-window.handleGalleryImgError = function(img) {
+window.handleGalleryImgError = function (img) {
   if (!img || img.dataset.failed) return;
   const filename = img.src.split('/').pop().split('?')[0];
 
@@ -1539,7 +1539,7 @@ window.handleGalleryImgError = function(img) {
   img.src = 'images/dyuti_let_me_change.jpg';
 };
 
-window.handleTeamImgError = function(img) {
+window.handleTeamImgError = function (img) {
   if (!img || img.dataset.failed) return;
   const filename = img.src.split('/').pop().split('?')[0];
 
@@ -1554,18 +1554,18 @@ window.handleTeamImgError = function(img) {
   img.dataset.failed = '1';
   const alt = img.getAttribute('alt') || 'DYUTI Team';
   const initials = alt.replace(/^Dr\.\s*|Fr\.\s*|Sr\.\s*|Ms\.\s*|Mr\.\s*/gi, '')
-                     .split(' ')
-                     .filter(Boolean)
-                     .map(s => s[0])
-                     .slice(0, 2)
-                     .join('')
-                     .toUpperCase() || 'DT';
+    .split(' ')
+    .filter(Boolean)
+    .map(s => s[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase() || 'DT';
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%"><rect width="100%" height="100%" fill="#0a2540"/><circle cx="60" cy="60" r="45" fill="none" stroke="#d4af37" stroke-width="2" opacity="0.4"/><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#d4af37" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="800" letter-spacing="1">${initials}</text></svg>`;
   img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
 };
 
 // Blanket capture-phase error listener for dynamically or lazy-loaded images
-window.addEventListener('error', function(e) {
+window.addEventListener('error', function (e) {
   if (e.target && e.target.tagName === 'IMG') {
     const img = e.target;
     const src = img.getAttribute('src') || '';

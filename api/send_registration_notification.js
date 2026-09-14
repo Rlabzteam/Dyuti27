@@ -18,41 +18,41 @@ export default async function handler(req, res) {
   try {
     const data = req.body || {};
 
-    const title              = String(data.title || 'Dr.').trim();
-    const fullName           = String(data.name || data.full_name || 'Participant').trim();
-    const designation        = String(data.designation || 'N/A').trim();
-    const gender             = String(data.gender || 'N/A').trim();
-    const organization       = String(data.organization || 'N/A').trim();
-    const discipline         = String(data.discipline || 'Social Work').trim();
+    const title = String(data.title || 'Dr.').trim();
+    const fullName = String(data.name || data.full_name || 'Participant').trim();
+    const designation = String(data.designation || 'N/A').trim();
+    const gender = String(data.gender || 'N/A').trim();
+    const organization = String(data.organization || 'N/A').trim();
+    const discipline = String(data.discipline || 'Social Work').trim();
 
-    const address            = String(data.address || 'N/A').trim();
-    const pincode            = String(data.pincode || 'N/A').trim();
-    const phone              = String(data.phone || data.mobile || 'N/A').trim();
-    const email              = String(data.email || '').trim();
+    const address = String(data.address || 'N/A').trim();
+    const pincode = String(data.pincode || 'N/A').trim();
+    const phone = String(data.phone || data.mobile || 'N/A').trim();
+    const email = String(data.email || '').trim();
 
-    const foodPref           = String(data.foodPreference || data.food_preference || 'veg').toLowerCase();
-    const foodLabel          = foodPref === 'non-veg' ? 'Non-Vegetarian' : 'Vegetarian';
+    const foodPref = String(data.foodPreference || data.food_preference || 'veg').toLowerCase();
+    const foodLabel = foodPref === 'non-veg' ? 'Non-Vegetarian' : 'Vegetarian';
 
-    const requireAccom       = String(data.requireAccommodation || data.require_accommodation || 'no').toLowerCase();
-    const accomLabel         = requireAccom === 'yes' ? 'Yes (Moderate Accommodation requested)' : 'No (Arranging own stay)';
+    const requireAccom = String(data.requireAccommodation || data.require_accommodation || 'no').toLowerCase();
+    const accomLabel = requireAccom === 'yes' ? 'Yes (Moderate Accommodation requested)' : 'No (Arranging own stay)';
 
-    const isPresenting       = String(data.isPresentingPaper || data.is_presenting_paper || 'no').toLowerCase();
-    const presentingLabel    = isPresenting === 'yes' ? 'Yes (Author / Presenter)' : 'No (Delegate / Attendee)';
+    const isPresenting = String(data.isPresentingPaper || data.is_presenting_paper || 'no').toLowerCase();
+    const presentingLabel = isPresenting === 'yes' ? 'Yes (Author / Presenter)' : 'No (Delegate / Attendee)';
 
-    const paperTitle         = String(data.paperTitle || data.paper_title || '').trim();
-    const cmtPaperId         = String(data.cmtPaperId || data.cmt_paper_id || '').trim();
-    const paperTheme         = String(data.paperTheme || data.paper_theme || '').trim();
+    const paperTitle = String(data.paperTitle || data.paper_title || '').trim();
+    const cmtPaperId = String(data.cmtPaperId || data.cmt_paper_id || '').trim();
+    const paperTheme = String(data.paperTheme || data.paper_theme || '').trim();
 
-    const categoryLabel      = String(data.categoryLabel || data.category || 'UG / PG Student').trim();
-    const amount             = String(data.amount || '750').trim();
-    const currency           = String(data.currency || 'INR').trim().toUpperCase();
+    const categoryLabel = String(data.categoryLabel || data.category || 'UG / PG Student').trim();
+    const amount = String(data.amount || '750').trim();
+    const currency = String(data.currency || 'INR').trim().toUpperCase();
 
-    const regId              = String(data.regId || data.registration_id || `DYUTI27-ONLINE-${Math.floor(10000 + Math.random() * 90000)}`);
-    const vortexTxId         = String(data.vortex_transaction_id || data.transaction_id || 'N/A');
-    const paymentStatus      = String(data.payment_status || 'SUCCESS').toUpperCase();
-    const dateTime           = String(data.date_time || new Date().toISOString().replace('T', ' ').substring(0, 19));
+    const regId = String(data.regId || data.registration_id || `DYUTI27-ONLINE-${Math.floor(10000 + Math.random() * 90000)}`);
+    const vortexTxId = String(data.vortex_transaction_id || data.transaction_id || 'N/A');
+    const paymentStatus = String(data.payment_status || 'SUCCESS').toUpperCase();
+    const dateTime = String(data.date_time || new Date().toISOString().replace('T', ' ').substring(0, 19));
 
-    const to = process.env.SECRETARIAT_EMAIL || 'blessenpshaju@gmail.com';
+    const to = 'dyuti@rajagiri.edu';
     const subject = `DYUTI 2027 Registration & Payment Confirmed: ${title} ${fullName} [${vortexTxId}]`;
 
     // Plain text summary for email/logging
