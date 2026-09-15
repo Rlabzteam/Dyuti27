@@ -574,26 +574,40 @@ function initRegistrationForm() {
     });
   });
 
-  // 2. Category Cards click handler
+  // 2. Category Cards click & change handler
+  function selectCategory(catKey) {
+    if (!catKey || !categories[catKey]) return;
+    currentCategoryKey = catKey;
+
+    categoryCards.forEach(c => {
+      const isSelected = c.getAttribute('data-category') === catKey;
+      const r = c.querySelector('input[type="radio"]');
+
+      if (isSelected) {
+        c.classList.add('active', 'bg-[#071A33]', 'text-white', 'border-[#071A33]', 'shadow-xl', 'ring-4', 'ring-slate-900/10');
+        c.classList.remove('bg-slate-50/90', 'border-slate-200', 'text-slate-900');
+        if (r) r.checked = true;
+      } else {
+        c.classList.remove('active', 'bg-[#071A33]', 'text-white', 'border-[#071A33]', 'shadow-xl', 'ring-4', 'ring-slate-900/10');
+        c.classList.add('bg-slate-50/90', 'border-slate-200', 'text-slate-900');
+        if (r) r.checked = false;
+      }
+    });
+
+    updateButtonLabels();
+  }
+
   categoryCards.forEach(card => {
     card.addEventListener('click', () => {
       const catKey = card.getAttribute('data-category');
-      if (!catKey || !categories[catKey]) return;
+      if (catKey) selectCategory(catKey);
+    });
+  });
 
-      currentCategoryKey = catKey;
-      categoryCards.forEach(c => {
-        c.classList.remove('active', 'bg-[#071A33]', 'text-white', 'border-[#071A33]', 'shadow-xl', 'ring-4', 'ring-slate-900/10');
-        c.classList.add('bg-slate-50/90', 'border-slate-200', 'text-slate-900');
-        const r = c.querySelector('input[type="radio"]');
-        if (r) r.checked = false;
-      });
-
-      card.classList.add('active', 'bg-[#071A33]', 'text-white', 'border-[#071A33]', 'shadow-xl', 'ring-4', 'ring-slate-900/10');
-      card.classList.remove('bg-slate-50/90', 'border-slate-200', 'text-slate-900');
-      const radio = card.querySelector('input[type="radio"]');
-      if (radio) radio.checked = true;
-
-      updateButtonLabels();
+  const categoryRadios = form.querySelectorAll('input[name="registrationCategory"]');
+  categoryRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      if (radio.checked) selectCategory(radio.value);
     });
   });
 

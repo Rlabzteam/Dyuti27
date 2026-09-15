@@ -7390,7 +7390,7 @@
  }
 
  .reg-category-card.active .category-badge {
-   color: #94a3b8 !important;
+   color: #cbd5e1 !important;
  }
 
  .reg-category-card.active .category-title {
@@ -7401,8 +7401,51 @@
    color: #e2e8f0 !important;
  }
 
+ .reg-category-card.active .category-fee-label {
+   color: #cbd5e1 !important;
+ }
+
  .reg-category-card.active .category-fee {
    color: #ffffff !important;
+ }
+
+ .reg-category-card.active .category-divider {
+   border-color: rgba(255, 255, 255, 0.2) !important;
+ }
+
+ .reg-category-card:not(.active) {
+   background-color: rgba(248, 250, 252, 0.9) !important;
+   border-color: #e2e8f0 !important;
+   color: #0f172a !important;
+ }
+
+ .reg-category-card:not(.active):hover {
+   background-color: #f1f5f9 !important;
+   border-color: #94a3b8 !important;
+ }
+
+ .reg-category-card:not(.active) .category-badge {
+   color: #475569 !important;
+ }
+
+ .reg-category-card:not(.active) .category-title {
+   color: #020617 !important;
+ }
+
+ .reg-category-card:not(.active) .category-desc {
+   color: #475569 !important;
+ }
+
+ .reg-category-card:not(.active) .category-fee-label {
+   color: #64748b !important;
+ }
+
+ .reg-category-card:not(.active) .category-fee {
+   color: #020617 !important;
+ }
+
+ .reg-category-card:not(.active) .category-divider {
+   border-color: #e2e8f0 !important;
  }
 
  .payment-mode-card.active .pay-mode-title {
