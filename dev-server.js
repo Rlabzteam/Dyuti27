@@ -70,10 +70,17 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  let decodedPathname;
+  try {
+    decodedPathname = decodeURIComponent(pathname);
+  } catch (e) {
+    decodedPathname = pathname;
+  }
+
   // Handle clean URLs rewrite
-  let filePath = path.join(__dirname, pathname === '/' ? 'index.html' : pathname);
-  if (pathname === '/register') filePath = path.join(__dirname, 'registration.html');
-  if (pathname === '/contactus') filePath = path.join(__dirname, 'contact.html');
+  let filePath = path.join(__dirname, decodedPathname === '/' ? 'index.html' : decodedPathname);
+  if (decodedPathname === '/register') filePath = path.join(__dirname, 'registration.html');
+  if (decodedPathname === '/contactus') filePath = path.join(__dirname, 'contact.html');
 
   if (!path.extname(filePath) && fs.existsSync(filePath + '.html')) {
     filePath += '.html';
@@ -95,7 +102,30 @@ const server = http.createServer(async (req, res) => {
     const ext = path.extname(filePath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
     res.setHeader('Content-Type', contentType);
-    fs.createReadStream(filePath).pipe(res);
+    res.setHeader('Accept-Ranges', 'bytes');
+
+    const range = req.headers.range;
+    if (range) {
+      const parts = range.replace(/bytes=/, '').split('-');
+      const start = parseInt(parts[0], 10);
+      const end = parts[1] ? parseInt(parts[1], 10) : stats.size - 1;
+
+      if (start >= stats.size || end >= stats.size) {
+        res.statusCode = 416;
+        res.setHeader('Content-Range', `bytes */${stats.size}`);
+        res.end();
+        return;
+      }
+
+      const chunksize = (end - start) + 1;
+      res.statusCode = 206;
+      res.setHeader('Content-Range', `bytes ${start}-${end}/${stats.size}`);
+      res.setHeader('Content-Length', chunksize);
+      fs.createReadStream(filePath, { start, end }).pipe(res);
+    } else {
+      res.setHeader('Content-Length', stats.size);
+      fs.createReadStream(filePath).pipe(res);
+    }
   });
 });
 
