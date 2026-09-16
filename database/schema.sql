@@ -36,9 +36,6 @@ CREATE TABLE IF NOT EXISTS `registrations` (
     
     -- Paper Presentation (Section C)
     `is_presenting_paper` ENUM('yes', 'no') NOT NULL DEFAULT 'no',
-    `paper_title` TEXT NULL DEFAULT NULL,
-    `cmt_paper_id` VARCHAR(64) NULL DEFAULT NULL,
-    `paper_theme` VARCHAR(255) NULL DEFAULT NULL,
     
     -- Registration Category & Pricing (Section D)
     `registration_category` VARCHAR(64) NOT NULL COMMENT 'student, scholar, professional',

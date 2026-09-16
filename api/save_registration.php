@@ -63,15 +63,15 @@ try {
         INSERT INTO registrations (
             registration_id, title, full_name, designation, gender, organization, discipline,
             address, pincode, phone, email, food_preference, food_details,
-            require_accommodation, accommodation_notes, is_presenting_paper, paper_title,
-            cmt_paper_id, paper_theme, registration_category, fee_amount, currency,
+            require_accommodation, accommodation_notes, is_presenting_paper,
+            registration_category, fee_amount, currency,
             payment_mode, payment_status, payment_order_id, razorpay_payment_id,
             transaction_ref, ip_address, user_agent
         ) VALUES (
             :reg_id, :title, :name, :designation, :gender, :org, :discipline,
             :address, :pincode, :phone, :email, :food_pref, :food_details,
-            :accommodation, :accommodation_notes, :is_presenting, :paper_title,
-            :cmt_id, :paper_theme, :category, :fee, :currency,
+            :accommodation, :accommodation_notes, :is_presenting,
+            :category, :fee, :currency,
             :payment_mode, :payment_status, :payment_order_id, :pay_id,
             :txn_ref, :ip, :ua
         )
@@ -100,9 +100,6 @@ try {
         ':accommodation'       => strtolower(val($data, 'requireAccommodation', val($data, 'require_accommodation', 'no'))) === 'yes' ? 'yes' : 'no',
         ':accommodation_notes' => val($data, 'accommodationNotes', val($data, 'accommodation_notes', null)),
         ':is_presenting'       => strtolower(val($data, 'isPresentingPaper', val($data, 'is_presenting_paper', 'no'))) === 'yes' ? 'yes' : 'no',
-        ':paper_title'         => val($data, 'paperTitle', val($data, 'paper_title', null)),
-        ':cmt_id'              => val($data, 'cmtPaperId', val($data, 'cmt_paper_id', null)),
-        ':paper_theme'         => val($data, 'paperTheme', val($data, 'paper_theme', null)),
         ':category'            => val($data, 'registrationCategory', val($data, 'registration_category', val($data, 'categoryLabel', 'student'))),
         ':fee'                 => val($data, 'amount', val($data, 'fee_amount', 750.00)),
         ':currency'            => val($data, 'currency', 'INR'),
