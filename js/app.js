@@ -641,16 +641,20 @@ function initRegistrationForm() {
 
   function updateButtonLabels() {
     const cat = categories[currentCategoryKey] || categories.student;
+    // DEV TEST MODE: show overridden amount if set
+    const displayAmount = (typeof window.__DYUTI_TEST_AMOUNT__ === 'number' && window.__DYUTI_TEST_AMOUNT__ > 0)
+      ? window.__DYUTI_TEST_AMOUNT__
+      : cat.amount;
     if (proceedReviewLabel) {
       if (currentPaymentMode === 'online') {
-        proceedReviewLabel.textContent = `Review & Pay ₹ ${cat.amount.toLocaleString()}`;
+        proceedReviewLabel.textContent = `Review & Pay ₹ ${displayAmount.toLocaleString()}`;
       } else {
         proceedReviewLabel.textContent = 'Review & Confirm Details';
       }
     }
     if (btnConfirmSubmitLabel) {
       if (currentPaymentMode === 'online') {
-        btnConfirmSubmitLabel.textContent = `Register & Pay ₹ ${cat.amount.toLocaleString()} Now`;
+        btnConfirmSubmitLabel.textContent = `Register & Pay ₹ ${displayAmount.toLocaleString()} Now`;
       } else {
         btnConfirmSubmitLabel.textContent = 'Confirm & Submit Registration';
       }
@@ -763,7 +767,6 @@ function initRegistrationForm() {
     else if (!phone) error = 'Please enter a valid Contact / Mobile Number.';
     else if (!email || !email.includes('@')) error = 'Please enter a valid Email Address for registration correspondence.';
     else if (!foodPreference) error = 'Food Preference is a required question. Please choose your preference.';
-    else if (!requireAccommodation) error = 'Please indicate whether you require accommodation.';
     else if (!isPresentingPaper) error = 'Please specify whether you are presenting a paper in the conference.';
 
     if (error) {
@@ -809,13 +812,6 @@ function initRegistrationForm() {
 
     const revFood = document.getElementById('rev-food');
     if (revFood) revFood.textContent = foodPreference === 'veg' ? 'Vegetarian' : 'Non-Vegetarian';
-
-    const revAccom = document.getElementById('rev-accommodation');
-    if (revAccom) {
-      revAccom.textContent = requireAccommodation === 'yes'
-        ? 'Yes (Moderate Accommodation provided)'
-        : 'No (Arranging Own Stay)';
-    }
 
     const revPaper = document.getElementById('rev-paper');
     if (revPaper) {
@@ -886,6 +882,11 @@ function initRegistrationForm() {
     const selectedCat = categories[currentCategoryKey] || categories.student;
     const returnUrl = window.location.origin + window.location.pathname;
 
+    // DEV TEST MODE: allow overriding amount via window.__DYUTI_TEST_AMOUNT__
+    const testAmount = (typeof window.__DYUTI_TEST_AMOUNT__ === 'number' && window.__DYUTI_TEST_AMOUNT__ > 0)
+      ? window.__DYUTI_TEST_AMOUNT__
+      : null;
+
     return {
       customer_name: `${title} ${name}`.trim(),
       name: `${title} ${name}`.trim(),
@@ -893,7 +894,7 @@ function initRegistrationForm() {
       email: email.trim(),
       customer_mobile: phone.trim(),
       mobile: phone.trim(),
-      amount: selectedCat.amount,
+      amount: testAmount !== null ? testAmount : selectedCat.amount,
       currency: 'INR',
       redirect_url: returnUrl,
       event_id: 'DYUT20260913MU01TMQ67BK'
@@ -1049,7 +1050,7 @@ function initRegistrationForm() {
         pincode,
         phone,
         email,
-        requireAccommodation,
+        requireAccommodation: 'no',
         foodPreference,
         isPresentingPaper,
         categoryKey: currentCategoryKey,

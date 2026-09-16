@@ -30,3 +30,9 @@ coverage/
 .kilo/
 .kilocode/
 scratch/
+
+# Generated registration PDFs (local dev only)
+registrations/
+
+# Dev temp files
+patch-banner.mjs

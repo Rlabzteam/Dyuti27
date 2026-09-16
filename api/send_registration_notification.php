@@ -14,6 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
+require_once __DIR__ . '/fpdf.php';
+
 $rawInput = file_get_contents('php://input');
 $data = json_decode($rawInput, true) ?: $_POST;
 
@@ -286,39 +288,236 @@ if ($isPresenting === 'yes' || !empty($paperTitle)) {
 }
 $plainBody .= "\nSubmitted from IP: {$clientIp} at " . date('c') . "\n";
 
-// 5. Build Multipart Email Headers (HTML with UTF-8)
-$boundary = "DYUTI_ALT_" . md5(time());
+// 5. Generate PDF Registration Receipt Attachment
+$pdfData = '';
+try {
+    $pdfData = generateRegistrationPDF($data);
+} catch (Exception $e) {
+    error_log("PDF Generation failed: " . $e->getMessage());
+}
 
-$headers = "From: DYUTI 2027 Portal <noreply@dyuti.in>\r\n";
+$pdfBase64 = !empty($pdfData) ? chunk_split(base64_encode($pdfData)) : '';
+$safeRegId = preg_replace('/[^A-Za-z0-9_\-]/', '_', $regId);
+$pdfFilename = "DYUTI2027_Registration_{$safeRegId}.pdf";
+
+// 6. Build Multipart Email (mixed -> alternative HTML/Text + PDF Attachment)
+$mixedBoundary = "DYUTI_MIXED_" . md5(time());
+$altBoundary   = "DYUTI_ALT_" . md5(time());
+
+$headers  = "From: DYUTI 2027 Portal <noreply@dyuti.in>\r\n";
 if (!empty($email)) {
     $headers .= "Reply-To: {$fullName} <{$email}>\r\n";
 }
 $headers .= "MIME-Version: 1.0\r\n";
-$headers .= "Content-Type: multipart/alternative; boundary=\"{$boundary}\"\r\n";
+$headers .= "Content-Type: multipart/mixed; boundary=\"{$mixedBoundary}\"\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 
-$fullEmailContent = "--{$boundary}\r\n";
+$fullEmailContent  = "--{$mixedBoundary}\r\n";
+$fullEmailContent .= "Content-Type: multipart/alternative; boundary=\"{$altBoundary}\"\r\n\r\n";
+
+$fullEmailContent .= "--{$altBoundary}\r\n";
 $fullEmailContent .= "Content-Type: text/plain; charset=UTF-8\r\n";
 $fullEmailContent .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
 $fullEmailContent .= $plainBody . "\r\n\r\n";
-$fullEmailContent .= "--{$boundary}\r\n";
+
+$fullEmailContent .= "--{$altBoundary}\r\n";
 $fullEmailContent .= "Content-Type: text/html; charset=UTF-8\r\n";
 $fullEmailContent .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
 $fullEmailContent .= $htmlBody . "\r\n\r\n";
-$fullEmailContent .= "--{$boundary}--";
 
-// 6. Send Email to Secretariat (dyuti@rajagiri.edu)
+$fullEmailContent .= "--{$altBoundary}--\r\n\r\n";
+
+if (!empty($pdfBase64)) {
+    $fullEmailContent .= "--{$mixedBoundary}\r\n";
+    $fullEmailContent .= "Content-Type: application/pdf; name=\"{$pdfFilename}\"\r\n";
+    $fullEmailContent .= "Content-Transfer-Encoding: base64\r\n";
+    $fullEmailContent .= "Content-Disposition: attachment; filename=\"{$pdfFilename}\"\r\n\r\n";
+    $fullEmailContent .= $pdfBase64 . "\r\n\r\n";
+}
+
+$fullEmailContent .= "--{$mixedBoundary}--";
+
+// 7. Send Email to Secretariat (dyuti@rajagiri.edu)
 $mailSent = @mail($to, $subject, $fullEmailContent, $headers);
 
 // Also send confirmation copy to the delegate's personal email if provided
 if (!empty($email)) {
     $delegateSubject = "Registration & Payment Confirmation: DYUTI 2027 Conference [{$regId}]";
-    $delegateHeaders = "From: DYUTI 2027 Secretariat <dyuti@rajagiri.edu>\r\n";
+    $delegateHeaders  = "From: DYUTI 2027 Secretariat <dyuti@rajagiri.edu>\r\n";
     $delegateHeaders .= "Reply-To: DYUTI Secretariat <dyuti@rajagiri.edu>\r\n";
     $delegateHeaders .= "MIME-Version: 1.0\r\n";
-    $delegateHeaders .= "Content-Type: multipart/alternative; boundary=\"{$boundary}\"\r\n";
+    $delegateHeaders .= "Content-Type: multipart/mixed; boundary=\"{$mixedBoundary}\"\r\n";
     $delegateHeaders .= "X-Mailer: PHP/" . phpversion() . "\r\n";
     @mail($email, $delegateSubject, $fullEmailContent, $delegateHeaders);
+}
+
+/**
+ * Generates official PDF Registration & Payment Receipt using FPDF
+ */
+function generateRegistrationPDF($data) {
+    $clean = function($str) {
+        $str = str_replace(['₹', '•', '—', '–', '’', '“', '”'], ['INR ', '*', '-', '-', "'", '"', '"'], (string)$str);
+        return function_exists('iconv') ? iconv('UTF-8', 'windows-1252//TRANSLIT//IGNORE', $str) : $str;
+    };
+
+    $title           = $clean($data['title'] ?? 'Dr.');
+    $fullName        = $clean($data['name'] ?? $data['full_name'] ?? 'Delegate Participant');
+    $designation     = $clean($data['designation'] ?? 'N/A');
+    $gender          = $clean($data['gender'] ?? 'N/A');
+    $organization    = $clean($data['organization'] ?? 'N/A');
+    $discipline      = $clean($data['discipline'] ?? 'Social Work');
+    $address         = $clean($data['address'] ?? 'N/A');
+    $pincode         = $clean($data['pincode'] ?? 'N/A');
+    $phone           = $clean($data['phone'] ?? $data['mobile'] ?? 'N/A');
+    $email           = $clean($data['email'] ?? 'N/A');
+    $foodPref        = $clean($data['foodPreference'] ?? $data['food_preference'] ?? 'veg');
+    $foodLabel       = (strtolower($foodPref) === 'non-veg') ? 'Non-Vegetarian' : 'Vegetarian';
+    $requireAccom    = $clean($data['requireAccommodation'] ?? $data['require_accommodation'] ?? 'no');
+    $accomLabel      = (strtolower($requireAccom) === 'yes') ? 'Yes (Moderate Accommodation requested)' : 'No (Arranging own stay)';
+    $isPresenting    = $clean($data['isPresentingPaper'] ?? $data['is_presenting_paper'] ?? 'no');
+    $presentingLabel = (strtolower($isPresenting) === 'yes') ? 'Yes (Author / Presenter)' : 'No (Delegate / Attendee)';
+    $categoryLabel   = $clean($data['categoryLabel'] ?? $data['category'] ?? 'UG / PG Student');
+    $amount          = $clean($data['amount'] ?? '750');
+    $currency        = $clean($data['currency'] ?? 'INR');
+    $regId           = $clean($data['regId'] ?? $data['registration_id'] ?? 'DYUTI27-ONLINE');
+    $vortexTxId      = $clean($data['vortex_transaction_id'] ?? $data['transaction_id'] ?? 'N/A');
+    $paymentStatus   = $clean($data['payment_status'] ?? 'SUCCESS');
+    $dateTime        = $clean($data['date_time'] ?? date('Y-m-d H:i:s'));
+
+    $pdf = new FPDF('P', 'mm', 'A4');
+    $pdf->SetAutoPageBreak(true, 15);
+    $pdf->AddPage();
+
+    // Header Banner (Navy #071A33)
+    $pdf->SetFillColor(7, 26, 51);
+    $pdf->Rect(10, 10, 190, 32, 'F');
+
+    // Subtitle (Gold #D4AF37)
+    $pdf->SetXY(15, 13);
+    $pdf->SetFont('Helvetica', 'B', 9);
+    $pdf->SetTextColor(212, 175, 55);
+    $pdf->Cell(180, 5, 'DYUTI 2027 - NATIONAL CONFERENCE ON SOCIAL WORK', 0, 1, 'L');
+
+    // Title (White)
+    $pdf->SetX(15);
+    $pdf->SetFont('Helvetica', 'B', 14);
+    $pdf->SetTextColor(255, 255, 255);
+    $pdf->Cell(180, 8, 'DELEGATE REGISTRATION & PAYMENT RECEIPT', 0, 1, 'L');
+
+    // Institution
+    $pdf->SetX(15);
+    $pdf->SetFont('Helvetica', '', 8.5);
+    $pdf->SetTextColor(203, 213, 225);
+    $pdf->Cell(180, 5, 'Rajagiri College of Social Sciences (Autonomous), Kalamassery, Kochi, Kerala', 0, 1, 'L');
+
+    // Verified Status Bar (Green)
+    $pdf->SetY(44);
+    $pdf->SetFillColor(220, 252, 231);
+    $pdf->SetDrawColor(167, 243, 208);
+    $pdf->Rect(10, 44, 190, 8, 'DF');
+    $pdf->SetFont('Helvetica', 'B', 8.5);
+    $pdf->SetTextColor(6, 95, 70);
+    $pdf->SetXY(10, 44);
+    $pdf->Cell(190, 8, 'OFFICIAL RECEIPT - PAYMENT VERIFIED VIA VORTEXX GATEWAY', 0, 1, 'C');
+
+    // Highlight Cards Grid
+    $pdf->Ln(4);
+    $cardY = $pdf->GetY();
+    
+    // Left Box - Reg ID
+    $pdf->SetFillColor(248, 250, 252);
+    $pdf->SetDrawColor(226, 232, 240);
+    $pdf->Rect(10, $cardY, 92, 16, 'DF');
+    $pdf->SetXY(13, $cardY + 2);
+    $pdf->SetFont('Helvetica', 'B', 7.5);
+    $pdf->SetTextColor(100, 116, 139);
+    $pdf->Cell(86, 4, 'REGISTRATION ID', 0, 1, 'L');
+    $pdf->SetX(13);
+    $pdf->SetFont('Helvetica', 'B', 11);
+    $pdf->SetTextColor(7, 26, 51);
+    $pdf->Cell(86, 6, $regId, 0, 1, 'L');
+
+    // Right Box - Transaction ID
+    $pdf->Rect(108, $cardY, 92, 16, 'DF');
+    $pdf->SetXY(111, $cardY + 2);
+    $pdf->SetFont('Helvetica', 'B', 7.5);
+    $pdf->SetTextColor(100, 116, 139);
+    $pdf->Cell(86, 4, 'VORTEXX TRANSACTION ID', 0, 1, 'L');
+    $pdf->SetX(111);
+    $pdf->SetFont('Helvetica', 'B', 11);
+    $pdf->SetTextColor(5, 150, 105);
+    $pdf->Cell(86, 6, $vortexTxId, 0, 1, 'L');
+
+    $pdf->SetY($cardY + 20);
+
+    // Section header renderer
+    $addSectionHeader = function($secTitle) use ($pdf) {
+        $pdf->Ln(2);
+        $pdf->SetFont('Helvetica', 'B', 9.5);
+        $pdf->SetTextColor(7, 26, 51);
+        $pdf->SetFillColor(241, 245, 249);
+        $pdf->Cell(190, 6, '  ' . strtoupper($secTitle), 0, 1, 'L', true);
+        $pdf->SetDrawColor(7, 26, 51);
+        $pdf->Line(10, $pdf->GetY(), 200, $pdf->GetY());
+        $pdf->Ln(1);
+    };
+
+    // Table row renderer
+    $addTableRow = function($label, $value, $highlight = false) use ($pdf) {
+        $pdf->SetFont('Helvetica', '', 8.5);
+        $pdf->SetTextColor(100, 116, 139);
+        $pdf->Cell(60, 5.5, '  ' . $label, 'B', 0, 'L');
+        
+        if ($highlight) {
+            $pdf->SetFont('Helvetica', 'B', 9);
+            $pdf->SetTextColor(7, 26, 51);
+        } else {
+            $pdf->SetFont('Helvetica', '', 8.5);
+            $pdf->SetTextColor(15, 23, 42);
+        }
+        $pdf->Cell(130, 5.5, $value, 'B', 1, 'L');
+    };
+
+    // Section 1: Payment Details
+    $addSectionHeader('1. Payment & Transaction Details');
+    $addTableRow('Amount Paid', $currency . ' ' . $amount, true);
+    $addTableRow('Payment Status', $paymentStatus, true);
+    $addTableRow('Category', $categoryLabel);
+    $addTableRow('Transaction Timestamp', $dateTime);
+
+    // Section 2: Delegate Information
+    $addSectionHeader('2. Delegate Information');
+    $addTableRow('Full Name', $title . ' ' . $fullName, true);
+    $addTableRow('Designation', $designation);
+    $addTableRow('Gender', $gender);
+    $addTableRow('Institution / Organization', $organization, true);
+    $addTableRow('Discipline', $discipline);
+
+    // Section 3: Contact Details
+    $addSectionHeader('3. Contact Coordinates');
+    $addTableRow('Email Address', $email);
+    $addTableRow('Mobile / Phone', $phone);
+    $addTableRow('PIN Code', $pincode);
+    $addTableRow('Address', str_replace(["\r", "\n"], ' ', $address));
+
+    // Section 4: Conference Logistics
+    $addSectionHeader('4. Logistics & Paper Submission');
+    $addTableRow('Food Preference', $foodLabel);
+    $addTableRow('Accommodation Request', $accomLabel);
+    $addTableRow('Paper Presenter', $presentingLabel);
+    if (!empty($paperTitle) || !empty($cmtPaperId)) {
+        if (!empty($paperTitle)) $addTableRow('Paper Title', substr($paperTitle, 0, 70));
+        if (!empty($cmtPaperId)) $addTableRow('CMT Paper ID', $cmtPaperId);
+        if (!empty($paperTheme)) $addTableRow('Sub-Theme Track', $paperTheme);
+    }
+
+    // Footer Info
+    $pdf->Ln(6);
+    $pdf->SetFont('Helvetica', 'I', 7.5);
+    $pdf->SetTextColor(100, 116, 139);
+    $pdf->MultiCell(190, 4, "This document serves as the official registration & payment receipt for DYUTI 2027.\nRajagiri College of Social Sciences (Autonomous), Kalamassery, Kochi - 683104, Kerala.\nSecretariat Email: dyuti@rajagiri.edu | Web: https://dyuti.in", 0, 'C');
+
+    return $pdf->Output('S');
 }
 
 // 7. Return JSON response
