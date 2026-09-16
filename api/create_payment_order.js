@@ -1,5 +1,5 @@
 // api/create_payment_order.js
-// Vercel Serverless Function & Node.js ES Module for Vortexx Payment Gateway
+// Serverless Function & Node.js ES Module for Vortexx Payment Gateway
 
 import https from 'https';
 import { URL } from 'url';

@@ -212,7 +212,7 @@ export default async function handler(req, res) {
         paperTitle, cmtPaperId, paperTheme
       });
 
-      // Save to disk (works in local dev; on Vercel use just as in-memory buffer)
+      // Save to disk (works in local dev; in cloud use just as in-memory buffer)
       try {
         const registrationsDir = path.join(__dirname, '..', 'registrations');
         if (!existsSync(registrationsDir)) mkdirSync(registrationsDir, { recursive: true });
@@ -222,7 +222,7 @@ export default async function handler(req, res) {
         console.log(`[DYUTI] PDF saved: ${pdfSavePath}`);
       } catch (saveErr) {
         // Vercel has read-only filesystem outside /tmp — non-fatal
-        console.warn('[DYUTI] Could not save PDF to disk (expected on Vercel):', saveErr.message);
+        console.warn('[DYUTI] Could not save PDF to disk (expected in cloud):', saveErr.message);
       }
     } catch (pdfErr) {
       console.error('[DYUTI] PDF generation failed:', pdfErr.message);

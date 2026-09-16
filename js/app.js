@@ -1,6 +1,6 @@
 /**
- * DYUTI 2027 — Production JavaScript Controller
- * Provides exact client-side functionality matching https://dyuti27new.vercel.app/
+ * DYUTI 2027 Conference Client-Side Application Logic
+ * RCSS - Rajagiri College of Social Sciences
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -886,15 +886,16 @@ function initRegistrationForm() {
     };
   }
 
-  // Helper to call backend APIs across subdirectories and domain root
+  // Helper to call backend APIs across subdirectories (such as /rcss/) and domain root
   async function dispatchApi(filename, payload) {
     const cleanName = filename.replace(/^\/?api\//, '');
     const currentPath = window.location.pathname;
     const baseDir = currentPath.substring(0, currentPath.lastIndexOf('/')).replace(/\/$/, '');
 
     const candidates = [
-      baseDir ? `${baseDir}/api/${cleanName}` : null,
       `api/${cleanName}`,
+      baseDir ? `${baseDir}/api/${cleanName}` : null,
+      `/rcss/api/${cleanName}`,
       `/api/${cleanName}`
     ].filter(Boolean);
 
@@ -922,17 +923,18 @@ function initRegistrationForm() {
     const currentPath = window.location.pathname;
     const baseDir = currentPath.substring(0, currentPath.lastIndexOf('/')).replace(/\/$/, '');
 
-    // Comprehensive list of candidate endpoints across relative, base-dir, root, and cross-host
+    // Comprehensive list of candidate endpoints for /rcss/ subfolder and cPanel hosting
     const candidateEndpoints = [
-      baseDir ? `${baseDir}/api/create_payment_order.php` : null,
       'api/create_payment_order.php',
+      baseDir ? `${baseDir}/api/create_payment_order.php` : null,
+      '/rcss/api/create_payment_order.php',
       '/api/create_payment_order.php',
-      baseDir ? `${baseDir}/api/create_payment_order` : null,
       'api/create_payment_order',
+      baseDir ? `${baseDir}/api/create_payment_order` : null,
+      '/rcss/api/create_payment_order',
       '/api/create_payment_order',
-      'https://dyuti.in/dyuti27/api/create_payment_order.php',
-      'https://dyuti.in/api/create_payment_order.php',
-      'https://dyuti27new.vercel.app/api/create_payment_order'
+      'https://dyuti.in/rcss/api/create_payment_order.php',
+      'https://dyuti.in/api/create_payment_order.php'
     ].filter(Boolean);
 
     const endpoints = [...new Set(candidateEndpoints)];

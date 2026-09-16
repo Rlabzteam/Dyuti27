@@ -1,18 +1,14 @@
 # ==============================================================================
 # DYUTI 2027 Conference - Apache cPanel Configuration (.htaccess)
+# Designed for subfolder hosting (/rcss/) and domain root hosting
 # ==============================================================================
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /
-
-    # Force HTTPS for secure transactions on dyuti.in
-    RewriteCond %{HTTPS} off
-    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
     # 1. Protect Sensitive Files (.env, .sql, etc.)
     RewriteRule ^\.env - [F,L,NC]
-    RewriteRule \.(sql|md|json|lock)$ - [F,L,NC]
+    RewriteRule \.(sql|md|lock)$ - [F,L,NC]
 
     # 2. Friendly Route Rewrites
     RewriteRule ^register/?$ registration.html [L,QSA]

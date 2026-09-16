@@ -68,7 +68,7 @@ $data = [
     "mobile"       => $cleanMobile ?: $rawMobile,
     "amount"       => isset($input['amount']) ? (int)$input['amount'] : 750,
     "currency"     => !empty($input['currency']) ? strtoupper(trim($input['currency'])) : "INR",
-    "redirect_url" => $input['redirect_url'] ?? "https://dyuti.in/registration.html"
+    "redirect_url" => $input['redirect_url'] ?? "https://dyuti.in/rcss/registration.html"
 ];
 
 $ch = curl_init($url);
