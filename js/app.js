@@ -915,34 +915,21 @@ function initRegistrationForm() {
   }
 
   async function fetchPaymentUrl(orderData) {
-    let paymentUrl = null;
-    let errorMessage = null;
-
+    // Determine the correct API path based on where the page is hosted
     const currentPath = window.location.pathname;
-    const baseDir = currentPath.substring(0, currentPath.lastIndexOf('/')).replace(/\/$/, '');
+    // Build base dir: e.g. '/rcss' from '/rcss/registration.html'
+    const baseDir = currentPath.substring(0, currentPath.lastIndexOf('/')).replace(/\/+$/, '') || '';
 
-    // Comprehensive list of candidate endpoints for /rcss/ subfolder and cPanel hosting
-    const candidateEndpoints = [
-      'api/create_payment_order.php',
-      baseDir ? `${baseDir}/api/create_payment_order.php` : null,
+    // Single canonical endpoint first (relative to current page), then absolute fallbacks
+    const endpoints = [
+      baseDir + '/api/create_payment_order.php',
       '/rcss/api/create_payment_order.php',
-      '/api/create_payment_order.php',
-      'api/create_payment_order',
-      baseDir ? `${baseDir}/api/create_payment_order` : null,
-      '/rcss/api/create_payment_order',
-      '/api/create_payment_order',
-      'https://dyuti.in/rcss/api/create_payment_order.php',
-      'https://dyuti.in/api/create_payment_order.php'
-    ].filter(Boolean);
+      '/api/create_payment_order.php'
+    ].filter((v, i, a) => a.indexOf(v) === i); // deduplicate
 
-    const endpoints = [...new Set(candidateEndpoints)];
+    let lastError = 'Payment gateway is unavailable. Please try again in a moment.';
 
     for (const endpoint of endpoints) {
-      // Don't call our own hostname as an external fallback if we already failed locally
-      if (endpoint.startsWith('http') && endpoint.includes(window.location.hostname)) {
-        continue;
-      }
-
       try {
         const res = await fetch(endpoint, {
           method: 'POST',
@@ -957,7 +944,7 @@ function initRegistrationForm() {
         try {
           json = JSON.parse(text);
         } catch (parseErr) {
-          console.warn(`Non-JSON response from ${endpoint}:`, text.substring(0, 200));
+          console.warn('Non-JSON from ' + endpoint + ':', text.substring(0, 200));
           continue;
         }
 
@@ -965,45 +952,49 @@ function initRegistrationForm() {
           return json.data.payment_url;
         }
 
+        // Gateway returned an error message — record it and try next endpoint
         if (json && json.message) {
-          errorMessage = json.message;
+          lastError = json.message;
         }
       } catch (err) {
-        console.warn(`Attempt to call ${endpoint} failed:`, err);
+        console.warn('Endpoint failed (' + endpoint + '):', err.message || err);
       }
     }
 
-    if (errorMessage) {
-      throw new Error(errorMessage);
-    }
-    throw new Error('Unable to establish connection with the payment gateway. Please verify your details or try again.');
+    throw new Error(lastError);
   }
 
   function startPaymentPreload() {
     if (currentPaymentMode !== 'online') return;
     const orderData = getOrderPayload();
+    // Only preload if we have valid email and mobile
     if (!orderData.email || !orderData.mobile) return;
 
-    const hash = `${orderData.customer_email}|${orderData.customer_mobile}|${orderData.amount}`;
-    if (preloadedPayment.hash === hash && (preloadedPayment.url || preloadedPayment.promise)) {
-      return; // Already prepared or in progress
+    const hash = orderData.email + '|' + orderData.mobile + '|' + orderData.amount;
+    // Only skip if we already have a successful URL cached for the same data
+    if (preloadedPayment.hash === hash && preloadedPayment.url) {
+      return;
     }
 
+    // Reset — always start fresh (don't cache failed promises)
     preloadedPayment = {
-      hash,
+      hash: hash,
       url: null,
       errorMessage: null,
       promise: null
     };
 
     preloadedPayment.promise = fetchPaymentUrl(orderData)
-      .then(url => {
+      .then(function(url) {
         preloadedPayment.url = url;
+        preloadedPayment.promise = null; // clear promise once resolved
         return url;
       })
-      .catch(err => {
+      .catch(function(err) {
+        // On failure, clear the promise so confirm-submit retries from scratch
+        preloadedPayment.promise = null;
         preloadedPayment.errorMessage = err.message;
-        throw err;
+        console.warn('Preload failed — will retry on submit:', err.message);
       });
   }
 
@@ -1113,10 +1104,21 @@ function initRegistrationForm() {
         let errorMessage = null;
 
         try {
-          // If preloading is already in flight, await it directly!
-          if (preloadedPayment.promise) {
-            paymentUrl = await preloadedPayment.promise;
+          // Use cached successful URL if available
+          if (preloadedPayment.url) {
+            paymentUrl = preloadedPayment.url;
+          } else if (preloadedPayment.promise) {
+            // Preload still in flight — wait for it
+            await preloadedPayment.promise;
+            if (preloadedPayment.url) {
+              paymentUrl = preloadedPayment.url;
+            } else {
+              // Preload finished but failed — retry from scratch now
+              const orderData = getOrderPayload();
+              paymentUrl = await fetchPaymentUrl(orderData);
+            }
           } else {
+            // No preload at all — call directly
             const orderData = getOrderPayload();
             paymentUrl = await fetchPaymentUrl(orderData);
           }
