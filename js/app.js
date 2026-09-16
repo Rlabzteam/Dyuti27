@@ -1740,11 +1740,12 @@ function initRegistrationForm() {
       }
 
       // Direct bank wire / offline mode: Save directly to database and send notification
+      const bankTxRef = document.getElementById('reg-transaction-ref')?.value?.trim() || registrationState?.transaction_ref || null;
       const bankData = {
         ...registrationState,
         payment_mode: 'bank_transfer',
         payment_status: 'pending',
-        transaction_ref: transactionRef || null,
+        transaction_ref: bankTxRef,
         date_time: new Date().toISOString().replace('T', ' ').substring(0, 19)
       };
 
@@ -1993,6 +1994,30 @@ function initRegistrationStatusTracker() {
       if (statusInput) statusInput.value = checkStatusParam;
       performStatusLookup({ query: checkStatusParam });
     }
+  }
+
+  // ── Handle payment gateway return from Retry Payment flow ──
+  // When user returns from Vortexx with vortex_transaction_id in URL,
+  // update DB (via initRegistrationForm), then auto-load status result.
+  const retryReturnTxId = params.get('vortex_transaction_id');
+  const retryReturnStatus = params.get('status_code');
+  if (retryReturnTxId && String(retryReturnStatus) === '200') {
+    // Give initRegistrationForm() a moment to fire its DB update, then auto-lookup status
+    setTimeout(() => {
+      let returnRegId = '';
+      try {
+        const savedReg = JSON.parse(sessionStorage.getItem('dyuti_pending_registration') || localStorage.getItem('dyuti_pending_registration') || '{}');
+        returnRegId = savedReg.regId || savedReg.registration_id || localStorage.getItem('dyuti_last_reg_id') || '';
+      } catch (e) {}
+
+      if (returnRegId) {
+        switchMode('status');
+        if (statusAppIdInput) statusAppIdInput.value = returnRegId;
+        if (statusInput) statusInput.value = returnRegId;
+        // Brief delay so DB update has time to commit
+        setTimeout(() => performStatusLookup({ appId: returnRegId, query: returnRegId }), 1800);
+      }
+    }, 400);
   }
 
   window.addEventListener('hashchange', () => {
@@ -2481,7 +2506,7 @@ function initRegistrationStatusTracker() {
 
           const fee = isTest ? 1 : (parseFloat(rec.fee_amount) || 750);
 
-          // Save pending registration in both sessionStorage & localStorage so return handler updates the EXACT existing ID
+          // Save registration details so the return handler can update the EXACT existing DB row
           const pendingRegData = {
             regId: rec.registration_id,
             registration_id: rec.registration_id,
@@ -2508,7 +2533,7 @@ function initRegistrationStatusTracker() {
             sessionStorage.setItem('dyuti_pending_registration', JSON.stringify(pendingRegData));
             localStorage.setItem('dyuti_pending_registration', JSON.stringify(pendingRegData));
             localStorage.setItem('dyuti_last_reg_id', rec.registration_id);
-          } catch (e) { /* storage fallback */ }
+          } catch (e) { /* storage unavailable */ }
 
           const origBtnHtml = retryBtn.innerHTML;
           retryBtn.disabled = true;
@@ -2521,100 +2546,145 @@ function initRegistrationStatusTracker() {
             <span>Connecting to Payment Gateway...</span>
           `;
 
-          const cleanPhone = (rec.phone || '').replace(/\D/g, '');
-          const last10Phone = cleanPhone.length >= 10 ? cleanPhone.slice(-10) : (cleanPhone || '9876543210');
-          const participantEmail = rec.email || `${last10Phone}@dyuti.in`;
-          const cleanRedirectUrl = window.location.href.split('?')[0].split('#')[0];
+          const retryCleanPhone = (rec.phone || '').replace(/\D/g, '');
+          const retryLast10Phone = retryCleanPhone.length >= 10 ? retryCleanPhone.slice(-10) : (retryCleanPhone || '9876543210');
+          const retryParticipantEmail = rec.email || `${retryLast10Phone}@dyuti.in`;
 
-          const orderPayload = {
+          // Build clean page URL as return destination (strip existing query/hash)
+          const retryRedirectUrl = window.location.origin + window.location.pathname;
+
+          const retryOrderPayload = {
             registration_id: rec.registration_id,
             reg_id: rec.registration_id,
             order_id: rec.registration_id,
             is_retry: true,
             name: rec.full_name || 'Participant',
             customer_name: rec.full_name || 'Participant',
-            email: participantEmail,
-            customer_email: participantEmail,
-            mobile: last10Phone,
-            customer_mobile: last10Phone,
-            phone: rec.phone || last10Phone,
+            email: retryParticipantEmail,
+            customer_email: retryParticipantEmail,
+            mobile: retryLast10Phone,
+            customer_mobile: retryLast10Phone,
+            phone: rec.phone || retryLast10Phone,
             amount: fee,
             currency: 'INR',
-            redirect_url: cleanRedirectUrl
+            redirect_url: retryRedirectUrl
           };
 
-          // Determine payment endpoint relative to page directory
-          const baseDir = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')).replace(/\/+$/, '') || '';
-          const createOrderEndpoint = baseDir ? (baseDir + '/api/create_payment_order.php') : 'api/create_payment_order.php';
+          // Build ordered list of endpoint candidates to try
+          const retryBasePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')).replace(/\/+$/, '') || '';
+          const retryEndpoints = [
+            retryBasePath ? (retryBasePath + '/api/create_payment_order.php') : null,
+            'api/create_payment_order.php',
+            '/rcss/api/create_payment_order.php',
+            '/api/create_payment_order.php'
+          ].filter(Boolean).filter(function(v, i, a) { return a.indexOf(v) === i; });
 
-          let paymentUrl = null;
-          let paymentError = null;
+          let retryPaymentUrl = null;
+          let retryPaymentError = null;
 
-          // 1. Direct fetch to obtain payment checkout URL
-          try {
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 10000);
+          // Try each endpoint with a 12-second timeout; parse JSON safely
+          for (let epIdx = 0; epIdx < retryEndpoints.length; epIdx++) {
+            const retryEndpoint = retryEndpoints[epIdx];
+            try {
+              const retryCtrl = new AbortController();
+              const retryTId = setTimeout(function() { retryCtrl.abort(); }, 12000);
 
-            const res = await fetch(createOrderEndpoint, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-              body: JSON.stringify(orderPayload),
-              signal: controller.signal
-            });
-            clearTimeout(timeoutId);
+              const retryFetchRes = await fetch(retryEndpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(retryOrderPayload),
+                signal: retryCtrl.signal
+              });
+              clearTimeout(retryTId);
 
-            if (res.ok) {
-              const data = await res.json();
-              paymentUrl = (data && data.data && data.data.payment_url) || (data && data.payment_url);
-            } else {
-              const errData = await res.json().catch(() => ({}));
-              paymentError = errData.message || ('Server error HTTP ' + res.status);
+              if (retryFetchRes.status === 404) continue; // Wrong endpoint, try next
+
+              // Parse response text, then JSON — guard against PHP warnings in output
+              const retryRawText = await retryFetchRes.text().catch(function() { return ''; });
+              let retryData = null;
+              try {
+                // Strip any PHP warning/notice text before the first '{' character
+                const retryJsonStart = retryRawText.indexOf('{');
+                const retryJsonText = retryJsonStart >= 0 ? retryRawText.substring(retryJsonStart) : retryRawText;
+                retryData = JSON.parse(retryJsonText);
+              } catch (retryParseErr) {
+                console.warn('JSON parse error from', retryEndpoint, ':', retryRawText.substring(0, 200));
+                retryPaymentError = 'Invalid response from server. Please try again.';
+                continue; // Try next endpoint
+              }
+
+              if (retryData && retryData.status === 'success') {
+                const retryUrl = (retryData.data && retryData.data.payment_url) || retryData.payment_url || retryData.paymentUrl;
+                if (retryUrl) {
+                  retryPaymentUrl = retryUrl;
+                  break; // Got a valid URL — stop
+                }
+              }
+
+              if (retryData && retryData.message) {
+                retryPaymentError = retryData.message;
+              }
+
+              if (!retryFetchRes.ok) {
+                retryPaymentError = (retryData && retryData.message) || ('Server error (HTTP ' + retryFetchRes.status + ')');
+                continue;
+              }
+
+            } catch (retryFetchErr) {
+              if (retryFetchErr.name === 'AbortError') {
+                retryPaymentError = 'Connection timed out. Trying fallback...';
+              } else {
+                retryPaymentError = retryFetchErr.message;
+              }
+              console.warn('Fetch failed for endpoint', retryEndpoint, ':', retryFetchErr.message);
             }
-          } catch (fetchErr) {
-            console.warn('Direct fetch attempt failed, using form fallback:', fetchErr);
-            paymentError = fetchErr.message;
           }
 
-          if (paymentUrl) {
-            window.location.href = paymentUrl;
+          // If we got a URL from JSON — navigate directly
+          if (retryPaymentUrl) {
+            window.location.href = retryPaymentUrl;
             return;
           }
 
-          // 2. Fallback: Submit via native browser form POST to redirect directly
+          // Fallback: native form POST with redirect:true — server will do the redirect server-side
+          // This bypasses any CORS/fetch issue entirely
+          const fallbackEndpoint = retryEndpoints[0] || 'api/create_payment_order.php';
           try {
-            console.log('Submitting native POST form to payment endpoint:', createOrderEndpoint);
+            console.log('[Dyuti] Using native form POST fallback to:', fallbackEndpoint);
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = createOrderEndpoint;
+            form.action = fallbackEndpoint;
             form.style.display = 'none';
 
-            const cleanPayload = {
-              ...orderPayload,
-              redirect: 'true'
-            };
+            // Include redirect flag so PHP does header("Location:...") instead of returning JSON
+            const formPayload = Object.assign({}, retryOrderPayload, { redirect: 'true' });
 
-            for (const [k, v] of Object.entries(cleanPayload)) {
+            for (const [k, v] of Object.entries(formPayload)) {
               if (v !== undefined && v !== null && typeof v !== 'function') {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = k;
-                input.value = typeof v === 'object' ? JSON.stringify(v) : String(v);
-                form.appendChild(input);
+                const inp = document.createElement('input');
+                inp.type = 'hidden';
+                inp.name = k;
+                inp.value = typeof v === 'object' ? JSON.stringify(v) : String(v);
+                form.appendChild(inp);
               }
             }
 
             document.body.appendChild(form);
             form.submit();
-            return;
+            return; // Browser will navigate away
           } catch (formErr) {
-            console.error('Form POST failed:', formErr);
+            console.error('[Dyuti] Form POST fallback failed:', formErr);
           }
 
-          // Reset button and display error if both attempts fail
+          // All attempts failed — reset button and show error
           retryBtn.disabled = false;
           retryBtn.classList.remove('opacity-80', 'cursor-wait');
           retryBtn.innerHTML = origBtnHtml;
-          alert('Unable to connect to payment gateway: ' + (paymentError || 'Please try again in a moment.'));
+          alert(
+            'Could not connect to the payment gateway.\n\n' +
+            (retryPaymentError ? 'Reason: ' + retryPaymentError + '\n\n' : '') +
+            'Please refresh the page and try again, or contact the secretariat.'
+          );
         });
       }
 

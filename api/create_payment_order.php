@@ -5,6 +5,11 @@
  * Compatible with PHP 5.6, 7.x, and 8.x
  */
 
+// Suppress ALL PHP warnings/notices so they never corrupt the JSON/redirect output
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(0);
+
 ob_start();
 
 // Enable CORS for frontend clients (supports https://dyuti.in, localhost, and custom dev origins)
@@ -215,6 +220,7 @@ if ($response === false) {
     curl_close($ch);
 
     if ($isJsonClient && (!isset($input['redirect']) || $input['redirect'] !== 'true')) {
+        ob_end_clean();
         http_response_code(502);
         header("Content-Type: application/json");
         echo json_encode([
@@ -258,11 +264,13 @@ if (isset($result["status"]) && $result["status"] === "success" && !empty($resul
 
     // If request was initiated directly via browser form or redirect is requested
     if (!$isJsonClient || (isset($input['redirect']) && $input['redirect'] === 'true')) {
+        ob_end_clean(); // Flush any buffered warnings before redirect
         header("Location: " . $paymentUrl);
         exit;
     }
 
-    // If caller is frontend fetch/XHR, return JSON so client JS redirects cleanly without CORS issues
+    // If caller is frontend fetch/XHR, return clean JSON (discard any buffered PHP warnings)
+    ob_end_clean();
     header("Content-Type: application/json");
     echo json_encode([
         "status"                => "success",
@@ -280,6 +288,7 @@ if (isset($result["status"]) && $result["status"] === "success" && !empty($resul
 // Payment failed or unexpected response from gateway
 $errMsg = isset($result["message"]) ? $result["message"] : "Payment initialization failed.";
 if ($isJsonClient && (!isset($input['redirect']) || $input['redirect'] !== 'true')) {
+    ob_end_clean();
     http_response_code(400);
     header("Content-Type: application/json");
     echo json_encode([
@@ -290,5 +299,6 @@ if ($isJsonClient && (!isset($input['redirect']) || $input['redirect'] !== 'true
     exit;
 }
 
+ob_end_clean();
 echo "Payment initialization failed: " . htmlspecialchars($errMsg);
 
