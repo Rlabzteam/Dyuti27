@@ -445,8 +445,6 @@ function initRegistrationForm() {
           foodPreference: savedReg?.foodPreference || 'veg',
           requireAccommodation: savedReg?.requireAccommodation || 'no',
           isPresentingPaper: savedReg?.isPresentingPaper || 'no',
-          paperTitle: savedReg?.paperTitle || '',
-          paperTheme: savedReg?.paperTheme || '',
           categoryLabel: savedReg?.categoryLabel || 'UG / PG Student'
         };
 
@@ -1044,9 +1042,6 @@ function initRegistrationForm() {
       const paperRadio = form.querySelector('input[name="isPresentingPaper"]:checked');
       const isPresentingPaper = paperRadio ? paperRadio.value : 'no';
 
-      const paperTitle = document.getElementById('reg-paper-title')?.value.trim() || '';
-      const paperTheme = document.getElementById('reg-paper-theme')?.value.trim() || '';
-
       const selectedCat = categories[currentCategoryKey] || categories.student;
       const randomCode = Math.floor(10000 + Math.random() * 90000);
       const generatedId = currentPaymentMode === 'online'
@@ -1070,8 +1065,6 @@ function initRegistrationForm() {
         requireAccommodation,
         foodPreference,
         isPresentingPaper,
-        paperTitle,
-        paperTheme,
         categoryKey: currentCategoryKey,
         categoryLabel: selectedCat.label,
         amount: selectedCat.amount,

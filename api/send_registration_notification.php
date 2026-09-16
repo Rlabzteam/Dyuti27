@@ -285,8 +285,10 @@ $plainBody .= "------------------------\n";
 $plainBody .= "Food Preference:       {$foodLabel}\n";
 $plainBody .= "Accommodation:         {$accomLabel}\n";
 $plainBody .= "Paper Presenter:       {$presentingLabel}\n";
-if ($isPresenting === 'yes' || !empty($paperTitle)) {
+if (!empty($paperTitle)) {
     $plainBody .= "Paper Title:           {$paperTitle}\n";
+}
+if (!empty($paperTheme)) {
     $plainBody .= "Theme Track:           {$paperTheme}\n";
 }
 $plainBody .= "\nSubmitted from IP: {$clientIp} at " . date('c') . "\n";
