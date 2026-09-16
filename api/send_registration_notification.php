@@ -40,7 +40,7 @@ $fullName           = htmlspecialchars(trim(val($data, 'name', val($data, 'full_
 $designation        = htmlspecialchars(trim(val($data, 'designation', 'N/A')));
 $gender             = htmlspecialchars(trim(val($data, 'gender', 'N/A')));
 $organization       = htmlspecialchars(trim(val($data, 'organization', 'N/A')));
-$discipline         = htmlspecialchars(trim(val($data, 'discipline', 'Social Work')));
+$discipline         = htmlspecialchars(trim(val($data, 'discipline', 'N/A')));
 
 $address            = htmlspecialchars(trim(val($data, 'address', 'N/A')));
 $pincode            = htmlspecialchars(trim(val($data, 'pincode', 'N/A')));
@@ -368,7 +368,7 @@ function generateRegistrationPDF($data) {
     $designation     = $clean(val($data, 'designation', 'N/A'));
     $gender          = $clean(val($data, 'gender', 'N/A'));
     $organization    = $clean(val($data, 'organization', 'N/A'));
-    $discipline      = $clean(val($data, 'discipline', 'Social Work'));
+    $discipline      = $clean(val($data, 'discipline', 'N/A'));
     $address         = $clean(val($data, 'address', 'N/A'));
     $pincode         = $clean(val($data, 'pincode', 'N/A'));
     $phone           = $clean(val($data, 'phone', val($data, 'mobile', 'N/A')));
