@@ -938,7 +938,7 @@ function initRegistrationForm() {
     // Localhost / Vercel fallback
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
       try {
-        const vercelRes = await fetch('https://dyuti27new.vercel.app/api/create_payment_order', {
+        const vercelRes = await fetch('https://dyuti.in/api/create_payment_order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(orderData)
