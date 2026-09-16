@@ -25,9 +25,9 @@ foreach ($envPaths as $envPath) {
 
 $dbHost = getenv('DB_HOST') ?: 'localhost';
 $dbPort = getenv('DB_PORT') ?: '3306';
-$dbName = getenv('DB_NAME') ?: 'dyuti_conference';
-$dbUser = getenv('DB_USER') ?: 'root';
-$dbPass = getenv('DB_PASS') ?: '';
+$dbName = getenv('DB_NAME') ?: 'dyuti_dyuti2027';
+$dbUser = getenv('DB_USER') ?: 'dyuti_dyuti';
+$dbPass = getenv('DB_PASS') ?: 'Dyuti@27#5';
 
 function getDbConnection() {
     global $dbHost, $dbPort, $dbName, $dbUser, $dbPass;
