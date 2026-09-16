@@ -1,0 +1,42 @@
+# ==============================================================================
+# DYUTI 2027 Conference - Apache cPanel Configuration (.htaccess)
+# ==============================================================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Force HTTPS for secure transactions on dyuti.in
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # 1. Protect Sensitive Files (.env, .sql, etc.)
+    RewriteRule ^\.env - [F,L,NC]
+    RewriteRule \.(sql|md|json|lock)$ - [F,L,NC]
+
+    # 2. Friendly Route Rewrites
+    RewriteRule ^register/?$ registration.html [L,QSA]
+    RewriteRule ^contactus/?$ contact.html [L,QSA]
+
+    # 3. Direct API Endpoint Rewrites (extensionless -> .php)
+    RewriteRule ^api/create_payment_order/?$ api/create_payment_order.php [L,QSA]
+    RewriteRule ^api/save_registration/?$ api/save_registration.php [L,QSA]
+    RewriteRule ^api/send_registration_notification/?$ api/send_registration_notification.php [L,QSA]
+    RewriteRule ^api/send_contact/?$ api/send_contact.php [L,QSA]
+
+    # 4. Clean HTML URLs (allow omitting .html extension)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.html -f
+    RewriteRule ^(.*)$ $1.html [L,QSA]
+</IfModule>
+
+# Prevent directory listing
+Options -Indexes
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+</IfModule>

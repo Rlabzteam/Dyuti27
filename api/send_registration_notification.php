@@ -239,7 +239,7 @@ $htmlBody .= '
     <div class="footer">
       DYUTI 2027 &mdash; National Conference on Social Work for Sustainable Development<br>
       Department of Social Work, Rajagiri College of Social Sciences (Autonomous), Kalamassery, Kochi, Kerala, India.<br>
-      Secretariat Email: <a href="mailto:dyuti@rajagiri.edu">dyuti@rajagiri.edu</a> &bull; Web: <a href="https://dyuti27new.vercel.app">dyuti.in</a>
+      Secretariat Email: <a href="mailto:dyuti@rajagiri.edu">dyuti@rajagiri.edu</a> &bull; Web: <a href="https://dyuti.in">dyuti.in</a>
     </div>
   </div>
 </body>

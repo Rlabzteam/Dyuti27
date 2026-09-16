@@ -904,67 +904,66 @@ function initRegistrationForm() {
     let paymentUrl = null;
     let errorMessage = null;
 
-    // Try primary endpoint first
-    try {
-      const res = await fetch('/api/create_payment_order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(orderData)
-      });
+    // Prioritize PHP endpoint on cPanel hosting, with fallback to clean URL
+    const endpoints = [
+      '/api/create_payment_order.php',
+      '/api/create_payment_order'
+    ];
 
-      if (res.status === 404) {
-        throw new Error('ENDPOINT_404');
-      }
-
-      const json = await res.json();
-      if (res.ok && json.status === 'success' && json.data && json.data.payment_url) {
-        return json.data.payment_url;
-      } else {
-        errorMessage = json.message || 'Payment gateway initialization failed.';
-      }
-    } catch (apiErr) {
-      console.warn('Primary endpoint failed, attempting fallback:', apiErr);
-
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        try {
-          const vercelRes = await fetch('https://dyuti27new.vercel.app/api/create_payment_order', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify(orderData)
-          });
-          if (vercelRes.ok) {
-            const vercelJson = await vercelRes.json();
-            if (vercelJson.status === 'success' && vercelJson.data && vercelJson.data.payment_url) {
-              return vercelJson.data.payment_url;
-            }
-          }
-        } catch (vercelErr) {
-          console.warn('Vercel fallback failed:', vercelErr);
-        }
-      }
-
+    for (const endpoint of endpoints) {
       try {
-        const phpRes = await fetch('/api/create_payment_order.php', {
+        const res = await fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(orderData)
         });
-        const text = await phpRes.text();
-        const phpJson = JSON.parse(text);
-        if (phpRes.ok && phpJson.status === 'success' && phpJson.data && phpJson.data.payment_url) {
-          return phpJson.data.payment_url;
-        } else {
-          errorMessage = phpJson.message || 'Payment gateway initialization failed.';
+
+        if (res.status === 404) continue;
+
+        const text = await res.text();
+        let json = null;
+        try {
+          json = JSON.parse(text);
+        } catch (parseErr) {
+          console.warn(`Non-JSON response from ${endpoint}:`, text.substring(0, 200));
+          continue;
         }
-      } catch (phpErr) {
-        errorMessage = 'Unable to establish connection with the payment gateway. Please try again.';
+
+        if (json && json.status === 'success' && json.data && json.data.payment_url) {
+          return json.data.payment_url;
+        }
+
+        if (json && json.message) {
+          errorMessage = json.message;
+        }
+      } catch (err) {
+        console.warn(`Attempt to call ${endpoint} failed:`, err);
+      }
+    }
+
+    // Localhost / Vercel fallback
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      try {
+        const vercelRes = await fetch('https://dyuti27new.vercel.app/api/create_payment_order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(orderData)
+        });
+        if (vercelRes.ok) {
+          const vercelJson = await vercelRes.json();
+          if (vercelJson.status === 'success' && vercelJson.data && vercelJson.data.payment_url) {
+            return vercelJson.data.payment_url;
+          }
+        }
+      } catch (vercelErr) {
+        console.warn('Vercel fallback failed:', vercelErr);
       }
     }
 
     if (errorMessage) {
       throw new Error(errorMessage);
     }
-    return paymentUrl;
+    throw new Error('Unable to establish connection with the payment gateway. Please try again.');
   }
 
   function startPaymentPreload() {

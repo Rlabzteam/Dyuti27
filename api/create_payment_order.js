@@ -44,7 +44,7 @@ export default async function handler(req, res) {
     const customerMobile = (input.customer_mobile || input.mobile || input.phone || '').trim().replace(/[^\d+]/g, '');
     const amount = Number(input.amount) || 750;
     const currency = (input.currency || 'INR').toUpperCase();
-    const redirectUrl = input.redirect_url || 'https://dyuti27new.vercel.app/registration.html';
+    const redirectUrl = input.redirect_url || 'https://dyuti.in/registration.html';
 
     if (!customerEmail) {
       return res.status(400).json({ status: 'error', message: 'Valid customer email is required.' });

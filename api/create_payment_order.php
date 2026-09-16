@@ -14,6 +14,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
+// Automatically load .env if present in root or api directory
+$envPaths = [__DIR__ . '/../.env', __DIR__ . '/.env'];
+foreach ($envPaths as $envPath) {
+    if (file_exists($envPath)) {
+        $lines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if ($line === '' || strpos($line, '#') === 0 || strpos($line, '=') === false) continue;
+            list($k, $v) = explode('=', $line, 2);
+            $k = trim($k);
+            $v = trim($v, " \t\n\r\0\x0B\"'");
+            if (!getenv($k)) {
+                putenv("{$k}={$v}");
+                $_ENV[$k] = $v;
+            }
+        }
+        break;
+    }
+}
+
 // Vortexx API Gateway endpoint
 $url = getenv('VORTEXX_API_URL') ?: "https://icswhmh.com/vortex/api/create_payment_order.php";
 
@@ -54,7 +74,7 @@ $data = [
     "amount"          => isset($input['amount']) ? (int)$input['amount'] : 750,
     "currency"        => $input['currency'] ?? "INR",
 
-    "redirect_url"    => $input['redirect_url'] ?? "https://dyuti27new.vercel.app/registration.html"
+    "redirect_url"    => $input['redirect_url'] ?? "https://dyuti.in/registration.html"
 ];
 
 $ch = curl_init($url);
@@ -68,7 +88,9 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, [
 ]);
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+curl_setopt($ch, CURLOPT_TIMEOUT, 25);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
 curl_setopt($ch, CURLOPT_TCP_NODELAY, 1);
 
@@ -100,7 +122,7 @@ curl_close($ch);
 
 $result = json_decode($response, true);
 
-if (isset($result["status"]) && $result["status"] === "success") {
+if (isset($result["status"]) && $result["status"] === "success" && !empty($result["data"]["payment_url"])) {
 
     $paymentUrl = $result["data"]["payment_url"];
 
@@ -121,16 +143,17 @@ if (isset($result["status"]) && $result["status"] === "success") {
     exit;
 }
 
-// Payment failed or unexpected response
+// Payment failed or unexpected response from gateway
+$errMsg = $result["message"] ?? "Payment initialization failed.";
 if ($isJsonClient && (!isset($input['redirect']) || $input['redirect'] !== 'true')) {
     http_response_code(400);
     header("Content-Type: application/json");
     echo json_encode([
         "status" => "error",
-        "message" => "Payment initialization failed.",
+        "message" => $errMsg,
         "gateway_response" => $result ?? $response
     ]);
     exit;
 }
 
-echo "Payment initialization failed.";
+echo "Payment initialization failed: " . htmlspecialchars($errMsg);
