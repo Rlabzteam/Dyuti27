@@ -450,18 +450,12 @@ function initRegistrationForm() {
           categoryLabel: savedReg?.categoryLabel || 'UG / PG Student'
         };
 
-        // Post to serverless notification endpoint with fallback to PHP endpoint
-        fetch('/api/send_registration_notification', {
+        // Send confirmation email with PDF receipt to dyuti@rajagiri.edu and delegate
+        fetch('/api/send_registration_notification.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(notificationData)
-        }).catch(() => {
-          fetch('/api/send_registration_notification.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify(notificationData)
-          }).catch(e => console.warn('Notification endpoint fallback error:', e));
-        });
+        }).catch(e => console.warn('Notification endpoint error:', e));
 
         // Also save to database
         fetch('/api/save_registration.php', {

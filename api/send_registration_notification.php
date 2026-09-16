@@ -333,17 +333,17 @@ if (!empty($pdfBase64)) {
 $fullEmailContent .= "--{$mixedBoundary}--";
 
 // 7. Send Email to Secretariat (dyuti@rajagiri.edu)
-$mailSent = @mail($to, $subject, $fullEmailContent, $headers);
+$mailSent = @mail($to, $subject, $fullEmailContent, $headers, "-f noreply@dyuti.in");
 
 // Also send confirmation copy to the delegate's personal email if provided
 if (!empty($email)) {
     $delegateSubject = "Registration & Payment Confirmation: DYUTI 2027 Conference [{$regId}]";
-    $delegateHeaders  = "From: DYUTI 2027 Secretariat <dyuti@rajagiri.edu>\r\n";
+    $delegateHeaders  = "From: DYUTI 2027 Secretariat <noreply@dyuti.in>\r\n";
     $delegateHeaders .= "Reply-To: DYUTI Secretariat <dyuti@rajagiri.edu>\r\n";
     $delegateHeaders .= "MIME-Version: 1.0\r\n";
     $delegateHeaders .= "Content-Type: multipart/mixed; boundary=\"{$mixedBoundary}\"\r\n";
     $delegateHeaders .= "X-Mailer: PHP/" . phpversion() . "\r\n";
-    @mail($email, $delegateSubject, $fullEmailContent, $delegateHeaders);
+    @mail($email, $delegateSubject, $fullEmailContent, $delegateHeaders, "-f noreply@dyuti.in");
 }
 
 /**
