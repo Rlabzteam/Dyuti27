@@ -2,6 +2,7 @@
 /**
  * Vortexx Payment Gateway - create_payment_order.php
  * Handles creating a payment order with Vortexx and redirecting / returning the checkout URL
+ * Compatible with PHP 5.6, 7.x, and 8.x
  */
 
 // Enable CORS for frontend clients
@@ -35,7 +36,7 @@ foreach ($envPaths as $envPath) {
 }
 
 // Vortexx API Gateway endpoint
-$url = getenv('VORTEXX_API_URL') ?: "https://icswhmh.com/vortex/api/create_payment_order.php";
+$url = getenv('VORTEXX_API_URL') ? getenv('VORTEXX_API_URL') : "https://icswhmh.com/vortex/api/create_payment_order.php";
 
 // Parse incoming input from JSON body, standard POST, or GET
 $rawInput = file_get_contents('php://input');
@@ -47,17 +48,24 @@ if (empty($input)) {
 }
 
 // Prepare credentials & payload with fallbacks to defaults or env
-$apiKey    = !empty($input['api_key']) && $input['api_key'] !== 'YOUR_API_KEY' ? $input['api_key'] : (getenv('VORTEXX_API_KEY') ?: "51e60f98b5b217688d0fe537a1a58033");
-$apiSecret = !empty($input['api_secret']) && $input['api_secret'] !== 'YOUR_API_SECRET' ? $input['api_secret'] : (getenv('VORTEXX_API_SECRET') ?: "e605e71a192a6eba29416f3931e5abf3");
-$eventId   = !empty($input['event_id']) && $input['event_id'] !== 'youEventId' ? $input['event_id'] : (getenv('VORTEXX_EVENT_ID') ?: "DYUT20260913MU01TMQ67BK");
+$apiKey    = !empty($input['api_key']) && $input['api_key'] !== 'YOUR_API_KEY' ? $input['api_key'] : (getenv('VORTEXX_API_KEY') ? getenv('VORTEXX_API_KEY') : "51e60f98b5b217688d0fe537a1a58033");
+$apiSecret = !empty($input['api_secret']) && $input['api_secret'] !== 'YOUR_API_SECRET' ? $input['api_secret'] : (getenv('VORTEXX_API_SECRET') ? getenv('VORTEXX_API_SECRET') : "e605e71a192a6eba29416f3931e5abf3");
+$eventId   = !empty($input['event_id']) && $input['event_id'] !== 'youEventId' ? $input['event_id'] : (getenv('VORTEXX_EVENT_ID') ? getenv('VORTEXX_EVENT_ID') : "DYUT20260913MU01TMQ67BK");
 
-$customerName   = trim($input['name'] ?? $input['customer_name'] ?? "Delegate Participant");
-$customerEmail  = filter_var(trim($input['email'] ?? $input['customer_email'] ?? ''), FILTER_VALIDATE_EMAIL) ?: trim($input['email'] ?? $input['customer_email'] ?? 'delegate@rajagiri.edu');
-$rawMobile      = $input['mobile'] ?? $input['customer_mobile'] ?? $input['phone'] ?? "9876543210";
-$cleanMobile    = preg_replace('/\D/', '', $rawMobile);
+$customerName = !empty($input['name']) ? trim($input['name']) : (!empty($input['customer_name']) ? trim($input['customer_name']) : "Delegate Participant");
+
+$rawEmail = !empty($input['email']) ? trim($input['email']) : (!empty($input['customer_email']) ? trim($input['customer_email']) : "delegate@rajagiri.edu");
+$customerEmail = filter_var($rawEmail, FILTER_VALIDATE_EMAIL) ? $rawEmail : "delegate@rajagiri.edu";
+
+$rawMobile = !empty($input['mobile']) ? $input['mobile'] : (!empty($input['customer_mobile']) ? $input['customer_mobile'] : (!empty($input['phone']) ? $input['phone'] : "9876543210"));
+$cleanMobile = preg_replace('/\D/', '', $rawMobile);
 if (strlen($cleanMobile) > 10) {
     $cleanMobile = substr($cleanMobile, -10);
 }
+
+$redirectUrl = !empty($input['redirect_url']) ? $input['redirect_url'] : "https://dyuti.in/rcss/registration.html";
+$currency = !empty($input['currency']) ? strtoupper(trim($input['currency'])) : "INR";
+$amount = isset($input['amount']) ? (int)$input['amount'] : 750;
 
 $data = [
     "api_key"      => $apiKey,
@@ -65,10 +73,10 @@ $data = [
     "event_id"     => $eventId,
     "name"         => $customerName,
     "email"        => $customerEmail,
-    "mobile"       => $cleanMobile ?: $rawMobile,
-    "amount"       => isset($input['amount']) ? (int)$input['amount'] : 750,
-    "currency"     => !empty($input['currency']) ? strtoupper(trim($input['currency'])) : "INR",
-    "redirect_url" => $input['redirect_url'] ?? "https://dyuti.in/rcss/registration.html"
+    "mobile"       => !empty($cleanMobile) ? $cleanMobile : $rawMobile,
+    "amount"       => $amount,
+    "currency"     => $currency,
+    "redirect_url" => $redirectUrl
 ];
 
 $ch = curl_init($url);
@@ -138,16 +146,17 @@ if (isset($result["status"]) && $result["status"] === "success" && !empty($resul
 }
 
 // Payment failed or unexpected response from gateway
-$errMsg = $result["message"] ?? "Payment initialization failed.";
+$errMsg = isset($result["message"]) ? $result["message"] : "Payment initialization failed.";
 if ($isJsonClient && (!isset($input['redirect']) || $input['redirect'] !== 'true')) {
     http_response_code(400);
     header("Content-Type: application/json");
     echo json_encode([
         "status" => "error",
         "message" => $errMsg,
-        "gateway_response" => $result ?? $response
+        "gateway_response" => !empty($result) ? $result : $response
     ]);
     exit;
 }
 
 echo "Payment initialization failed: " . htmlspecialchars($errMsg);
+?>

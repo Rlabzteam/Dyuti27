@@ -28,41 +28,49 @@ if (empty($data)) {
     exit;
 }
 
+if (!function_exists('val')) {
+    function val($arr, $key, $fallback = '') {
+        return (is_array($arr) && isset($arr[$key]) && $arr[$key] !== '') ? $arr[$key] : $fallback;
+    }
+}
+
 // 1. Extract & Sanitize Details
-$title              = htmlspecialchars(trim($data['title'] ?? 'Dr.'));
-$fullName           = htmlspecialchars(trim($data['name'] ?? $data['full_name'] ?? 'Delegate Participant'));
-$designation        = htmlspecialchars(trim($data['designation'] ?? 'N/A'));
-$gender             = htmlspecialchars(trim($data['gender'] ?? 'N/A'));
-$organization       = htmlspecialchars(trim($data['organization'] ?? 'N/A'));
-$discipline         = htmlspecialchars(trim($data['discipline'] ?? 'Social Work'));
+$title              = htmlspecialchars(trim(val($data, 'title', 'Dr.')));
+$fullName           = htmlspecialchars(trim(val($data, 'name', val($data, 'full_name', 'Delegate Participant'))));
+$designation        = htmlspecialchars(trim(val($data, 'designation', 'N/A')));
+$gender             = htmlspecialchars(trim(val($data, 'gender', 'N/A')));
+$organization       = htmlspecialchars(trim(val($data, 'organization', 'N/A')));
+$discipline         = htmlspecialchars(trim(val($data, 'discipline', 'Social Work')));
 
-$address            = htmlspecialchars(trim($data['address'] ?? 'N/A'));
-$pincode            = htmlspecialchars(trim($data['pincode'] ?? 'N/A'));
-$phone              = htmlspecialchars(trim($data['phone'] ?? $data['mobile'] ?? 'N/A'));
-$email              = filter_var(trim($data['email'] ?? ''), FILTER_VALIDATE_EMAIL) ?: htmlspecialchars(trim($data['email'] ?? ''));
+$address            = htmlspecialchars(trim(val($data, 'address', 'N/A')));
+$pincode            = htmlspecialchars(trim(val($data, 'pincode', 'N/A')));
+$phone              = htmlspecialchars(trim(val($data, 'phone', val($data, 'mobile', 'N/A'))));
+$rawEmail           = trim(val($data, 'email', ''));
+$email              = filter_var($rawEmail, FILTER_VALIDATE_EMAIL) ? $rawEmail : htmlspecialchars($rawEmail);
 
-$foodPref           = htmlspecialchars(trim($data['foodPreference'] ?? $data['food_preference'] ?? 'veg'));
+$foodPref           = htmlspecialchars(trim(val($data, 'foodPreference', val($data, 'food_preference', 'veg'))));
 $foodLabel          = (strtolower($foodPref) === 'non-veg') ? 'Non-Vegetarian' : 'Vegetarian';
 
-$requireAccom       = htmlspecialchars(trim($data['requireAccommodation'] ?? $data['require_accommodation'] ?? 'no'));
+$requireAccom       = htmlspecialchars(trim(val($data, 'requireAccommodation', val($data, 'require_accommodation', 'no'))));
 $accomLabel         = (strtolower($requireAccom) === 'yes') ? 'Yes (Moderate Accommodation requested)' : 'No (Arranging own stay)';
 
-$isPresenting       = htmlspecialchars(trim($data['isPresentingPaper'] ?? $data['is_presenting_paper'] ?? 'no'));
+$isPresenting       = htmlspecialchars(trim(val($data, 'isPresentingPaper', val($data, 'is_presenting_paper', 'no'))));
 $presentingLabel    = (strtolower($isPresenting) === 'yes') ? 'Yes (Author / Presenter)' : 'No (Delegate / Attendee)';
 
-$paperTitle         = htmlspecialchars(trim($data['paperTitle'] ?? $data['paper_title'] ?? ''));
-$cmtPaperId         = htmlspecialchars(trim($data['cmtPaperId'] ?? $data['cmt_paper_id'] ?? ''));
-$paperTheme         = htmlspecialchars(trim($data['paperTheme'] ?? $data['paper_theme'] ?? ''));
+$paperTitle         = htmlspecialchars(trim(val($data, 'paperTitle', val($data, 'paper_title', ''))));
+$cmtPaperId         = htmlspecialchars(trim(val($data, 'cmtPaperId', val($data, 'cmt_paper_id', ''))));
+$paperTheme         = htmlspecialchars(trim(val($data, 'paperTheme', val($data, 'paper_theme', ''))));
 
-$categoryLabel      = htmlspecialchars(trim($data['categoryLabel'] ?? $data['category'] ?? 'UG / PG Student'));
-$amount             = htmlspecialchars(trim($data['amount'] ?? '750'));
-$currency           = htmlspecialchars(trim($data['currency'] ?? 'INR'));
+$categoryLabel      = htmlspecialchars(trim(val($data, 'categoryLabel', val($data, 'category', 'UG / PG Student'))));
+$amount             = htmlspecialchars(trim(val($data, 'amount', '750')));
+$currency           = htmlspecialchars(trim(val($data, 'currency', 'INR')));
 
-$regId              = htmlspecialchars(trim($data['regId'] ?? $data['registration_id'] ?? ('DYUTI27-ONLINE-' . mt_rand(10000, 99999))));
-$vortexTxId         = htmlspecialchars(trim($data['vortex_transaction_id'] ?? $data['transaction_id'] ?? 'N/A'));
-$paymentStatus      = htmlspecialchars(trim($data['payment_status'] ?? 'SUCCESS'));
-$dateTime           = htmlspecialchars(trim($data['date_time'] ?? date('Y-m-d H:i:s')));
-$clientIp           = $_SERVER['REMOTE_ADDR'] ?? 'Unknown';
+$defaultRegId       = 'DYUTI27-ONLINE-' . mt_rand(10000, 99999);
+$regId              = htmlspecialchars(trim(val($data, 'regId', val($data, 'registration_id', $defaultRegId))));
+$vortexTxId         = htmlspecialchars(trim(val($data, 'vortex_transaction_id', val($data, 'transaction_id', 'N/A'))));
+$paymentStatus      = htmlspecialchars(trim(val($data, 'payment_status', 'SUCCESS')));
+$dateTime           = htmlspecialchars(trim(val($data, 'date_time', date('Y-m-d H:i:s'))));
+$clientIp           = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'Unknown';
 
 // 2. Email Recipient & Subject
 $to = 'dyuti@rajagiri.edu';
@@ -355,29 +363,29 @@ function generateRegistrationPDF($data) {
         return function_exists('iconv') ? iconv('UTF-8', 'windows-1252//TRANSLIT//IGNORE', $str) : $str;
     };
 
-    $title           = $clean($data['title'] ?? 'Dr.');
-    $fullName        = $clean($data['name'] ?? $data['full_name'] ?? 'Delegate Participant');
-    $designation     = $clean($data['designation'] ?? 'N/A');
-    $gender          = $clean($data['gender'] ?? 'N/A');
-    $organization    = $clean($data['organization'] ?? 'N/A');
-    $discipline      = $clean($data['discipline'] ?? 'Social Work');
-    $address         = $clean($data['address'] ?? 'N/A');
-    $pincode         = $clean($data['pincode'] ?? 'N/A');
-    $phone           = $clean($data['phone'] ?? $data['mobile'] ?? 'N/A');
-    $email           = $clean($data['email'] ?? 'N/A');
-    $foodPref        = $clean($data['foodPreference'] ?? $data['food_preference'] ?? 'veg');
+    $title           = $clean(val($data, 'title', 'Dr.'));
+    $fullName        = $clean(val($data, 'name', val($data, 'full_name', 'Delegate Participant')));
+    $designation     = $clean(val($data, 'designation', 'N/A'));
+    $gender          = $clean(val($data, 'gender', 'N/A'));
+    $organization    = $clean(val($data, 'organization', 'N/A'));
+    $discipline      = $clean(val($data, 'discipline', 'Social Work'));
+    $address         = $clean(val($data, 'address', 'N/A'));
+    $pincode         = $clean(val($data, 'pincode', 'N/A'));
+    $phone           = $clean(val($data, 'phone', val($data, 'mobile', 'N/A')));
+    $email           = $clean(val($data, 'email', 'N/A'));
+    $foodPref        = $clean(val($data, 'foodPreference', val($data, 'food_preference', 'veg')));
     $foodLabel       = (strtolower($foodPref) === 'non-veg') ? 'Non-Vegetarian' : 'Vegetarian';
-    $requireAccom    = $clean($data['requireAccommodation'] ?? $data['require_accommodation'] ?? 'no');
+    $requireAccom    = $clean(val($data, 'requireAccommodation', val($data, 'require_accommodation', 'no')));
     $accomLabel      = (strtolower($requireAccom) === 'yes') ? 'Yes (Moderate Accommodation requested)' : 'No (Arranging own stay)';
-    $isPresenting    = $clean($data['isPresentingPaper'] ?? $data['is_presenting_paper'] ?? 'no');
+    $isPresenting    = $clean(val($data, 'isPresentingPaper', val($data, 'is_presenting_paper', 'no')));
     $presentingLabel = (strtolower($isPresenting) === 'yes') ? 'Yes (Author / Presenter)' : 'No (Delegate / Attendee)';
-    $categoryLabel   = $clean($data['categoryLabel'] ?? $data['category'] ?? 'UG / PG Student');
-    $amount          = $clean($data['amount'] ?? '750');
-    $currency        = $clean($data['currency'] ?? 'INR');
-    $regId           = $clean($data['regId'] ?? $data['registration_id'] ?? 'DYUTI27-ONLINE');
-    $vortexTxId      = $clean($data['vortex_transaction_id'] ?? $data['transaction_id'] ?? 'N/A');
-    $paymentStatus   = $clean($data['payment_status'] ?? 'SUCCESS');
-    $dateTime        = $clean($data['date_time'] ?? date('Y-m-d H:i:s'));
+    $categoryLabel   = $clean(val($data, 'categoryLabel', val($data, 'category', 'UG / PG Student')));
+    $amount          = $clean(val($data, 'amount', '750'));
+    $currency        = $clean(val($data, 'currency', 'INR'));
+    $regId           = $clean(val($data, 'regId', val($data, 'registration_id', 'DYUTI27-ONLINE')));
+    $vortexTxId      = $clean(val($data, 'vortex_transaction_id', val($data, 'transaction_id', 'N/A')));
+    $paymentStatus   = $clean(val($data, 'payment_status', 'SUCCESS'));
+    $dateTime        = $clean(val($data, 'date_time', date('Y-m-d H:i:s')));
 
     $pdf = new FPDF('P', 'mm', 'A4');
     $pdf->SetAutoPageBreak(true, 15);

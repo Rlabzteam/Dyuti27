@@ -25,17 +25,23 @@ if (empty($payload)) {
 
 $pdo = getDbConnection();
 
+if (!function_exists('val')) {
+    function val($arr, $key, $fallback = null) {
+        return (is_array($arr) && isset($arr[$key]) && $arr[$key] !== '') ? $arr[$key] : $fallback;
+    }
+}
+
 // Extract payload fields
-$registrationId = $payload['registration_id'] ?? $payload['order_id'] ?? null;
-$paymentOrderId = $payload['payment_order_id'] ?? $payload['order_id'] ?? null;
-$razorpayPaymentId = $payload['razorpay_payment_id'] ?? $payload['payment_id'] ?? null;
-$razorpayOrderId = $payload['razorpay_order_id'] ?? null;
-$razorpaySignature = $payload['razorpay_signature'] ?? null;
-$paymentStatus = $payload['payment_status'] ?? $payload['status'] ?? 'pending';
-$eventType = $payload['event'] ?? 'payment.update';
+$registrationId = val($payload, 'registration_id', val($payload, 'order_id', null));
+$paymentOrderId = val($payload, 'payment_order_id', val($payload, 'order_id', null));
+$razorpayPaymentId = val($payload, 'razorpay_payment_id', val($payload, 'payment_id', null));
+$razorpayOrderId = val($payload, 'razorpay_order_id', null);
+$razorpaySignature = val($payload, 'razorpay_signature', null);
+$paymentStatus = val($payload, 'payment_status', val($payload, 'status', 'pending'));
+$eventType = val($payload, 'event', 'payment.update');
 $amount = isset($payload['amount']) ? (float)$payload['amount'] : null;
-$currency = $payload['currency'] ?? 'INR';
-$clientIp = $_SERVER['REMOTE_ADDR'] ?? null;
+$currency = val($payload, 'currency', 'INR');
+$clientIp = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
 
 // Normalize status values
 if (in_array(strtolower($paymentStatus), ['success', 'captured', 'paid'])) {
