@@ -25,12 +25,11 @@ if (empty($data)) {
 $pdo = getDbConnection();
 
 if (!$pdo) {
-    // If database connection is not yet configured, return success with registration ID for preview mode
-    $regId = $data['registration_id'] ?? ('DYUTI27-REG-' . mt_rand(10000, 99999));
+    // Return a strict error if the database connection fails
+    http_response_code(500);
     echo json_encode([
-        'status' => 'success',
-        'registration_id' => $regId,
-        'message' => 'Registration accepted (Database offline mode).'
+        'status' => 'error',
+        'message' => 'Database connection failed. Could not save registration.'
     ]);
     exit;
 }
