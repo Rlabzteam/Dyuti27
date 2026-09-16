@@ -5,6 +5,8 @@
  * Compatible with PHP 5.6, 7.x, and 8.x
  */
 
+ob_start();
+
 // Enable CORS for frontend clients (supports https://dyuti.in, localhost, and custom dev origins)
 $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '*';
 header("Access-Control-Allow-Origin: $origin");
@@ -162,10 +164,11 @@ $isAllowedHost = empty($redirectHost) ||
 $redirectUrl = $isAllowedHost ? $rawRedirect : 'https://dyuti.in/rcss/registration.html';
 $currency = !empty($input['currency']) ? strtoupper(trim($input['currency'])) : "INR";
 
-// Validate amount against allowed registration fee tiers (including ₹1 for live testing)
-$allowedAmounts = [1, 1.0, 750, 1000, 1500, 2000, 2500, 3000];
+// Validate amount against allowed registration fee tiers (including multiples of ₹750 for stalls, and ₹1 for live testing)
+$allowedAmounts = [1, 1.0, 750, 1000, 1500, 2000, 2250, 2500, 3000, 3750, 4500, 5000];
 $requestedAmount = isset($input['amount']) ? (float)$input['amount'] : 750.00;
-if ($requestedAmount == 1.0 || $requestedAmount == 1 || in_array($requestedAmount, $allowedAmounts)) {
+$isStallMultiple = ($requestedAmount >= 750 && fmod($requestedAmount, 750.0) == 0.0);
+if ($requestedAmount == 1.0 || $requestedAmount == 1 || in_array($requestedAmount, $allowedAmounts) || $isStallMultiple) {
     $amount = $requestedAmount;
 } else {
     $amount = 750.00;
@@ -288,4 +291,4 @@ if ($isJsonClient && (!isset($input['redirect']) || $input['redirect'] !== 'true
 }
 
 echo "Payment initialization failed: " . htmlspecialchars($errMsg);
-?>
+

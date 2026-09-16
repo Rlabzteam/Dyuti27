@@ -67,127 +67,222 @@ try {
     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    // Auto-ensure participation_type column exists in table
+    try {
+        $chkCol = $pdo->query("SHOW COLUMNS FROM `registrations` LIKE 'participation_type'");
+        if ($chkCol && $chkCol->rowCount() === 0) {
+            $pdo->exec("ALTER TABLE `registrations` ADD COLUMN `participation_type` VARCHAR(64) NOT NULL DEFAULT 'regular' COMMENT 'regular, idea_pitch, stall' AFTER `is_presenting_paper`");
+            $pdo->exec("ALTER TABLE `registrations` ADD INDEX `idx_participation_type` (`participation_type`)");
+        }
+    } catch (Exception $e) {}
+
+    // Auto-ensure stall columns exist in table
+    try {
+        $chkCol = $pdo->query("SHOW COLUMNS FROM `registrations` LIKE 'is_stall_participant'");
+        if ($chkCol && $chkCol->rowCount() === 0) {
+            $pdo->exec("ALTER TABLE `registrations` ADD COLUMN `is_stall_participant` ENUM('yes', 'no') NOT NULL DEFAULT 'no' AFTER `is_presenting_paper`");
+            $pdo->exec("ALTER TABLE `registrations` ADD COLUMN `stall_name` VARCHAR(255) NULL DEFAULT NULL AFTER `is_stall_participant`");
+            $pdo->exec("ALTER TABLE `registrations` ADD COLUMN `stall_members_count` INT UNSIGNED NOT NULL DEFAULT 1 AFTER `stall_name`");
+            $pdo->exec("ALTER TABLE `registrations` ADD INDEX `idx_stall_participant` (`is_stall_participant`)");
+        }
+    } catch (Exception $e) {}
+
     // 1. Prepare search tokens
     $appClean = trim($appId);
-    $appSuffix = '';
-    if (preg_match('/(\d{4,})$/', $appClean, $m)) {
-        $appSuffix = $m[1];
+    $rawPhone = trim($phone);
+    $rawEmail = strtolower(trim(!empty($email) ? $email : (strpos($query, '@') !== false ? $query : '')));
+    $cleanQuery = trim($query);
+    $isQueryEmail = (strpos($cleanQuery, '@') !== false);
+
+    // If caller is specifically verifying an email address (e.g. registration form duplicate check)
+    $isEmailOnlyCheck = (!empty($rawEmail) && empty($appClean) && empty($rawPhone) && (empty($cleanQuery) || $cleanQuery === $rawEmail));
+
+    if ($isEmailOnlyCheck) {
+        // Dedicated exact email check: strictly matches LOWER(email) = LOWER(:email)
+        // Never matches random phone digits or application IDs
+        $stmt = $pdo->prepare("
+            SELECT 
+                id,
+                registration_id,
+                title,
+                full_name,
+                designation,
+                gender,
+                organization,
+                discipline,
+                address,
+                pincode,
+                phone,
+                email,
+                food_preference,
+                require_accommodation,
+                is_presenting_paper,
+                participation_type,
+                registration_category,
+                fee_amount,
+                currency,
+                payment_mode,
+                payment_status,
+                payment_order_id,
+                razorpay_payment_id,
+                transaction_ref,
+                created_at,
+                updated_at,
+                UNIX_TIMESTAMP(updated_at) AS updated_ts
+            FROM registrations
+            WHERE LOWER(email) = LOWER(:email)
+            ORDER BY 
+                (CASE WHEN LOWER(payment_status) IN ('success', 'paid', 'captured', 'confirmed') THEN 1 ELSE 0 END) DESC,
+                id DESC
+            LIMIT 5
+        ");
+        $stmt->execute(array(':email' => $rawEmail));
+        $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    } else {
+        // General search across Application ID, Mobile Number, or Email
+        $appSuffix = '';
+        if (preg_match('/(\d{4,})$/', $appClean, $m)) {
+            $appSuffix = $m[1];
+        }
+
+        // ONLY extract phone digits if phone was explicitly provided, OR query does not contain '@' and does not start with DYUTI
+        $phoneDigits = '';
+        if (!empty($rawPhone)) {
+            $phoneDigits = preg_replace('/\D/', '', $rawPhone);
+        } elseif (!$isQueryEmail && stripos($cleanQuery, 'DYUTI') === false) {
+            $phoneDigits = preg_replace('/\D/', '', $cleanQuery);
+        }
+
+        $phoneLast10 = strlen($phoneDigits) >= 10 ? substr($phoneDigits, -10) : $phoneDigits;
+        $phoneLast7  = strlen($phoneDigits) >= 7  ? substr($phoneDigits, -7)  : $phoneDigits;
+
+        $hasApp   = (!empty($appClean)) ? 1 : 0;
+        // Phone numbers must have at least 7 digits to prevent false substring collisions
+        $hasPhone = (!empty($phoneLast7) && strlen($phoneLast7) >= 7) ? 1 : 0;
+        $hasEmail = (!empty($rawEmail)) ? 1 : 0;
+        $hasQuery = (!empty($cleanQuery)) ? 1 : 0;
+        $hasBoth  = ($hasApp && $hasPhone) ? 1 : 0;
+
+        // Only treat the query as a phone number if the query string looks like a phone number:
+        // - It contains no letters (pure digits / spaces / dashes)
+        // - AND it has at least 7 digits when stripped
+        // This prevents registration IDs like "DYUTI27-ONLINE-6207F9" from being treated as phone numbers.
+        $isQueryLikelyPhone = !$isQueryEmail && !empty($cleanQuery) && !preg_match('/[a-zA-Z]/', $cleanQuery);
+        $queryDigits = $isQueryLikelyPhone ? preg_replace('/\D/', '', $cleanQuery) : '';
+        $queryLast10 = strlen($queryDigits) >= 10 ? substr($queryDigits, -10) : '';
+        $hasQPhone   = ($isQueryLikelyPhone && !empty($queryLast10) && strlen($queryDigits) >= 7) ? 1 : 0;
+
+        // Expression that normalizes phone numbers in database by stripping spaces, hyphens, and plus signs
+        $phoneNormalizeExpr = "RIGHT(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(phone, ' ', ''), '-', ''), '+', ''), '(', ''), ')', ''), 10)";
+
+        $stmt = $pdo->prepare("
+            SELECT 
+                id,
+                registration_id,
+                title,
+                full_name,
+                designation,
+                gender,
+                organization,
+                discipline,
+                address,
+                pincode,
+                phone,
+                email,
+                food_preference,
+                require_accommodation,
+                is_presenting_paper,
+                participation_type,
+                registration_category,
+                fee_amount,
+                currency,
+                payment_mode,
+                payment_status,
+                payment_order_id,
+                razorpay_payment_id,
+                transaction_ref,
+                created_at,
+                updated_at,
+                UNIX_TIMESTAMP(updated_at) AS updated_ts
+            FROM registrations
+            WHERE 
+                -- A. Match by exact Email
+                (:has_email = 1 AND LOWER(email) = LOWER(:email_raw))
+                -- B. Match by Application ID (exact, lower, wildcard, or numeric suffix)
+                OR (:has_app = 1 AND (
+                    registration_id = :app_raw
+                    OR LOWER(registration_id) = LOWER(:app_raw)
+                    OR registration_id LIKE :app_like
+                    OR (:has_app_suffix = 1 AND registration_id LIKE :app_suffix_like)
+                ))
+                -- C. Match by Phone Number (normalized 10-digits, 7-digits, or raw)
+                OR (:has_phone = 1 AND (
+                    phone = :phone_raw
+                    OR ({$phoneNormalizeExpr} = :phone_last10)
+                    OR ({$phoneNormalizeExpr} LIKE :phone_last7_like)
+                ))
+                -- D. General fallback query
+                OR (:has_query = 1 AND (
+                    registration_id = :q_raw
+                    OR LOWER(registration_id) = LOWER(:q_raw)
+                    OR registration_id LIKE :q_like
+                    OR (:is_q_email = 1 AND LOWER(email) = LOWER(:q_raw))
+                    OR (:has_q_phone = 1 AND ({$phoneNormalizeExpr} = :q_last10))
+                ))
+            ORDER BY 
+                -- Prioritize records matching both Application ID and Phone Number
+                (CASE WHEN 
+                    :has_both = 1 
+                    AND (registration_id = :app_raw OR registration_id LIKE :app_like OR (:has_app_suffix = 1 AND registration_id LIKE :app_suffix_like))
+                    AND ({$phoneNormalizeExpr} = :phone_last10)
+                THEN 1 ELSE 0 END) DESC,
+                -- Prioritize confirmed / success payments
+                (CASE WHEN LOWER(payment_status) IN ('success', 'paid', 'captured', 'confirmed') THEN 1 ELSE 0 END) DESC,
+                id DESC
+            LIMIT 5
+        ");
+
+        $stmt->execute(array(
+            ':has_email'         => $hasEmail,
+            ':email_raw'         => $rawEmail,
+
+            ':has_app'           => $hasApp,
+            ':app_raw'           => $appClean,
+            ':app_like'          => '%' . $appClean . '%',
+            ':has_app_suffix'    => (!empty($appSuffix) ? 1 : 0),
+            ':app_suffix_like'   => (!empty($appSuffix) ? ('%' . $appSuffix) : '%---%'),
+
+            ':has_phone'         => $hasPhone,
+            ':phone_raw'         => $rawPhone,
+            ':phone_last10'      => $phoneLast10,
+            ':phone_last7_like'  => '%' . $phoneLast7,
+
+            ':has_query'         => $hasQuery,
+            ':q_raw'             => $cleanQuery,
+            ':q_like'            => '%' . $cleanQuery . '%',
+            ':is_q_email'        => ($isQueryEmail ? 1 : 0),
+            ':has_q_phone'       => $hasQPhone,
+            ':q_last10'          => $queryLast10,
+
+            ':has_both'          => $hasBoth
+        ));
+
+        $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    $rawPhone = trim($phone);
-    $phoneDigits = preg_replace('/\D/', '', !empty($rawPhone) ? $rawPhone : $query);
-    $phoneLast10 = strlen($phoneDigits) >= 10 ? substr($phoneDigits, -10) : $phoneDigits;
-    $phoneLast7  = strlen($phoneDigits) >= 7  ? substr($phoneDigits, -7)  : $phoneDigits;
-
-    $hasApp = (!empty($appClean)) ? 1 : 0;
-    $hasPhone = (!empty($phoneLast7) && strlen($phoneLast7) >= 4) ? 1 : 0;
-    $hasQuery = (!empty($query)) ? 1 : 0;
-    $hasBoth = ($hasApp && $hasPhone) ? 1 : 0;
-
-    $cleanQuery = trim($query);
-    $queryDigits = preg_replace('/\D/', '', $cleanQuery);
-    $queryLast10 = strlen($queryDigits) >= 10 ? substr($queryDigits, -10) : $queryDigits;
-
-    // Expression that normalizes phone numbers in database by stripping spaces, hyphens, and plus signs
-    $phoneNormalizeExpr = "RIGHT(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(phone, ' ', ''), '-', ''), '+', ''), '(', ''), ')', ''), 10)";
-
-    $stmt = $pdo->prepare("
-        SELECT 
-            id,
-            registration_id,
-            title,
-            full_name,
-            designation,
-            gender,
-            organization,
-            discipline,
-            address,
-            pincode,
-            phone,
-            email,
-            food_preference,
-            require_accommodation,
-            is_presenting_paper,
-            registration_category,
-            fee_amount,
-            currency,
-            payment_mode,
-            payment_status,
-            payment_order_id,
-            razorpay_payment_id,
-            transaction_ref,
-            created_at,
-            updated_at,
-            UNIX_TIMESTAMP(updated_at) AS updated_ts
-        FROM registrations
-        WHERE 
-            -- A. Match by Application ID (exact, lower, wildcard, or numeric suffix)
-            (:has_app = 1 AND (
-                registration_id = :app_raw
-                OR LOWER(registration_id) = LOWER(:app_raw)
-                OR registration_id LIKE :app_like
-                OR (:has_app_suffix = 1 AND registration_id LIKE :app_suffix_like)
-                OR email = :app_raw
-            ))
-            -- B. Match by Phone Number (normalized 10-digits, 7-digits, or raw)
-            OR (:has_phone = 1 AND (
-                phone = :phone_raw
-                OR phone LIKE :phone_like
-                OR ({$phoneNormalizeExpr} = :phone_last10)
-                OR ({$phoneNormalizeExpr} LIKE :phone_last7_like)
-                OR email = :phone_raw
-            ))
-            -- C. General fallback query
-            OR (:has_query = 1 AND (
-                registration_id = :q_raw
-                OR LOWER(registration_id) = LOWER(:q_raw)
-                OR email = :q_raw
-                OR email LIKE :q_like
-                OR registration_id LIKE :q_like
-                OR ({$phoneNormalizeExpr} = :q_last10)
-            ))
-        ORDER BY 
-            -- Prioritize records matching both Application ID and Phone Number
-            (CASE WHEN 
-                :has_both = 1 
-                AND (registration_id = :app_raw OR registration_id LIKE :app_like OR (:has_app_suffix = 1 AND registration_id LIKE :app_suffix_like))
-                AND ({$phoneNormalizeExpr} = :phone_last10)
-            THEN 1 ELSE 0 END) DESC,
-            -- Prioritize confirmed / success payments
-            (CASE WHEN LOWER(payment_status) IN ('success', 'paid', 'captured', 'confirmed') THEN 1 ELSE 0 END) DESC,
-            id DESC
-        LIMIT 5
-    ");
-
-    $stmt->execute(array(
-        ':has_app'           => $hasApp,
-        ':app_raw'           => $appClean,
-        ':app_like'          => '%' . $appClean . '%',
-        ':has_app_suffix'    => (!empty($appSuffix) ? 1 : 0),
-        ':app_suffix_like'   => (!empty($appSuffix) ? ('%' . $appSuffix) : '%---%'),
-
-        ':has_phone'         => $hasPhone,
-        ':phone_raw'         => $rawPhone,
-        ':phone_like'        => '%' . $phoneLast7 . '%',
-        ':phone_last10'      => $phoneLast10,
-        ':phone_last7_like'  => '%' . $phoneLast7,
-
-        ':has_query'         => $hasQuery,
-        ':q_raw'             => $cleanQuery,
-        ':q_like'            => '%' . $cleanQuery . '%',
-        ':q_last10'          => $queryLast10,
-
-        ':has_both'          => $hasBoth
-    ));
-
-    $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     if (empty($records)) {
-        $display = !empty($appClean) && !empty($rawPhone) ? ($appClean . ' / ' . $rawPhone) : (!empty($appClean) ? $appClean : (!empty($rawPhone) ? $rawPhone : $cleanQuery));
+        $display = !empty($appClean) && !empty($rawPhone) 
+            ? ($appClean . ' / ' . $rawPhone) 
+            : (!empty($appClean) ? $appClean : (!empty($rawPhone) ? $rawPhone : (!empty($rawEmail) ? $rawEmail : $cleanQuery)));
         echo json_encode(array(
             'status' => 'success',
             'found' => false,
             'count' => 0,
+            'already_registered' => false,
+            'has_pending' => false,
+            'is_confirmed' => false,
+            'records' => array(),
             'message' => 'No registration records found matching "' . htmlspecialchars($display) . '".'
         ));
         exit;
@@ -243,7 +338,8 @@ try {
     echo json_encode(array(
         'status' => 'success',
         'found' => true,
-        'already_registered' => ($hasSuccessful || $hasPending),
+        'already_registered' => $hasSuccessful,
+        'has_pending' => $hasPending,
         'is_confirmed' => $hasSuccessful,
         'count' => count($finalRecords),
         'records' => $finalRecords,

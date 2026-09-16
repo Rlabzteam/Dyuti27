@@ -383,6 +383,7 @@ function initRegistrationForm() {
                                  document.querySelector('[data-fee="1"]') !== null ||
                                  document.title.toLowerCase().includes('1-rupee') ||
                                  document.title.toLowerCase().includes('test');
+  window.isTestRegistrationPage = isTestRegistrationPage;
 
   if (isTestRegistrationPage) {
     window.__DYUTI_TEST_MODE__ = true;
@@ -583,9 +584,17 @@ function initRegistrationForm() {
     let savedReg = null;
     try {
       savedReg = JSON.parse(sessionStorage.getItem('dyuti_pending_registration') || '{}');
+      if (!savedReg || !savedReg.regId) {
+        const localReg = JSON.parse(localStorage.getItem('dyuti_pending_registration') || '{}');
+        if (localReg && (localReg.regId || localReg.registration_id)) {
+          savedReg = localReg;
+        }
+      }
     } catch (e) {
       console.warn('Could not read pending registration:', e);
     }
+
+    const activeRegId = savedReg?.regId || savedReg?.registration_id || localStorage.getItem('dyuti_retry_reg_id') || localStorage.getItem('dyuti_last_reg_id') || `DYUTI27-ONLINE-${vortexTxId.slice(-6).toUpperCase()}`;
 
     if (String(statusCode) === '200') {
       // Clear cooloff on verified success
@@ -599,15 +608,18 @@ function initRegistrationForm() {
         sessionStorage.setItem(notificationKey, 'true');
 
         const notificationData = {
-          regId: savedReg?.regId || `DYUTI27-ONLINE-${vortexTxId.slice(-6).toUpperCase()}`,
+          action: 'confirm_payment',
+          regId: activeRegId,
+          registration_id: activeRegId,
           vortex_transaction_id: vortexTxId,
+          transaction_ref: vortexTxId,
           amount: returnAmount || savedReg?.amount || '750',
           currency: 'INR',
           payment_status: 'SUCCESS',
           date_time: new Date().toISOString().replace('T', ' ').substring(0, 19),
           title: savedReg?.title || '',
-          name: savedReg?.name || '',
-          full_name: savedReg?.name || '',
+          name: savedReg?.name || savedReg?.full_name || '',
+          full_name: savedReg?.name || savedReg?.full_name || '',
           designation: savedReg?.designation || '',
           gender: savedReg?.gender || '',
           organization: savedReg?.organization || '',
@@ -616,22 +628,45 @@ function initRegistrationForm() {
           pincode: savedReg?.pincode || '',
           phone: savedReg?.phone || '',
           email: savedReg?.email || '',
-          foodPreference: savedReg?.foodPreference || 'veg',
-          requireAccommodation: savedReg?.requireAccommodation || 'no',
-          isPresentingPaper: savedReg?.isPresentingPaper || 'no',
-          categoryLabel: savedReg?.categoryLabel || 'UG / PG Student'
+          foodPreference: savedReg?.foodPreference || savedReg?.food_preference || 'veg',
+          requireAccommodation: savedReg?.requireAccommodation || savedReg?.require_accommodation || 'no',
+          isPresentingPaper: savedReg?.isPresentingPaper || savedReg?.is_presenting_paper || 'no',
+          participationType: savedReg?.participationType || savedReg?.participation_type || 'regular',
+          categoryLabel: savedReg?.categoryLabel || savedReg?.registration_category || 'UG / PG Student'
         };
 
-        // Send confirmation email with PDF receipt to dyuti@rajagiri.edu and delegate
-        dispatchApi('send_registration_notification.php', notificationData).catch(e => console.warn('Notification endpoint error:', e));
+        // If email or name is missing, attempt to fetch delegate details from database
+        if (!notificationData.email || !notificationData.name) {
+          dispatchApi('check_registration_status.php', { registration_id: activeRegId }).then(chk => {
+            if (chk && chk.records && chk.records[0]) {
+              const r = chk.records[0];
+              notificationData.title = notificationData.title || r.title || 'Dr.';
+              notificationData.name = notificationData.name || r.full_name || 'Participant';
+              notificationData.full_name = notificationData.full_name || r.full_name || 'Participant';
+              notificationData.email = notificationData.email || r.email || '';
+              notificationData.phone = notificationData.phone || r.phone || '';
+              notificationData.organization = notificationData.organization || r.organization || '';
+              notificationData.participationType = notificationData.participationType || r.participation_type || 'regular';
+              notificationData.categoryLabel = notificationData.categoryLabel || r.registration_category || 'UG / PG Student';
+            }
+            dispatchApi('send_registration_notification.php', notificationData).catch(() => {});
+            dispatchApi('save_registration.php', notificationData).catch(() => {});
+          }).catch(() => {
+            dispatchApi('send_registration_notification.php', notificationData).catch(() => {});
+            dispatchApi('save_registration.php', notificationData).catch(() => {});
+          });
+        } else {
+          // Send confirmation email with PDF receipt to dyuti@rajagiri.edu and delegate
+          dispatchApi('send_registration_notification.php', notificationData).catch(e => console.warn('Notification endpoint error:', e));
 
-        // Also save to database as success
-        dispatchApi('save_registration.php', notificationData).catch(() => { });
+          // Also save to database as success
+          dispatchApi('save_registration.php', notificationData).catch(() => { });
+        }
 
         // Save for quick 1-click status checking
         try {
-          localStorage.setItem('dyuti_last_reg_id', notificationData.regId);
-          localStorage.setItem('dyuti_last_reg_email', notificationData.email);
+          localStorage.setItem('dyuti_last_reg_id', activeRegId);
+          if (notificationData.email) localStorage.setItem('dyuti_last_reg_email', notificationData.email);
         } catch (e) {}
       }
 
@@ -663,6 +698,12 @@ function initRegistrationForm() {
 
       const succCategory = document.getElementById('success-category');
       if (succCategory) succCategory.textContent = savedReg?.categoryLabel || 'UG / PG Student';
+
+      const succPart = document.getElementById('success-participation');
+      if (succPart) {
+        const pType = savedReg?.participationType || savedReg?.participation_type || 'regular';
+        succPart.textContent = pType === 'idea_pitch' ? 'Idea Pitch Participant' : (pType === 'stall' ? 'Stall / Exhibition Participant' : 'Regular Participant');
+      }
 
       const succAmount = document.getElementById('success-amount');
       if (succAmount) succAmount.textContent = returnAmount ? `₹ ${parseFloat(returnAmount).toLocaleString()}` : `₹ ${savedReg?.amount || '750'}`;
@@ -958,25 +999,39 @@ function initRegistrationForm() {
       }
 
       if (result && result.found && Array.isArray(result.records) && result.records.length > 0) {
-        const confirmed = result.records.find(r => ['success', 'captured', 'paid'].includes((r.payment_status || '').toLowerCase()));
-        const pending = result.records.find(r => (r.payment_status || '').toLowerCase() === 'pending');
-        const match = confirmed || pending || result.records[0];
+        // STRICT: Only inspect records whose email explicitly matches the entered email
+        const matchingRecords = result.records.filter(r => (r.email || '').trim().toLowerCase() === email);
 
-        if (confirmed || pending || result.already_registered) {
-          isEmailDuplicate = true;
-          duplicateRecordInfo = match;
+        if (matchingRecords.length > 0) {
+          const confirmed = matchingRecords.find(r => ['success', 'captured', 'paid', 'confirmed'].includes((r.payment_status || '').toLowerCase()));
+          const pending = matchingRecords.find(r => (r.payment_status || '').toLowerCase() === 'pending');
 
-          if (duplicateEmailDisplay) duplicateEmailDisplay.textContent = email;
-          if (duplicateStatusBadgeText) {
-            duplicateStatusBadgeText.textContent = confirmed
-              ? 'Payment Completed (Confirmed)'
-              : 'Payment Pending Verification';
+          if (confirmed) {
+            // Confirmed payment: this email is officially registered and must not register again
+            isEmailDuplicate = true;
+            duplicateRecordInfo = confirmed;
+
+            if (duplicateEmailDisplay) duplicateEmailDisplay.textContent = email;
+            if (duplicateStatusBadgeText) {
+              duplicateStatusBadgeText.textContent = 'Payment Completed (Confirmed)';
+            }
+            if (emailDuplicateAlert) emailDuplicateAlert.classList.remove('hidden');
+            if (emailInput) {
+              emailInput.classList.add('border-amber-500', 'bg-amber-50/20', 'focus:border-amber-600', 'focus:ring-amber-500/20');
+            }
+            return true;
+          } else if (pending) {
+            // An incomplete / pending registration exists - do NOT block the user from proceeding!
+            // Allow them to proceed with a new registration or retry in Status tab
+            isEmailDuplicate = false;
+            duplicateRecordInfo = null;
+
+            if (emailDuplicateAlert) emailDuplicateAlert.classList.add('hidden');
+            if (emailInput) {
+              emailInput.classList.remove('border-amber-500', 'bg-amber-50/20', 'focus:border-amber-600', 'focus:ring-amber-500/20');
+            }
+            return false;
           }
-          if (emailDuplicateAlert) emailDuplicateAlert.classList.remove('hidden');
-          if (emailInput) {
-            emailInput.classList.add('border-amber-500', 'bg-amber-50/20', 'focus:border-amber-600', 'focus:ring-amber-500/20');
-          }
-          return true;
         }
       }
 
@@ -1059,6 +1114,9 @@ function initRegistrationForm() {
 
     const paperRadio = form.querySelector('input[name="isPresentingPaper"]:checked');
     const isPresentingPaper = paperRadio ? paperRadio.value : '';
+
+    const participationRadio = form.querySelector('input[name="participationType"]:checked');
+    const participationType = participationRadio ? participationRadio.value : 'regular';
 
     const transactionRef = document.getElementById('reg-transaction-ref')?.value.trim() || '';
 
@@ -1173,6 +1231,17 @@ function initRegistrationForm() {
     const revPaper = document.getElementById('rev-paper');
     if (revPaper) {
       revPaper.textContent = isPresentingPaper === 'yes' ? 'Yes (Author / Presenter)' : 'No (Delegate)';
+    }
+
+    const revParticipation = document.getElementById('rev-participation');
+    if (revParticipation) {
+      if (participationType === 'idea_pitch') {
+        revParticipation.textContent = 'Idea Pitch Participant';
+      } else if (participationType === 'stall') {
+        revParticipation.textContent = 'Stall / Exhibition Participant';
+      } else {
+        revParticipation.textContent = 'Regular Participant';
+      }
     }
 
     const revCategory = document.getElementById('rev-category');
@@ -1503,30 +1572,28 @@ function initRegistrationForm() {
       const foodPreference = foodRadio ? foodRadio.value : 'veg';
       const paperRadio = form.querySelector('input[name="isPresentingPaper"]:checked');
       const isPresentingPaper = paperRadio ? paperRadio.value : 'no';
+      const participationRadio = form.querySelector('input[name="participationType"]:checked');
+      const participationType = participationRadio ? participationRadio.value : 'regular';
 
       const selectedCat = categories[currentCategoryKey] || categories.student;
 
-      // Check if this participant is retrying an existing pending registration ID
-      const retryId = window.__DYUTI_RETRY_REG_ID__ || (function() {
-        try {
-          const cleanEmail = email.toLowerCase().replace(/[^a-z0-9]/g, '');
-          return sessionStorage.getItem('dyuti_retry_reg_id') || localStorage.getItem('dyuti_last_pending_id_' + cleanEmail) || '';
-        } catch(e) { return ''; }
-      })();
-
-      const randomCode = Math.floor(10000 + Math.random() * 90000);
-      const generatedId = retryId || (currentPaymentMode === 'online'
-        ? `DYUTI27-ONLINE-${randomCode}`
-        : `DYUTI27-REG-${randomCode}`);
-
+      // Clear any stale retry state so every new form submission is 100% isolated
       try {
-        const cleanEmail = email.toLowerCase().replace(/[^a-z0-9]/g, '');
-        if (cleanEmail) localStorage.setItem('dyuti_last_pending_id_' + cleanEmail, generatedId);
-      } catch(e) {}
+        sessionStorage.removeItem('dyuti_retry_reg_id');
+        delete window.__DYUTI_RETRY_REG_ID__;
+      } catch (e) {}
+
+      // ALWAYS generate a fresh, guaranteed unique Registration ID for every new form submission
+      // NEVER overwrite, replace, or reuse another person's registration row
+      const randomCode = Math.floor(100000 + Math.random() * 900000);
+      const generatedId = (currentPaymentMode === 'online')
+        ? `DYUTI27-ONLINE-${randomCode}`
+        : `DYUTI27-REG-${randomCode}`;
 
       // Save registration state in sessionStorage before redirect
       const registrationState = {
         regId: generatedId,
+        registration_id: generatedId,
         title,
         name,
         full_name: name,
@@ -1541,6 +1608,8 @@ function initRegistrationForm() {
         requireAccommodation,
         foodPreference,
         isPresentingPaper,
+        participationType,
+        participation_type: participationType,
         categoryKey: currentCategoryKey,
         categoryLabel: selectedCat.label,
         amount: (isTestRegistrationPage || window.__DYUTI_TEST_MODE__ === true) ? 1 : selectedCat.amount,
@@ -1564,10 +1633,11 @@ function initRegistrationForm() {
         console.warn('localStorage not accessible:', e);
       }
 
-      // Pre-save registration to SQL database so no participant submission is ever lost
+      // Pre-save registration to SQL database as a brand new row (never replaces existing entries)
       try {
         await dispatchApi('save_registration.php', {
           ...registrationState,
+          action: 'new_registration',
           payment_status: 'pending',
           payment_mode: currentPaymentMode
         });
@@ -1698,6 +1768,11 @@ function initRegistrationForm() {
 
       const succCategory = document.getElementById('success-category');
       if (succCategory) succCategory.textContent = selectedCat.label;
+
+      const succPart = document.getElementById('success-participation');
+      if (succPart) {
+        succPart.textContent = participationType === 'idea_pitch' ? 'Idea Pitch Participant' : (participationType === 'stall' ? 'Stall / Exhibition Participant' : 'Regular Participant');
+      }
 
       const succAmount = document.getElementById('success-amount');
       if (succAmount) succAmount.textContent = selectedCat.fee;
@@ -2339,6 +2414,11 @@ function initRegistrationStatusTracker() {
           </div>
 
           <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+            <span class="text-slate-500 uppercase font-bold text-[11px] block">Participation Purpose</span>
+            <strong class="text-slate-900 font-bold block mt-0.5">${rec.participation_type === 'idea_pitch' ? 'Idea Pitch Participant' : (rec.participation_type === 'stall' ? 'Stall / Exhibition Participant' : 'Regular Participant')}</strong>
+          </div>
+
+          <div class="p-3 bg-white rounded-xl border border-slate-200/80">
             <span class="text-slate-500 uppercase font-bold text-[11px] block">Registered On</span>
             <strong class="text-slate-700 font-mono text-xs block mt-0.5">${createdDate}</strong>
           </div>
@@ -2354,7 +2434,7 @@ function initRegistrationStatusTracker() {
               </button>
             ` : ''}
 
-            ${(!isSuccess && rec.payment_mode === 'online') ? `
+            ${(!isSuccess && rec.payment_mode !== 'bank_transfer') ? `
               <button type="button" class="btn-card-retry inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-amber-400 text-slate-950 font-sans font-black text-xs sm:text-sm hover:bg-amber-300 transition-colors cursor-pointer shadow-sm">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                 <span>Retry Payment</span>
@@ -2393,13 +2473,42 @@ function initRegistrationStatusTracker() {
       const retryBtn = card.querySelector('.btn-card-retry');
       if (retryBtn) {
         retryBtn.addEventListener('click', async () => {
-          // LOCK EXISTING REGISTRATION ID: Never generate a new row or new ID on retry!
-          window.__DYUTI_RETRY_REG_ID__ = rec.registration_id;
+          const isTest = (typeof window.__DYUTI_TEST_MODE__ !== 'undefined' && window.__DYUTI_TEST_MODE__ === true) ||
+                         window.location.pathname.toLowerCase().includes('test_registration') ||
+                         window.location.href.toLowerCase().includes('test_registration') ||
+                         document.getElementById('test-gateway-banner') !== null ||
+                         document.querySelector('[data-fee="1"]') !== null;
+
+          const fee = isTest ? 1 : (parseFloat(rec.fee_amount) || 750);
+
+          // Save pending registration in both sessionStorage & localStorage so return handler updates the EXACT existing ID
+          const pendingRegData = {
+            regId: rec.registration_id,
+            registration_id: rec.registration_id,
+            title: rec.title || 'Dr.',
+            name: rec.full_name || 'Participant',
+            full_name: rec.full_name || 'Participant',
+            designation: rec.designation || 'Participant',
+            gender: rec.gender || '',
+            organization: rec.organization || '',
+            discipline: rec.discipline || '',
+            address: rec.address || '',
+            pincode: rec.pincode || '',
+            phone: rec.phone || '',
+            email: rec.email || '',
+            foodPreference: rec.food_preference || 'veg',
+            requireAccommodation: rec.require_accommodation || 'no',
+            isPresentingPaper: rec.is_presenting_paper || 'no',
+            participationType: rec.participation_type || 'regular',
+            categoryLabel: rec.registration_category || 'UG / PG Student',
+            amount: fee
+          };
+
           try {
-            sessionStorage.setItem('dyuti_retry_reg_id', rec.registration_id);
-            const cleanEmail = (rec.email || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-            if (cleanEmail) localStorage.setItem('dyuti_last_pending_id_' + cleanEmail, rec.registration_id);
-          } catch(e) {}
+            sessionStorage.setItem('dyuti_pending_registration', JSON.stringify(pendingRegData));
+            localStorage.setItem('dyuti_pending_registration', JSON.stringify(pendingRegData));
+            localStorage.setItem('dyuti_last_reg_id', rec.registration_id);
+          } catch (e) { /* storage fallback */ }
 
           const origBtnHtml = retryBtn.innerHTML;
           retryBtn.disabled = true;
@@ -2412,31 +2521,10 @@ function initRegistrationStatusTracker() {
             <span>Connecting to Payment Gateway...</span>
           `;
 
-          const fee = (isTestRegistrationPage || window.__DYUTI_TEST_MODE__ === true) ? 1 : (parseFloat(rec.fee_amount) || 750);
-
-          // 1. Update the existing row in SQL database with payment_status = pending (no duplicate row)
-          try {
-            if (window.dyutiDispatchApi) {
-              await window.dyutiDispatchApi('save_registration.php', {
-                ...rec,
-                registration_id: rec.registration_id,
-                regId: rec.registration_id,
-                amount: fee,
-                payment_status: 'pending',
-                payment_mode: 'online'
-              });
-            }
-          } catch (e) {
-            console.warn('Retry pre-save error:', e);
-          }
-
-          // 2. Directly request payment order URL for this existing registration
-          let paymentUrl = null;
-          let paymentError = null;
-
           const cleanPhone = (rec.phone || '').replace(/\D/g, '');
           const last10Phone = cleanPhone.length >= 10 ? cleanPhone.slice(-10) : (cleanPhone || '9876543210');
           const participantEmail = rec.email || `${last10Phone}@dyuti.in`;
+          const cleanRedirectUrl = window.location.href.split('?')[0].split('#')[0];
 
           const orderPayload = {
             registration_id: rec.registration_id,
@@ -2452,16 +2540,39 @@ function initRegistrationStatusTracker() {
             phone: rec.phone || last10Phone,
             amount: fee,
             currency: 'INR',
-            redirect_url: window.location.href.split('?')[0].split('#')[0]
+            redirect_url: cleanRedirectUrl
           };
 
+          // Determine payment endpoint relative to page directory
+          const baseDir = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')).replace(/\/+$/, '') || '';
+          const createOrderEndpoint = baseDir ? (baseDir + '/api/create_payment_order.php') : 'api/create_payment_order.php';
+
+          let paymentUrl = null;
+          let paymentError = null;
+
+          // 1. Direct fetch to obtain payment checkout URL
           try {
-            if (window.dyutiFetchPaymentUrl) {
-              paymentUrl = await window.dyutiFetchPaymentUrl(orderPayload);
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+            const res = await fetch(createOrderEndpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+              body: JSON.stringify(orderPayload),
+              signal: controller.signal
+            });
+            clearTimeout(timeoutId);
+
+            if (res.ok) {
+              const data = await res.json();
+              paymentUrl = (data && data.data && data.data.payment_url) || (data && data.payment_url);
+            } else {
+              const errData = await res.json().catch(() => ({}));
+              paymentError = errData.message || ('Server error HTTP ' + res.status);
             }
-          } catch (err) {
-            paymentError = err.message || err;
-            console.warn('Direct retry gateway fetch notice:', err);
+          } catch (fetchErr) {
+            console.warn('Direct fetch attempt failed, using form fallback:', fetchErr);
+            paymentError = fetchErr.message;
           }
 
           if (paymentUrl) {
@@ -2469,43 +2580,41 @@ function initRegistrationStatusTracker() {
             return;
           }
 
-          // Fallback: Directly submit via invisible form POST to payment endpoint
+          // 2. Fallback: Submit via native browser form POST to redirect directly
           try {
-            console.log('Using form POST fallback to connect to gateway...');
-            submitPaymentFormDirect(orderPayload);
+            console.log('Submitting native POST form to payment endpoint:', createOrderEndpoint);
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = createOrderEndpoint;
+            form.style.display = 'none';
+
+            const cleanPayload = {
+              ...orderPayload,
+              redirect: 'true'
+            };
+
+            for (const [k, v] of Object.entries(cleanPayload)) {
+              if (v !== undefined && v !== null && typeof v !== 'function') {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = k;
+                input.value = typeof v === 'object' ? JSON.stringify(v) : String(v);
+                form.appendChild(input);
+              }
+            }
+
+            document.body.appendChild(form);
+            form.submit();
             return;
           } catch (formErr) {
-            console.error('Form POST fallback failed:', formErr);
+            console.error('Form POST failed:', formErr);
           }
 
-          // Fallback if gateway redirect is blocked: pre-populate form with existing ID locked
-          const fieldMap = {
-            'reg-title': rec.title,
-            'reg-name': rec.full_name,
-            'reg-designation': rec.designation,
-            'reg-gender': rec.gender,
-            'reg-organization': rec.organization,
-            'reg-discipline': rec.discipline,
-            'reg-address': rec.address,
-            'reg-pincode': rec.pincode,
-            'reg-phone': rec.phone,
-            'reg-email': rec.email
-          };
-
-          for (const [id, val] of Object.entries(fieldMap)) {
-            const el = document.getElementById(id);
-            if (el && val) el.value = val;
-          }
-
+          // Reset button and display error if both attempts fail
           retryBtn.disabled = false;
           retryBtn.classList.remove('opacity-80', 'cursor-wait');
           retryBtn.innerHTML = origBtnHtml;
-
-          switchMode('register');
-          const step1 = document.getElementById('reg-step-form');
-          if (step1) {
-            step1.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
+          alert('Unable to connect to payment gateway: ' + (paymentError || 'Please try again in a moment.'));
         });
       }
 

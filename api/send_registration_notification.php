@@ -59,6 +59,15 @@ $accomLabel         = (strtolower($requireAccom) === 'yes') ? 'Yes (Moderate Acc
 $isPresenting       = htmlspecialchars(trim(val($data, 'isPresentingPaper', val($data, 'is_presenting_paper', 'no'))));
 $presentingLabel    = (strtolower($isPresenting) === 'yes') ? 'Yes (Author / Presenter)' : 'No (Delegate / Attendee)';
 
+$rawPart            = strtolower(trim(val($data, 'participationType', val($data, 'participation_type', 'regular'))));
+if (in_array($rawPart, ['idea_pitch', 'idea pitch', 'ideapitch', 'idea-pitch'])) {
+    $participationLabel = 'Idea Pitch Participant';
+} elseif (in_array($rawPart, ['stall', 'exhibition', 'stall / exhibition', 'stall_participant'])) {
+    $participationLabel = 'Stall / Exhibition Participant';
+} else {
+    $participationLabel = 'Regular Participant';
+}
+
 $paperTitle         = htmlspecialchars(trim(val($data, 'paperTitle', val($data, 'paper_title', ''))));
 $cmtPaperId         = htmlspecialchars(trim(val($data, 'cmtPaperId', val($data, 'cmt_paper_id', ''))));
 $paperTheme         = htmlspecialchars(trim(val($data, 'paperTheme', val($data, 'paper_theme', ''))));
@@ -97,6 +106,12 @@ if ($pdo && !empty($regId)) {
             if ($vortexTxId === 'N/A' && !empty($row['transaction_ref'])) $vortexTxId = htmlspecialchars(trim($row['transaction_ref']));
             if ($vortexTxId === 'N/A' && !empty($row['payment_order_id'])) $vortexTxId = htmlspecialchars(trim($row['payment_order_id']));
             if (!empty($row['payment_status'])) $paymentStatus = strtoupper(htmlspecialchars(trim($row['payment_status'])));
+            if (!empty($row['participation_type'])) {
+                $p = strtolower(trim($row['participation_type']));
+                if ($p === 'idea_pitch') $participationLabel = 'Idea Pitch Participant';
+                elseif ($p === 'stall') $participationLabel = 'Stall / Exhibition Participant';
+                else $participationLabel = 'Regular Participant';
+            }
         }
     } catch (Exception $e) {
         error_log('[DYUTI DB Fallback] ' . $e->getMessage());
@@ -242,6 +257,10 @@ $htmlBody = '
       <div class="section-title">4. Conference Logistics & Participation</div>
       <table class="data-table">
         <tr>
+          <td class="label">Participation Purpose</td>
+          <td class="val"><strong style="color:#071A33;">' . $participationLabel . '</strong></td>
+        </tr>
+        <tr>
           <td class="label">Food Preference</td>
           <td class="val">' . $foodLabel . '</td>
         </tr>
@@ -313,6 +332,7 @@ $plainBody .= "PIN Code:              {$pincode}\n\n";
 
 $plainBody .= "LOGISTICS & PREFERENCES:\n";
 $plainBody .= "------------------------\n";
+$plainBody .= "Participation Purpose: {$participationLabel}\n";
 $plainBody .= "Food Preference:       {$foodLabel}\n";
 $plainBody .= "Accommodation:         {$accomLabel}\n";
 $plainBody .= "Paper Presenter:       {$presentingLabel}\n";
@@ -413,6 +433,8 @@ function generateRegistrationPDF($data) {
     $accomLabel      = (strtolower($requireAccom) === 'yes') ? 'Yes (Moderate Accommodation requested)' : 'No (Arranging own stay)';
     $isPresenting    = $clean(val($data, 'isPresentingPaper', val($data, 'is_presenting_paper', 'no')));
     $presentingLabel = (strtolower($isPresenting) === 'yes') ? 'Yes (Author / Presenter)' : 'No (Delegate / Attendee)';
+    $rawPartPdf      = strtolower(trim(val($data, 'participationType', val($data, 'participation_type', 'regular'))));
+    $partLabelPdf    = ($rawPartPdf === 'idea_pitch') ? 'Idea Pitch Participant' : (($rawPartPdf === 'stall') ? 'Stall / Exhibition Participant' : 'Regular Participant');
     $categoryLabel   = $clean(val($data, 'categoryLabel', val($data, 'category', 'UG / PG Student')));
     $amount          = $clean(val($data, 'amount', '750'));
     $currency        = $clean(val($data, 'currency', 'INR'));
@@ -538,7 +560,8 @@ function generateRegistrationPDF($data) {
     $addTableRow('Address', str_replace(["\r", "\n"], ' ', $address));
 
     // Section 4: Conference Logistics
-    $addSectionHeader('4. Logistics & Paper Submission');
+    $addSectionHeader('4. Logistics & Participation');
+    $addTableRow('Purpose of Participation', $partLabelPdf, true);
     $addTableRow('Food Preference', $foodLabel);
     $addTableRow('Accommodation Request', $accomLabel);
     $addTableRow('Paper Presenter', $presentingLabel);

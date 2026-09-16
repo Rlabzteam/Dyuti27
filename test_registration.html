@@ -857,7 +857,47 @@
                   </div>
                 </div>
 
-                <!-- Section D Divider -->
+                                <!-- 11. Purpose of Participation * -->
+                <div class="space-y-3.5 pt-2">
+                  <div class="flex items-center justify-between">
+                    <label class="block text-sm sm:text-[15px] font-sans font-bold text-slate-900 tracking-normal">
+                      11. Purpose of Participation <span class="text-red-600 font-bold">*</span>
+                    </label>
+                    <span
+                      class="text-xs font-sans text-slate-800 bg-slate-100 border border-slate-300 px-2.5 sm:px-3 py-1 rounded-full font-bold">
+                      Required Question
+                    </span>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
+                    <label
+                      class="reg-pill-card p-3.5 sm:p-5 rounded-2xl border-2 flex items-center justify-center gap-3 cursor-pointer transition-all active bg-[#071A33] text-white border-[#071A33] shadow-md"
+                      data-group="participationType">
+                      <input type="radio" name="participationType" value="regular" checked
+                        class="accent-slate-900 w-5 h-5 shrink-0">
+                      <span class="text-sm sm:text-base font-bold text-center">Regular Participant</span>
+                    </label>
+                    <label
+                      class="reg-pill-card p-3.5 sm:p-5 rounded-2xl border-2 flex items-center justify-center gap-3 cursor-pointer transition-all bg-slate-50/90 border-slate-200 text-slate-900 hover:bg-slate-100 hover:border-slate-400"
+                      data-group="participationType">
+                      <input type="radio" name="participationType" value="idea_pitch"
+                        class="accent-slate-900 w-5 h-5 shrink-0">
+                      <span class="text-sm sm:text-base font-bold text-center">Idea Pitch Participant</span>
+                    </label>
+                    <label
+                      class="reg-pill-card p-3.5 sm:p-5 rounded-2xl border-2 flex items-center justify-center gap-3 cursor-pointer transition-all bg-slate-50/90 border-slate-200 text-slate-900 hover:bg-slate-100 hover:border-slate-400"
+                      data-group="participationType">
+                      <input type="radio" name="participationType" value="stall"
+                        class="accent-slate-900 w-5 h-5 shrink-0">
+                      <span class="text-sm sm:text-base font-bold text-center">Stall / Exhibition Participant</span>
+                    </label>
+                  </div>
+                  <span class="text-xs text-slate-600 font-medium block pt-0.5">
+                    Select &ldquo;Stall / Exhibition Participant&rdquo; if you are setting up an exhibition or product stall (e.g., Sustainable Products Stall).
+                  </span>
+                </div>
+
+<!-- Section D Divider -->
                 <div class="pt-6 sm:pt-8 pb-2 border-t-2 border-slate-100">
                   <div class="flex items-center gap-2 sm:gap-2.5 mb-2 sm:mb-2.5">
                     <span class="w-5 sm:w-6 h-1 bg-[#071A33] rounded-full"></span>
@@ -871,7 +911,7 @@
                 <!-- 11. Registration Category * -->
                 <div class="space-y-3.5">
                   <label class="block text-sm sm:text-[15px] font-sans font-bold text-slate-900 tracking-normal">
-                    11. Registration Category <span class="text-red-600 font-bold">*</span>
+                    12. Registration Category <span class="text-red-600 font-bold">*</span>
                   </label>
 
                   <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-5 items-stretch">
@@ -1181,9 +1221,13 @@
                     <strong id="rev-paper" class="text-slate-950 text-sm sm:text-lg font-bold">No (Delegate)</strong>
                   </div>
 
-                  <div>
+                                    <div>
+                    <span class="text-xs sm:text-sm text-slate-600 font-semibold block uppercase tracking-wider mb-1">11. Purpose of Participation</span>
+                    <strong id="rev-participation" class="text-slate-950 text-sm sm:text-lg font-bold">Regular Participant</strong>
+                  </div>
+<div>
                     <span
-                      class="text-xs sm:text-sm text-slate-600 font-semibold block uppercase tracking-wider mb-1">11.
+                      class="text-xs sm:text-sm text-slate-600 font-semibold block uppercase tracking-wider mb-1">12.
                       Registration Category &amp; Fee</span>
                     <strong id="rev-category" class="text-slate-950 text-sm sm:text-lg font-bold block">UG / PG
                       Student</strong>
@@ -1315,7 +1359,11 @@
             <!-- Summary Details Box -->
             <div
               class="p-4 sm:p-7 rounded-2xl bg-slate-50 border-2 border-slate-200 text-left font-sans text-xs sm:text-base space-y-2.5 sm:space-y-3.5 mb-6 sm:mb-8 max-w-xl mx-auto">
-              <div
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 sm:pb-2.5 border-b border-slate-200 gap-0.5 sm:gap-4">
+                <span class="text-slate-600 font-medium">Participation Purpose:</span>
+                <strong id="success-participation" class="text-slate-950 font-bold sm:text-right">Regular Participant</strong>
+              </div>
+<div
                 class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 sm:pb-2.5 border-b border-slate-200 gap-0.5 sm:gap-4">
                 <span class="text-slate-600 font-medium">Category:</span>
                 <strong id="success-category" class="text-slate-950 font-bold sm:text-right">UG / PG Student</strong>

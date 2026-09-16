@@ -31,6 +31,9 @@ CREATE TABLE IF NOT EXISTS `registrations` (
     -- Paper Presentation (Section C)
     `is_presenting_paper` ENUM('yes', 'no') NOT NULL DEFAULT 'no',
     
+    -- Purpose of Participation (Section C)
+    `participation_type` VARCHAR(64) NOT NULL DEFAULT 'regular' COMMENT 'regular, idea_pitch, stall',
+    
     -- Registration Category & Pricing (Section D)
     `registration_category` VARCHAR(64) NOT NULL COMMENT 'student, scholar, professional',
     `fee_amount` DECIMAL(10, 2) NOT NULL DEFAULT 750.00,
@@ -64,6 +67,7 @@ CREATE TABLE IF NOT EXISTS `registrations` (
     INDEX `idx_payment_order_id` (`payment_order_id`),
     INDEX `idx_razorpay_payment_id` (`razorpay_payment_id`),
     INDEX `idx_registration_category` (`registration_category`),
+    INDEX `idx_participation_type` (`participation_type`),
     INDEX `idx_created_at` (`created_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
