@@ -446,7 +446,6 @@ function initRegistrationForm() {
           requireAccommodation: savedReg?.requireAccommodation || 'no',
           isPresentingPaper: savedReg?.isPresentingPaper || 'no',
           paperTitle: savedReg?.paperTitle || '',
-          cmtPaperId: savedReg?.cmtPaperId || '',
           paperTheme: savedReg?.paperTheme || '',
           categoryLabel: savedReg?.categoryLabel || 'UG / PG Student'
         };
@@ -1031,6 +1030,9 @@ function initRegistrationForm() {
       const paperRadio = form.querySelector('input[name="isPresentingPaper"]:checked');
       const isPresentingPaper = paperRadio ? paperRadio.value : 'no';
 
+      const paperTitle = document.getElementById('reg-paper-title')?.value.trim() || '';
+      const paperTheme = document.getElementById('reg-paper-theme')?.value.trim() || '';
+
       const selectedCat = categories[currentCategoryKey] || categories.student;
       const randomCode = Math.floor(10000 + Math.random() * 90000);
       const generatedId = currentPaymentMode === 'online'
@@ -1042,6 +1044,7 @@ function initRegistrationForm() {
         regId: generatedId,
         title,
         name,
+        full_name: name,
         designation,
         gender,
         organization,
@@ -1050,13 +1053,17 @@ function initRegistrationForm() {
         pincode,
         phone,
         email,
-        requireAccommodation: 'no',
+        requireAccommodation,
         foodPreference,
         isPresentingPaper,
+        paperTitle,
+        paperTheme,
         categoryKey: currentCategoryKey,
         categoryLabel: selectedCat.label,
         amount: selectedCat.amount,
-        feeString: selectedCat.fee
+        feeString: selectedCat.fee,
+        paymentMode: currentPaymentMode,
+        paymentStatus: 'pending'
       };
 
       try {
@@ -1064,6 +1071,17 @@ function initRegistrationForm() {
       } catch (e) {
         console.warn('sessionStorage not accessible:', e);
       }
+
+      // Pre-save registration to SQL database so no participant submission is ever lost
+      fetch('/api/save_registration.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...registrationState,
+          payment_status: 'pending',
+          payment_mode: currentPaymentMode
+        })
+      }).catch(e => console.warn('Pre-save registration error:', e));
 
       // Online payment via Vortexx Payment Gateway
       if (currentPaymentMode === 'online') {
@@ -1126,8 +1144,26 @@ function initRegistrationForm() {
         return;
       }
 
-      // Fallback for direct bank wire / offline mode
-      const gatewayOrder = `VORTEX-${Math.floor(100000 + Math.random() * 900000)}`;
+      // Direct bank wire / offline mode: Save directly to database and send notification
+      const bankData = {
+        ...registrationState,
+        payment_mode: 'bank_transfer',
+        payment_status: 'pending',
+        transaction_ref: transactionRef || null,
+        date_time: new Date().toISOString().replace('T', ' ').substring(0, 19)
+      };
+
+      fetch('/api/save_registration.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bankData)
+      }).catch(e => console.warn('Bank wire DB save error:', e));
+
+      fetch('/api/send_registration_notification.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(bankData)
+      }).catch(e => console.warn('Bank wire notification error:', e));
 
       // Populate Step 3 Success View
       const succGreeting = document.getElementById('success-greeting');

@@ -215,15 +215,11 @@ $htmlBody = '
           <td class="val">' . $presentingLabel . '</td>
         </tr>';
 
-if (!empty($paperTitle) || !empty($cmtPaperId)) {
+if (!empty($paperTitle) || !empty($paperTheme)) {
     $htmlBody .= '
         <tr>
           <td class="label">Paper Title</td>
-          <td class="val"><em>' . ($paperTitle ?: 'As submitted via CMT') . '</em></td>
-        </tr>
-        <tr>
-          <td class="label">Microsoft CMT ID</td>
-          <td class="val">' . ($cmtPaperId ?: 'Not provided') . '</td>
+          <td class="val"><em>' . ($paperTitle ?: 'Submitted Paper') . '</em></td>
         </tr>
         <tr>
           <td class="label">Sub-Theme Track</td>
@@ -283,7 +279,6 @@ $plainBody .= "Accommodation:         {$accomLabel}\n";
 $plainBody .= "Paper Presenter:       {$presentingLabel}\n";
 if ($isPresenting === 'yes' || !empty($paperTitle)) {
     $plainBody .= "Paper Title:           {$paperTitle}\n";
-    $plainBody .= "CMT Paper ID:          {$cmtPaperId}\n";
     $plainBody .= "Theme Track:           {$paperTheme}\n";
 }
 $plainBody .= "\nSubmitted from IP: {$clientIp} at " . date('c') . "\n";
@@ -505,9 +500,8 @@ function generateRegistrationPDF($data) {
     $addTableRow('Food Preference', $foodLabel);
     $addTableRow('Accommodation Request', $accomLabel);
     $addTableRow('Paper Presenter', $presentingLabel);
-    if (!empty($paperTitle) || !empty($cmtPaperId)) {
+    if (!empty($paperTitle) || !empty($paperTheme)) {
         if (!empty($paperTitle)) $addTableRow('Paper Title', substr($paperTitle, 0, 70));
-        if (!empty($cmtPaperId)) $addTableRow('CMT Paper ID', $cmtPaperId);
         if (!empty($paperTheme)) $addTableRow('Sub-Theme Track', $paperTheme);
     }
 

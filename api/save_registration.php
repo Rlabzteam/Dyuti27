@@ -35,7 +35,19 @@ if (!$pdo) {
 }
 
 try {
-    $regId = $data['registration_id'] ?? ('DYUTI27-' . ($data['payment_mode'] === 'online' ? 'ONLINE-' : 'REG-') . mt_rand(10000, 99999));
+    $regId = $data['registration_id'] ?? $data['regId'] ?? ('DYUTI27-' . ((($data['payment_mode'] ?? '') === 'bank_transfer') ? 'REG-' : 'ONLINE-') . mt_rand(10000, 99999));
+
+    $paymentMode = strtolower($data['paymentMode'] ?? $data['payment_mode'] ?? 'online');
+    if (!in_array($paymentMode, ['online', 'bank_transfer'])) {
+        $paymentMode = 'online';
+    }
+
+    $rawStatus = strtolower($data['paymentStatus'] ?? $data['payment_status'] ?? 'pending');
+    $allowedStatuses = ['pending', 'success', 'failed', 'refunded', 'cancelled'];
+    $paymentStatus = in_array($rawStatus, $allowedStatuses) ? $rawStatus : 'pending';
+
+    $txnRef = $data['transactionRef'] ?? $data['transaction_ref'] ?? $data['vortex_transaction_id'] ?? $data['transaction_id'] ?? null;
+    $orderId = $data['payment_order_id'] ?? $data['order_id'] ?? $data['vortex_order_id'] ?? null;
 
     $stmt = $pdo->prepare("
         INSERT INTO registrations (
@@ -71,24 +83,24 @@ try {
         ':discipline'          => $data['discipline'] ?? '',
         ':address'             => $data['address'] ?? '',
         ':pincode'             => $data['pincode'] ?? '',
-        ':phone'               => $data['phone'] ?? '',
+        ':phone'               => $data['phone'] ?? $data['mobile'] ?? '',
         ':email'               => $data['email'] ?? '',
         ':food_pref'           => $data['foodPreference'] ?? $data['food_preference'] ?? 'veg',
         ':food_details'        => $data['foodDetails'] ?? $data['food_details'] ?? null,
-        ':accommodation'       => $data['requireAccommodation'] ?? $data['require_accommodation'] ?? 'no',
+        ':accommodation'       => strtolower($data['requireAccommodation'] ?? $data['require_accommodation'] ?? 'no') === 'yes' ? 'yes' : 'no',
         ':accommodation_notes' => $data['accommodationNotes'] ?? $data['accommodation_notes'] ?? null,
-        ':is_presenting'       => $data['isPresentingPaper'] ?? $data['is_presenting_paper'] ?? 'no',
+        ':is_presenting'       => strtolower($data['isPresentingPaper'] ?? $data['is_presenting_paper'] ?? 'no') === 'yes' ? 'yes' : 'no',
         ':paper_title'         => $data['paperTitle'] ?? $data['paper_title'] ?? null,
         ':cmt_id'              => $data['cmtPaperId'] ?? $data['cmt_paper_id'] ?? null,
         ':paper_theme'         => $data['paperTheme'] ?? $data['paper_theme'] ?? null,
-        ':category'            => $data['registrationCategory'] ?? $data['registration_category'] ?? 'student',
+        ':category'            => $data['registrationCategory'] ?? $data['registration_category'] ?? $data['categoryLabel'] ?? 'student',
         ':fee'                 => $data['amount'] ?? $data['fee_amount'] ?? 750.00,
         ':currency'            => $data['currency'] ?? 'INR',
-        ':payment_mode'        => $data['paymentMode'] ?? $data['payment_mode'] ?? 'online',
-        ':payment_status'      => $data['paymentStatus'] ?? $data['payment_status'] ?? 'pending',
-        ':payment_order_id'    => $data['payment_order_id'] ?? $data['order_id'] ?? null,
+        ':payment_mode'        => $paymentMode,
+        ':payment_status'      => $paymentStatus,
+        ':payment_order_id'    => $orderId,
         ':pay_id'              => $data['razorpay_payment_id'] ?? $data['payment_id'] ?? null,
-        ':txn_ref'             => $data['transactionRef'] ?? $data['transaction_ref'] ?? null,
+        ':txn_ref'             => $txnRef,
         ':ip'                  => $_SERVER['REMOTE_ADDR'] ?? null,
         ':ua'                  => $_SERVER['HTTP_USER_AGENT'] ?? null
     ]);

@@ -112,7 +112,6 @@ function generateRegistrationPdf(fields) {
     y = row('Accommodation',         accomLabel,      y);
     y = row('Presenting a Paper',    presentingLabel, y);
     if (paperTitle)  y = row('Paper Title',   paperTitle,  y);
-    if (cmtPaperId)  y = row('CMT Paper ID',  cmtPaperId,  y);
     if (paperTheme)  y = row('Theme Track',   paperTheme,  y);
 
     // Notes
