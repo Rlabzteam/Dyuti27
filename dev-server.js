@@ -5,6 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import createPaymentOrderHandler from './api/create_payment_order.js';
 import sendNotificationHandler from './api/send_registration_notification.js';
+import checkStatusHandler, { saveLocalRegistration } from './api/check_registration_status.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -48,13 +49,28 @@ const server = http.createServer(async (req, res) => {
   const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
   const pathname = parsedUrl.pathname;
 
-  // Handle API routes
-  if (pathname === '/api/create_payment_order' || pathname === '/api/create_payment_order.php' ||
-      pathname === '/api/send_registration_notification' || pathname === '/api/send_registration_notification.php' ||
-      pathname === '/api/save_registration.php') {
+  // Handle API routes (supports /api/..., /rcss/api/..., with or without .php)
+  if (pathname.includes('/api/create_payment_order') ||
+      pathname.includes('/api/send_registration_notification') ||
+      pathname.includes('/api/save_registration') ||
+      pathname.includes('/api/check_registration_status')) {
+
+    // Global CORS for development server
+    res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, X-Requested-With');
+
+    if (req.method === 'OPTIONS') {
+      res.statusCode = 200;
+      res.end();
+      return;
+    }
+
     let bodyStr = '';
     req.on('data', chunk => { bodyStr += chunk; });
     req.on('end', async () => {
+      console.log(`[API DEV-SERVER] ${req.method} ${pathname}`);
       try {
         req.body = bodyStr ? JSON.parse(bodyStr) : {};
       } catch (e) {
@@ -76,7 +92,23 @@ const server = http.createServer(async (req, res) => {
         } else if (pathname.includes('send_registration_notification')) {
           await sendNotificationHandler(req, res);
         } else if (pathname.includes('save_registration')) {
-          res.json({ status: 'success', message: 'Registration recorded (local development).' });
+          const saved = saveLocalRegistration(req.body);
+          if (saved && saved.error && saved.already_registered) {
+            res.status(409).json({
+              status: 'error',
+              already_registered: true,
+              registration_id: saved.registration_id,
+              message: saved.message
+            });
+          } else {
+            res.json({
+              status: 'success',
+              message: 'Registration recorded (local development).',
+              registration_id: saved.registration_id
+            });
+          }
+        } else if (pathname.includes('check_registration_status')) {
+          await checkStatusHandler(req, res);
         }
       } catch (err) {
         console.error('API Error:', err);

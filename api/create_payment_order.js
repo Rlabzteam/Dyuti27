@@ -3,6 +3,7 @@
 
 import https from 'https';
 import { URL } from 'url';
+import { getLocalRegistrations } from './check_registration_status.js';
 
 const VORTEXX_API_URL = process.env.VORTEX_API_URL || process.env.VORTEXX_API_URL || 'https://icswhmh.com/vortex/api/create_payment_order.php';
 const VORTEXX_API_KEY = process.env.VORTEX_API_KEY || process.env.VORTEXX_API_KEY || '';
@@ -45,21 +46,61 @@ export default async function handler(req, res) {
     }
 
     const customerName = (input.customer_name || input.name || 'Delegate Participant').trim();
-    const customerEmail = (input.customer_email || input.email || '').trim();
-    const customerMobile = (input.customer_mobile || input.mobile || input.phone || '').trim().replace(/[^\d+]/g, '');
+    const customerMobile = (input.customer_mobile || input.mobile || input.phone || '9876543210').trim().replace(/[^\d+]/g, '');
+    const cleanMobile = customerMobile.replace(/^\+91/, '').replace(/\D/g, '').slice(-10);
+    const customerEmail = (input.customer_email || input.email || (cleanMobile ? `${cleanMobile}@dyuti.in` : 'delegate@dyuti.in')).trim();
     const amount = Number(input.amount) || 750;
     const currency = (input.currency || 'INR').toUpperCase();
     const redirectUrl = input.redirect_url || 'https://dyuti.in/registration.html';
+    const isRetry = input.is_retry === true || !!input.registration_id || !!input.order_id || amount === 1;
+    const currentRegId = input.registration_id || input.order_id || '';
 
-    if (!customerEmail) {
-      return res.status(400).json({ status: 'error', message: 'Valid customer email is required.' });
-    }
-    if (!customerMobile) {
-      return res.status(400).json({ status: 'error', message: 'Valid customer mobile is required.' });
-    }
+    // Check 15-minute cool-off period for failed attempts (bypassed on intentional retries & test amounts)
+    if (!isRetry) {
+      try {
+        const existing = getLocalRegistrations();
+        const failed = existing.find(r => {
+          const matchesEmail = (r.email || '').toLowerCase() === customerEmail.toLowerCase();
+          const rPhone = (r.phone || '').replace(/\D/g, '');
+          const matchesPhone = cleanMobile && rPhone.endsWith(cleanMobile);
+          return (matchesEmail || matchesPhone) && r.payment_status === 'failed';
+        });
 
-    // Format phone: 10 digits
-    const cleanMobile = customerMobile.replace(/^\+91/, '').replace(/\D/g, '').slice(-10);
+        if (failed && failed.updated_ts) {
+          const elapsed = Math.floor(Date.now() / 1000) - Number(failed.updated_ts);
+          if (elapsed < 900) {
+            const remaining = 900 - elapsed;
+            const mins = Math.floor(remaining / 60);
+            const secs = remaining % 60;
+            return res.status(429).json({
+              status: 'error',
+              cooloff: true,
+              cooloff_remaining_seconds: remaining,
+              message: `A recent registration attempt failed. In accordance with payment guidelines, please wait ${mins}m ${secs}s (15-minute cool-off period) before attempting registration again.`
+            });
+          }
+        }
+
+        // Check if email already has a successful registration (ignore if retrying same ID)
+        const alreadyConfirmed = existing.find(r => 
+          (r.email || '').toLowerCase().trim() === customerEmail.toLowerCase().trim() &&
+          ['success', 'paid', 'captured'].includes((r.payment_status || '').toLowerCase()) &&
+          (!currentRegId || (r.registration_id !== currentRegId && r.regId !== currentRegId))
+        );
+
+        if (alreadyConfirmed) {
+          const regId = alreadyConfirmed.registration_id || alreadyConfirmed.regId;
+          return res.status(409).json({
+            status: 'error',
+            already_registered: true,
+            registration_id: regId,
+            message: `The email "${customerEmail}" is already registered (Registration ID: ${regId}). Duplicate entries are not permitted. Please check your registration details in the Status tab.`
+          });
+        }
+      } catch (e) {
+        // Ignore
+      }
+    }
 
     // Payload formatted for Vortexx API with only the exact accepted fields
     const vortexPayload = {

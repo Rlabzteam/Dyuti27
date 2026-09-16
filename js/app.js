@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initOurTeamFilters();
   initGalleryLightbox();
   initRegistrationForm();
+  initRegistrationStatusTracker();
   initContactForm();
   initSmoothPageNavigation();
 });
@@ -374,8 +375,41 @@ function initRegistrationForm() {
   const agreeTermsCheckbox = document.getElementById('agree-terms-checkbox');
   const btnPrintReceipt = document.getElementById('btn-print-receipt');
 
+  // Check if current page is the 1-Rupee Test Registration Page
+  const isTestRegistrationPage = window.location.pathname.toLowerCase().includes('test_registration') ||
+                                 window.location.href.toLowerCase().includes('test_registration') ||
+                                 window.__DYUTI_TEST_MODE__ === true ||
+                                 document.getElementById('test-gateway-banner') !== null ||
+                                 document.querySelector('[data-fee="1"]') !== null ||
+                                 document.title.toLowerCase().includes('1-rupee') ||
+                                 document.title.toLowerCase().includes('test');
+
+  if (isTestRegistrationPage) {
+    window.__DYUTI_TEST_MODE__ = true;
+    window.__DYUTI_TEST_AMOUNT__ = 1;
+  }
+
   // Category Configuration
-  const categories = {
+  const categories = isTestRegistrationPage ? {
+    student: {
+      label: 'Test Participant (Student Tier - ₹ 1)',
+      fee: '₹ 1',
+      amount: 1,
+      desc: 'Gateway Verification & Live Sandbox Testing'
+    },
+    scholar: {
+      label: 'Test Participant (Scholar Tier - ₹ 1)',
+      fee: '₹ 1',
+      amount: 1,
+      desc: 'Gateway Verification & Live Sandbox Testing'
+    },
+    professional: {
+      label: 'Test Participant (Professional Tier - ₹ 1)',
+      fee: '₹ 1',
+      amount: 1,
+      desc: 'Gateway Verification & Live Sandbox Testing'
+    }
+  } : {
     student: {
       label: 'UG / PG Student',
       fee: '₹ 750',
@@ -399,6 +433,141 @@ function initRegistrationForm() {
   let currentCategoryKey = 'student';
   let currentPaymentMode = 'online';
 
+  // ── Cool-Off Period Controller (15 Minutes on Failure) ──
+  let cooloffTimerInterval = null;
+
+  function getCooloffData() {
+    try {
+      const raw = localStorage.getItem('dyuti_cooloff_data');
+      if (!raw) return null;
+      const data = JSON.parse(raw);
+      if (data && data.cooloffUntil && Date.now() < data.cooloffUntil) {
+        return data;
+      }
+      localStorage.removeItem('dyuti_cooloff_data');
+    } catch (e) {}
+    return null;
+  }
+
+  function isCooloffActive(email, phone) {
+    if (isTestRegistrationPage || window.__DYUTI_TEST_MODE__ === true) return false;
+    const data = getCooloffData();
+    if (!data) return false;
+    if (email && data.email) {
+      if (email.toLowerCase().trim() === data.email.toLowerCase().trim()) return true;
+    }
+    if (phone && data.phone) {
+      const clean1 = phone.replace(/\D/g, '').slice(-10);
+      const clean2 = data.phone.replace(/\D/g, '').slice(-10);
+      if (clean1 && clean2 && clean1 === clean2) return true;
+    }
+    return false;
+  }
+
+  function startCooloffPeriod(seconds, email, phone, txnId) {
+    const cooloffSeconds = Number(seconds) > 0 ? Number(seconds) : 900;
+    const cooloffUntil = Date.now() + (cooloffSeconds * 1000);
+    const data = {
+      cooloffUntil,
+      email: email || '',
+      phone: phone || '',
+      txnId: txnId || '',
+      startedAt: Date.now()
+    };
+    try {
+      localStorage.setItem('dyuti_cooloff_data', JSON.stringify(data));
+    } catch (e) {}
+    renderCooloffUI();
+  }
+
+  function renderCooloffUI() {
+    const cooloffBanner = document.getElementById('cooloff-alert-banner');
+    const timerDisplay = document.getElementById('cooloff-timer-display');
+    const submitBtn = document.getElementById('btn-confirm-submit');
+    const reviewBtn = form ? form.querySelector('button[type="submit"]') : null;
+
+    if (cooloffTimerInterval) {
+      clearInterval(cooloffTimerInterval);
+      cooloffTimerInterval = null;
+    }
+
+    const data = getCooloffData();
+    if (!data) {
+      if (cooloffBanner) cooloffBanner.classList.add('hidden');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+      }
+      if (reviewBtn) {
+        reviewBtn.disabled = false;
+        reviewBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+      }
+      updateButtonLabels();
+      return;
+    }
+
+    if (cooloffBanner) cooloffBanner.classList.remove('hidden');
+
+    function updateTick() {
+      const remainingMs = data.cooloffUntil - Date.now();
+      if (remainingMs <= 0) {
+        clearInterval(cooloffTimerInterval);
+        cooloffTimerInterval = null;
+        try { localStorage.removeItem('dyuti_cooloff_data'); } catch (e) {}
+
+        if (cooloffBanner) {
+          cooloffBanner.className = 'mb-8 max-w-4xl mx-auto p-5 sm:p-6 rounded-2xl border-2 border-emerald-300 bg-emerald-50 text-emerald-950 shadow-md animate-fadeIn flex items-center gap-3.5';
+          cooloffBanner.innerHTML = `
+            <div class="w-10 h-10 rounded-full bg-emerald-100 border border-emerald-300 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <div>
+              <h4 class="font-heading font-black text-base text-emerald-950 m-0">Cool-Off Period Completed</h4>
+              <p class="text-xs sm:text-sm font-sans text-emerald-800 m-0 mt-0.5">The 15-minute wait period has elapsed. You may now safely proceed with your registration payment.</p>
+            </div>
+          `;
+        }
+
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+        }
+        if (reviewBtn) {
+          reviewBtn.disabled = false;
+          reviewBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+        }
+        updateButtonLabels();
+        return;
+      }
+
+      const totalSec = Math.floor(remainingMs / 1000);
+      const mins = Math.floor(totalSec / 60);
+      const secs = totalSec % 60;
+      const formatted = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+      if (timerDisplay) {
+        timerDisplay.textContent = formatted;
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-60', 'cursor-not-allowed');
+        if (btnConfirmSubmitLabel) {
+          btnConfirmSubmitLabel.textContent = `Cool-Off Active: Wait ${formatted}`;
+        }
+      }
+
+      if (reviewBtn && proceedReviewLabel) {
+        reviewBtn.disabled = true;
+        reviewBtn.classList.add('opacity-60', 'cursor-not-allowed');
+        proceedReviewLabel.textContent = `Cool-Off Active: Wait ${formatted}`;
+      }
+    }
+
+    updateTick();
+    cooloffTimerInterval = setInterval(updateTick, 1000);
+  }
+
   // ── Gateway Return Redirect Handler (when delegate returns from Vortexx checkout) ──
   const urlParams = new URLSearchParams(window.location.search);
   const vortexTxId = urlParams.get('vortex_transaction_id');
@@ -419,6 +588,11 @@ function initRegistrationForm() {
     }
 
     if (String(statusCode) === '200') {
+      // Clear cooloff on verified success
+      try {
+        localStorage.removeItem('dyuti_cooloff_data');
+      } catch (e) {}
+
       // Dispatch official registration and payment notification to dyuti@rajagiri.edu
       const notificationKey = 'dyuti_notified_' + vortexTxId;
       if (!sessionStorage.getItem(notificationKey)) {
@@ -451,8 +625,14 @@ function initRegistrationForm() {
         // Send confirmation email with PDF receipt to dyuti@rajagiri.edu and delegate
         dispatchApi('send_registration_notification.php', notificationData).catch(e => console.warn('Notification endpoint error:', e));
 
-        // Also save to database
+        // Also save to database as success
         dispatchApi('save_registration.php', notificationData).catch(() => { });
+
+        // Save for quick 1-click status checking
+        try {
+          localStorage.setItem('dyuti_last_reg_id', notificationData.regId);
+          localStorage.setItem('dyuti_last_reg_email', notificationData.email);
+        } catch (e) {}
       }
 
       // 1. SUCCESS: Show confirmation banner and activate Step 3 Confirmed Screen
@@ -511,14 +691,27 @@ function initRegistrationForm() {
       } catch (e) { }
 
     } else {
-      // 2. FAILED / CANCELLED: Show alert banner and restore saved data
+      // 2. FAILED / CANCELLED: Show alert banner, save failed state, and trigger 15-minute cool-off
       if (returnBanner && returnIcon && returnTitle && returnDesc) {
         returnBanner.className = 'mb-8 max-w-4xl mx-auto p-5 rounded-2xl border-2 flex items-start gap-4 animate-fadeIn bg-red-50 border-red-300 text-red-950 shadow-sm';
         returnIcon.innerHTML = '<svg class="w-7 h-7 text-red-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>';
         returnTitle.textContent = 'Payment Incomplete or Cancelled';
-        returnDesc.innerHTML = `Your payment attempt (Transaction ID: <span class="font-mono">${vortexTxId}</span>) was not completed. Your participant details have been restored below so you can try again.`;
+        returnDesc.innerHTML = `Your payment attempt (Transaction ID: <span class="font-mono">${vortexTxId}</span>) was not completed. A <strong>15-minute cool-off period</strong> has been activated for payment security. Your participant details have been restored below.`;
         returnBanner.classList.remove('hidden');
       }
+
+      const emailForCooloff = savedReg?.email || '';
+      const phoneForCooloff = savedReg?.phone || '';
+
+      // Record failed status in database
+      dispatchApi('save_registration.php', {
+        ...(savedReg || {}),
+        payment_status: 'failed',
+        transaction_ref: vortexTxId || null
+      }).catch(() => {});
+
+      // Activate 15-minute cool-off
+      startCooloffPeriod(15 * 60, emailForCooloff, phoneForCooloff, vortexTxId);
 
       if (savedReg && typeof savedReg === 'object') {
         const fields = ['title', 'name', 'designation', 'gender', 'organization', 'discipline', 'address', 'pincode', 'phone', 'email'];
@@ -533,6 +726,9 @@ function initRegistrationForm() {
       } catch (e) { }
     }
   }
+
+  // Check active cool-off on portal load
+  renderCooloffUI();
 
   // 1. Pill Cards click handler (Food, Accommodation, Paper Presenter)
   pillCards.forEach(card => {
@@ -627,10 +823,10 @@ function initRegistrationForm() {
 
   function updateButtonLabels() {
     const cat = categories[currentCategoryKey] || categories.student;
-    // DEV TEST MODE: show overridden amount if set
-    const displayAmount = (typeof window.__DYUTI_TEST_AMOUNT__ === 'number' && window.__DYUTI_TEST_AMOUNT__ > 0)
+    const isTest = isTestRegistrationPage || window.__DYUTI_TEST_MODE__ === true;
+    const displayAmount = isTest ? 1 : ((typeof window.__DYUTI_TEST_AMOUNT__ === 'number' && window.__DYUTI_TEST_AMOUNT__ > 0)
       ? window.__DYUTI_TEST_AMOUNT__
-      : cat.amount;
+      : cat.amount);
     if (proceedReviewLabel) {
       if (currentPaymentMode === 'online') {
         proceedReviewLabel.textContent = `Review & Pay ₹ ${displayAmount.toLocaleString()}`;
@@ -714,8 +910,134 @@ function initRegistrationForm() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  // ── Real-Time Duplicate Email Prevention ──
+  const emailInput = document.getElementById('reg-email');
+  const emailDuplicateAlert = document.getElementById('email-duplicate-alert');
+  const duplicateEmailDisplay = document.getElementById('duplicate-email-display');
+  const duplicateStatusBadgeText = document.getElementById('duplicate-status-badge-text');
+  const btnGotoStatusFromDuplicate = document.getElementById('btn-goto-status-from-duplicate');
+  const btnDuplicateChangeEmail = document.getElementById('btn-duplicate-change-email');
+  const emailCheckingSpinner = document.getElementById('email-checking-spinner');
+
+  let isEmailDuplicate = false;
+  let duplicateRecordInfo = null;
+  let emailCheckTimer = null;
+
+  async function verifyEmailNotRegistered(emailVal) {
+    const email = (emailVal || '').trim().toLowerCase();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      isEmailDuplicate = false;
+      duplicateRecordInfo = null;
+      if (emailDuplicateAlert) emailDuplicateAlert.classList.add('hidden');
+      if (emailInput) {
+        emailInput.classList.remove('border-amber-500', 'bg-amber-50/20', 'focus:border-amber-600', 'focus:ring-amber-500/20');
+      }
+      return false;
+    }
+
+    if (emailCheckingSpinner) emailCheckingSpinner.classList.remove('hidden');
+
+    try {
+      const candidates = [
+        'api/check_registration_status.php?email=' + encodeURIComponent(email),
+        '/rcss/api/check_registration_status.php?email=' + encodeURIComponent(email),
+        '/api/check_registration_status.php?email=' + encodeURIComponent(email),
+        '/api/check_registration_status?email=' + encodeURIComponent(email)
+      ];
+
+      let result = null;
+      for (const endpoint of candidates) {
+        try {
+          const res = await fetch(endpoint, {
+            headers: { 'Accept': 'application/json' }
+          });
+          if (res.status === 404) continue;
+          result = await res.json();
+          if (result && result.status === 'success') break;
+        } catch (e) {}
+      }
+
+      if (result && result.found && Array.isArray(result.records) && result.records.length > 0) {
+        const confirmed = result.records.find(r => ['success', 'captured', 'paid'].includes((r.payment_status || '').toLowerCase()));
+        const pending = result.records.find(r => (r.payment_status || '').toLowerCase() === 'pending');
+        const match = confirmed || pending || result.records[0];
+
+        if (confirmed || pending || result.already_registered) {
+          isEmailDuplicate = true;
+          duplicateRecordInfo = match;
+
+          if (duplicateEmailDisplay) duplicateEmailDisplay.textContent = email;
+          if (duplicateStatusBadgeText) {
+            duplicateStatusBadgeText.textContent = confirmed
+              ? 'Payment Completed (Confirmed)'
+              : 'Payment Pending Verification';
+          }
+          if (emailDuplicateAlert) emailDuplicateAlert.classList.remove('hidden');
+          if (emailInput) {
+            emailInput.classList.add('border-amber-500', 'bg-amber-50/20', 'focus:border-amber-600', 'focus:ring-amber-500/20');
+          }
+          return true;
+        }
+      }
+
+      isEmailDuplicate = false;
+      duplicateRecordInfo = null;
+      if (emailDuplicateAlert) emailDuplicateAlert.classList.add('hidden');
+      if (emailInput) {
+        emailInput.classList.remove('border-amber-500', 'bg-amber-50/20', 'focus:border-amber-600', 'focus:ring-amber-500/20');
+      }
+      return false;
+
+    } catch (e) {
+      console.warn('Email duplicate check error:', e);
+      return false;
+    } finally {
+      if (emailCheckingSpinner) emailCheckingSpinner.classList.add('hidden');
+    }
+  }
+
+  if (emailInput) {
+    emailInput.addEventListener('input', () => {
+      clearTimeout(emailCheckTimer);
+      emailCheckTimer = setTimeout(() => {
+        verifyEmailNotRegistered(emailInput.value);
+      }, 500);
+    });
+
+    emailInput.addEventListener('blur', () => {
+      clearTimeout(emailCheckTimer);
+      verifyEmailNotRegistered(emailInput.value);
+    });
+  }
+
+  if (btnGotoStatusFromDuplicate) {
+    btnGotoStatusFromDuplicate.addEventListener('click', () => {
+      const email = emailInput?.value.trim() || '';
+      if (typeof window.dyutiSwitchToStatus === 'function') {
+        window.dyutiSwitchToStatus(email);
+      } else {
+        window.location.hash = '#status';
+      }
+    });
+  }
+
+  if (btnDuplicateChangeEmail) {
+    btnDuplicateChangeEmail.addEventListener('click', () => {
+      if (emailInput) {
+        emailInput.value = '';
+        emailInput.focus();
+      }
+      isEmailDuplicate = false;
+      duplicateRecordInfo = null;
+      if (emailDuplicateAlert) emailDuplicateAlert.classList.add('hidden');
+      if (emailInput) {
+        emailInput.classList.remove('border-amber-500', 'bg-amber-50/20');
+      }
+    });
+  }
+
   // 4. Form Submit (Proceed to Review Step)
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const title = document.getElementById('reg-title')?.value || 'Dr.';
@@ -757,6 +1079,55 @@ function initRegistrationForm() {
 
     if (error) {
       if (formErrorMsg) formErrorMsg.textContent = error;
+      if (formErrorBox) {
+        formErrorBox.classList.remove('hidden');
+        formErrorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+
+    // Prevent proceeding if email is already registered
+    if (isEmailDuplicate) {
+      const regId = duplicateRecordInfo?.registration_id ? ` (${duplicateRecordInfo.registration_id})` : '';
+      if (formErrorMsg) {
+        formErrorMsg.textContent = `The email "${email}" is already registered${regId}. Duplicate entries are not permitted. Please check your registration details in the Status tab.`;
+      }
+      if (formErrorBox) {
+        formErrorBox.classList.remove('hidden');
+        formErrorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      if (emailDuplicateAlert) {
+        emailDuplicateAlert.classList.remove('hidden');
+        emailDuplicateAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+
+    // Confirm verification once more if not validated yet
+    const isDuplicateDirect = await verifyEmailNotRegistered(email);
+    if (isDuplicateDirect) {
+      const regId = duplicateRecordInfo?.registration_id ? ` (${duplicateRecordInfo.registration_id})` : '';
+      if (formErrorMsg) {
+        formErrorMsg.textContent = `The email "${email}" is already registered${regId}. Duplicate entries are not permitted. Please check your registration details in the Status tab.`;
+      }
+      if (formErrorBox) {
+        formErrorBox.classList.remove('hidden');
+        formErrorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      if (emailDuplicateAlert) {
+        emailDuplicateAlert.classList.remove('hidden');
+        emailDuplicateAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+
+    if (isCooloffActive(email, phone)) {
+      renderCooloffUI();
+      const coolData = getCooloffData();
+      const remainingSec = Math.max(0, Math.floor((coolData.cooloffUntil - Date.now()) / 1000));
+      const m = Math.floor(remainingSec / 60);
+      const s = remainingSec % 60;
+      if (formErrorMsg) formErrorMsg.textContent = `A mandatory 15-minute cool-off period is active for this registration attempt. Please wait ${m}m ${s}s before retrying.`;
       if (formErrorBox) {
         formErrorBox.classList.remove('hidden');
         formErrorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -868,10 +1239,15 @@ function initRegistrationForm() {
     const selectedCat = categories[currentCategoryKey] || categories.student;
     const returnUrl = window.location.origin + window.location.pathname;
 
-    // DEV TEST MODE: allow overriding amount via window.__DYUTI_TEST_AMOUNT__
-    const testAmount = (typeof window.__DYUTI_TEST_AMOUNT__ === 'number' && window.__DYUTI_TEST_AMOUNT__ > 0)
+    const isTest = isTestRegistrationPage ||
+                   window.__DYUTI_TEST_MODE__ === true ||
+                   window.location.href.toLowerCase().includes('test_registration') ||
+                   document.getElementById('test-gateway-banner') !== null ||
+                   document.querySelector('[data-fee="1"]') !== null;
+
+    const amountToSend = isTest ? 1 : ((typeof window.__DYUTI_TEST_AMOUNT__ === 'number' && window.__DYUTI_TEST_AMOUNT__ > 0)
       ? window.__DYUTI_TEST_AMOUNT__
-      : null;
+      : selectedCat.amount);
 
     return {
       customer_name: `${title} ${name}`.trim(),
@@ -880,7 +1256,7 @@ function initRegistrationForm() {
       email: email.trim(),
       customer_mobile: phone.trim(),
       mobile: phone.trim(),
-      amount: testAmount !== null ? testAmount : selectedCat.amount,
+      amount: amountToSend,
       currency: 'INR',
       redirect_url: returnUrl
     };
@@ -915,6 +1291,7 @@ function initRegistrationForm() {
     }
     return null;
   }
+  window.dyutiDispatchApi = dispatchApi;
 
   async function fetchPaymentUrl(orderData) {
     // Determine the correct API path based on where the page is hosted
@@ -924,10 +1301,14 @@ function initRegistrationForm() {
 
     // Single canonical endpoint first (relative to current page), then absolute fallbacks
     const endpoints = [
-      baseDir + '/api/create_payment_order.php',
+      baseDir ? (baseDir + '/api/create_payment_order.php') : null,
+      'api/create_payment_order.php',
       '/rcss/api/create_payment_order.php',
-      '/api/create_payment_order.php'
-    ].filter((v, i, a) => a.indexOf(v) === i); // deduplicate
+      '/api/create_payment_order.php',
+      baseDir ? (baseDir + '/api/create_payment_order') : null,
+      'api/create_payment_order',
+      '/api/create_payment_order'
+    ].filter(Boolean).filter((v, i, a) => a.indexOf(v) === i); // deduplicate
 
     let lastError = 'Payment gateway is unavailable. Please try again in a moment.';
 
@@ -950,8 +1331,19 @@ function initRegistrationForm() {
           continue;
         }
 
-        if (json && json.status === 'success' && json.data && json.data.payment_url) {
-          return json.data.payment_url;
+        if (json && (json.cooloff || res.status === 429)) {
+          if (typeof startCooloffPeriod === 'function') {
+            startCooloffPeriod(json.cooloff_remaining_seconds || 900, orderData.email, orderData.mobile);
+          }
+          const err = new Error(json.message || 'A 15-minute cool-off period is currently active.');
+          err.cooloff = true;
+          err.cooloff_remaining_seconds = json.cooloff_remaining_seconds || 900;
+          throw err;
+        }
+
+        if (json && (json.status === 'success' || json.success === true)) {
+          const url = (json.data && json.data.payment_url) || json.payment_url || json.paymentUrl || json.url;
+          if (url) return url;
         }
 
         // Gateway returned an error message — record it and try next endpoint
@@ -965,6 +1357,33 @@ function initRegistrationForm() {
 
     throw new Error(lastError);
   }
+  window.dyutiFetchPaymentUrl = fetchPaymentUrl;
+
+  function submitPaymentFormDirect(orderData) {
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'api/create_payment_order.php';
+    form.style.display = 'none';
+
+    const cleanPayload = {
+      ...orderData,
+      redirect: 'true'
+    };
+
+    for (const [k, v] of Object.entries(cleanPayload)) {
+      if (v !== undefined && v !== null && typeof v !== 'function') {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = k;
+        input.value = typeof v === 'object' ? JSON.stringify(v) : String(v);
+        form.appendChild(input);
+      }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+  }
+  window.dyutiSubmitPaymentFormDirect = submitPaymentFormDirect;
 
   function startPaymentPreload() {
     if (currentPaymentMode !== 'online') return;
@@ -1032,6 +1451,34 @@ function initRegistrationForm() {
     btnConfirmSubmit.addEventListener('click', async () => {
       if (isSubmitting) return; // Prevent double clicking
 
+      const email = document.getElementById('reg-email')?.value.trim() || '';
+      const phone = document.getElementById('reg-phone')?.value.trim() || '';
+
+      if (isEmailDuplicate) {
+        if (reviewErrorMsg) {
+          reviewErrorMsg.textContent = `The email "${email}" is already registered. Duplicate entries are not permitted. Please check your registration details in the Status section.`;
+        }
+        if (reviewErrorBox) {
+          reviewErrorBox.classList.remove('hidden');
+          reviewErrorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+
+      if (isCooloffActive(email, phone)) {
+        renderCooloffUI();
+        const coolData = getCooloffData();
+        const remainingSec = Math.max(0, Math.floor((coolData.cooloffUntil - Date.now()) / 1000));
+        const m = Math.floor(remainingSec / 60);
+        const s = remainingSec % 60;
+        if (reviewErrorMsg) reviewErrorMsg.textContent = `A mandatory 15-minute cool-off period is active. Please wait ${m}m ${s}s before attempting payment again.`;
+        if (reviewErrorBox) {
+          reviewErrorBox.classList.remove('hidden');
+          reviewErrorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+
       if (!agreeTermsCheckbox || !agreeTermsCheckbox.checked) {
         if (reviewErrorMsg) reviewErrorMsg.textContent = 'Please check the verification declaration box to confirm your details.';
         if (reviewErrorBox) reviewErrorBox.classList.remove('hidden');
@@ -1050,8 +1497,6 @@ function initRegistrationForm() {
       const discipline = document.getElementById('reg-discipline')?.value.trim() || '';
       const address = document.getElementById('reg-address')?.value.trim() || '';
       const pincode = document.getElementById('reg-pincode')?.value.trim() || '';
-      const phone = document.getElementById('reg-phone')?.value.trim() || '';
-      const email = document.getElementById('reg-email')?.value.trim() || '';
       const accomRadio = form.querySelector('input[name="requireAccommodation"]:checked');
       const requireAccommodation = accomRadio ? accomRadio.value : 'no';
       const foodRadio = form.querySelector('input[name="foodPreference"]:checked');
@@ -1060,10 +1505,24 @@ function initRegistrationForm() {
       const isPresentingPaper = paperRadio ? paperRadio.value : 'no';
 
       const selectedCat = categories[currentCategoryKey] || categories.student;
+
+      // Check if this participant is retrying an existing pending registration ID
+      const retryId = window.__DYUTI_RETRY_REG_ID__ || (function() {
+        try {
+          const cleanEmail = email.toLowerCase().replace(/[^a-z0-9]/g, '');
+          return sessionStorage.getItem('dyuti_retry_reg_id') || localStorage.getItem('dyuti_last_pending_id_' + cleanEmail) || '';
+        } catch(e) { return ''; }
+      })();
+
       const randomCode = Math.floor(10000 + Math.random() * 90000);
-      const generatedId = currentPaymentMode === 'online'
+      const generatedId = retryId || (currentPaymentMode === 'online'
         ? `DYUTI27-ONLINE-${randomCode}`
-        : `DYUTI27-REG-${randomCode}`;
+        : `DYUTI27-REG-${randomCode}`);
+
+      try {
+        const cleanEmail = email.toLowerCase().replace(/[^a-z0-9]/g, '');
+        if (cleanEmail) localStorage.setItem('dyuti_last_pending_id_' + cleanEmail, generatedId);
+      } catch(e) {}
 
       // Save registration state in sessionStorage before redirect
       const registrationState = {
@@ -1084,24 +1543,37 @@ function initRegistrationForm() {
         isPresentingPaper,
         categoryKey: currentCategoryKey,
         categoryLabel: selectedCat.label,
-        amount: selectedCat.amount,
-        feeString: selectedCat.fee,
+        amount: (isTestRegistrationPage || window.__DYUTI_TEST_MODE__ === true) ? 1 : selectedCat.amount,
+        feeString: (isTestRegistrationPage || window.__DYUTI_TEST_MODE__ === true) ? '₹ 1' : selectedCat.fee,
         paymentMode: currentPaymentMode,
         paymentStatus: 'pending'
       };
 
       try {
         sessionStorage.setItem('dyuti_pending_registration', JSON.stringify(registrationState));
+        localStorage.setItem('dyuti_last_reg_id', generatedId);
+        localStorage.setItem('dyuti_last_reg_email', email);
+        localStorage.setItem('dyuti_last_reg_phone', phone);
+        localStorage.setItem('dyuti_last_reg_data', JSON.stringify(registrationState));
+
+        const history = JSON.parse(localStorage.getItem('dyuti_registrations_history') || '[]');
+        const filtered = history.filter(h => (h.regId !== generatedId && h.registration_id !== generatedId));
+        filtered.unshift(registrationState);
+        localStorage.setItem('dyuti_registrations_history', JSON.stringify(filtered.slice(0, 10)));
       } catch (e) {
-        console.warn('sessionStorage not accessible:', e);
+        console.warn('localStorage not accessible:', e);
       }
 
       // Pre-save registration to SQL database so no participant submission is ever lost
-      dispatchApi('save_registration.php', {
-        ...registrationState,
-        payment_status: 'pending',
-        payment_mode: currentPaymentMode
-      }).catch(e => console.warn('Pre-save registration error:', e));
+      try {
+        await dispatchApi('save_registration.php', {
+          ...registrationState,
+          payment_status: 'pending',
+          payment_mode: currentPaymentMode
+        });
+      } catch (e) {
+        console.warn('Pre-save registration error:', e);
+      }
 
       // Online payment via Vortexx Payment Gateway
       if (currentPaymentMode === 'online') {
@@ -1150,6 +1622,7 @@ function initRegistrationForm() {
           }
         } catch (err) {
           errorMessage = err.message || 'Unable to create payment order. Please verify your details and try again.';
+          console.warn('Payment fetch failed:', errorMessage);
         }
 
         if (paymentUrl) {
@@ -1158,7 +1631,29 @@ function initRegistrationForm() {
           return;
         }
 
-        // If order creation failed, re-enable button and show error
+        // Direct fallback: submit invisible POST form directly to payment gateway endpoint
+        try {
+          console.log('Invoking direct form POST payment fallback...');
+          submitPaymentFormDirect({
+            ...orderData,
+            registration_id: generatedId,
+            order_id: generatedId
+          });
+          return;
+        } catch (formErr) {
+          console.error('Direct form POST failed:', formErr);
+        }
+
+        // If order creation failed and fallback failed, display error
+        if (!isTestRegistrationPage && window.__DYUTI_TEST_MODE__ !== true) {
+          startCooloffPeriod(900, orderData.email, orderData.mobile);
+        }
+        dispatchApi('save_registration.php', {
+          ...registrationState,
+          payment_status: 'failed',
+          error_message: errorMessage || 'Gateway error'
+        }).catch(() => {});
+
         resetSubmitButtonState();
         if (btnConfirmSubmitLabel) {
           btnConfirmSubmitLabel.innerHTML = originalBtnHtml || `Register &amp; Pay ₹ ${selectedCat.amount.toLocaleString()} Now`;
@@ -1225,6 +1720,11 @@ function initRegistrationForm() {
       if (succAccom) succAccom.textContent = requireAccommodation === 'yes' ? 'Requested' : 'Self-arranged';
 
       setStep('success');
+
+      try {
+        localStorage.setItem('dyuti_last_reg_id', generatedId);
+        localStorage.setItem('dyuti_last_reg_email', email);
+      } catch (e) {}
     });
   }
 
@@ -1236,6 +1736,804 @@ function initRegistrationForm() {
   }
 
   updateButtonLabels();
+}
+
+
+/* ── 7B. REGISTRATION STATUS TRACKER & VERIFICATION PORTAL ── */
+function initRegistrationStatusTracker() {
+  const btnPortalCheckStatus = document.getElementById('btn-portal-check-status');
+  const btnStatusReturnToForm = document.getElementById('btn-status-return-to-form');
+  const modeTabRegister = document.getElementById('mode-tab-register');
+  const modeTabStatus = document.getElementById('mode-tab-status');
+  const stepIndicator = document.getElementById('portal-step-indicator');
+  const stepFormView = document.getElementById('reg-step-form');
+  const stepReviewView = document.getElementById('reg-step-review');
+  const stepSuccessView = document.getElementById('reg-step-success');
+  const statusView = document.getElementById('reg-status-view');
+
+  const statusForm = document.getElementById('status-lookup-form');
+  const statusAppIdInput = document.getElementById('status-app-id-input');
+  const statusPhoneInput = document.getElementById('status-phone-input');
+  const statusInput = document.getElementById('status-search-input');
+  const statusSubmitBtn = document.getElementById('btn-submit-status-search');
+  const statusRecentWrapper = document.getElementById('status-recent-chip-wrapper');
+  const statusRecentChip = document.getElementById('btn-status-recent-chip');
+  const recentChipText = document.getElementById('recent-chip-text');
+  const statusError = document.getElementById('status-search-error');
+  const statusLoading = document.getElementById('status-loading-spinner');
+  const statusNotFound = document.getElementById('status-not-found');
+  const statusNotFoundMsg = document.getElementById('status-not-found-msg');
+  const statusResultsContainer = document.getElementById('status-results-container');
+  const btnSwitchToRegister = document.getElementById('btn-status-switch-to-register');
+  const btnSuccessCheckStatus = document.getElementById('btn-success-check-status');
+
+  if (!statusView) return;
+
+  function switchMode(mode) {
+    if (mode === 'register') {
+      if (modeTabRegister && modeTabStatus) {
+        modeTabRegister.className = 'flex-1 py-2.5 sm:py-3 px-4 rounded-full font-sans text-xs sm:text-sm font-extrabold transition-all duration-200 flex items-center justify-center gap-2 bg-[#071A33] text-white shadow-md cursor-pointer';
+        modeTabStatus.className = 'flex-1 py-2.5 sm:py-3 px-4 rounded-full font-sans text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-950 hover:bg-white/70 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer';
+      }
+
+      if (btnPortalCheckStatus) {
+        btnPortalCheckStatus.innerHTML = `
+          <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span id="btn-portal-check-status-label">Already Registered? Check Your Status</span>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-black bg-amber-200 text-amber-950 ml-1">
+            Track Live
+          </span>
+        `;
+      }
+
+      if (stepIndicator) stepIndicator.classList.remove('hidden');
+      statusView.classList.add('hidden');
+
+      if (stepSuccessView && !stepSuccessView.classList.contains('hidden')) {
+        // preserve success view
+      } else if (stepReviewView && !stepReviewView.classList.contains('hidden')) {
+        // preserve review view
+      } else {
+        if (stepFormView) stepFormView.classList.remove('hidden');
+      }
+    } else {
+      if (modeTabRegister && modeTabStatus) {
+        modeTabStatus.className = 'flex-1 py-2.5 sm:py-3 px-4 rounded-full font-sans text-xs sm:text-sm font-extrabold transition-all duration-200 flex items-center justify-center gap-2 bg-[#071A33] text-white shadow-md cursor-pointer';
+        modeTabRegister.className = 'flex-1 py-2.5 sm:py-3 px-4 rounded-full font-sans text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-950 hover:bg-white/70 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer';
+      }
+
+      if (btnPortalCheckStatus) {
+        btnPortalCheckStatus.innerHTML = `
+          <svg class="w-4 h-4 text-slate-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          <span>Return to Registration Form</span>
+        `;
+      }
+
+      if (stepIndicator) stepIndicator.classList.add('hidden');
+      if (stepFormView) stepFormView.classList.add('hidden');
+      if (stepReviewView) stepReviewView.classList.add('hidden');
+      if (stepSuccessView) stepSuccessView.classList.add('hidden');
+      statusView.classList.remove('hidden');
+
+      updateRecentChip();
+      if (statusAppIdInput) statusAppIdInput.focus();
+      else if (statusInput) statusInput.focus();
+    }
+  }
+
+  window.dyutiToggleStatusView = function(targetMode) {
+    if (typeof targetMode === 'string') {
+      switchMode(targetMode);
+    } else {
+      const isCurrentlyStatus = statusView && !statusView.classList.contains('hidden');
+      switchMode(isCurrentlyStatus ? 'register' : 'status');
+    }
+  };
+
+  if (btnPortalCheckStatus) {
+    btnPortalCheckStatus.onclick = function(e) {
+      if (e) e.preventDefault();
+      window.dyutiToggleStatusView();
+    };
+  }
+
+  if (btnStatusReturnToForm) {
+    btnStatusReturnToForm.onclick = function(e) {
+      if (e) e.preventDefault();
+      window.dyutiToggleStatusView('register');
+    };
+  }
+
+  if (modeTabRegister) modeTabRegister.addEventListener('click', () => switchMode('register'));
+  if (modeTabStatus) modeTabStatus.addEventListener('click', () => switchMode('status'));
+
+  if (btnSwitchToRegister) {
+    btnSwitchToRegister.addEventListener('click', () => switchMode('register'));
+  }
+
+  if (btnSuccessCheckStatus) {
+    btnSuccessCheckStatus.addEventListener('click', () => {
+      const regIdEl = document.getElementById('success-reg-id');
+      const regId = regIdEl ? regIdEl.textContent.trim() : '';
+      switchMode('status');
+      if (regId) {
+        if (statusAppIdInput) statusAppIdInput.value = regId;
+        if (statusInput) statusInput.value = regId;
+        performStatusLookup({ appId: regId, query: regId });
+      }
+    });
+  }
+
+  // Globally exposed status switcher for 1-click status checking from anywhere
+  window.dyutiSwitchToStatus = function(query) {
+    switchMode('status');
+    if (query) {
+      if (statusAppIdInput) statusAppIdInput.value = query;
+      if (statusInput) statusInput.value = query;
+      performStatusLookup({ query });
+    }
+    const statusSection = document.getElementById('reg-status-view');
+    if (statusSection) {
+      statusSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  function updateRecentChip() {
+    if (!statusRecentWrapper || !statusRecentChip || !recentChipText) return;
+    let recentId = '';
+    try {
+      recentId = localStorage.getItem('dyuti_last_reg_id') || '';
+      if (!recentId) {
+        const pending = JSON.parse(sessionStorage.getItem('dyuti_pending_registration') || '{}');
+        recentId = pending?.regId || '';
+      }
+    } catch (e) {}
+
+    if (recentId) {
+      recentChipText.textContent = recentId;
+      statusRecentWrapper.classList.remove('hidden');
+      statusRecentChip.onclick = () => {
+        if (statusAppIdInput) statusAppIdInput.value = recentId;
+        if (statusInput) statusInput.value = recentId;
+        performStatusLookup({ appId: recentId, query: recentId });
+      };
+    } else {
+      statusRecentWrapper.classList.add('hidden');
+    }
+  }
+
+  // Handle URL hash / query param (e.g. #status or ?tab=status or ?check_status=ID)
+  const params = new URLSearchParams(window.location.search);
+  const checkStatusParam = params.get('check_status') || params.get('status_query');
+  const isStatusTab = window.location.hash === '#status' || params.get('tab') === 'status' || !!checkStatusParam;
+
+  if (isStatusTab) {
+    switchMode('status');
+    if (checkStatusParam) {
+      if (statusAppIdInput) statusAppIdInput.value = checkStatusParam;
+      if (statusInput) statusInput.value = checkStatusParam;
+      performStatusLookup({ query: checkStatusParam });
+    }
+  }
+
+  window.addEventListener('hashchange', () => {
+    if (window.location.hash === '#status') {
+      switchMode('status');
+    } else if (window.location.hash === '#register' || window.location.hash === '') {
+      switchMode('register');
+    }
+  });
+
+  if (statusForm) {
+    statusForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      triggerStatusSearch();
+    });
+  }
+
+  if (statusSubmitBtn) {
+    statusSubmitBtn.addEventListener('click', (e) => {
+      // In case form submission is prevented or button is clicked directly
+      triggerStatusSearch();
+    });
+  }
+
+  function triggerStatusSearch() {
+    const appId = statusAppIdInput ? statusAppIdInput.value.trim() : '';
+    const phone = statusPhoneInput ? statusPhoneInput.value.trim() : '';
+    const legacyQ = statusInput ? statusInput.value.trim() : '';
+    const query = appId || phone || legacyQ;
+
+    if (!query) {
+      if (statusError) {
+        statusError.textContent = 'Please enter your Application ID or registered Mobile Number.';
+        statusError.classList.remove('hidden');
+        statusError.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+      return;
+    }
+    performStatusLookup({ query, appId, phone });
+  }
+
+  async function performStatusLookup(param) {
+    const appId = (typeof param === 'object' && param.appId) ? param.appId.trim() : (statusAppIdInput ? statusAppIdInput.value.trim() : '');
+    const phone = (typeof param === 'object' && param.phone) ? param.phone.trim() : (statusPhoneInput ? statusPhoneInput.value.trim() : '');
+    const rawQuery = typeof param === 'string'
+      ? param.trim()
+      : ((param && param.query) || appId || phone || (statusInput ? statusInput.value.trim() : '')).trim();
+
+    const payload = {
+      query: rawQuery,
+      registration_id: appId,
+      phone: phone
+    };
+
+    const displayTerm = [appId, phone].filter(Boolean).join(' / ') || rawQuery || 'Provided details';
+
+    if (statusError) statusError.classList.add('hidden');
+    if (statusNotFound) statusNotFound.classList.add('hidden');
+    if (statusResultsContainer) statusResultsContainer.innerHTML = '';
+    if (statusLoading) statusLoading.classList.remove('hidden');
+
+    if (statusSubmitBtn) {
+      statusSubmitBtn.disabled = true;
+      statusSubmitBtn.classList.add('opacity-75', 'cursor-wait');
+    }
+
+    let records = [];
+    let cooloffInfo = null;
+    let serverErrorMessage = '';
+
+    try {
+      const candidates = [
+        'api/check_registration_status.php',
+        '/api/check_registration_status.php',
+        '/rcss/api/check_registration_status.php',
+        'api/check_registration_status',
+        '/api/check_registration_status'
+      ];
+
+      let apiResponse = null;
+      for (const endpoint of candidates) {
+        try {
+          const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (res.status === 404) continue;
+          
+          let parsedData = null;
+          try {
+            parsedData = await res.json();
+          } catch (jsonErr) {
+            // Not valid JSON (e.g. 500 error page)
+          }
+
+          if (parsedData) {
+            apiResponse = parsedData;
+            if (apiResponse.status === 'success') {
+              break;
+            } else if (apiResponse.message) {
+              serverErrorMessage = apiResponse.message;
+            }
+          } else if (!res.ok) {
+            serverErrorMessage = `Database API returned HTTP ${res.status}. Please make sure the updated api/check_registration_status.php is uploaded to cPanel.`;
+          }
+        } catch (err) {
+          // Network error or endpoint unreachable
+        }
+      }
+
+      if (apiResponse && apiResponse.found && Array.isArray(apiResponse.records)) {
+        records = apiResponse.records;
+        cooloffInfo = apiResponse.cooloff;
+      }
+
+      // Fallback check against client sessionStorage / localStorage
+      if (records.length === 0) {
+        const localMatches = [];
+        try {
+          const aLower = appId.toLowerCase().trim();
+          const appSuffixMatch = aLower.match(/(\d{4,})$/);
+          const appSuffix = appSuffixMatch ? appSuffixMatch[1] : '';
+          const pClean = phone.replace(/\D/g, '');
+          const pLast10 = pClean.length >= 10 ? pClean.slice(-10) : pClean;
+          const qLower = rawQuery.toLowerCase().trim();
+
+          const candidatesList = [];
+
+          // 1. Check history array
+          try {
+            const hist = JSON.parse(localStorage.getItem('dyuti_registrations_history') || '[]');
+            if (Array.isArray(hist)) candidatesList.push(...hist);
+          } catch (e) {}
+
+          // 2. Check direct saved confirmation data
+          try {
+            const savedDataStr = localStorage.getItem('dyuti_last_reg_data');
+            if (savedDataStr) candidatesList.push(JSON.parse(savedDataStr));
+          } catch (e) {}
+
+          // 3. Check pending registration session
+          try {
+            const savedRegStr = sessionStorage.getItem('dyuti_pending_registration');
+            if (savedRegStr) candidatesList.push(JSON.parse(savedRegStr));
+          } catch (e) {}
+
+          const seenIds = new Set();
+          for (const item of candidatesList) {
+            if (!item) continue;
+            const regId = (item.registration_id || item.regId || '').toLowerCase().trim();
+            const sEmail = (item.email || '').toLowerCase().trim();
+            const sPhone = (item.phone || '').replace(/\D/g, '');
+
+            const matchApp = aLower && (
+              regId === aLower || 
+              regId.includes(aLower) || 
+              (appSuffix && regId.includes(appSuffix)) ||
+              sEmail === aLower
+            );
+
+            const matchPhone = pLast10 && (
+              sPhone.endsWith(pLast10) || 
+              pLast10.endsWith(sPhone) ||
+              (sPhone.length >= 7 && pLast10.includes(sPhone))
+            );
+
+            const matchQuery = qLower && (
+              regId === qLower || 
+              sEmail === qLower || 
+              regId.includes(qLower) || 
+              sEmail.includes(qLower) ||
+              (pLast10 && sPhone.endsWith(pLast10))
+            );
+
+            if (matchApp || matchPhone || matchQuery) {
+              const uniqueKey = item.registration_id || item.regId || sEmail;
+              if (uniqueKey && !seenIds.has(uniqueKey)) {
+                seenIds.add(uniqueKey);
+                localMatches.push({
+                  registration_id: item.registration_id || item.regId || 'DYUTI27-ONLINE-PENDING',
+                  title: item.title || 'Dr.',
+                  full_name: item.full_name || item.name || 'Participant',
+                  designation: item.designation || 'Delegate',
+                  organization: item.organization || 'Rajagiri',
+                  discipline: item.discipline || 'Social Work',
+                  address: item.address || '',
+                  pincode: item.pincode || '',
+                  phone: item.phone || '',
+                  email: item.email || '',
+                  registration_category: item.registration_category || item.categoryLabel || 'UG / PG Student',
+                  fee_amount: item.fee_amount || item.amount || 750,
+                  payment_mode: item.payment_mode || item.paymentMode || 'online',
+                  payment_status: item.payment_status || item.paymentStatus || 'pending',
+                  transaction_ref: item.transaction_ref || item.vortex_transaction_id || item.transactionRef || 'Pending Verification',
+                  food_preference: item.food_preference || item.foodPreference || 'veg',
+                  require_accommodation: item.require_accommodation || item.requireAccommodation || 'no',
+                  is_presenting_paper: item.is_presenting_paper || item.isPresentingPaper || 'no',
+                  created_at: item.created_at || new Date().toISOString()
+                });
+              }
+            }
+          }
+        } catch (e) {
+          console.warn('Local fallback search error:', e);
+        }
+
+        if (localMatches.length > 0) {
+          records = localMatches;
+        }
+      }
+
+    } catch (err) {
+      console.warn('Status lookup error:', err);
+    } finally {
+      if (statusLoading) statusLoading.classList.add('hidden');
+      if (statusSubmitBtn) {
+        statusSubmitBtn.disabled = false;
+        statusSubmitBtn.classList.remove('opacity-75', 'cursor-wait');
+      }
+    }
+
+    if (records.length === 0) {
+      if (serverErrorMessage) {
+        if (statusError) {
+          statusError.innerHTML = `
+            <div class="flex items-start gap-2.5 text-left">
+              <svg class="w-5 h-5 text-red-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              <div>
+                <strong class="block font-bold">Database Server Notice:</strong>
+                <span>${escapeHtml(serverErrorMessage)}</span>
+              </div>
+            </div>
+          `;
+          statusError.classList.remove('hidden');
+          statusError.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        return;
+      }
+
+      if (statusNotFound) {
+        if (statusNotFoundMsg) {
+          statusNotFoundMsg.textContent = `We could not find any active delegate registration matching "${displayTerm}". Please double-check your Application ID or registered Mobile Number.`;
+        }
+        statusNotFound.classList.remove('hidden');
+        statusNotFound.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else if (statusError) {
+        statusError.textContent = `No record found matching "${displayTerm}".`;
+        statusError.classList.remove('hidden');
+      }
+      return;
+    }
+
+    renderStatusResults(records, cooloffInfo);
+    if (statusResultsContainer) {
+      statusResultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function renderStatusResults(records, cooloffInfo) {
+    if (!statusResultsContainer) return;
+    statusResultsContainer.innerHTML = '';
+
+    // Priority Rule:
+    // 1. If payment is success/confirmed: DO NOT show pending status! Show ONLY the confirmed record.
+    // 2. If payment is pending: show that pending status only (latest active attempt).
+    const confirmed = records.filter(r => ['success', 'confirmed', 'paid', 'captured'].includes(String(r.payment_status || '').toLowerCase()));
+    const pending   = records.filter(r => String(r.payment_status || '').toLowerCase() === 'pending');
+
+    let displayRecords = records;
+    if (confirmed.length > 0) {
+      displayRecords = confirmed;
+    } else if (pending.length > 0) {
+      displayRecords = [pending[0]];
+    } else if (records.length > 0) {
+      displayRecords = [records[0]];
+    }
+
+    displayRecords.forEach((rec) => {
+      const card = document.createElement('div');
+      card.className = 'p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-slate-50 border-2 border-slate-200/90 shadow-md space-y-6 animate-fadeIn';
+
+      const stLower = String(rec.payment_status || '').toLowerCase();
+      const isSuccess = ['success', 'confirmed', 'paid', 'captured'].includes(stLower);
+      const isFailed = stLower === 'failed';
+      const isBankPending = rec.payment_mode === 'bank_transfer' && !isSuccess;
+
+      let badgeHtml = '';
+      let statusAlertHtml = '';
+
+      if (isSuccess) {
+        badgeHtml = `
+          <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-emerald-50 border-2 border-emerald-400 text-emerald-900 font-mono text-xs sm:text-sm font-black uppercase tracking-wider">
+            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            Registration Confirmed &bull; Payment Verified
+          </span>
+        `;
+        statusAlertHtml = `
+          <div class="p-4 rounded-xl bg-emerald-50/80 border border-emerald-200 text-emerald-900 text-xs sm:text-sm font-sans flex items-start gap-2.5">
+            <svg class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div>
+              <strong>Your registration is active and officially verified.</strong> An official confirmation and payment voucher have been issued. Present your Registration ID at the conference check-in desk at Rajagiri.
+            </div>
+          </div>
+        `;
+      } else if (isBankPending) {
+        badgeHtml = `
+          <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-amber-50 border-2 border-amber-400 text-amber-900 font-mono text-xs sm:text-sm font-black uppercase tracking-wider">
+            <svg class="w-4 h-4 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Bank Wire Received &bull; Secretariat Verification Pending
+          </span>
+        `;
+        statusAlertHtml = `
+          <div class="p-4 rounded-xl bg-amber-50/80 border border-amber-200 text-amber-900 text-xs sm:text-sm font-sans flex items-start gap-2.5">
+            <svg class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div>
+              <strong>Bank wire transfer record is under administrative audit.</strong> Once the secretariat verifies your UTR / transaction credit, your status will update to Confirmed.
+            </div>
+          </div>
+        `;
+      } else if (isFailed) {
+        badgeHtml = `
+          <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-red-50 border-2 border-red-400 text-red-900 font-mono text-xs sm:text-sm font-black uppercase tracking-wider">
+            <svg class="w-4 h-4 text-red-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            Payment Incomplete / Failed
+          </span>
+        `;
+        statusAlertHtml = `
+          <div class="p-4 rounded-xl bg-red-50/80 border border-red-200 text-red-900 text-xs sm:text-sm font-sans flex items-start gap-2.5">
+            <svg class="w-5 h-5 text-red-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <div>
+              <strong>Previous payment attempt was not completed.</strong> In accordance with payment rules, a 15-minute cool-off period applies before you can retry payment.
+            </div>
+          </div>
+        `;
+      } else {
+        badgeHtml = `
+          <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-blue-50 border-2 border-blue-400 text-blue-900 font-mono text-xs sm:text-sm font-black uppercase tracking-wider">
+            <svg class="w-4 h-4 text-blue-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Payment Awaiting Confirmation
+          </span>
+        `;
+        statusAlertHtml = `
+          <div class="p-4 rounded-xl bg-blue-50/80 border border-blue-200 text-blue-900 text-xs sm:text-sm font-sans flex items-start gap-2.5">
+            <svg class="w-5 h-5 text-blue-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div>
+              <strong>Registration is recorded and awaiting payment completion.</strong> You can complete online payment or verify with the secretariat.
+            </div>
+          </div>
+        `;
+      }
+
+      const formattedFee = rec.fee_amount ? `₹ ${parseFloat(rec.fee_amount).toLocaleString()}` : '₹ 750';
+      const createdDate = rec.created_at ? new Date(rec.created_at).toLocaleString() : 'Recent';
+
+      card.innerHTML = `
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 gap-3">
+          <div>
+            <span class="text-xs uppercase font-mono font-bold text-slate-500 block mb-0.5">Registration Reference</span>
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-lg sm:text-2xl font-black text-[#071A33]">${escapeHtml(rec.registration_id)}</span>
+              <button type="button" class="btn-copy-regid p-1 text-slate-400 hover:text-slate-700 transition-colors" title="Copy ID">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="self-start sm:self-center">
+            ${badgeHtml}
+          </div>
+        </div>
+
+        ${statusAlertHtml}
+
+        <!-- Participant Details Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs sm:text-sm font-sans">
+          <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+            <span class="text-slate-500 uppercase font-bold text-[11px] block">Delegate Name</span>
+            <strong class="text-slate-900 font-bold text-base block mt-0.5">${escapeHtml(rec.title || '')} ${escapeHtml(rec.full_name || '')}</strong>
+            <span class="text-slate-600 text-xs block">${escapeHtml(rec.designation || 'Participant')}</span>
+          </div>
+
+          <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+            <span class="text-slate-500 uppercase font-bold text-[11px] block">Institution / Organization</span>
+            <strong class="text-slate-900 font-bold block mt-0.5 break-words">${escapeHtml(rec.organization || 'Rajagiri College')}</strong>
+            <span class="text-slate-600 text-xs block">${escapeHtml(rec.discipline || 'Social Work')}</span>
+          </div>
+
+          <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+            <span class="text-slate-500 uppercase font-bold text-[11px] block">Registration Category & Fee</span>
+            <strong class="text-slate-900 font-bold block mt-0.5">${escapeHtml(rec.registration_category || 'UG / PG Student')}</strong>
+            <span class="text-[#071A33] font-mono font-black text-sm block">${formattedFee}</span>
+          </div>
+
+          <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+            <span class="text-slate-500 uppercase font-bold text-[11px] block">Contact Number</span>
+            <strong class="text-slate-900 font-mono font-bold block mt-0.5">${escapeHtml(rec.phone || 'N/A')}</strong>
+          </div>
+
+          <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+            <span class="text-slate-500 uppercase font-bold text-[11px] block">Email Address</span>
+            <strong class="text-slate-900 font-mono font-bold block mt-0.5 break-all">${escapeHtml(rec.email || 'N/A')}</strong>
+          </div>
+
+          <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+            <span class="text-slate-500 uppercase font-bold text-[11px] block">Payment Mode & Ref</span>
+            <strong class="text-slate-900 font-bold block mt-0.5">${rec.payment_mode === 'bank_transfer' ? 'Direct Bank Wire (NEFT)' : 'Online Payment Gateway'}</strong>
+            <span class="text-slate-600 font-mono text-xs block break-all">Ref: ${escapeHtml(rec.transaction_ref || rec.payment_order_id || 'Pending')}</span>
+          </div>
+
+          <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+            <span class="text-slate-500 uppercase font-bold text-[11px] block">Food & Accommodation</span>
+            <strong class="text-slate-900 font-bold block mt-0.5">Food: ${rec.food_preference === 'veg' ? 'Vegetarian' : 'Non-Vegetarian'}</strong>
+            <span class="text-slate-600 text-xs block">Accom: ${rec.require_accommodation === 'yes' ? 'Requested' : 'Self-arranged'}</span>
+          </div>
+
+          <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+            <span class="text-slate-500 uppercase font-bold text-[11px] block">Paper Presentation</span>
+            <strong class="text-slate-900 font-bold block mt-0.5">${rec.is_presenting_paper === 'yes' ? 'Author / Presenter' : 'Delegate Participant'}</strong>
+          </div>
+
+          <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+            <span class="text-slate-500 uppercase font-bold text-[11px] block">Registered On</span>
+            <strong class="text-slate-700 font-mono text-xs block mt-0.5">${createdDate}</strong>
+          </div>
+        </div>
+
+        <!-- Card Action Buttons -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-200 no-print">
+          <div class="flex items-center gap-2">
+            ${isSuccess ? `
+              <button type="button" class="btn-card-print inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#071A33] text-white font-sans font-bold text-xs sm:text-sm hover:bg-[#0c274c] transition-colors cursor-pointer shadow-sm">
+                <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                <span>Print Official Slip</span>
+              </button>
+            ` : ''}
+
+            ${(!isSuccess && rec.payment_mode === 'online') ? `
+              <button type="button" class="btn-card-retry inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-amber-400 text-slate-950 font-sans font-black text-xs sm:text-sm hover:bg-amber-300 transition-colors cursor-pointer shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                <span>Retry Payment</span>
+              </button>
+            ` : ''}
+          </div>
+
+          <button type="button" class="btn-card-clear text-slate-500 hover:text-slate-800 text-xs font-bold underline transition-colors cursor-pointer">
+            Search another record
+          </button>
+        </div>
+      `;
+
+      // Copy ID handler
+      const copyBtn = card.querySelector('.btn-copy-regid');
+      if (copyBtn) {
+        copyBtn.addEventListener('click', () => {
+          navigator.clipboard.writeText(rec.registration_id).then(() => {
+            copyBtn.innerHTML = '<span class="text-xs text-emerald-600 font-bold">Copied!</span>';
+            setTimeout(() => {
+              copyBtn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>';
+            }, 2000);
+          });
+        });
+      }
+
+      // Print slip handler
+      const printBtn = card.querySelector('.btn-card-print');
+      if (printBtn) {
+        printBtn.addEventListener('click', () => {
+          window.print();
+        });
+      }
+
+      // Retry payment handler
+      const retryBtn = card.querySelector('.btn-card-retry');
+      if (retryBtn) {
+        retryBtn.addEventListener('click', async () => {
+          // LOCK EXISTING REGISTRATION ID: Never generate a new row or new ID on retry!
+          window.__DYUTI_RETRY_REG_ID__ = rec.registration_id;
+          try {
+            sessionStorage.setItem('dyuti_retry_reg_id', rec.registration_id);
+            const cleanEmail = (rec.email || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+            if (cleanEmail) localStorage.setItem('dyuti_last_pending_id_' + cleanEmail, rec.registration_id);
+          } catch(e) {}
+
+          const origBtnHtml = retryBtn.innerHTML;
+          retryBtn.disabled = true;
+          retryBtn.classList.add('opacity-80', 'cursor-wait');
+          retryBtn.innerHTML = `
+            <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-slate-950 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span>Connecting to Payment Gateway...</span>
+          `;
+
+          const fee = (isTestRegistrationPage || window.__DYUTI_TEST_MODE__ === true) ? 1 : (parseFloat(rec.fee_amount) || 750);
+
+          // 1. Update the existing row in SQL database with payment_status = pending (no duplicate row)
+          try {
+            if (window.dyutiDispatchApi) {
+              await window.dyutiDispatchApi('save_registration.php', {
+                ...rec,
+                registration_id: rec.registration_id,
+                regId: rec.registration_id,
+                amount: fee,
+                payment_status: 'pending',
+                payment_mode: 'online'
+              });
+            }
+          } catch (e) {
+            console.warn('Retry pre-save error:', e);
+          }
+
+          // 2. Directly request payment order URL for this existing registration
+          let paymentUrl = null;
+          let paymentError = null;
+
+          const cleanPhone = (rec.phone || '').replace(/\D/g, '');
+          const last10Phone = cleanPhone.length >= 10 ? cleanPhone.slice(-10) : (cleanPhone || '9876543210');
+          const participantEmail = rec.email || `${last10Phone}@dyuti.in`;
+
+          const orderPayload = {
+            registration_id: rec.registration_id,
+            reg_id: rec.registration_id,
+            order_id: rec.registration_id,
+            is_retry: true,
+            name: rec.full_name || 'Participant',
+            customer_name: rec.full_name || 'Participant',
+            email: participantEmail,
+            customer_email: participantEmail,
+            mobile: last10Phone,
+            customer_mobile: last10Phone,
+            phone: rec.phone || last10Phone,
+            amount: fee,
+            currency: 'INR',
+            redirect_url: window.location.href.split('?')[0].split('#')[0]
+          };
+
+          try {
+            if (window.dyutiFetchPaymentUrl) {
+              paymentUrl = await window.dyutiFetchPaymentUrl(orderPayload);
+            }
+          } catch (err) {
+            paymentError = err.message || err;
+            console.warn('Direct retry gateway fetch notice:', err);
+          }
+
+          if (paymentUrl) {
+            window.location.href = paymentUrl;
+            return;
+          }
+
+          // Fallback: Directly submit via invisible form POST to payment endpoint
+          try {
+            console.log('Using form POST fallback to connect to gateway...');
+            submitPaymentFormDirect(orderPayload);
+            return;
+          } catch (formErr) {
+            console.error('Form POST fallback failed:', formErr);
+          }
+
+          // Fallback if gateway redirect is blocked: pre-populate form with existing ID locked
+          const fieldMap = {
+            'reg-title': rec.title,
+            'reg-name': rec.full_name,
+            'reg-designation': rec.designation,
+            'reg-gender': rec.gender,
+            'reg-organization': rec.organization,
+            'reg-discipline': rec.discipline,
+            'reg-address': rec.address,
+            'reg-pincode': rec.pincode,
+            'reg-phone': rec.phone,
+            'reg-email': rec.email
+          };
+
+          for (const [id, val] of Object.entries(fieldMap)) {
+            const el = document.getElementById(id);
+            if (el && val) el.value = val;
+          }
+
+          retryBtn.disabled = false;
+          retryBtn.classList.remove('opacity-80', 'cursor-wait');
+          retryBtn.innerHTML = origBtnHtml;
+
+          switchMode('register');
+          const step1 = document.getElementById('reg-step-form');
+          if (step1) {
+            step1.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      }
+
+      // Look up another record
+      const clearBtn = card.querySelector('.btn-card-clear');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          if (statusInput) {
+            statusInput.value = '';
+            statusInput.focus();
+          }
+          if (statusResultsContainer) statusResultsContainer.innerHTML = '';
+        });
+      }
+
+      statusResultsContainer.appendChild(card);
+    });
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
 }
 
 
@@ -1528,6 +2826,11 @@ async function navigateToPage(targetUrl, pushState = true) {
     // 8. Close mobile drawer if opened
     closeMobileDrawerIfOpen();
 
+    // Update history location before reinitializing components so window.location is accurate
+    if (pushState) {
+      window.history.pushState({ path: targetUrl }, '', targetUrl);
+    }
+
     // 9. Re-initialize dynamic page interactive widgets
     reinitializePageComponents();
 
@@ -1541,10 +2844,6 @@ async function navigateToPage(targetUrl, pushState = true) {
     currentMain.style.transition = 'opacity 180ms ease-out, transform 180ms ease-out';
     currentMain.style.opacity = '1';
     currentMain.style.transform = 'translateY(0)';
-
-    if (pushState) {
-      window.history.pushState({ path: targetUrl }, '', targetUrl);
-    }
   } catch (err) {
     console.warn('Smooth page transition fallback:', err);
     window.location.href = targetUrl;
@@ -1625,6 +2924,7 @@ function reinitializePageComponents() {
   initOurTeamFilters();
   initGalleryLightbox();
   initRegistrationForm();
+  initRegistrationStatusTracker();
   initContactForm();
 }
 

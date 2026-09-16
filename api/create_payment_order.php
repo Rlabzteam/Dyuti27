@@ -5,10 +5,12 @@
  * Compatible with PHP 5.6, 7.x, and 8.x
  */
 
-// Enable CORS for frontend clients
-header('Access-Control-Allow-Origin: https://dyuti.in');
+// Enable CORS for frontend clients (supports https://dyuti.in, localhost, and custom dev origins)
+$origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '*';
+header("Access-Control-Allow-Origin: $origin");
+header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type, Accept, Authorization');
+header('Access-Control-Allow-Headers: Content-Type, Accept, Authorization, X-Requested-With');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
@@ -79,17 +81,95 @@ if (strlen($cleanMobile) > 10) {
     $cleanMobile = substr($cleanMobile, -10);
 }
 
-// Whitelist redirect_url to dyuti.in only
+// Check if this is an explicit retry of an existing registration or live test
+$isRetryPayment = !empty($input['is_retry']) || !empty($input['registration_id']) || !empty($input['order_id']) || (isset($input['amount']) && (float)$input['amount'] == 1.0);
+$currentRegId = !empty($input['registration_id']) ? $input['registration_id'] : (!empty($input['order_id']) ? $input['order_id'] : '');
+
+// Check 15-minute cool-off policy for failed payment attempts (bypassed on intentional retries)
+if (!$isRetryPayment && file_exists(__DIR__ . '/db_config.php')) {
+    require_once __DIR__ . '/db_config.php';
+    $pdo = getDbConnection();
+    if ($pdo) {
+        try {
+            $cooloffStmt = $pdo->prepare("
+                SELECT updated_at, UNIX_TIMESTAMP(updated_at) AS updated_ts
+                FROM registrations
+                WHERE (email = :email OR phone LIKE :phone)
+                  AND payment_status = 'failed'
+                  AND updated_at > DATE_SUB(NOW(), INTERVAL 15 MINUTE)
+                ORDER BY updated_at DESC
+                LIMIT 1
+            ");
+            $cooloffStmt->execute([
+                ':email' => $customerEmail,
+                ':phone' => '%' . $cleanMobile
+            ]);
+            $failedRow = $cooloffStmt->fetch(PDO::FETCH_ASSOC);
+            if ($failedRow && !empty($failedRow['updated_ts'])) {
+                $elapsed = time() - (int)$failedRow['updated_ts'];
+                if ($elapsed < 900) {
+                    $remaining = 900 - $elapsed;
+                    $mins = floor($remaining / 60);
+                    $secs = $remaining % 60;
+                    http_response_code(429);
+                    echo json_encode([
+                        'status' => 'error',
+                        'cooloff' => true,
+                        'cooloff_remaining_seconds' => $remaining,
+                        'message' => "A recent payment attempt failed. In accordance with payment safety guidelines, please wait {$mins}m {$secs}s (15-minute cool-off period) before attempting registration again."
+                    ]);
+                    exit;
+                }
+            }
+
+            // Check if email is already registered with confirmed payment (ignore if retrying same ID)
+            $dupStmt = $pdo->prepare("
+                SELECT registration_id, full_name, payment_status, created_at
+                FROM registrations
+                WHERE email = :email AND payment_status IN ('success', 'captured', 'paid')
+                  AND (:current_reg_id = '' OR registration_id != :current_reg_id)
+                ORDER BY id DESC
+                LIMIT 1
+            ");
+            $dupStmt->execute([
+                ':email' => $customerEmail,
+                ':current_reg_id' => $currentRegId
+            ]);
+            $dupRow = $dupStmt->fetch(PDO::FETCH_ASSOC);
+            if ($dupRow) {
+                http_response_code(409);
+                echo json_encode([
+                    'status' => 'error',
+                    'already_registered' => true,
+                    'registration_id' => $dupRow['registration_id'],
+                    'message' => "The email '{$customerEmail}' is already registered with confirmed payment (Registration ID: {$dupRow['registration_id']}). Duplicate entries are not permitted. Please check your registration details in the Status tab."
+                ]);
+                exit;
+            }
+        } catch (Exception $e) {
+            // Silently continue if DB check fails
+        }
+    }
+}
+
+// Whitelist redirect_url
 $rawRedirect = !empty($input['redirect_url']) ? $input['redirect_url'] : 'https://dyuti.in/rcss/registration.html';
 $redirectHost = parse_url($rawRedirect, PHP_URL_HOST);
-$allowedHosts = ['dyuti.in', 'www.dyuti.in'];
-$redirectUrl = in_array($redirectHost, $allowedHosts) ? $rawRedirect : 'https://dyuti.in/rcss/registration.html';
+$allowedHosts = ['dyuti.in', 'www.dyuti.in', 'localhost', '127.0.0.1'];
+$isAllowedHost = empty($redirectHost) ||
+                 in_array($redirectHost, $allowedHosts) ||
+                 (is_string($redirectHost) && (strpos($redirectHost, 'cpanel') !== false || strpos($redirectHost, 'dyuti') !== false));
+$redirectUrl = $isAllowedHost ? $rawRedirect : 'https://dyuti.in/rcss/registration.html';
 $currency = !empty($input['currency']) ? strtoupper(trim($input['currency'])) : "INR";
 
-// Validate amount against allowed registration fee tiers
-$allowedAmounts = [750, 1000, 1500, 2000, 2500, 3000];
+// Validate amount against allowed registration fee tiers (including ₹1 for live testing)
+$allowedAmounts = [1, 1.0, 750, 1000, 1500, 2000, 2500, 3000];
 $requestedAmount = isset($input['amount']) ? (float)$input['amount'] : 750.00;
-$amount = in_array($requestedAmount, $allowedAmounts) ? $requestedAmount : 750.00;
+if ($requestedAmount == 1.0 || $requestedAmount == 1 || in_array($requestedAmount, $allowedAmounts)) {
+    $amount = $requestedAmount;
+} else {
+    $amount = 750.00;
+}
 
 
 $data = [

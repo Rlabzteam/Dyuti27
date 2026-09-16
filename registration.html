@@ -26,6 +26,46 @@
   <link rel="preload" as="image" href="images/dyuti27_theme_header.png">
   <link rel="preload" as="image" href="images/dyuti_let_me_change.jpg">
   <link rel="preload" as="image" href="https://dyuti.in/assets/images/dyutilogoog.jpg">
+
+  <script>
+    window.dyutiToggleStatusView = function (targetMode) {
+      var statusView = document.getElementById('reg-status-view');
+      var stepFormView = document.getElementById('reg-step-form');
+      var stepReviewView = document.getElementById('reg-step-review');
+      var stepSuccessView = document.getElementById('reg-step-success');
+      var stepIndicator = document.getElementById('portal-step-indicator');
+      var btnPortal = document.getElementById('btn-portal-check-status');
+      if (!statusView) return;
+
+      var isStatusOpen = !statusView.classList.contains('hidden');
+      var willOpenStatus = targetMode === 'status' ? true : (targetMode === 'register' ? false : !isStatusOpen);
+
+      if (willOpenStatus) {
+        if (stepIndicator) stepIndicator.classList.add('hidden');
+        if (stepFormView) stepFormView.classList.add('hidden');
+        if (stepReviewView) stepReviewView.classList.add('hidden');
+        if (stepSuccessView) stepSuccessView.classList.add('hidden');
+        statusView.classList.remove('hidden');
+
+        if (btnPortal) {
+          btnPortal.innerHTML = '<svg class="w-4 h-4 text-slate-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg><span>Return to Registration Form</span>';
+        }
+        var appInput = document.getElementById('status-app-id-input') || document.getElementById('status-search-input');
+        if (appInput) {
+          setTimeout(function() { appInput.focus(); }, 60);
+        }
+        statusView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        if (stepIndicator) stepIndicator.classList.remove('hidden');
+        statusView.classList.add('hidden');
+        if (stepFormView) stepFormView.classList.remove('hidden');
+
+        if (btnPortal) {
+          btnPortal.innerHTML = '<svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><span>Already Registered? Check Your Status</span><span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-black bg-amber-200 text-amber-950 ml-1">Track Live</span>';
+        }
+      }
+    };
+  </script>
 </head>
 
 <body class="bg-[#FDFBF7] text-slate-800 antialiased selection:bg-[#071A33] selection:text-amber-300 min-h-screen">
@@ -125,10 +165,10 @@
           </ul>
         </nav>
 
-        <!-- Right: Contact Us Button & Mobile Toggle -->
+        <!-- Right: Contact Us Button -->
         <div class="hidden sm:flex items-center gap-3 shrink-0">
           <a href="contact.html"
-            class="group h-[42px] sm:h-[46px] px-7 sm:px-9 inline-flex items-center gap-2 text-[13.5px] sm:text-[15px] font-sans font-bold bg-white text-[#071A33] hover:bg-slate-100 rounded-full transition-all duration-200 shadow-sm focus-visible:outline-none hover:scale-105">
+            class="group h-[42px] sm:h-[46px] px-7 sm:px-8 inline-flex items-center gap-2 text-[13.5px] sm:text-[15px] font-sans font-bold bg-white text-[#071A33] hover:bg-slate-100 rounded-full transition-all duration-200 shadow-sm focus-visible:outline-none hover:scale-105">
             <span>Contact Us</span>
             <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none"
               stroke="currentColor" viewBox="0 0 24 24">
@@ -305,10 +345,11 @@
         <a href="contact.html" class="px-4 py-3 rounded-xl hover:bg-white/10 text-white/90">Contact</a>
       </nav>
     </div>
-    <div class="pt-6 border-t border-white/15">
+    <div class="pt-6 border-t border-white/15 space-y-2.5">
       <a href="registration.html"
         class="w-full h-12 inline-flex items-center justify-center gap-2 bg-amber-400 text-slate-950 font-sans font-black uppercase text-xs tracking-widest rounded-full shadow-lg">REGISTER
         ONLINE</a>
+      
     </div>
   </aside>
 
@@ -346,8 +387,74 @@
           </p>
         </div>
 
+        <!-- ── SINGLE ACCESSIBLE CHECK STATUS TRIGGER BUTTON ── -->
+        <div class="max-w-md mx-auto mb-8 sm:mb-10 text-center px-2 no-print">
+          <button id="btn-portal-check-status" type="button" onclick="dyutiToggleStatusView()"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-slate-100 hover:bg-white text-[#071A33] font-sans font-extrabold text-xs sm:text-sm tracking-wide border-2 border-slate-300 hover:border-[#071A33] shadow-xs hover:shadow-md transition-all duration-200 hover:scale-[1.02] active:scale-98 cursor-pointer">
+            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span id="btn-portal-check-status-label">Already Registered? Check Your Status</span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-black bg-amber-200 text-amber-950 ml-1">
+              Track Live
+            </span>
+          </button>
+        </div>
+
+        <!-- ── PAYMENT RETURN / STATUS NOTIFICATION BANNER ── -->
+        <div id="payment-return-banner" class="hidden mb-8 max-w-4xl mx-auto p-5 rounded-2xl border-2 flex items-start gap-4 animate-fadeIn">
+          <div id="payment-return-icon" class="shrink-0"></div>
+          <div class="flex-1">
+            <h3 id="payment-return-title" class="font-heading font-extrabold text-base sm:text-lg m-0"></h3>
+            <p id="payment-return-desc" class="text-xs sm:text-sm font-sans mt-1 m-0 leading-relaxed"></p>
+          </div>
+        </div>
+
+        <!-- ── 15-MINUTE COOL-OFF PERIOD ALERT BANNER ── -->
+        <div id="cooloff-alert-banner"
+          class="hidden mb-8 max-w-4xl mx-auto p-5 sm:p-6 rounded-2xl border-2 border-red-300 bg-red-50/95 text-red-950 shadow-lg animate-fadeIn relative overflow-hidden">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="flex items-start gap-3.5">
+              <div
+                class="w-10 h-10 rounded-full bg-red-100 border border-red-300 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-5 h-5 text-red-600 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div class="space-y-1">
+                <div class="flex items-center gap-2">
+                  <span
+                    class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-black uppercase tracking-wider bg-red-200 text-red-900">
+                    Security Cool-Off Period
+                  </span>
+                  <span class="text-xs font-sans text-red-700 font-semibold">15 Minutes Window</span>
+                </div>
+                <h3 class="font-heading font-black text-base sm:text-lg text-red-950 m-0">
+                  Payment Incomplete &bull; 15-Minute Wait Required
+                </h3>
+                <p class="text-xs sm:text-[13.5px] text-red-800 font-sans leading-relaxed m-0 max-w-2xl">
+                  Your recent registration payment was not completed or failed. To prevent duplicate bank charges and allow transaction reconciliation, conference policy mandates a <strong>15-minute cool-off period</strong> before retrying.
+                </p>
+              </div>
+            </div>
+
+            <!-- Countdown Timer Box -->
+            <div
+              class="w-full sm:w-auto shrink-0 bg-white/95 border-2 border-red-200 rounded-2xl p-3 sm:px-5 sm:py-3.5 text-center shadow-xs flex sm:flex-col items-center justify-between sm:justify-center gap-2">
+              <span class="text-[11px] uppercase tracking-wider font-mono font-bold text-red-700 block">
+                Retry Available In
+              </span>
+              <div id="cooloff-timer-display"
+                class="font-mono text-2xl sm:text-3xl font-black text-red-600 tracking-wider">
+                15:00
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- ── STEP INDICATOR BANNER ── -->
-        <div class="step-indicator-wrapper mb-8 sm:mb-12 max-w-4xl mx-auto">
+        <div id="portal-step-indicator" class="step-indicator-wrapper mb-8 sm:mb-12 max-w-4xl mx-auto">
           <div
             class="flex items-center justify-between p-1.5 sm:p-3.5 rounded-full bg-white border-2 border-slate-200 shadow-md">
             <!-- Step 1 Indicator -->
@@ -450,12 +557,80 @@
                       class="block text-sm sm:text-[15px] font-sans font-bold text-slate-900 tracking-normal">
                       2. Full Name <span class="text-red-600 font-bold">*</span>
                     </label>
-                    <input type="text" id="reg-name" name="name" required placeholder="e.g. Bincy C.C"
+                    <input type="text" id="reg-name" name="name" required placeholder="e.g. Rahul Sharma"
                       class="w-full h-12 sm:h-14 px-3.5 sm:px-4 rounded-xl bg-white border-2 border-slate-300 text-slate-950 placeholder-slate-400 text-base font-semibold focus:outline-none focus:border-[#071A33] focus:ring-4 focus:ring-slate-900/10 transition-all shadow-xs">
                     <span class="text-xs sm:text-sm text-slate-600 font-medium block pt-1">
                       (As you want to appear in the Conference Certificate and other documents)
                     </span>
                   </div>
+                </div>
+
+                <!-- Email Address * -->
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between">
+                    <label for="reg-email"
+                      class="block text-sm sm:text-[15px] font-sans font-bold text-slate-900 tracking-normal">
+                      Email Address <span class="text-red-600 font-bold">*</span>
+                    </label>
+                    <span id="email-checking-spinner" class="hidden text-xs font-sans text-slate-500 font-semibold inline-flex items-center gap-1.5 animate-fadeIn">
+                      <svg class="animate-spin h-3.5 w-3.5 text-[#071A33]" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                      </svg>
+                      Verifying email...
+                    </span>
+                  </div>
+                  <input type="email" id="reg-email" name="email" required placeholder="e.g. delegate@university.edu"
+                    class="w-full h-12 sm:h-14 px-3.5 sm:px-4 rounded-xl bg-white border-2 border-slate-300 text-slate-950 placeholder-slate-400 text-base font-semibold focus:outline-none focus:border-[#071A33] focus:ring-4 focus:ring-slate-900/10 transition-all shadow-xs">
+
+                  <!-- ── DUPLICATE EMAIL WARNING ALERT ── -->
+                  <div id="email-duplicate-alert"
+                    class="hidden p-4 sm:p-5 rounded-2xl bg-amber-50/95 border-2 border-amber-300 text-amber-950 shadow-md animate-fadeIn space-y-3">
+                    <div class="flex items-start gap-3.5">
+                      <div class="w-9 h-9 rounded-full bg-amber-100 border border-amber-300 flex items-center justify-center shrink-0 text-amber-700 mt-0.5">
+                        <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                      </div>
+                      <div class="flex-1 space-y-1.5">
+                        <div class="flex items-center gap-2">
+                          <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-black uppercase tracking-wider bg-amber-200 text-amber-900">
+                            Already Registered
+                          </span>
+                          <span class="text-xs font-sans text-amber-800 font-semibold" id="duplicate-status-badge-text">Existing Record Found</span>
+                        </div>
+                        <h4 class="font-heading font-black text-base text-amber-950 m-0">
+                          This Email is Already Registered!
+                        </h4>
+                        <p class="text-xs sm:text-[13.5px] text-amber-900 leading-relaxed m-0">
+                          A registration is already on file for <strong id="duplicate-email-display" class="font-mono text-amber-950 font-bold"></strong>. 
+                          Duplicate entries are not permitted. Please check your existing registration status, payment credentials, and download your receipt in the Status section.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="pt-1 flex flex-wrap items-center gap-2.5 pl-0 sm:pl-12">
+                      <button type="button" id="btn-goto-status-from-duplicate"
+                        class="px-4 py-2 rounded-xl bg-[#071A33] hover:bg-[#0c274c] text-white font-sans text-xs sm:text-sm font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer">
+                        <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>Check Your Registration Details in Status</span>
+                        <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                      </button>
+                      <button type="button" id="btn-duplicate-change-email"
+                        class="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-sans text-xs font-semibold transition-colors cursor-pointer">
+                        Use Different Email
+                      </button>
+                    </div>
+                  </div>
+
+                  <span id="email-helper-text" class="text-xs sm:text-sm text-slate-600 font-medium block pt-1">
+                    Official conference confirmation and receipt will be dispatched to this email.
+                  </span>
                 </div>
 
                 <!-- 3. Designation & 4. Gender -->
@@ -555,22 +730,9 @@
                       class="block text-sm sm:text-[15px] font-sans font-bold text-slate-900 tracking-normal">
                       8. Contact Number (Mobile / WhatsApp) <span class="text-red-600 font-bold">*</span>
                     </label>
-                    <input type="tel" id="reg-phone" name="phone" required placeholder="e.g. +91 98765 43210"
+                    <input type="tel" id="reg-phone" name="phone" required placeholder="Enter Contact Number"
                       class="w-full h-12 sm:h-14 px-3.5 sm:px-4 rounded-xl bg-white border-2 border-slate-300 text-slate-950 placeholder-slate-400 text-base font-semibold focus:outline-none focus:border-[#071A33] focus:ring-4 focus:ring-slate-900/10 transition-all shadow-xs">
                   </div>
-                </div>
-
-                <!-- Email Address * -->
-                <div class="space-y-2">
-                  <label for="reg-email"
-                    class="block text-sm sm:text-[15px] font-sans font-bold text-slate-900 tracking-normal">
-                    Email Address <span class="text-red-600 font-bold">*</span>
-                  </label>
-                  <input type="email" id="reg-email" name="email" required placeholder="e.g. delegate@university.edu"
-                    class="w-full h-12 sm:h-14 px-3.5 sm:px-4 rounded-xl bg-white border-2 border-slate-300 text-slate-950 placeholder-slate-400 text-base font-semibold focus:outline-none focus:border-[#071A33] focus:ring-4 focus:ring-slate-900/10 transition-all shadow-xs">
-                  <span class="text-xs sm:text-sm text-slate-600 font-medium block pt-1">
-                    Official conference confirmation and receipt will be dispatched to this email.
-                  </span>
                 </div>
 
                 <!-- Section C Divider -->
@@ -1166,11 +1328,169 @@
                 <span>Print / Save Registration Summary</span>
               </button>
 
+              <button id="btn-success-check-status" type="button"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border-2 border-[#071A33] text-[#071A33] hover:bg-slate-100 font-bold font-sans text-sm sm:text-base transition-colors cursor-pointer">
+                <svg class="w-4 h-4 text-[#071A33]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Check Live Status</span>
+              </button>
+
               <a href="index.html"
                 class="w-full sm:w-auto inline-flex items-center justify-center border-2 border-slate-300 text-slate-900 hover:bg-slate-100 font-bold px-6 py-3 rounded-full font-sans text-sm sm:text-base transition-colors text-center">
                 Return to Homepage
               </a>
             </div>
+
+          </div>
+        </div>
+
+        <!-- ── CHECK REGISTRATION STATUS VIEW ── -->
+        <div id="reg-status-view" class="hidden max-w-4xl mx-auto space-y-8 animate-fadeIn">
+          <div
+            class="rounded-2xl sm:rounded-[36px] p-5 sm:p-10 lg:p-12 bg-white border border-slate-200 shadow-xl relative overflow-hidden text-slate-900">
+
+            <!-- Section Header inside Status View -->
+            <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+              <div
+                class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-blue-50 border-2 border-blue-200 flex items-center justify-center mx-auto mb-4 shadow-sm">
+                <svg class="w-7 h-7 sm:w-8 sm:h-8 text-[#071A33]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <h2 class="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#071A33] mb-2 sm:mb-3">
+                Check Registration Status
+              </h2>
+              <p class="text-xs sm:text-base text-slate-650 font-sans leading-relaxed font-normal">
+                Verify your delegate enrollment, fee payment status, and conference check-in credentials.
+                Enter your registered <strong>Email Address</strong>, <strong>Registration ID</strong> (e.g. <span class="font-mono text-slate-800 font-bold">DYUTI27-ONLINE-...</span>), or <strong>Contact Number</strong>.
+              </p>
+            </div>
+
+            <!-- Status Search Input Form -->
+            <form id="status-lookup-form" class="max-w-2xl mx-auto space-y-4" novalidate>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-left">
+                <!-- Field 1: Application ID / Registration ID -->
+                <div class="space-y-1.5 flex flex-col justify-between">
+                  <label for="status-app-id-input" class="flex items-center justify-between gap-1.5 text-xs sm:text-sm font-bold text-slate-800 font-sans min-h-[24px]">
+                    <span>Application ID</span>
+                    <span class="text-[11px] sm:text-xs text-slate-500 font-normal truncate">(Optional if phone is provided)</span>
+                  </label>
+                  <div class="relative flex items-center">
+                    <div class="absolute pointer-events-none text-slate-400" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 10;">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <rect x="3" y="4" width="18" height="16" rx="3" stroke-width="2"></rect>
+                        <circle cx="9" cy="10" r="2.5" stroke-width="2"></circle>
+                        <line x1="15" y1="9" x2="18" y2="9" stroke-linecap="round"></line>
+                        <line x1="15" y1="13" x2="18" y2="13" stroke-linecap="round"></line>
+                        <path d="M6 17c0-1.657 1.343-3 3-3s3 1.343 3 3" stroke-linecap="round"></path>
+                      </svg>
+                    </div>
+                    <input type="text" id="status-app-id-input"
+                      style="padding-left: 52px !important; padding-right: 16px !important;"
+                      placeholder="Enter Application ID"
+                      class="w-full h-12 sm:h-13 pl-11 pr-4 rounded-xl bg-slate-50 border-2 border-slate-300 text-slate-950 font-mono text-xs sm:text-sm font-bold focus:outline-none focus:bg-white focus:border-[#071A33] focus:ring-4 focus:ring-slate-900/10 transition-all shadow-inner placeholder:font-sans placeholder:font-normal placeholder:text-slate-400">
+                  </div>
+                </div>
+
+                <!-- Field 2: Registered Mobile Number -->
+                <div class="space-y-1.5 flex flex-col justify-between">
+                  <label for="status-phone-input" class="flex items-center justify-between gap-1.5 text-xs sm:text-sm font-bold text-slate-800 font-sans min-h-[24px]">
+                    <span>Registered Mobile Number</span>
+                    <span class="text-[11px] sm:text-xs text-emerald-700 font-semibold truncate">(Finds your Application ID)</span>
+                  </label>
+                  <div class="relative flex items-center">
+                    <div class="absolute pointer-events-none text-slate-400" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 10;">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                    </div>
+                    <input type="text" id="status-phone-input"
+                      style="padding-left: 52px !important; padding-right: 16px !important;"
+                      placeholder="Enter Mobile Number or Email"
+                      class="w-full h-12 sm:h-13 pl-11 pr-4 rounded-xl bg-slate-50 border-2 border-slate-300 text-slate-950 font-mono text-xs sm:text-sm font-bold focus:outline-none focus:bg-white focus:border-[#071A33] focus:ring-4 focus:ring-slate-900/10 transition-all shadow-inner placeholder:font-sans placeholder:font-normal placeholder:text-slate-400">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Recent Chip button (Placed directly under inputs for immediate accessibility) -->
+              <div id="status-recent-chip-wrapper"
+                class="hidden flex flex-wrap items-center justify-center gap-2 pt-1 pb-1 text-xs font-sans text-slate-600">
+                <span class="inline-flex items-center gap-1.5 text-slate-500 font-medium">
+                  <svg class="w-3.5 h-3.5 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Recent registration on this device:
+                </span>
+                <button type="button" id="btn-status-recent-chip"
+                  class="font-mono font-bold text-[#071A33] bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-950 px-3 py-1 rounded-full transition-colors cursor-pointer flex items-center gap-1.5 shadow-2xs">
+                  <span id="recent-chip-text"></span>
+                  <svg class="w-3 h-3 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+                <button type="button" id="btn-status-return-to-form" onclick="dyutiToggleStatusView('register')"
+                  class="w-full sm:w-auto inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-950 px-4 py-2.5 rounded-full hover:bg-slate-100 transition-colors cursor-pointer">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                  <span>Return to Registration Form</span>
+                </button>
+
+                <button type="submit" id="btn-submit-status-search"
+                  class="w-full sm:w-auto h-12 sm:h-13 px-8 rounded-full bg-[#071A33] hover:bg-[#0c274c] text-white font-sans font-bold text-sm sm:text-base tracking-wide transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer shrink-0">
+                  <span id="btn-status-search-label">View Current Status</span>
+                  <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </div>
+
+              <div id="status-search-error"
+                class="hidden p-3.5 rounded-xl bg-red-50 border-2 border-red-300 text-red-900 text-xs sm:text-sm font-bold text-center animate-fadeIn">
+              </div>
+            </form>
+
+            <!-- Loading Spinner State -->
+            <div id="status-loading-spinner" class="hidden py-12 text-center space-y-3">
+              <svg class="animate-spin h-8 w-8 text-[#071A33] mx-auto" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                </path>
+              </svg>
+              <p class="text-sm font-sans font-bold text-slate-700">Verifying registration database...</p>
+            </div>
+
+            <!-- Not Found State -->
+            <div id="status-not-found" class="hidden py-8 px-4 text-center max-w-md mx-auto space-y-3.5 animate-fadeIn">
+              <div
+                class="w-12 h-12 rounded-full bg-amber-50 border-2 border-amber-300 flex items-center justify-center mx-auto text-amber-600 font-black text-xl">
+                ?
+              </div>
+              <h4 class="font-heading font-extrabold text-lg text-slate-900 m-0">No Registration Found</h4>
+              <p id="status-not-found-msg" class="text-xs sm:text-sm font-sans text-slate-650 leading-relaxed m-0">
+                We could not find any active delegate registration matching the search term. Please verify the email or ID entered.
+              </p>
+              <div class="pt-2">
+                <button type="button" id="btn-status-switch-to-register"
+                  class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#071A33] text-white font-sans font-bold text-xs sm:text-sm hover:bg-[#0c274c] transition-colors cursor-pointer shadow-md">
+                  <span>Start New Registration</span>
+                  <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Status Results Container -->
+            <div id="status-results-container" class="space-y-6 pt-6"></div>
 
           </div>
         </div>
@@ -1314,7 +1634,7 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="js/app.js"></script>
+  <script src="js/app.js?v=gateway_v15_reliable"></script>
 </body>
 
 </html>
