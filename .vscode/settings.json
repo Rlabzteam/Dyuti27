@@ -1,0 +1,9 @@
+{
+  "css.lint.unknownAtRules": "ignore",
+  "workbench.colorCustomizations": {
+    "gitDecoration.modifiedResourceForeground": "#2563eb",
+    "gitDecoration.stageModifiedResourceForeground": "#1d4ed8",
+    "gitDecoration.untrackedResourceForeground": "#059669",
+    "activityBarBadge.background": "#2563eb"
+  }
+}
