@@ -56,16 +56,13 @@ export default async function handler(req, res) {
     // Format phone: 10 digits
     const cleanMobile = customerMobile.replace(/^\+91/, '').replace(/\D/g, '').slice(-10);
 
-    // Payload formatted for Vortexx API with aliases to support all parameter variants
+    // Payload formatted for Vortexx API with only the exact accepted fields
     const vortexPayload = {
       api_key: apiKey,
       api_secret: apiSecret,
       event_id: eventId,
-      customer_name: customerName,
       name: customerName,
-      customer_email: customerEmail,
       email: customerEmail,
-      customer_mobile: cleanMobile || customerMobile,
       mobile: cleanMobile || customerMobile,
       amount: amount,
       currency: currency,

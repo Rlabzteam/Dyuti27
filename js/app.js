@@ -451,18 +451,10 @@ function initRegistrationForm() {
         };
 
         // Send confirmation email with PDF receipt to dyuti@rajagiri.edu and delegate
-        fetch('/api/send_registration_notification.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(notificationData)
-        }).catch(e => console.warn('Notification endpoint error:', e));
+        dispatchApi('send_registration_notification.php', notificationData).catch(e => console.warn('Notification endpoint error:', e));
 
         // Also save to database
-        fetch('/api/save_registration.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(notificationData)
-        }).catch(() => { });
+        dispatchApi('save_registration.php', notificationData).catch(() => { });
       }
 
       // 1. SUCCESS: Show confirmation banner and activate Step 3 Confirmed Screen
@@ -894,17 +886,63 @@ function initRegistrationForm() {
     };
   }
 
+  // Helper to call backend APIs across subdirectories and domain root
+  async function dispatchApi(filename, payload) {
+    const cleanName = filename.replace(/^\/?api\//, '');
+    const currentPath = window.location.pathname;
+    const baseDir = currentPath.substring(0, currentPath.lastIndexOf('/')).replace(/\/$/, '');
+
+    const candidates = [
+      baseDir ? `${baseDir}/api/${cleanName}` : null,
+      `api/${cleanName}`,
+      `/api/${cleanName}`
+    ].filter(Boolean);
+
+    const uniqueCandidates = [...new Set(candidates)];
+    for (const endpoint of uniqueCandidates) {
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.status === 404) continue;
+        return await res.json();
+      } catch (err) {
+        // Try next candidate
+      }
+    }
+    return null;
+  }
+
   async function fetchPaymentUrl(orderData) {
     let paymentUrl = null;
     let errorMessage = null;
 
-    // Prioritize PHP endpoint on cPanel hosting, with fallback to clean URL
-    const endpoints = [
+    const currentPath = window.location.pathname;
+    const baseDir = currentPath.substring(0, currentPath.lastIndexOf('/')).replace(/\/$/, '');
+
+    // Comprehensive list of candidate endpoints across relative, base-dir, root, and cross-host
+    const candidateEndpoints = [
+      baseDir ? `${baseDir}/api/create_payment_order.php` : null,
+      'api/create_payment_order.php',
       '/api/create_payment_order.php',
-      '/api/create_payment_order'
-    ];
+      baseDir ? `${baseDir}/api/create_payment_order` : null,
+      'api/create_payment_order',
+      '/api/create_payment_order',
+      'https://dyuti.in/dyuti27/api/create_payment_order.php',
+      'https://dyuti.in/api/create_payment_order.php',
+      'https://dyuti27new.vercel.app/api/create_payment_order'
+    ].filter(Boolean);
+
+    const endpoints = [...new Set(candidateEndpoints)];
 
     for (const endpoint of endpoints) {
+      // Don't call our own hostname as an external fallback if we already failed locally
+      if (endpoint.startsWith('http') && endpoint.includes(window.location.hostname)) {
+        continue;
+      }
+
       try {
         const res = await fetch(endpoint, {
           method: 'POST',
@@ -935,29 +973,10 @@ function initRegistrationForm() {
       }
     }
 
-    // Localhost / Vercel fallback
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      try {
-        const vercelRes = await fetch('https://dyuti.in/api/create_payment_order', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(orderData)
-        });
-        if (vercelRes.ok) {
-          const vercelJson = await vercelRes.json();
-          if (vercelJson.status === 'success' && vercelJson.data && vercelJson.data.payment_url) {
-            return vercelJson.data.payment_url;
-          }
-        }
-      } catch (vercelErr) {
-        console.warn('Vercel fallback failed:', vercelErr);
-      }
-    }
-
     if (errorMessage) {
       throw new Error(errorMessage);
     }
-    throw new Error('Unable to establish connection with the payment gateway. Please try again.');
+    throw new Error('Unable to establish connection with the payment gateway. Please verify your details or try again.');
   }
 
   function startPaymentPreload() {
@@ -1066,14 +1085,10 @@ function initRegistrationForm() {
       }
 
       // Pre-save registration to SQL database so no participant submission is ever lost
-      fetch('/api/save_registration.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...registrationState,
-          payment_status: 'pending',
-          payment_mode: currentPaymentMode
-        })
+      dispatchApi('save_registration.php', {
+        ...registrationState,
+        payment_status: 'pending',
+        payment_mode: currentPaymentMode
       }).catch(e => console.warn('Pre-save registration error:', e));
 
       // Online payment via Vortexx Payment Gateway
@@ -1146,17 +1161,8 @@ function initRegistrationForm() {
         date_time: new Date().toISOString().replace('T', ' ').substring(0, 19)
       };
 
-      fetch('/api/save_registration.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(bankData)
-      }).catch(e => console.warn('Bank wire DB save error:', e));
-
-      fetch('/api/send_registration_notification.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(bankData)
-      }).catch(e => console.warn('Bank wire notification error:', e));
+      dispatchApi('save_registration.php', bankData).catch(e => console.warn('Bank wire DB save error:', e));
+      dispatchApi('send_registration_notification.php', bankData).catch(e => console.warn('Bank wire notification error:', e));
 
       // Populate Step 3 Success View
       const succGreeting = document.getElementById('success-greeting');

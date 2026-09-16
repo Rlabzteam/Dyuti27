@@ -51,30 +51,24 @@ $apiKey    = !empty($input['api_key']) && $input['api_key'] !== 'YOUR_API_KEY' ?
 $apiSecret = !empty($input['api_secret']) && $input['api_secret'] !== 'YOUR_API_SECRET' ? $input['api_secret'] : (getenv('VORTEXX_API_SECRET') ?: "e605e71a192a6eba29416f3931e5abf3");
 $eventId   = !empty($input['event_id']) && $input['event_id'] !== 'youEventId' ? $input['event_id'] : (getenv('VORTEXX_EVENT_ID') ?: "DYUT20260913MU01TMQ67BK");
 
-$customerName   = $input['customer_name'] ?? $input['name'] ?? "Delegate Participant";
-$customerEmail  = $input['customer_email'] ?? $input['email'] ?? "delegate@rajagiri.edu";
-$rawMobile      = $input['customer_mobile'] ?? $input['mobile'] ?? $input['phone'] ?? "9876543210";
+$customerName   = trim($input['name'] ?? $input['customer_name'] ?? "Delegate Participant");
+$customerEmail  = filter_var(trim($input['email'] ?? $input['customer_email'] ?? ''), FILTER_VALIDATE_EMAIL) ?: trim($input['email'] ?? $input['customer_email'] ?? 'delegate@rajagiri.edu');
+$rawMobile      = $input['mobile'] ?? $input['customer_mobile'] ?? $input['phone'] ?? "9876543210";
 $cleanMobile    = preg_replace('/\D/', '', $rawMobile);
 if (strlen($cleanMobile) > 10) {
     $cleanMobile = substr($cleanMobile, -10);
 }
 
 $data = [
-    "api_key"         => $apiKey,
-    "api_secret"      => $apiSecret,
-    "event_id"        => $eventId,
-
-    "customer_name"   => $customerName,
-    "name"            => $customerName,
-    "customer_email"  => $customerEmail,
-    "email"           => $customerEmail,
-    "customer_mobile" => $cleanMobile ?: $rawMobile,
-    "mobile"          => $cleanMobile ?: $rawMobile,
-
-    "amount"          => isset($input['amount']) ? (int)$input['amount'] : 750,
-    "currency"        => $input['currency'] ?? "INR",
-
-    "redirect_url"    => $input['redirect_url'] ?? "https://dyuti.in/registration.html"
+    "api_key"      => $apiKey,
+    "api_secret"   => $apiSecret,
+    "event_id"     => $eventId,
+    "name"         => $customerName,
+    "email"        => $customerEmail,
+    "mobile"       => $cleanMobile ?: $rawMobile,
+    "amount"       => isset($input['amount']) ? (int)$input['amount'] : 750,
+    "currency"     => !empty($input['currency']) ? strtoupper(trim($input['currency'])) : "INR",
+    "redirect_url" => $input['redirect_url'] ?? "https://dyuti.in/registration.html"
 ];
 
 $ch = curl_init($url);
