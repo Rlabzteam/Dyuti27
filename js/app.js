@@ -2134,100 +2134,17 @@ function initRegistrationStatusTracker() {
         cooloffInfo = apiResponse.cooloff;
       }
 
-      // Fallback check against client sessionStorage / localStorage
+      // If database search returns no records, clean up stale local storage so phantom test IDs do not linger
       if (records.length === 0) {
-        const localMatches = [];
         try {
-          const aLower = appId.toLowerCase().trim();
-          const appSuffixMatch = aLower.match(/(\d{4,})$/);
-          const appSuffix = appSuffixMatch ? appSuffixMatch[1] : '';
-          const pClean = phone.replace(/\D/g, '');
-          const pLast10 = pClean.length >= 10 ? pClean.slice(-10) : pClean;
-          const qLower = rawQuery.toLowerCase().trim();
-
-          const candidatesList = [];
-
-          // 1. Check history array
-          try {
-            const hist = JSON.parse(localStorage.getItem('dyuti_registrations_history') || '[]');
-            if (Array.isArray(hist)) candidatesList.push(...hist);
-          } catch (e) {}
-
-          // 2. Check direct saved confirmation data
-          try {
-            const savedDataStr = localStorage.getItem('dyuti_last_reg_data');
-            if (savedDataStr) candidatesList.push(JSON.parse(savedDataStr));
-          } catch (e) {}
-
-          // 3. Check pending registration session
-          try {
-            const savedRegStr = sessionStorage.getItem('dyuti_pending_registration');
-            if (savedRegStr) candidatesList.push(JSON.parse(savedRegStr));
-          } catch (e) {}
-
-          const seenIds = new Set();
-          for (const item of candidatesList) {
-            if (!item) continue;
-            const regId = (item.registration_id || item.regId || '').toLowerCase().trim();
-            const sEmail = (item.email || '').toLowerCase().trim();
-            const sPhone = (item.phone || '').replace(/\D/g, '');
-
-            const matchApp = aLower && (
-              regId === aLower || 
-              regId.includes(aLower) || 
-              (appSuffix && regId.includes(appSuffix)) ||
-              sEmail === aLower
-            );
-
-            const matchPhone = pLast10 && (
-              sPhone.endsWith(pLast10) || 
-              pLast10.endsWith(sPhone) ||
-              (sPhone.length >= 7 && pLast10.includes(sPhone))
-            );
-
-            const matchQuery = qLower && (
-              regId === qLower || 
-              sEmail === qLower || 
-              regId.includes(qLower) || 
-              sEmail.includes(qLower) ||
-              (pLast10 && sPhone.endsWith(pLast10))
-            );
-
-            if (matchApp || matchPhone || matchQuery) {
-              const uniqueKey = item.registration_id || item.regId || sEmail;
-              if (uniqueKey && !seenIds.has(uniqueKey)) {
-                seenIds.add(uniqueKey);
-                localMatches.push({
-                  registration_id: item.registration_id || item.regId || 'DYUTI27-ONLINE-PENDING',
-                  title: item.title || 'Dr.',
-                  full_name: item.full_name || item.name || 'Participant',
-                  designation: item.designation || 'Delegate',
-                  organization: item.organization || 'Rajagiri',
-                  discipline: item.discipline || 'Social Work',
-                  address: item.address || '',
-                  pincode: item.pincode || '',
-                  phone: item.phone || '',
-                  email: item.email || '',
-                  registration_category: item.registration_category || item.categoryLabel || 'UG / PG Student',
-                  fee_amount: item.fee_amount || item.amount || 750,
-                  payment_mode: item.payment_mode || item.paymentMode || 'online',
-                  payment_status: item.payment_status || item.paymentStatus || 'pending',
-                  transaction_ref: item.transaction_ref || item.vortex_transaction_id || item.transactionRef || 'Pending Verification',
-                  food_preference: item.food_preference || item.foodPreference || 'veg',
-                  require_accommodation: item.require_accommodation || item.requireAccommodation || 'no',
-                  is_presenting_paper: item.is_presenting_paper || item.isPresentingPaper || 'no',
-                  created_at: item.created_at || new Date().toISOString()
-                });
-              }
-            }
+          if (appId && (localStorage.getItem('dyuti_last_reg_id') === appId || sessionStorage.getItem('dyuti_retry_reg_id') === appId)) {
+            localStorage.removeItem('dyuti_last_reg_id');
+            localStorage.removeItem('dyuti_last_reg_data');
+            sessionStorage.removeItem('dyuti_pending_registration');
+            sessionStorage.removeItem('dyuti_retry_reg_id');
+            if (statusRecentWrapper) statusRecentWrapper.classList.add('hidden');
           }
-        } catch (e) {
-          console.warn('Local fallback search error:', e);
-        }
-
-        if (localMatches.length > 0) {
-          records = localMatches;
-        }
+        } catch (e) {}
       }
 
     } catch (err) {
@@ -2692,10 +2609,11 @@ function initRegistrationStatusTracker() {
       const clearBtn = card.querySelector('.btn-card-clear');
       if (clearBtn) {
         clearBtn.addEventListener('click', () => {
-          if (statusInput) {
-            statusInput.value = '';
-            statusInput.focus();
-          }
+          if (statusInput) statusInput.value = '';
+          if (statusAppIdInput) statusAppIdInput.value = '';
+          if (statusPhoneInput) statusPhoneInput.value = '';
+          if (statusAppIdInput) statusAppIdInput.focus();
+          else if (statusInput) statusInput.focus();
           if (statusResultsContainer) statusResultsContainer.innerHTML = '';
         });
       }
