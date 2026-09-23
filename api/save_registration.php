@@ -66,14 +66,14 @@ try {
             require_accommodation, accommodation_notes, is_presenting_paper,
             registration_category, fee_amount, currency,
             payment_mode, payment_status, payment_order_id, razorpay_payment_id,
-            transaction_ref, ip_address, user_agent
+            transaction_ref, ip_address, user_agent, email_sent
         ) VALUES (
             :reg_id, :title, :name, :designation, :gender, :org, :discipline,
             :address, :pincode, :phone, :email, :food_pref, :food_details,
             :accommodation, :accommodation_notes, :is_presenting,
             :category, :fee, :currency,
             :payment_mode, :payment_status, :payment_order_id, :pay_id,
-            :txn_ref, :ip, :ua
+            :txn_ref, :ip, :ua, 0
         )
         ON DUPLICATE KEY UPDATE
             payment_status = VALUES(payment_status),

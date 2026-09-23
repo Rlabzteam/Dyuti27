@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS `registrations` (
     `ip_address` VARCHAR(64) NULL DEFAULT NULL,
     `user_agent` TEXT NULL DEFAULT NULL,
     `gateway_response` JSON NULL DEFAULT NULL COMMENT 'Full raw payload returned by gateway/webhook',
+    `email_sent` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '1 = notification email sent to dyuti@rajagiri.edu',
     
     -- Timestamps
     `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

@@ -15,6 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 require_once __DIR__ . '/fpdf.php';
+require_once __DIR__ . '/db_config.php';  // loads .env (CPANEL_SMTP_* vars)
+require_once __DIR__ . '/mailer_helper.php'; // dyutiSendMail()
 
 $rawInput = file_get_contents('php://input');
 $data = json_decode($rawInput, true) ?: $_POST;
@@ -305,60 +307,49 @@ $pdfBase64 = !empty($pdfData) ? chunk_split(base64_encode($pdfData)) : '';
 $safeRegId = preg_replace('/[^A-Za-z0-9_\-]/', '_', $regId);
 $pdfFilename = "DYUTI2027_Registration_{$safeRegId}.pdf";
 
-// 6. Build Multipart Email (mixed -> alternative HTML/Text + PDF Attachment)
-$mixedBoundary = "DYUTI_MIXED_" . md5(time());
-$altBoundary   = "DYUTI_ALT_" . md5(time());
+// 6. Build Multipart Email Body (HTML + Plain text already prepared above)
+// PDF attachment data already in $pdfData
 
-$headers  = "From: DYUTI 2027 Portal <noreply@dyuti.in>\r\n";
-if (!empty($email)) {
-    $headers .= "Reply-To: {$fullName} <{$email}>\r\n";
-}
-$headers .= "MIME-Version: 1.0\r\n";
-$headers .= "Content-Type: multipart/mixed; boundary=\"{$mixedBoundary}\"\r\n";
-$headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
+// 7. Send Email to Secretariat via PHPMailer (cPanel SMTP)
+$secretariatResult = dyutiSendMail(
+    'dyuti@rajagiri.edu',
+    'DYUTI Secretariat',
+    $subject,
+    $htmlBody,
+    $plainBody,
+    !empty($pdfData) ? [[
+        'data'     => $pdfData,
+        'filename' => $pdfFilename,
+        'type'     => 'application/pdf'
+    ]] : []
+);
 
-$fullEmailContent  = "--{$mixedBoundary}\r\n";
-$fullEmailContent .= "Content-Type: multipart/alternative; boundary=\"{$altBoundary}\"\r\n\r\n";
-
-$fullEmailContent .= "--{$altBoundary}\r\n";
-$fullEmailContent .= "Content-Type: text/plain; charset=UTF-8\r\n";
-$fullEmailContent .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
-$fullEmailContent .= $plainBody . "\r\n\r\n";
-
-$fullEmailContent .= "--{$altBoundary}\r\n";
-$fullEmailContent .= "Content-Type: text/html; charset=UTF-8\r\n";
-$fullEmailContent .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
-$fullEmailContent .= $htmlBody . "\r\n\r\n";
-
-$fullEmailContent .= "--{$altBoundary}--\r\n\r\n";
-
-if (!empty($pdfBase64)) {
-    $fullEmailContent .= "--{$mixedBoundary}\r\n";
-    $fullEmailContent .= "Content-Type: application/pdf; name=\"{$pdfFilename}\"\r\n";
-    $fullEmailContent .= "Content-Transfer-Encoding: base64\r\n";
-    $fullEmailContent .= "Content-Disposition: attachment; filename=\"{$pdfFilename}\"\r\n\r\n";
-    $fullEmailContent .= $pdfBase64 . "\r\n\r\n";
-}
-
-$fullEmailContent .= "--{$mixedBoundary}--";
-
-// 7. Send Email to Secretariat (dyuti@rajagiri.edu)
-$mailSent = @mail($to, $subject, $fullEmailContent, $headers, "-f noreply@dyuti.in");
+$mailSent = $secretariatResult['sent'];
 if (!$mailSent) {
-    $mailSent = @mail($to, $subject, $fullEmailContent, $headers);
+    error_log('[DYUTI] Secretariat email FAILED for ' . $regId . ': ' . $secretariatResult['error']);
+} else {
+    error_log('[DYUTI] Secretariat email SENT for ' . $regId . ' to dyuti@rajagiri.edu');
 }
 
-// Also send confirmation copy to the delegate's personal email if provided
+// 8. Send confirmation copy to the delegate's own email if provided
+$delegateSent = false;
 if (!empty($email)) {
     $delegateSubject = "Registration & Payment Confirmation: DYUTI 2027 Conference [{$regId}]";
-    $delegateHeaders  = "From: DYUTI 2027 Secretariat <noreply@dyuti.in>\r\n";
-    $delegateHeaders .= "Reply-To: DYUTI Secretariat <dyuti@rajagiri.edu>\r\n";
-    $delegateHeaders .= "MIME-Version: 1.0\r\n";
-    $delegateHeaders .= "Content-Type: multipart/mixed; boundary=\"{$mixedBoundary}\"\r\n";
-    $delegateHeaders .= "X-Mailer: PHP/" . phpversion() . "\r\n";
-    $dSent = @mail($email, $delegateSubject, $fullEmailContent, $delegateHeaders, "-f noreply@dyuti.in");
-    if (!$dSent) {
-        @mail($email, $delegateSubject, $fullEmailContent, $delegateHeaders);
+    $delegateResult = dyutiSendMail(
+        $email,
+        $fullName,
+        $delegateSubject,
+        $htmlBody,
+        $plainBody,
+        !empty($pdfData) ? [[
+            'data'     => $pdfData,
+            'filename' => $pdfFilename,
+            'type'     => 'application/pdf'
+        ]] : []
+    );
+    $delegateSent = $delegateResult['sent'];
+    if (!$delegateSent) {
+        error_log('[DYUTI] Delegate email FAILED to ' . $email . ': ' . $delegateResult['error']);
     }
 }
 
@@ -530,12 +521,17 @@ function generateRegistrationPDF($data) {
     return $pdf->Output('S');
 }
 
-// 7. Return JSON response
+// 9. Return JSON response
 echo json_encode([
-    'status' => 'success',
-    'mail_dispatched' => (bool)$mailSent,
-    'recipient' => $to,
-    'registration_id' => $regId,
-    'vortex_transaction_id' => $vortexTxId,
-    'message' => 'Registration notification successfully processed for dyuti@rajagiri.edu'
+    'status'               => 'success',
+    'mail_dispatched'      => (bool)$mailSent,
+    'delegate_mail_sent'   => (bool)$delegateSent,
+    'recipient'            => 'dyuti@rajagiri.edu',
+    'registration_id'      => $regId,
+    'vortex_transaction_id'=> $vortexTxId,
+    'pdf_generated'        => !empty($pdfData),
+    'smtp_error'           => $mailSent ? null : ($secretariatResult['error'] ?? 'Unknown SMTP error'),
+    'message'              => $mailSent
+        ? 'Registration notification sent to dyuti@rajagiri.edu via cPanel SMTP'
+        : 'Registration recorded but email dispatch failed — check server error log'
 ]);

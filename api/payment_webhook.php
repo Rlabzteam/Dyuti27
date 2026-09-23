@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 require_once __DIR__ . '/db_config.php';
+require_once __DIR__ . '/mailer_helper.php'; // dyutiSendMail()
 
 // Read raw JSON webhook/server payload
 $rawInput = file_get_contents('php://input');
@@ -97,6 +98,90 @@ if ($pdo) {
                 ':reg_id'          => $registrationId,
                 ':order_id_lookup' => $paymentOrderId
             ]);
+        }
+
+        // 3. If payment is NOW success and email not yet sent, dispatch notification email
+        if ($normalizedStatus === 'success' && $registrationId) {
+            try {
+                $regRow = $pdo->prepare("
+                    SELECT * FROM registrations
+                    WHERE (registration_id = :reg_id OR payment_order_id = :order_id)
+                    AND email_sent = 0
+                    LIMIT 1
+                ");
+                $regRow->execute([':reg_id' => $registrationId, ':order_id' => $paymentOrderId]);
+                $reg = $regRow->fetch();
+
+                if ($reg) {
+                    // Build minimal HTML email body for webhook-triggered send
+                    $regId   = htmlspecialchars($reg['registration_id']);
+                    $name    = htmlspecialchars($reg['full_name']);
+                    $title   = htmlspecialchars($reg['title']);
+                    $org     = htmlspecialchars($reg['organization']);
+                    $emailTo = $reg['email'];
+                    $fee     = htmlspecialchars($reg['fee_amount']);
+                    $cat     = htmlspecialchars($reg['registration_category']);
+                    $txn     = htmlspecialchars($razorpayPaymentId ?: $paymentOrderId ?: 'N/A');
+                    $dt      = date('Y-m-d H:i:s');
+
+                    $webhookHtml = '
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<title>DYUTI 2027 Registration Confirmed</title></head>
+<body style="font-family:sans-serif;background:#f4f6f9;padding:20px;">
+<div style="max-width:640px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0">
+  <div style="background:#071A33;padding:28px;text-align:center;">
+    <div style="color:#d4af37;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;">DYUTI 2027 &bull; National Conference</div>
+    <h1 style="color:#fff;margin:8px 0 4px;font-size:20px;">Registration & Payment Confirmed</h1>
+    <div style="color:#cbd5e1;font-size:12px;">Rajagiri College of Social Sciences, Kochi</div>
+  </div>
+  <div style="background:#ecfdf5;border-bottom:1px solid #a7f3d0;padding:10px 24px;text-align:center;color:#065f46;font-size:13px;font-weight:700;">
+    &#x2714; Payment Verified &bull; Server-Confirmed
+  </div>
+  <div style="padding:24px;">
+    <table width="100%" cellpadding="8" style="border-collapse:collapse;font-size:13px;">
+      <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;width:40%;">Registration ID</td><td style="font-weight:700;">' . $regId . '</td></tr>
+      <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;">Transaction ID</td><td style="font-weight:700;color:#059669;">' . $txn . '</td></tr>
+      <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;">Delegate Name</td><td style="font-weight:700;">' . $title . ' ' . $name . '</td></tr>
+      <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;">Organization</td><td>' . $org . '</td></tr>
+      <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;">Category</td><td>' . $cat . '</td></tr>
+      <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;">Amount</td><td style="font-weight:700;">INR ' . $fee . '</td></tr>
+      <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;">Payment Status</td><td style="color:#059669;font-weight:700;">SUCCESS</td></tr>
+      <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;">Date / Time</td><td>' . $dt . '</td></tr>
+    </table>
+    <p style="color:#64748b;font-size:12px;margin-top:16px;">This notification was dispatched by the server webhook upon payment confirmation.</p>
+  </div>
+</div>
+</body></html>';
+
+                    $webhookPlain = "DYUTI 2027 Registration Confirmed (Server Webhook)\n"
+                        . "Registration ID: {$regId}\nDelegate: {$title} {$name}\n"
+                        . "Organization: {$org}\nCategory: {$cat}\nAmount: INR {$fee}\n"
+                        . "Transaction ID: {$txn}\nStatus: SUCCESS\nDate: {$dt}";
+
+                    $webhookSubject = "DYUTI 2027 Registration & Payment Confirmed: {$title} {$name} [{$regId}]";
+
+                    $emailResult = dyutiSendMail(
+                        'dyuti@rajagiri.edu',
+                        'DYUTI Secretariat',
+                        $webhookSubject,
+                        $webhookHtml,
+                        $webhookPlain
+                    );
+
+                    if ($emailResult['sent']) {
+                        // Mark email sent so browser-redirect trigger won't duplicate it
+                        $markStmt = $pdo->prepare(
+                            "UPDATE registrations SET email_sent = 1 WHERE registration_id = :reg_id"
+                        );
+                        $markStmt->execute([':reg_id' => $reg['registration_id']]);
+                        error_log('[DYUTI Webhook] Email sent to dyuti@rajagiri.edu for ' . $regId);
+                    } else {
+                        error_log('[DYUTI Webhook] Email FAILED for ' . $regId . ': ' . $emailResult['error']);
+                    }
+                }
+            } catch (Exception $emailEx) {
+                error_log('[DYUTI Webhook] Email exception: ' . $emailEx->getMessage());
+            }
         }
 
         echo json_encode([
