@@ -460,7 +460,7 @@ function initRegistrationForm() {
         returnBanner.className = 'mb-8 max-w-4xl mx-auto p-5 rounded-2xl border-2 flex items-start gap-4 animate-fadeIn bg-emerald-50 border-emerald-300 text-emerald-950 shadow-sm';
         returnIcon.innerHTML = '<svg class="w-7 h-7 text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
         returnTitle.textContent = 'Payment Completed Successfully!';
-        returnDesc.innerHTML = `Your registration payment of <strong>₹ ${returnAmount ? parseFloat(returnAmount).toLocaleString() : (savedReg?.amount ? savedReg.amount.toLocaleString() : '750')}</strong> was verified by Vortexx Gateway. Transaction ID: <strong class="font-mono">${vortexTxId}</strong>.`;
+        returnDesc.innerHTML = `Your registration payment of <strong>₹ ${returnAmount ? parseFloat(returnAmount).toLocaleString() : (savedReg?.amount ? savedReg.amount.toLocaleString() : '750')}</strong> was verified by Online Gateway. Transaction ID: <strong class="font-mono">${vortexTxId}</strong>.`;
         returnBanner.classList.remove('hidden');
       }
 
@@ -488,7 +488,7 @@ function initRegistrationForm() {
       if (succAmount) succAmount.textContent = returnAmount ? `₹ ${parseFloat(returnAmount).toLocaleString()}` : `₹ ${savedReg?.amount || '750'}`;
 
       const succPayStatus = document.getElementById('success-payment-status');
-      if (succPayStatus) succPayStatus.textContent = 'Completed via Vortexx Gateway (Online)';
+      if (succPayStatus) succPayStatus.textContent = 'Completed via Online Gateway';
 
       const succOrg = document.getElementById('success-org');
       if (succOrg && savedReg?.organization) succOrg.textContent = savedReg.organization;
@@ -1095,7 +1095,7 @@ function initRegistrationForm() {
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              Connecting to Vortexx Gateway...
+              Connecting to Online Gateway...
             </span>
           `;
         }

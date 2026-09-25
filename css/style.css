@@ -7824,3 +7824,26 @@
    opacity: 1 !important;
    pointer-events: auto !important;
  }
+
+ /* ── REGISTRATION PAGE MOBILE ENHANCEMENTS (<640px) ── */
+ @media (max-width: 639px) {
+   /* Prevent iOS Safari auto-zoom on form inputs by ensuring minimum 16px font-size */
+   #reg-step-form input,
+   #reg-step-form select,
+   #reg-step-form textarea {
+     font-size: 16px !important;
+   }
+
+   /* Ensure step indicator flex-tabs shrink gracefully without clipping on small screens */
+   .step-indicator-wrapper .step-tab {
+     min-width: 0 !important;
+   }
+
+   /* Wrap long words/emails/IDs to avoid horizontal overflow on narrow mobile screens (320px-390px) */
+   #reg-step-review strong,
+   #reg-step-success strong,
+   #reg-step-success span {
+     overflow-wrap: break-word;
+     word-break: break-word;
+   }
+ }
