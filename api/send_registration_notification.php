@@ -74,6 +74,35 @@ $paymentStatus      = htmlspecialchars(trim(val($data, 'payment_status', 'SUCCES
 $dateTime           = htmlspecialchars(trim(val($data, 'date_time', date('Y-m-d H:i:s'))));
 $clientIp           = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'Unknown';
 
+// Fallback: If full details were not passed or if only regId was passed, retrieve from MySQL registrations table
+$pdo = function_exists('getDbConnection') ? getDbConnection() : null;
+if ($pdo && !empty($regId)) {
+    try {
+        $dbStmt = $pdo->prepare("SELECT * FROM registrations WHERE registration_id = :id LIMIT 1");
+        $dbStmt->execute([':id' => $regId]);
+        $row = $dbStmt->fetch();
+        if ($row) {
+            if (empty($fullName) || $fullName === 'Delegate Participant') $fullName = htmlspecialchars(trim($row['full_name']));
+            if (empty($title) || $title === 'Dr.') $title = htmlspecialchars(trim($row['title']));
+            if (empty($designation) || $designation === 'N/A') $designation = htmlspecialchars(trim($row['designation']));
+            if (empty($gender) || $gender === 'N/A') $gender = htmlspecialchars(trim($row['gender']));
+            if (empty($organization) || $organization === 'N/A') $organization = htmlspecialchars(trim($row['organization']));
+            if (empty($discipline) || $discipline === 'N/A') $discipline = htmlspecialchars(trim($row['discipline']));
+            if (empty($address) || $address === 'N/A') $address = htmlspecialchars(trim($row['address']));
+            if (empty($pincode) || $pincode === 'N/A') $pincode = htmlspecialchars(trim($row['pincode']));
+            if (empty($phone) || $phone === 'N/A') $phone = htmlspecialchars(trim($row['phone']));
+            if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) $email = filter_var($row['email'], FILTER_VALIDATE_EMAIL) ? $row['email'] : htmlspecialchars($row['email']);
+            if (empty($categoryLabel) || $categoryLabel === 'UG / PG Student') $categoryLabel = htmlspecialchars(trim($row['registration_category']));
+            if (empty($amount) || $amount === '750') $amount = htmlspecialchars(trim($row['fee_amount']));
+            if ($vortexTxId === 'N/A' && !empty($row['transaction_ref'])) $vortexTxId = htmlspecialchars(trim($row['transaction_ref']));
+            if ($vortexTxId === 'N/A' && !empty($row['payment_order_id'])) $vortexTxId = htmlspecialchars(trim($row['payment_order_id']));
+            if (!empty($row['payment_status'])) $paymentStatus = strtoupper(htmlspecialchars(trim($row['payment_status'])));
+        }
+    } catch (Exception $e) {
+        error_log('[DYUTI DB Fallback] ' . $e->getMessage());
+    }
+}
+
 // 2. Email Recipient & Subject
 $to = 'dyuti@rajagiri.edu';
 $subject = "DYUTI 2027 Registration & Payment Confirmed: {$title} {$fullName} [{$vortexTxId}]";
@@ -329,6 +358,12 @@ if (!$mailSent) {
     error_log('[DYUTI] Secretariat email FAILED for ' . $regId . ': ' . $secretariatResult['error']);
 } else {
     error_log('[DYUTI] Secretariat email SENT for ' . $regId . ' to dyuti@rajagiri.edu');
+    if ($pdo && !empty($regId)) {
+        try {
+            $upd = $pdo->prepare("UPDATE registrations SET email_sent = 1 WHERE registration_id = :id");
+            $upd->execute([':id' => $regId]);
+        } catch (Exception $e) {}
+    }
 }
 
 // 8. Send confirmation copy to the delegate's own email if provided
@@ -530,7 +565,7 @@ echo json_encode([
     'registration_id'      => $regId,
     'vortex_transaction_id'=> $vortexTxId,
     'pdf_generated'        => !empty($pdfData),
-    'smtp_error'           => $mailSent ? null : ($secretariatResult['error'] ?? 'Unknown SMTP error'),
+    'smtp_error'           => $mailSent ? null : (isset($secretariatResult['error']) ? $secretariatResult['error'] : 'Unknown SMTP error'),
     'message'              => $mailSent
         ? 'Registration notification sent to dyuti@rajagiri.edu via cPanel SMTP'
         : 'Registration recorded but email dispatch failed — check server error log'
