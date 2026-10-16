@@ -65,7 +65,10 @@ if (strlen($cleanMobile) > 10) {
 
 $redirectUrl = !empty($input['redirect_url']) ? $input['redirect_url'] : "https://dyuti.in/rcss/registration.html";
 $currency = !empty($input['currency']) ? strtoupper(trim($input['currency'])) : "INR";
-$amount = isset($input['amount']) ? (int)$input['amount'] : 750;
+
+// Production pricing: Dynamic amount from input with fallback to 750.00
+$amount = isset($input['amount']) ? (float)$input['amount'] : 750.00;
+
 
 $data = [
     "api_key"      => $apiKey,
@@ -126,7 +129,28 @@ $result = json_decode($response, true);
 
 if (isset($result["status"]) && $result["status"] === "success" && !empty($result["data"]["payment_url"])) {
 
-    $paymentUrl = $result["data"]["payment_url"];
+    $paymentUrl  = $result["data"]["payment_url"];
+    $vortexTxnId = isset($result["data"]["vortex_transaction_id"]) ? $result["data"]["vortex_transaction_id"] : null;
+
+    // Immediately link vortex_transaction_id to delegate registration in DB so webhook can match it
+    if ($vortexTxnId) {
+        require_once __DIR__ . '/db_config.php';
+        $pdo = function_exists('getDbConnection') ? getDbConnection() : null;
+        if ($pdo) {
+            try {
+                $orderId = !empty($input['order_id']) ? $input['order_id'] : (!empty($input['registration_id']) ? $input['registration_id'] : null);
+                if ($orderId) {
+                    $upStmt = $pdo->prepare("UPDATE registrations SET payment_order_id = :txn_id, updated_at = NOW() WHERE registration_id = :order_id");
+                    $upStmt->execute([':txn_id' => $vortexTxnId, ':order_id' => $orderId]);
+                } elseif (!empty($customerEmail)) {
+                    $upStmt = $pdo->prepare("UPDATE registrations SET payment_order_id = :txn_id, updated_at = NOW() WHERE email = :email ORDER BY id DESC LIMIT 1");
+                    $upStmt->execute([':txn_id' => $vortexTxnId, ':email' => $customerEmail]);
+                }
+            } catch (Exception $dbEx) {
+                error_log("[RCSS_CREATE_ORDER] DB link error: " . $dbEx->getMessage());
+            }
+        }
+    }
 
     // If request was initiated directly via browser form or redirect is requested
     if (!$isJsonClient || (isset($input['redirect']) && $input['redirect'] === 'true')) {
@@ -137,9 +161,13 @@ if (isset($result["status"]) && $result["status"] === "success" && !empty($resul
     // If caller is frontend fetch/XHR, return JSON so client JS redirects cleanly without CORS issues
     header("Content-Type: application/json");
     echo json_encode([
-        "status" => "success",
+        "status"                => "success",
+        "success"               => true,
+        "payment_url"           => $paymentUrl,
+        "vortex_transaction_id" => $vortexTxnId,
         "data" => [
-            "payment_url" => $paymentUrl
+            "payment_url"           => $paymentUrl,
+            "vortex_transaction_id" => $vortexTxnId
         ]
     ]);
     exit;

@@ -9,6 +9,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
+// If request is from PayVortex gateway, route to root webhook.php
+$isVortex = !empty($_SERVER['HTTP_X_VORTEX_SIGNATURE']);
+if (!$isVortex && function_exists('getallheaders')) {
+    foreach (getallheaders() as $k => $v) {
+        if (strcasecmp($k, 'X-Vortex-Signature') === 0) { $isVortex = true; break; }
+    }
+}
+if ($isVortex) {
+    require_once __DIR__ . '/../../webhook.php';
+    exit;
+}
+
 require_once __DIR__ . '/db_config.php';
 require_once __DIR__ . '/mailer_helper.php'; // dyutiSendMail()
 

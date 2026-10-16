@@ -76,6 +76,8 @@ try {
             :txn_ref, :ip, :ua, 0
         )
         ON DUPLICATE KEY UPDATE
+            fee_amount = VALUES(fee_amount),
+            registration_category = VALUES(registration_category),
             payment_status = VALUES(payment_status),
             payment_order_id = COALESCE(VALUES(payment_order_id), payment_order_id),
             razorpay_payment_id = COALESCE(VALUES(razorpay_payment_id), razorpay_payment_id),

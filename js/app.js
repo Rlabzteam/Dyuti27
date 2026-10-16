@@ -578,6 +578,9 @@ function initRegistrationForm() {
     });
 
     updateButtonLabels();
+    if (typeof preloadedPayment !== 'undefined') {
+      preloadedPayment = { hash: '', promise: null, url: null, errorMessage: null };
+    }
   }
 
   categoryCards.forEach(card => {
@@ -985,12 +988,12 @@ function initRegistrationForm() {
     };
 
     preloadedPayment.promise = fetchPaymentUrl(orderData)
-      .then(function(url) {
+      .then(function (url) {
         preloadedPayment.url = url;
         preloadedPayment.promise = null; // clear promise once resolved
         return url;
       })
-      .catch(function(err) {
+      .catch(function (err) {
         // On failure, clear the promise so confirm-submit retries from scratch
         preloadedPayment.promise = null;
         preloadedPayment.errorMessage = err.message;
@@ -998,9 +1001,29 @@ function initRegistrationForm() {
       });
   }
 
+  // Double-submission protection and UI state recovery
+  let isSubmitting = false;
+
+  function resetSubmitButtonState() {
+    isSubmitting = false;
+    if (btnConfirmSubmit) {
+      btnConfirmSubmit.disabled = false;
+      btnConfirmSubmit.classList.remove('opacity-80', 'opacity-75', 'cursor-wait', 'cursor-not-allowed');
+    }
+    updateButtonLabels();
+  }
+
+  // Restore button if navigated back via browser Back/Forward Cache (bfcache)
+  window.addEventListener('pageshow', (event) => {
+    resetSubmitButtonState();
+    preloadedPayment = { hash: '', promise: null, url: null, errorMessage: null };
+  });
+
   // 5. Back to Form button in Step 2
   if (btnBackToForm) {
     btnBackToForm.addEventListener('click', () => {
+      resetSubmitButtonState();
+      preloadedPayment = { hash: '', promise: null, url: null, errorMessage: null };
       setStep('form');
     });
   }
@@ -1008,11 +1031,15 @@ function initRegistrationForm() {
   // 6. Confirm & Submit in Step 2
   if (btnConfirmSubmit) {
     btnConfirmSubmit.addEventListener('click', async () => {
+      if (isSubmitting) return; // Prevent double clicking
+
       if (!agreeTermsCheckbox || !agreeTermsCheckbox.checked) {
         if (reviewErrorMsg) reviewErrorMsg.textContent = 'Please check the verification declaration box to confirm your details.';
         if (reviewErrorBox) reviewErrorBox.classList.remove('hidden');
         return;
       }
+
+      isSubmitting = true;
 
       if (reviewErrorBox) reviewErrorBox.classList.add('hidden');
 
@@ -1079,9 +1106,13 @@ function initRegistrationForm() {
 
       // Online payment via Vortexx Payment Gateway
       if (currentPaymentMode === 'online') {
-        // INSTANT REDIRECTION: If the preloaded payment URL is already resolved, redirect immediately with zero delay!
-        if (preloadedPayment.url) {
+        const orderData = getOrderPayload();
+        const currentHash = orderData.email + '|' + orderData.mobile + '|' + orderData.amount;
+
+        // INSTANT REDIRECTION: If preloaded URL matches current amount, redirect immediately
+        if (preloadedPayment.url && preloadedPayment.hash === currentHash) {
           window.location.href = preloadedPayment.url;
+          setTimeout(resetSubmitButtonState, 1000);
           return;
         }
 
@@ -1104,22 +1135,18 @@ function initRegistrationForm() {
         let errorMessage = null;
 
         try {
-          // Use cached successful URL if available
-          if (preloadedPayment.url) {
+          if (preloadedPayment.url && preloadedPayment.hash === currentHash) {
             paymentUrl = preloadedPayment.url;
-          } else if (preloadedPayment.promise) {
-            // Preload still in flight — wait for it
+          } else if (preloadedPayment.promise && preloadedPayment.hash === currentHash) {
+            // Preload with same amount still in flight — wait for it
             await preloadedPayment.promise;
             if (preloadedPayment.url) {
               paymentUrl = preloadedPayment.url;
             } else {
-              // Preload finished but failed — retry from scratch now
-              const orderData = getOrderPayload();
               paymentUrl = await fetchPaymentUrl(orderData);
             }
           } else {
-            // No preload at all — call directly
-            const orderData = getOrderPayload();
+            // No matching preload or amount changed — call fresh
             paymentUrl = await fetchPaymentUrl(orderData);
           }
         } catch (err) {
@@ -1127,14 +1154,13 @@ function initRegistrationForm() {
         }
 
         if (paymentUrl) {
-          // Immediately redirect to Vortexx checkout page!
           window.location.href = paymentUrl;
+          setTimeout(resetSubmitButtonState, 1000);
           return;
         }
 
         // If order creation failed, re-enable button and show error
-        btnConfirmSubmit.disabled = false;
-        btnConfirmSubmit.classList.remove('opacity-80', 'cursor-wait');
+        resetSubmitButtonState();
         if (btnConfirmSubmitLabel) {
           btnConfirmSubmitLabel.innerHTML = originalBtnHtml || `Register &amp; Pay ₹ ${selectedCat.amount.toLocaleString()} Now`;
         }
