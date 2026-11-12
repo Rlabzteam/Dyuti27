@@ -409,6 +409,12 @@ function initRegistrationForm() {
       fee: '₹ 1',
       amount: 1,
       desc: 'Gateway Verification & Live Sandbox Testing'
+    },
+    stall: {
+      label: 'Test Participant (Stall / Exhibition - ₹ 1)',
+      fee: '₹ 1',
+      amount: 1,
+      desc: 'Gateway Verification & Live Sandbox Testing'
     }
   } : {
     student: {
@@ -428,6 +434,12 @@ function initRegistrationForm() {
       fee: '₹ 1,000',
       amount: 1000,
       desc: 'Faculty Members, NGO & CSR Delegates'
+    },
+    stall: {
+      label: 'Stall / Exhibition Participant',
+      fee: '₹ 750',
+      amount: 750,
+      desc: 'Exhibition & Sustainable Product Stalls'
     }
   };
 
@@ -791,6 +803,15 @@ function initRegistrationForm() {
       card.classList.add('active', 'bg-[#071A33]', 'text-white', 'border-[#071A33]', 'shadow-md');
       card.classList.remove('bg-slate-50/90', 'border-slate-200', 'text-slate-900');
       radio.checked = true;
+
+      // Auto-sync Question 11 (Purpose) with Question 12 (Category)
+      if (groupName === 'participationType') {
+        if (radio.value === 'stall') {
+          selectCategory('stall');
+        } else if (currentCategoryKey === 'stall') {
+          selectCategory('student');
+        }
+      }
     });
   });
 
@@ -813,6 +834,25 @@ function initRegistrationForm() {
         if (r) r.checked = false;
       }
     });
+
+    // Auto-sync Question 11 if Stall category is chosen
+    if (catKey === 'stall') {
+      const stallPillRadio = form.querySelector('input[name="participationType"][value="stall"]');
+      if (stallPillRadio && !stallPillRadio.checked) {
+        pillCards.forEach(c => {
+          if (c.getAttribute('data-group') === 'participationType') {
+            c.classList.remove('active', 'bg-[#071A33]', 'text-white', 'border-[#071A33]', 'shadow-md');
+            c.classList.add('bg-slate-50/90', 'border-slate-200', 'text-slate-900');
+          }
+        });
+        const stallCard = stallPillRadio.closest('.reg-pill-card');
+        if (stallCard) {
+          stallCard.classList.add('active', 'bg-[#071A33]', 'text-white', 'border-[#071A33]', 'shadow-md');
+          stallCard.classList.remove('bg-slate-50/90', 'border-slate-200', 'text-slate-900');
+        }
+        stallPillRadio.checked = true;
+      }
+    }
 
     updateButtonLabels();
     if (typeof preloadedPayment !== 'undefined') {
