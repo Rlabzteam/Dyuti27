@@ -817,21 +817,95 @@ function initRegistrationForm() {
 
   // 2. Category Cards click & change handler
   function selectCategory(catKey) {
-    if (!catKey || !categories[catKey]) return;
+    if (!catKey) return;
     currentCategoryKey = catKey;
 
     categoryCards.forEach(c => {
       const isSelected = c.getAttribute('data-category') === catKey;
       const r = c.querySelector('input[type="radio"]');
+      const title = c.querySelector('.category-title');
+      const badge = c.querySelector('.category-badge');
+      const desc = c.querySelector('.category-desc');
+      const feeLabel = c.querySelector('.category-fee-label');
+      const fee = c.querySelector('.category-fee');
+      const divider = c.querySelector('.category-divider');
 
       if (isSelected) {
         c.classList.add('active', 'bg-[#071A33]', 'text-white', 'border-[#071A33]', 'shadow-xl', 'ring-4', 'ring-slate-900/10');
-        c.classList.remove('bg-slate-50/90', 'border-slate-200', 'text-slate-900');
+        c.classList.remove('bg-slate-50/90', 'border-slate-200', 'text-slate-900', 'hover:bg-slate-100', 'hover:border-slate-400');
+        c.style.setProperty('background-color', '#071A33', 'important');
+        c.style.setProperty('color', '#ffffff', 'important');
+        c.style.setProperty('border-color', '#071A33', 'important');
         if (r) r.checked = true;
+
+        if (title) {
+          title.classList.remove('text-slate-950');
+          title.classList.add('text-white');
+          title.style.setProperty('color', '#ffffff', 'important');
+        }
+        if (badge) {
+          badge.classList.remove('text-slate-600');
+          badge.classList.add('text-slate-300');
+          badge.style.setProperty('color', '#cbd5e1', 'important');
+        }
+        if (desc) {
+          desc.classList.remove('text-slate-650', 'text-slate-600');
+          desc.classList.add('text-slate-200');
+          desc.style.setProperty('color', '#e2e8f0', 'important');
+        }
+        if (feeLabel) {
+          feeLabel.classList.remove('text-slate-550', 'text-slate-600');
+          feeLabel.classList.add('text-slate-300');
+          feeLabel.style.setProperty('color', '#cbd5e1', 'important');
+        }
+        if (fee) {
+          fee.classList.remove('text-slate-950');
+          fee.classList.add('text-white');
+          fee.style.setProperty('color', '#ffffff', 'important');
+        }
+        if (divider) {
+          divider.classList.remove('border-slate-200');
+          divider.classList.add('border-white/20');
+          divider.style.setProperty('border-color', 'rgba(255, 255, 255, 0.2)', 'important');
+        }
       } else {
         c.classList.remove('active', 'bg-[#071A33]', 'text-white', 'border-[#071A33]', 'shadow-xl', 'ring-4', 'ring-slate-900/10');
-        c.classList.add('bg-slate-50/90', 'border-slate-200', 'text-slate-900');
+        c.classList.add('bg-slate-50/90', 'border-slate-200', 'text-slate-900', 'hover:bg-slate-100', 'hover:border-slate-400');
+        c.style.removeProperty('background-color');
+        c.style.removeProperty('color');
+        c.style.removeProperty('border-color');
         if (r) r.checked = false;
+
+        if (title) {
+          title.classList.remove('text-white');
+          title.classList.add('text-slate-950');
+          title.style.removeProperty('color');
+        }
+        if (badge) {
+          badge.classList.remove('text-slate-300');
+          badge.classList.add('text-slate-600');
+          badge.style.removeProperty('color');
+        }
+        if (desc) {
+          desc.classList.remove('text-slate-200');
+          desc.classList.add('text-slate-650');
+          desc.style.removeProperty('color');
+        }
+        if (feeLabel) {
+          feeLabel.classList.remove('text-slate-300');
+          feeLabel.classList.add('text-slate-550');
+          feeLabel.style.removeProperty('color');
+        }
+        if (fee) {
+          fee.classList.remove('text-white');
+          fee.classList.add('text-slate-950');
+          fee.style.removeProperty('color');
+        }
+        if (divider) {
+          divider.classList.remove('border-white/20');
+          divider.classList.add('border-slate-200');
+          divider.style.removeProperty('border-color');
+        }
       }
     });
 
