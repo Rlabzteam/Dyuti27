@@ -1156,7 +1156,7 @@ function initRegistrationForm() {
     const isPresentingPaper = paperRadio ? paperRadio.value : '';
 
     const participationRadio = form.querySelector('input[name="participationType"]:checked');
-    const participationType = participationRadio ? participationRadio.value : 'regular';
+    const participationType = participationRadio ? participationRadio.value : '';
 
     const transactionRef = document.getElementById('reg-transaction-ref')?.value.trim() || '';
 
@@ -1174,6 +1174,7 @@ function initRegistrationForm() {
     else if (!email || !email.includes('@')) error = 'Please enter a valid Email Address for registration correspondence.';
     else if (!foodPreference) error = 'Food Preference is a required question. Please choose your preference.';
     else if (!isPresentingPaper) error = 'Please specify whether you are presenting a paper in the conference.';
+    else if (!participationType) error = 'Please select your Purpose of Participation (Regular Participant, Idea Pitch, or Stall / Exhibition).';
 
     if (error) {
       if (formErrorMsg) formErrorMsg.textContent = error;
@@ -1613,7 +1614,7 @@ function initRegistrationForm() {
       const paperRadio = form.querySelector('input[name="isPresentingPaper"]:checked');
       const isPresentingPaper = paperRadio ? paperRadio.value : 'no';
       const participationRadio = form.querySelector('input[name="participationType"]:checked');
-      const participationType = participationRadio ? participationRadio.value : 'regular';
+      const participationType = participationRadio ? participationRadio.value : (currentCategoryKey === 'stall' ? 'stall' : 'regular');
 
       const selectedCat = categories[currentCategoryKey] || categories.student;
 
