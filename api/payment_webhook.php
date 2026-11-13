@@ -152,40 +152,42 @@ if ($pdo) {
 
                     $webhookHtml = '
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
-<title>DYUTI 2027 Registration Confirmed</title></head>
+<title>DYUTI National Conference 2027 Registration Confirmed</title></head>
 <body style="font-family:sans-serif;background:#f4f6f9;padding:20px;">
 <div style="max-width:640px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0">
   <div style="background:#071A33;padding:28px;text-align:center;">
-    <div style="color:#d4af37;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;">DYUTI 2027 &bull; National Conference</div>
+    <div style="color:#d4af37;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;">DYUTI National Conference 2027</div>
     <h1 style="color:#fff;margin:8px 0 4px;font-size:20px;">Registration & Payment Confirmed</h1>
-    <div style="color:#cbd5e1;font-size:12px;">Rajagiri College of Social Sciences, Kochi</div>
+    <div style="color:#cbd5e1;font-size:12px;">Rajagiri College of Social Sciences (Autonomous), Kochi</div>
   </div>
   <div style="background:#ecfdf5;border-bottom:1px solid #a7f3d0;padding:10px 24px;text-align:center;color:#065f46;font-size:13px;font-weight:700;">
-    &#x2714; Payment Verified &bull; Server-Confirmed
+    &#x2714; Payment Verified &bull; Official Registration Confirmed
   </div>
   <div style="padding:24px;">
     <table width="100%" cellpadding="8" style="border-collapse:collapse;font-size:13px;">
       <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;width:40%;">Registration ID</td><td style="font-weight:700;">' . $regId . '</td></tr>
       <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;">Transaction ID</td><td style="font-weight:700;color:#059669;">' . $txn . '</td></tr>
       <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;">Delegate Name</td><td style="font-weight:700;">' . $title . ' ' . $name . '</td></tr>
+      <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;">Email Address</td><td>' . $emailTo . '</td></tr>
       <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;">Organization</td><td>' . $org . '</td></tr>
       <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;">Category</td><td>' . $cat . '</td></tr>
-      <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;">Amount</td><td style="font-weight:700;">INR ' . $fee . '</td></tr>
-      <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;">Payment Status</td><td style="color:#059669;font-weight:700;">SUCCESS</td></tr>
+      <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;">Amount Paid</td><td style="font-weight:700;">INR ' . $fee . '</td></tr>
+      <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;">Payment Status</td><td style="color:#059669;font-weight:700;">SUCCESS (CONFIRMED)</td></tr>
       <tr><td style="color:#64748b;font-weight:600;background:#f8fafc;">Date / Time</td><td>' . $dt . '</td></tr>
     </table>
-    <p style="color:#64748b;font-size:12px;margin-top:16px;">This notification was dispatched by the server webhook upon payment confirmation.</p>
+    <p style="color:#64748b;font-size:12px;margin-top:16px;">This confirmation notification was dispatched by the DYUTI Conference Secretariat upon verified payment confirmation.</p>
   </div>
 </div>
 </body></html>';
 
-                    $webhookPlain = "DYUTI 2027 Registration Confirmed (Server Webhook)\n"
+                    $webhookPlain = "DYUTI National Conference 2027 Registration Confirmed\n"
                         . "Registration ID: {$regId}\nDelegate: {$title} {$name}\n"
-                        . "Organization: {$org}\nCategory: {$cat}\nAmount: INR {$fee}\n"
+                        . "Email: {$emailTo}\nOrganization: {$org}\nCategory: {$cat}\nAmount: INR {$fee}\n"
                         . "Transaction ID: {$txn}\nStatus: SUCCESS\nDate: {$dt}";
 
-                    $webhookSubject = "DYUTI 2027 Registration & Payment Confirmed: {$title} {$name} [{$regId}]";
+                    $webhookSubject = "DYUTI National Conference 2027 Registration & Payment Confirmed: {$title} {$name} [{$regId}]";
 
+                    // 1. Send to secretariat
                     $emailResult = dyutiSendMail(
                         'dyuti@rajagiri.edu',
                         'DYUTI Secretariat',
@@ -193,6 +195,18 @@ if ($pdo) {
                         $webhookHtml,
                         $webhookPlain
                     );
+
+                    // 2. Also send confirmation to delegate
+                    if (!empty($emailTo) && filter_var($emailTo, FILTER_VALIDATE_EMAIL)) {
+                        $delegateSubject = "Registration & Payment Confirmation: DYUTI National Conference 2027 [{$regId}]";
+                        dyutiSendMail(
+                            $emailTo,
+                            $title . ' ' . $name,
+                            $delegateSubject,
+                            $webhookHtml,
+                            $webhookPlain
+                        );
+                    }
 
                     if ($emailResult['sent']) {
                         // Mark email sent so browser-redirect trigger won't duplicate it

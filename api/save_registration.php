@@ -212,9 +212,15 @@ try {
 
     // MANDATORY VALIDATION: A new participant registration MUST have valid particulars.
     // Blank or partial registrations without name, valid email, and phone are strictly forbidden!
-    $cleanName  = trim(val($data, 'name', val($data, 'full_name', '')));
-    $cleanEmail = strtolower(trim($email));
-    $cleanPhone = preg_replace('/\D/', '', $phone);
+    $cleanName   = trim(val($data, 'name', val($data, 'full_name', '')));
+    $cleanEmail  = strtolower(trim($email));
+    $cleanPhone  = preg_replace('/\D/', '', $phone);
+    $cleanOrg    = trim(val($data, 'organization', ''));
+    $cleanDesig  = trim(val($data, 'designation', ''));
+    $cleanGender = trim(val($data, 'gender', ''));
+    $cleanDiscip = trim(val($data, 'discipline', ''));
+    $cleanAddr   = trim(val($data, 'address', ''));
+    $cleanPin    = trim(val($data, 'pincode', ''));
 
     if (empty($cleanName) || strlen($cleanName) < 2) {
         http_response_code(400);
@@ -242,6 +248,16 @@ try {
         ));
         exit;
     }
+
+    // Ensure non-empty defaults for metadata particulars
+    $cleanPhoneFormatted = !empty($phone) ? $phone : $cleanPhone;
+    if (empty($cleanPhoneFormatted)) $cleanPhoneFormatted = 'Not Provided';
+    if (empty($cleanOrg))    $cleanOrg = 'Independent Participant';
+    if (empty($cleanDesig))  $cleanDesig = 'Delegate';
+    if (empty($cleanGender)) $cleanGender = 'Not Specified';
+    if (empty($cleanDiscip)) $cleanDiscip = 'General';
+    if (empty($cleanAddr))   $cleanAddr = 'Provided at Venue';
+    if (empty($cleanPin))    $cleanPin = '000000';
 
     // Guarantee that $targetRegId is 100% unique and does not exist in registrations table
     $defaultPrefix = $paymentMode === 'bank_transfer' ? 'DYUTI27-REG-' : 'DYUTI27-ONLINE-';
@@ -311,13 +327,13 @@ try {
         ':reg_id'              => $targetRegId,
         ':title'               => val($data, 'title', 'Dr.'),
         ':name'                => $cleanName,
-        ':designation'         => val($data, 'designation', ''),
-        ':gender'              => val($data, 'gender', ''),
-        ':org'                 => val($data, 'organization', ''),
-        ':discipline'          => val($data, 'discipline', ''),
-        ':address'             => val($data, 'address', ''),
-        ':pincode'             => val($data, 'pincode', ''),
-        ':phone'               => $phone,
+        ':designation'         => $cleanDesig,
+        ':gender'              => $cleanGender,
+        ':org'                 => $cleanOrg,
+        ':discipline'          => $cleanDiscip,
+        ':address'             => $cleanAddr,
+        ':pincode'             => $cleanPin,
+        ':phone'               => $cleanPhoneFormatted,
         ':email'               => $cleanEmail,
         ':food_pref'           => val($data, 'foodPreference', val($data, 'food_preference', 'veg')),
         ':food_details'        => val($data, 'foodDetails', val($data, 'food_details', null)),
