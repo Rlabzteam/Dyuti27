@@ -437,13 +437,14 @@ $exportUrl = 'export.php?' . $exportQuery;
     </div>
 
     <div class="flex items-center gap-2.5 sm:gap-4">
-      <!-- Direct Excel Export Button -->
+      <!-- Direct Excel Export Button (Paid Only • Deduplicated) -->
       <a href="<?php echo htmlspecialchars($exportUrl); ?>"
+         title="Download confirmed paid delegates only (duplicates excluded)"
          class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs tracking-wide transition-all shadow-md shadow-emerald-900/30 active:scale-95">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
         </svg>
-        <span>Export to Excel (.csv)</span>
+        <span>Export Paid Delegates (Excel)</span>
       </a>
 
       <!-- Current Admin User Badge -->
@@ -582,8 +583,8 @@ $exportUrl = 'export.php?' . $exportQuery;
           </span>
         </div>
         
-        <div class="text-xs text-slate-400">
-          Showing latest records first (ordered by ID DESC)
+        <div class="text-xs text-slate-400 flex items-center gap-2">
+          <span class="inline-flex items-center gap-1 text-emerald-400 font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Excel export auto-deduplicates &amp; exports paid delegates only</span>
         </div>
       </div>
 

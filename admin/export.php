@@ -2,6 +2,14 @@
 /**
  * DYUTI 2027 Admin Portal - Secure Excel / CSV Export (export.php)
  * Strictly requires active administrator session.
+ * 
+ * STRICT RULES:
+ * 1. ONLY individuals who have successfully paid are exported.
+ * 2. ZERO duplicate entries allowed (each person appears exactly once).
+ * 3. Blank or ghost entries are completely excluded.
+ * 4. Formatted with UTF-8 BOM for Microsoft Excel.
+ * 5. Sanitized against CSV / Formula Injection (CWE-1236).
+ *
  * 100% compatible with PHP 5.6, 7.x, and 8.x
  */
 
@@ -51,14 +59,18 @@ if (!$pdo) {
     die("Database connection failed. Unable to generate export.");
 }
 
-// Parse optional filter parameters from query
-$search = isset($_GET['search']) ? trim($_GET['search']) : '';
-$status = isset($_GET['status']) ? trim($_GET['status']) : '';
+// Parse optional search and category filters
+$search   = isset($_GET['search']) ? trim($_GET['search']) : '';
 $category = isset($_GET['category']) ? trim($_GET['category']) : '';
 $partType = isset($_GET['participation_type']) ? trim($_GET['participation_type']) : '';
 
 $whereClauses = array();
 $params = array();
+
+// STRICT RULE 1: Only successfully paid / confirmed delegates are eligible for export
+$whereClauses[] = "LOWER(payment_status) IN ('success', 'paid', 'captured', 'confirmed')";
+$whereClauses[] = "full_name IS NOT NULL AND TRIM(full_name) != ''";
+$whereClauses[] = "email IS NOT NULL AND TRIM(email) != ''";
 
 if ($search !== '') {
     $whereClauses[] = "(
@@ -80,16 +92,6 @@ if ($search !== '') {
     $params[':s_order'] = $likeSearch;
 }
 
-if ($status !== '' && $status !== 'all') {
-    if ($status === 'success') {
-        $whereClauses[] = "LOWER(payment_status) IN ('success', 'paid', 'captured', 'confirmed')";
-    } elseif ($status === 'pending') {
-        $whereClauses[] = "LOWER(payment_status) = 'pending'";
-    } elseif ($status === 'failed') {
-        $whereClauses[] = "LOWER(payment_status) IN ('failed', 'failure', 'cancelled', 'error')";
-    }
-}
-
 if ($category !== '' && $category !== 'all') {
     $whereClauses[] = "registration_category = :cat";
     $params[':cat'] = $category;
@@ -100,11 +102,8 @@ if ($partType !== '' && $partType !== 'all') {
     $params[':part'] = $partType;
 }
 
-$sql = "SELECT * FROM registrations";
-if (!empty($whereClauses)) {
-    $sql .= " WHERE " . implode(' AND ', $whereClauses);
-}
-$sql .= " ORDER BY id DESC";
+// Order by ID DESC so the newest verified record for each individual is processed first
+$sql = "SELECT * FROM registrations WHERE " . implode(' AND ', $whereClauses) . " ORDER BY id DESC";
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
@@ -120,7 +119,7 @@ function sanitizeCsvValue($val) {
     return $str;
 }
 
-$filename = 'DYUTI_2027_Registrations_' . date('Y-m-d_His') . '.csv';
+$filename = 'DYUTI_2027_Confirmed_Paid_Delegates_' . date('Y-m-d_His') . '.csv';
 
 // Send streaming download headers
 header('Content-Type: text/csv; charset=UTF-8');
@@ -136,19 +135,25 @@ fprintf($output, chr(0xEF) . chr(0xBB) . chr(0xBF));
 
 // CSV Header Row
 fputcsv($output, array(
-    'ID',
+    'Sl. No.',
     'Registration ID',
-    'Registered Date & Time',
+    'Payment Status',
+    'Amount Paid (INR)',
+    'Payment Mode',
+    'Transaction Reference',
+    'Gateway Order ID',
+    'Registration Category',
+    'Purpose of Participation',
     'Title',
     'Full Name',
     'Designation',
     'Gender',
     'Organization',
     'Discipline',
-    'Address',
+    'Postal Address',
     'Pincode',
-    'Phone',
-    'Email',
+    'Mobile Phone',
+    'Email Address',
     'Food Preference',
     'Dietary Details',
     'Accommodation Required',
@@ -157,23 +162,57 @@ fputcsv($output, array(
     'CMT Paper ID',
     'Paper Title',
     'Sub-theme Track',
-    'Participation Type',
-    'Registration Category',
-    'Fee Amount (INR)',
-    'Payment Mode',
-    'Payment Status',
-    'Transaction Reference',
-    'Gateway Order ID',
-    'Razorpay Payment ID',
-    'IP Address',
+    'Registered Date & Time',
     'Last Updated'
 ));
 
+$serialNo = 0;
+$seenEmails = array();
+$seenPhones = array();
+
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    // 1. Strict Payment Status Check
+    $pStatus = strtolower(trim($row['payment_status']));
+    if (!in_array($pStatus, array('success', 'paid', 'captured', 'confirmed'))) {
+        continue;
+    }
+
+    // 2. Strict Data Integrity Check: Ignore blank/ghost records
+    $name = trim($row['full_name']);
+    $email = strtolower(trim($row['email']));
+    if ($name === '' || $email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        continue;
+    }
+
+    // 3. Strict Deduplication Check: Prevent duplicate entries for the same individual
+    if (isset($seenEmails[$email])) {
+        continue; // Skip duplicate email (already exported this person's latest verified record)
+    }
+
+    $phoneDigits = preg_replace('/\D/', '', $row['phone']);
+    $phoneLast10 = strlen($phoneDigits) >= 10 ? substr($phoneDigits, -10) : '';
+    if (!empty($phoneLast10) && isset($seenPhones[$phoneLast10])) {
+        continue; // Skip duplicate phone number
+    }
+
+    // Mark email and phone as exported
+    $seenEmails[$email] = true;
+    if (!empty($phoneLast10)) {
+        $seenPhones[$phoneLast10] = true;
+    }
+
+    $serialNo++;
+
     fputcsv($output, array(
-        sanitizeCsvValue($row['id']),
+        $serialNo,
         sanitizeCsvValue($row['registration_id']),
-        sanitizeCsvValue($row['created_at']),
+        'CONFIRMED (PAID)',
+        sanitizeCsvValue(number_format((float)$row['fee_amount'], 2, '.', '')),
+        sanitizeCsvValue(strtoupper($row['payment_mode'])),
+        sanitizeCsvValue($row['transaction_ref']),
+        sanitizeCsvValue($row['payment_order_id']),
+        sanitizeCsvValue($row['registration_category']),
+        sanitizeCsvValue(isset($row['participation_type']) ? $row['participation_type'] : 'regular'),
         sanitizeCsvValue($row['title']),
         sanitizeCsvValue($row['full_name']),
         sanitizeCsvValue($row['designation']),
@@ -192,19 +231,10 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         sanitizeCsvValue(isset($row['cmt_paper_id']) ? $row['cmt_paper_id'] : ''),
         sanitizeCsvValue(isset($row['paper_title']) ? $row['paper_title'] : ''),
         sanitizeCsvValue(isset($row['paper_theme']) ? $row['paper_theme'] : ''),
-        sanitizeCsvValue(isset($row['participation_type']) ? $row['participation_type'] : 'regular'),
-        sanitizeCsvValue($row['registration_category']),
-        sanitizeCsvValue(number_format((float)$row['fee_amount'], 2, '.', '')),
-        sanitizeCsvValue($row['payment_mode']),
-        sanitizeCsvValue(strtoupper($row['payment_status'])),
-        sanitizeCsvValue($row['transaction_ref']),
-        sanitizeCsvValue($row['payment_order_id']),
-        sanitizeCsvValue($row['razorpay_payment_id']),
-        sanitizeCsvValue(isset($row['ip_address']) ? $row['ip_address'] : ''),
+        sanitizeCsvValue($row['created_at']),
         sanitizeCsvValue($row['updated_at'])
     ));
 }
 
 fclose($output);
 exit;
-
