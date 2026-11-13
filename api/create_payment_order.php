@@ -89,7 +89,7 @@ if (strlen($cleanMobile) > 10) {
 }
 
 // Check if this is an explicit retry of an existing registration or live test
-$isRetryPayment = !empty($input['is_retry']) || !empty($input['registration_id']) || !empty($input['order_id']) || (isset($input['amount']) && (float)$input['amount'] == 1.0);
+$isRetryPayment = !empty($input['is_retry']) || (isset($input['amount']) && (float)$input['amount'] == 1.0 && !empty($input['registration_id']));
 $currentRegId = !empty($input['registration_id']) ? $input['registration_id'] : (!empty($input['order_id']) ? $input['order_id'] : '');
 
 // Check 15-minute cool-off policy for failed payment attempts (bypassed on intentional retries)
@@ -129,13 +129,13 @@ if (!$isRetryPayment && file_exists(__DIR__ . '/db_config.php')) {
                 }
             }
 
-            // Check if email is already registered with confirmed payment (ignore if retrying same ID)
+            // Check if email is already registered (whether pending or confirmed)
             $dupStmt = $pdo->prepare("
                 SELECT registration_id, full_name, payment_status, created_at
                 FROM registrations
-                WHERE email = :email AND payment_status IN ('success', 'captured', 'paid')
+                WHERE LOWER(email) = LOWER(:email)
                   AND (:current_reg_id = '' OR registration_id != :current_reg_id)
-                ORDER BY id DESC
+                ORDER BY (CASE WHEN LOWER(payment_status) IN ('success', 'captured', 'paid', 'confirmed') THEN 1 ELSE 0 END) DESC, id DESC
                 LIMIT 1
             ");
             $dupStmt->execute([
@@ -144,12 +144,16 @@ if (!$isRetryPayment && file_exists(__DIR__ . '/db_config.php')) {
             ]);
             $dupRow = $dupStmt->fetch(PDO::FETCH_ASSOC);
             if ($dupRow) {
+                $isConfirmed = in_array(strtolower($dupRow['payment_status']), ['success', 'captured', 'paid', 'confirmed']);
                 http_response_code(409);
                 echo json_encode([
                     'status' => 'error',
                     'already_registered' => true,
                     'registration_id' => $dupRow['registration_id'],
-                    'message' => "The email '{$customerEmail}' is already registered with confirmed payment (Registration ID: {$dupRow['registration_id']}). Duplicate entries are not permitted. Please check your registration details in the Status tab."
+                    'payment_status' => $dupRow['payment_status'],
+                    'message' => $isConfirmed
+                        ? "The email '{$customerEmail}' is already registered with confirmed payment (Registration ID: {$dupRow['registration_id']}). Duplicate entries are not permitted. Please check your registration details in the Status tab."
+                        : "The email '{$customerEmail}' is already registered with Application ID '{$dupRow['registration_id']}' (Payment Status: Pending). Duplicate registrations are not permitted. Please track your registration status to complete or retry your payment."
                 ]);
                 exit;
             }

@@ -92,30 +92,6 @@ try {
         // Continue safely if already exists or DDL not permitted
     }
 
-    // 1. If delegate already has a CONFIRMED / SUCCESS registration, prevent duplicate entries
-    if (!empty($email) && $paymentStatus !== 'success') {
-        $checkDupStmt = $pdo->prepare("
-            SELECT registration_id, payment_status, full_name
-            FROM registrations
-            WHERE email = :email 
-              AND LOWER(payment_status) IN ('success', 'captured', 'paid', 'confirmed')
-              AND (:reg_id = '' OR registration_id != :reg_id)
-            LIMIT 1
-        ");
-        $checkDupStmt->execute(array(':email' => $email, ':reg_id' => $inputRegId));
-        $dupRecord = $checkDupStmt->fetch(PDO::FETCH_ASSOC);
-        if ($dupRecord) {
-            http_response_code(409);
-            echo json_encode(array(
-                'status' => 'error',
-                'already_registered' => true,
-                'registration_id' => $dupRecord['registration_id'],
-                'message' => "The email '{$email}' is already registered with confirmed payment (Registration ID: {$dupRecord['registration_id']}). Duplicate entries are not permitted."
-            ));
-            exit;
-        }
-    }
-
     // Check if an existing record matches this registration_id
     $existingRow = null;
     if (!empty($inputRegId)) {
@@ -124,18 +100,36 @@ try {
         $existingRow = $checkStmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // 2. PAYMENT STATUS UPDATE (Confirm payment / Mark failed on existing registration)
-    // ONLY executed when updating payment for an existing record.
-    // NEVER overwrites delegate particulars (name, email, phone, organization, etc.).
     $isPaymentUpdate = ($action === 'confirm_payment' || $action === 'update_payment' || (!empty($txnRef) && $paymentStatus === 'success'));
 
+    // Fallback lookups when updating payment: if not matched by ID, try payment_order_id/txnRef or email
+    if (!$existingRow && !empty($txnRef) && $isPaymentUpdate) {
+        $checkTxnStmt = $pdo->prepare("SELECT id, registration_id, email, full_name, payment_status FROM registrations WHERE payment_order_id = :txn OR transaction_ref = :txn LIMIT 1");
+        $checkTxnStmt->execute(array(':txn' => $txnRef));
+        $existingRow = $checkTxnStmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    if (!$existingRow && !empty($email) && $isPaymentUpdate) {
+        $checkEmailStmt = $pdo->prepare("
+            SELECT id, registration_id, email, full_name, payment_status 
+            FROM registrations 
+            WHERE LOWER(email) = LOWER(:email) 
+            ORDER BY (CASE WHEN LOWER(payment_status) = 'pending' THEN 1 ELSE 0 END) DESC, id DESC 
+            LIMIT 1
+        ");
+        $checkEmailStmt->execute(array(':email' => $email));
+        $existingRow = $checkEmailStmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // 1. PAYMENT STATUS UPDATE (Confirm payment / Mark failed on existing registration)
+    // ONLY executed when updating payment for an existing record.
+    // NEVER overwrites delegate particulars (name, email, phone, organization, etc.).
     if ($existingRow && $isPaymentUpdate) {
         // Double check: if email is provided in payload and does not match existing record,
         // do not touch that other person's record!
         $existingEmail = strtolower(trim($existingRow['email']));
         if (!empty($email) && !empty($existingEmail) && $existingEmail !== $email) {
-            // Email mismatch: stale ID from another user was submitted!
-            // Do NOT update the existing record. Proceed to create a new registration instead.
+            // Email mismatch: stale ID from another user was submitted
             $existingRow = null;
         } else {
             // Safe in-place payment update ONLY (touching only payment metadata)
@@ -162,6 +156,36 @@ try {
                 'message' => 'Payment status successfully updated in database.',
                 'registration_id' => $existingRow['registration_id'],
                 'payment_status' => $paymentStatus
+            ));
+            exit;
+        }
+    }
+
+    // 2. STRICT DUPLICATE PREVENTION FOR NEW REGISTRATIONS
+    // If the delegate has ANY existing registration row (whether pending or confirmed),
+    // strictly reject new registration attempts to prevent duplicate entries in the database.
+    if (!empty($email) && !$isPaymentUpdate) {
+        $checkDupStmt = $pdo->prepare("
+            SELECT registration_id, payment_status, full_name
+            FROM registrations
+            WHERE LOWER(email) = LOWER(:email)
+              AND (:reg_id = '' OR registration_id != :reg_id)
+            ORDER BY (CASE WHEN LOWER(payment_status) IN ('success', 'captured', 'paid', 'confirmed') THEN 1 ELSE 0 END) DESC, id DESC
+            LIMIT 1
+        ");
+        $checkDupStmt->execute(array(':email' => $email, ':reg_id' => $inputRegId));
+        $dupRecord = $checkDupStmt->fetch(PDO::FETCH_ASSOC);
+        if ($dupRecord) {
+            $isConfirmed = in_array(strtolower($dupRecord['payment_status']), array('success', 'captured', 'paid', 'confirmed'));
+            http_response_code(409);
+            echo json_encode(array(
+                'status' => 'error',
+                'already_registered' => true,
+                'registration_id' => $dupRecord['registration_id'],
+                'payment_status' => $dupRecord['payment_status'],
+                'message' => $isConfirmed
+                    ? "The email '{$email}' is already registered with confirmed payment (Registration ID: {$dupRecord['registration_id']}). Duplicate entries are not permitted."
+                    : "The email '{$email}' is already registered with Application ID '{$dupRecord['registration_id']}' (Payment Status: Pending). Duplicate registrations are not permitted. Please track your registration status to complete or retry your payment."
             ));
             exit;
         }
@@ -204,6 +228,19 @@ try {
         $participationType = 'regular';
     }
 
+    // Parse category & determine appropriate fee
+    $rawCat = val($data, 'registrationCategory', val($data, 'registration_category', val($data, 'categoryLabel', val($data, 'category', 'student'))));
+    $catMap = array(
+        'student'      => 'UG / PG Student',
+        'scholar'      => 'M.Phil / Research Scholars',
+        'professional' => 'Professionals / Academicians',
+        'stall'        => 'Stall / Exhibition Participant'
+    );
+    $category = isset($catMap[$rawCat]) ? $catMap[$rawCat] : $rawCat;
+
+    $defaultFee = ($participationType === 'stall' || $rawCat === 'stall' || $category === 'Stall / Exhibition Participant' || $rawCat === 'professional' || $category === 'Professionals / Academicians') ? 1000.00 : 750.00;
+    $feeAmount = (float)val($data, 'amount', val($data, 'fee_amount', $defaultFee));
+
     $insertStmt = $pdo->prepare("
         INSERT INTO registrations (
             registration_id, title, full_name, designation, gender, organization, discipline,
@@ -240,8 +277,8 @@ try {
         ':accommodation_notes' => val($data, 'accommodationNotes', val($data, 'accommodation_notes', null)),
         ':is_presenting'       => strtolower(val($data, 'isPresentingPaper', val($data, 'is_presenting_paper', 'no'))) === 'yes' ? 'yes' : 'no',
         ':part_type'           => $participationType,
-        ':category'            => val($data, 'registrationCategory', val($data, 'registration_category', val($data, 'categoryLabel', 'student'))),
-        ':fee'                 => val($data, 'amount', val($data, 'fee_amount', 750.00)),
+        ':category'            => $category,
+        ':fee'                 => $feeAmount,
         ':currency'            => val($data, 'currency', 'INR'),
         ':payment_mode'        => $paymentMode,
         ':payment_status'      => $paymentStatus,

@@ -31,19 +31,22 @@ export function saveLocalRegistration(record) {
     const targetRegId = record.registration_id || record.regId;
     const email = (record.email || '').toLowerCase().trim();
 
-    // Prevent duplicate entry if email is already registered with confirmed payment
-    if (email) {
-      const alreadyConfirmed = list.find(r => 
+    // Prevent duplicate entry if email is already registered
+    if (email && record.action !== 'confirm_payment' && record.payment_status !== 'SUCCESS') {
+      const alreadyRegistered = list.find(r => 
         (r.email || '').toLowerCase().trim() === email &&
-        ['success', 'paid', 'captured'].includes((r.payment_status || '').toLowerCase()) &&
         (r.registration_id !== targetRegId)
       );
-      if (alreadyConfirmed) {
+      if (alreadyRegistered) {
+        const isConfirmed = ['success', 'paid', 'captured', 'confirmed'].includes((alreadyRegistered.payment_status || '').toLowerCase());
         return {
           error: true,
           already_registered: true,
-          registration_id: alreadyConfirmed.registration_id,
-          message: `The email "${email}" is already registered (Registration ID: ${alreadyConfirmed.registration_id}). Duplicate entries are not permitted.`
+          registration_id: alreadyRegistered.registration_id,
+          payment_status: alreadyRegistered.payment_status,
+          message: isConfirmed
+            ? `The email "${email}" is already registered (Registration ID: ${alreadyRegistered.registration_id}). Duplicate entries are not permitted.`
+            : `The email "${email}" is already registered with Application ID "${alreadyRegistered.registration_id}" (Payment Status: Pending). Duplicate entries are not permitted. Please track your registration status to complete or retry your payment.`
         };
       }
     }

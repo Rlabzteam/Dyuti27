@@ -52,9 +52,11 @@ $email              = filter_var($rawEmail, FILTER_VALIDATE_EMAIL) ? $rawEmail :
 
 $foodPref           = htmlspecialchars(trim(val($data, 'foodPreference', val($data, 'food_preference', 'veg'))));
 $foodLabel          = (strtolower($foodPref) === 'non-veg') ? 'Non-Vegetarian' : 'Vegetarian';
+$foodDetails        = htmlspecialchars(trim(val($data, 'foodDetails', val($data, 'food_details', ''))));
 
 $requireAccom       = htmlspecialchars(trim(val($data, 'requireAccommodation', val($data, 'require_accommodation', 'no'))));
 $accomLabel         = (strtolower($requireAccom) === 'yes') ? 'Yes (Moderate Accommodation requested)' : 'No (Arranging own stay)';
+$accomNotes         = htmlspecialchars(trim(val($data, 'accommodationNotes', val($data, 'accommodation_notes', ''))));
 
 $isPresenting       = htmlspecialchars(trim(val($data, 'isPresentingPaper', val($data, 'is_presenting_paper', 'no'))));
 $presentingLabel    = (strtolower($isPresenting) === 'yes') ? 'Yes (Author / Presenter)' : 'No (Delegate / Attendee)';
@@ -71,6 +73,9 @@ if (in_array($rawPart, ['idea_pitch', 'idea pitch', 'ideapitch', 'idea-pitch']))
 $paperTitle         = htmlspecialchars(trim(val($data, 'paperTitle', val($data, 'paper_title', ''))));
 $cmtPaperId         = htmlspecialchars(trim(val($data, 'cmtPaperId', val($data, 'cmt_paper_id', ''))));
 $paperTheme         = htmlspecialchars(trim(val($data, 'paperTheme', val($data, 'paper_theme', ''))));
+
+$paymentMode        = htmlspecialchars(trim(val($data, 'paymentMode', val($data, 'payment_mode', 'online'))));
+$modeLabel          = (strtolower($paymentMode) === 'bank_transfer') ? 'Direct Bank Transfer / Wire (NEFT/RTGS/IMPS)' : 'Online Gateway (UPI, Cards, Net Banking via Vortexx)';
 
 $categoryLabel      = htmlspecialchars(trim(val($data, 'categoryLabel', val($data, 'category', 'UG / PG Student'))));
 $amount             = htmlspecialchars(trim(val($data, 'amount', '750')));
@@ -112,6 +117,27 @@ if ($pdo && !empty($regId)) {
                 elseif ($p === 'stall') $participationLabel = 'Stall / Exhibition Participant';
                 else $participationLabel = 'Regular Participant';
             }
+            if (empty($foodDetails) && !empty($row['food_details'])) $foodDetails = htmlspecialchars(trim($row['food_details']));
+            if (empty($accomNotes) && !empty($row['accommodation_notes'])) $accomNotes = htmlspecialchars(trim($row['accommodation_notes']));
+            if (empty($cmtPaperId) && !empty($row['cmt_paper_id'])) $cmtPaperId = htmlspecialchars(trim($row['cmt_paper_id']));
+            if (empty($paperTitle) && !empty($row['paper_title'])) $paperTitle = htmlspecialchars(trim($row['paper_title']));
+            if (empty($paperTheme) && !empty($row['paper_theme'])) $paperTheme = htmlspecialchars(trim($row['paper_theme']));
+            if (!empty($row['payment_mode'])) {
+                $paymentMode = htmlspecialchars(trim($row['payment_mode']));
+                $modeLabel   = (strtolower($paymentMode) === 'bank_transfer') ? 'Direct Bank Transfer / Wire (NEFT/RTGS/IMPS)' : 'Online Gateway (UPI, Cards, Net Banking via Vortexx)';
+            }
+            if (!empty($row['food_preference'])) {
+                $foodPref = htmlspecialchars(trim($row['food_preference']));
+                $foodLabel = (strtolower($foodPref) === 'non-veg') ? 'Non-Vegetarian' : 'Vegetarian';
+            }
+            if (!empty($row['require_accommodation'])) {
+                $requireAccom = htmlspecialchars(trim($row['require_accommodation']));
+                $accomLabel = (strtolower($requireAccom) === 'yes') ? 'Yes (Moderate Accommodation requested)' : 'No (Arranging own stay)';
+            }
+            if (!empty($row['is_presenting_paper'])) {
+                $isPresenting = htmlspecialchars(trim($row['is_presenting_paper']));
+                $presentingLabel = (strtolower($isPresenting) === 'yes') ? 'Yes (Author / Presenter)' : 'No (Delegate / Attendee)';
+            }
         }
     } catch (Exception $e) {
         error_log('[DYUTI DB Fallback] ' . $e->getMessage());
@@ -120,7 +146,7 @@ if ($pdo && !empty($regId)) {
 
 // 2. Email Recipient & Subject
 $to = 'dyuti@rajagiri.edu';
-$subject = "DYUTI 2027 Registration & Payment Confirmed: {$title} {$fullName} [{$vortexTxId}]";
+$subject = "DYUTI National Conference 2027 — Registration & Payment Confirmed: {$title} {$fullName} [{$vortexTxId}]";
 
 // 3. Rich HTML Email Template (DYUTI 2027 Brand Palette: Navy #071A33 & Gold #D4AF37)
 $htmlBody = '
@@ -128,7 +154,7 @@ $htmlBody = '
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DYUTI 2027 Registration & Payment Notification</title>
+  <title>DYUTI National Conference 2027 — Registration & Payment Notification</title>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; color: #1e293b; }
     .container { max-width: 680px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
@@ -157,8 +183,8 @@ $htmlBody = '
 <body>
   <div class="container">
     <div class="header">
-      <div class="subtitle">DYUTI 2027 &bull; National Conference</div>
-      <h1>New Delegate Registration & Payment Received</h1>
+      <div class="subtitle">DYUTI National Conference &bull; 2027</div>
+      <h1>DYUTI National Conference &mdash; Delegate Registration & Payment Confirmation</h1>
       <div class="institution">Rajagiri College of Social Sciences (Autonomous), Kalamassery, Kochi</div>
     </div>
 
@@ -192,6 +218,10 @@ $htmlBody = '
         <tr>
           <td class="label">Payment Status</td>
           <td class="val"><span style="display:inline-block; padding:3px 10px; border-radius:12px; background:#dcfce7; color:#166534; font-weight:700; font-size:12px;">' . $paymentStatus . '</span></td>
+        </tr>
+        <tr>
+          <td class="label">Payment Mode</td>
+          <td class="val"><strong>' . $modeLabel . '</strong></td>
         </tr>
         <tr>
           <td class="label">Payment Gateway</td>
@@ -262,27 +292,39 @@ $htmlBody = '
         </tr>
         <tr>
           <td class="label">Food Preference</td>
-          <td class="val">' . $foodLabel . '</td>
+          <td class="val">' . $foodLabel . (!empty($foodDetails) ? ' <span style="color:#64748b; font-size:12px;">(' . $foodDetails . ')</span>' : '') . '</td>
         </tr>
         <tr>
           <td class="label">Accommodation Required?</td>
-          <td class="val">' . $accomLabel . '</td>
+          <td class="val">' . $accomLabel . (!empty($accomNotes) ? ' <span style="color:#64748b; font-size:12px;">(' . $accomNotes . ')</span>' : '') . '</td>
         </tr>
         <tr>
           <td class="label">Paper Presenter?</td>
           <td class="val">' . $presentingLabel . '</td>
         </tr>';
 
-if (!empty($paperTitle) || !empty($paperTheme)) {
-    $htmlBody .= '
+if (!empty($paperTitle) || !empty($paperTheme) || !empty($cmtPaperId)) {
+    if (!empty($cmtPaperId)) {
+        $htmlBody .= '
+        <tr>
+          <td class="label">CMT Paper ID</td>
+          <td class="val"><code>' . $cmtPaperId . '</code></td>
+        </tr>';
+    }
+    if (!empty($paperTitle)) {
+        $htmlBody .= '
         <tr>
           <td class="label">Paper Title</td>
-          <td class="val"><em>' . ($paperTitle ?: 'Submitted Paper') . '</em></td>
-        </tr>
+          <td class="val"><em>' . $paperTitle . '</em></td>
+        </tr>';
+    }
+    if (!empty($paperTheme)) {
+        $htmlBody .= '
         <tr>
           <td class="label">Sub-Theme Track</td>
-          <td class="val">' . ($paperTheme ?: 'General Track') . '</td>
+          <td class="val">' . $paperTheme . '</td>
         </tr>';
+    }
 }
 
 $htmlBody .= '
@@ -295,7 +337,7 @@ $htmlBody .= '
     </div>
 
     <div class="footer">
-      DYUTI 2027 &mdash; National Conference on Social Work for Sustainable Development<br>
+      DYUTI National Conference 2027 &mdash; National Conference on Social Work for Sustainable Development<br>
       Department of Social Work, Rajagiri College of Social Sciences (Autonomous), Kalamassery, Kochi, Kerala, India.<br>
       Secretariat Email: <a href="mailto:dyuti@rajagiri.edu">dyuti@rajagiri.edu</a> &bull; Web: <a href="https://dyuti.in">dyuti.in</a>
     </div>
@@ -306,41 +348,45 @@ $htmlBody .= '
 
 // 4. Plain Text Fallback Body
 $plainBody = "====================================================\n";
-$plainBody .= "DYUTI 2027 - REGISTRATION & PAYMENT CONFIRMED\n";
+$plainBody .= "DYUTI NATIONAL CONFERENCE 2027 - REGISTRATION & PAYMENT CONFIRMED\n";
 $plainBody .= "====================================================\n\n";
 $plainBody .= "A new delegate registration and payment has been completed via the web portal.\n\n";
 $plainBody .= "TRANSACTION DETAILS:\n";
 $plainBody .= "--------------------\n";
-$plainBody .= "Registration ID:       {$regId}\n";
-$plainBody .= "Vortexx Transaction ID: {$vortexTxId}\n";
-$plainBody .= "Amount:                INR {$amount}\n";
-$plainBody .= "Payment Status:        {$paymentStatus}\n";
-$plainBody .= "Date/Time:             {$dateTime}\n";
-$plainBody .= "Category:              {$categoryLabel}\n\n";
+$plainBody .= "Registration ID:        {$regId}\n";
+$plainBody .= "Transaction Ref / ID:   {$vortexTxId}\n";
+$plainBody .= "Amount:                 INR {$amount}\n";
+$plainBody .= "Payment Status:         {$paymentStatus}\n";
+$plainBody .= "Payment Mode:           {$modeLabel}\n";
+$plainBody .= "Date/Time:              {$dateTime}\n";
+$plainBody .= "Category:               {$categoryLabel}\n\n";
 
 $plainBody .= "PARTICIPANT DETAILS:\n";
 $plainBody .= "--------------------\n";
-$plainBody .= "Name:                  {$title} {$fullName}\n";
-$plainBody .= "Designation:           {$designation}\n";
-$plainBody .= "Gender:                {$gender}\n";
-$plainBody .= "Organization:          {$organization}\n";
-$plainBody .= "Discipline:            {$discipline}\n";
-$plainBody .= "Email:                 {$email}\n";
-$plainBody .= "Phone:                 {$phone}\n";
-$plainBody .= "Address:               {$address}\n";
-$plainBody .= "PIN Code:              {$pincode}\n\n";
+$plainBody .= "Name:                   {$title} {$fullName}\n";
+$plainBody .= "Designation:            {$designation}\n";
+$plainBody .= "Gender:                 {$gender}\n";
+$plainBody .= "Organization:           {$organization}\n";
+$plainBody .= "Discipline:             {$discipline}\n";
+$plainBody .= "Email:                  {$email}\n";
+$plainBody .= "Phone:                  {$phone}\n";
+$plainBody .= "Address:                {$address}\n";
+$plainBody .= "PIN Code:               {$pincode}\n\n";
 
 $plainBody .= "LOGISTICS & PREFERENCES:\n";
 $plainBody .= "------------------------\n";
-$plainBody .= "Participation Purpose: {$participationLabel}\n";
-$plainBody .= "Food Preference:       {$foodLabel}\n";
-$plainBody .= "Accommodation:         {$accomLabel}\n";
-$plainBody .= "Paper Presenter:       {$presentingLabel}\n";
+$plainBody .= "Participation Purpose:  {$participationLabel}\n";
+$plainBody .= "Food Preference:        {$foodLabel}" . (!empty($foodDetails) ? " ({$foodDetails})" : "") . "\n";
+$plainBody .= "Accommodation:          {$accomLabel}" . (!empty($accomNotes) ? " ({$accomNotes})" : "") . "\n";
+$plainBody .= "Paper Presenter:        {$presentingLabel}\n";
+if (!empty($cmtPaperId)) {
+    $plainBody .= "CMT Paper ID:           {$cmtPaperId}\n";
+}
 if (!empty($paperTitle)) {
-    $plainBody .= "Paper Title:           {$paperTitle}\n";
+    $plainBody .= "Paper Title:            {$paperTitle}\n";
 }
 if (!empty($paperTheme)) {
-    $plainBody .= "Theme Track:           {$paperTheme}\n";
+    $plainBody .= "Theme Track:            {$paperTheme}\n";
 }
 $plainBody .= "\nSubmitted from IP: {$clientIp} at " . date('c') . "\n";
 
@@ -389,7 +435,7 @@ if (!$mailSent) {
 // 8. Send confirmation copy to the delegate's own email if provided
 $delegateSent = false;
 if (!empty($email)) {
-    $delegateSubject = "Registration & Payment Confirmation: DYUTI 2027 Conference [{$regId}]";
+    $delegateSubject = "Registration & Payment Confirmation: DYUTI National Conference 2027 [{$regId}]";
     $delegateResult = dyutiSendMail(
         $email,
         $fullName,
@@ -429,10 +475,15 @@ function generateRegistrationPDF($data) {
     $email           = $clean(val($data, 'email', 'N/A'));
     $foodPref        = $clean(val($data, 'foodPreference', val($data, 'food_preference', 'veg')));
     $foodLabel       = (strtolower($foodPref) === 'non-veg') ? 'Non-Vegetarian' : 'Vegetarian';
+    $foodDetails     = $clean(val($data, 'foodDetails', val($data, 'food_details', '')));
     $requireAccom    = $clean(val($data, 'requireAccommodation', val($data, 'require_accommodation', 'no')));
     $accomLabel      = (strtolower($requireAccom) === 'yes') ? 'Yes (Moderate Accommodation requested)' : 'No (Arranging own stay)';
+    $accomNotes      = $clean(val($data, 'accommodationNotes', val($data, 'accommodation_notes', '')));
     $isPresenting    = $clean(val($data, 'isPresentingPaper', val($data, 'is_presenting_paper', 'no')));
     $presentingLabel = (strtolower($isPresenting) === 'yes') ? 'Yes (Author / Presenter)' : 'No (Delegate / Attendee)';
+    $paperTitle      = $clean(val($data, 'paperTitle', val($data, 'paper_title', '')));
+    $cmtPaperId      = $clean(val($data, 'cmtPaperId', val($data, 'cmt_paper_id', '')));
+    $paperTheme      = $clean(val($data, 'paperTheme', val($data, 'paper_theme', '')));
     $rawPartPdf      = strtolower(trim(val($data, 'participationType', val($data, 'participation_type', 'regular'))));
     $partLabelPdf    = ($rawPartPdf === 'idea_pitch') ? 'Idea Pitch Participant' : (($rawPartPdf === 'stall') ? 'Stall / Exhibition Participant' : 'Regular Participant');
     $categoryLabel   = $clean(val($data, 'categoryLabel', val($data, 'category', 'UG / PG Student')));
@@ -441,6 +492,8 @@ function generateRegistrationPDF($data) {
     $regId           = $clean(val($data, 'regId', val($data, 'registration_id', 'DYUTI27-ONLINE')));
     $vortexTxId      = $clean(val($data, 'vortex_transaction_id', val($data, 'transaction_id', 'N/A')));
     $paymentStatus   = $clean(val($data, 'payment_status', 'SUCCESS'));
+    $paymentMode     = strtolower(trim(val($data, 'paymentMode', val($data, 'payment_mode', 'online'))));
+    $modeLabel       = ($paymentMode === 'bank_transfer') ? 'Direct Bank Transfer / Wire' : 'Online Gateway (Vortexx)';
     $dateTime        = $clean(val($data, 'date_time', date('Y-m-d H:i:s')));
 
     $pdf = new FPDF('P', 'mm', 'A4');
@@ -455,7 +508,7 @@ function generateRegistrationPDF($data) {
     $pdf->SetXY(15, 13);
     $pdf->SetFont('Helvetica', 'B', 9);
     $pdf->SetTextColor(212, 175, 55);
-    $pdf->Cell(180, 5, 'DYUTI 2027 - NATIONAL CONFERENCE ON SOCIAL WORK', 0, 1, 'L');
+    $pdf->Cell(180, 5, 'DYUTI NATIONAL CONFERENCE 2027 - SOCIAL WORK FOR SUSTAINABLE DEVELOPMENT', 0, 1, 'L');
 
     // Title (White)
     $pdf->SetX(15);
@@ -477,7 +530,7 @@ function generateRegistrationPDF($data) {
     $pdf->SetFont('Helvetica', 'B', 8.5);
     $pdf->SetTextColor(6, 95, 70);
     $pdf->SetXY(10, 44);
-    $pdf->Cell(190, 8, 'OFFICIAL RECEIPT - PAYMENT VERIFIED VIA VORTEXX GATEWAY', 0, 1, 'C');
+    $pdf->Cell(190, 8, 'OFFICIAL RECEIPT - DYUTI NATIONAL CONFERENCE 2027', 0, 1, 'C');
 
     // Highlight Cards Grid
     $pdf->Ln(4);
@@ -541,6 +594,7 @@ function generateRegistrationPDF($data) {
     $addSectionHeader('1. Payment & Transaction Details');
     $addTableRow('Amount Paid', $currency . ' ' . $amount, true);
     $addTableRow('Payment Status', $paymentStatus, true);
+    $addTableRow('Payment Mode', $modeLabel);
     $addTableRow('Category', $categoryLabel);
     $addTableRow('Transaction Timestamp', $dateTime);
 
@@ -562,9 +616,12 @@ function generateRegistrationPDF($data) {
     // Section 4: Conference Logistics
     $addSectionHeader('4. Logistics & Participation');
     $addTableRow('Purpose of Participation', $partLabelPdf, true);
-    $addTableRow('Food Preference', $foodLabel);
-    $addTableRow('Accommodation Request', $accomLabel);
+    $addTableRow('Food Preference', $foodLabel . (!empty($foodDetails) ? " ({$foodDetails})" : ''));
+    $addTableRow('Accommodation Request', $accomLabel . (!empty($accomNotes) ? " ({$accomNotes})" : ''));
     $addTableRow('Paper Presenter', $presentingLabel);
+    if (!empty($cmtPaperId)) {
+        $addTableRow('CMT Paper ID', $cmtPaperId);
+    }
     if (!empty($paperTitle) || !empty($paperTheme)) {
         if (!empty($paperTitle)) $addTableRow('Paper Title', substr($paperTitle, 0, 70));
         if (!empty($paperTheme)) $addTableRow('Sub-Theme Track', $paperTheme);
@@ -574,7 +631,7 @@ function generateRegistrationPDF($data) {
     $pdf->Ln(6);
     $pdf->SetFont('Helvetica', 'I', 7.5);
     $pdf->SetTextColor(100, 116, 139);
-    $pdf->MultiCell(190, 4, "This document serves as the official registration & payment receipt for DYUTI 2027.\nRajagiri College of Social Sciences (Autonomous), Kalamassery, Kochi - 683104, Kerala.\nSecretariat Email: dyuti@rajagiri.edu | Web: https://dyuti.in", 0, 'C');
+    $pdf->MultiCell(190, 4, "This document serves as the official registration & payment receipt for DYUTI National Conference 2027.\nRajagiri College of Social Sciences (Autonomous), Kalamassery, Kochi - 683104, Kerala.\nSecretariat Email: dyuti@rajagiri.edu | Web: https://dyuti.in", 0, 'C');
 
     return $pdf->Output('S');
 }

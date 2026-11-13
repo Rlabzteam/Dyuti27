@@ -33,10 +33,10 @@ function generateRegistrationPdf(fields) {
     doc.on('error', reject);
 
     const {
-      regId, vortexTxId, amount, currency, paymentStatus, dateTime,
+      regId, vortexTxId, amount, currency, paymentStatus, dateTime, paymentMode,
       title, fullName, designation, gender, organization, discipline,
       email, phone, address, pincode,
-      categoryLabel, foodLabel, accomLabel, presentingLabel,
+      categoryLabel, participationLabel, foodLabel, foodDetails, accomLabel, accommodationNotes, presentingLabel,
       paperTitle, cmtPaperId, paperTheme
     } = fields;
 
@@ -51,7 +51,7 @@ function generateRegistrationPdf(fields) {
     doc.rect(0, 0, doc.page.width, 120).fill(PRIMARY);
     doc.fontSize(22).fillColor(WHITE).font('Helvetica-Bold').text('DYUTI 2027', 50, 28);
     doc.fontSize(9).fillColor('#94A3B8').font('Helvetica')
-       .text('International Conference on Transcending Boundaries', 50, 54)
+       .text('National Conference on Social Work for Sustainable Development', 50, 54)
        .text('Rajagiri College of Social Sciences, Kochi', 50, 66);
     doc.fontSize(10).fillColor('#FCD34D').font('Helvetica-Bold').text('OFFICIAL REGISTRATION SLIP', 50, 88);
 
@@ -101,16 +101,19 @@ function generateRegistrationPdf(fields) {
     y = row('Address',                   address,                 y);
     y = row('PIN Code',                  pincode,                 y);
 
-    // Registration Category
-    y += 8; y = sectionHeader('REGISTRATION CATEGORY', y);
-    y = row('Category',        categoryLabel,                              y + 5);
-    y = row('Fee Paid',        `${currency} ${parseFloat(amount).toLocaleString('en-IN')}`, y);
+    // Registration & Payment Details
+    y += 8; y = sectionHeader('REGISTRATION & PAYMENT DETAILS', y);
+    y = row('Registration Category',   categoryLabel,                              y + 5);
+    y = row('Fee Paid',                `${currency} ${parseFloat(amount).toLocaleString('en-IN')}`, y);
+    y = row('Payment Mode',            paymentMode === 'bank_transfer' ? 'Direct Bank Transfer / Wire' : 'Online Gateway (Vortexx)', y);
 
     // Logistics
     y += 8; y = sectionHeader('LOGISTICS & PREFERENCES', y);
-    y = row('Food Preference',       foodLabel,       y + 5);
-    y = row('Accommodation',         accomLabel,      y);
-    y = row('Presenting a Paper',    presentingLabel, y);
+    y = row('Purpose of Participation', fields.participationLabel || 'Regular Participant', y + 5);
+    y = row('Food Preference',          foodLabel + (foodDetails ? ` (${foodDetails})` : ''),       y);
+    y = row('Accommodation',            accomLabel + (accommodationNotes ? ` (${accommodationNotes})` : ''),      y);
+    y = row('Presenting a Paper',       presentingLabel, y);
+    if (cmtPaperId)  y = row('CMT Paper ID',  cmtPaperId,  y);
     if (paperTitle)  y = row('Paper Title',   paperTitle,  y);
     if (paperTheme)  y = row('Theme Track',   paperTheme,  y);
 
@@ -134,7 +137,7 @@ function generateRegistrationPdf(fields) {
     const footerY = doc.page.height - 58;
     doc.rect(0, footerY, doc.page.width, 58).fill(PRIMARY);
     doc.fontSize(8).fillColor('#94A3B8').font('Helvetica')
-       .text('DYUTI 2027 Conference Secretariat  |  Rajagiri College of Social Sciences, Kalamassery, Kochi — 683104', 50, footerY + 12, { align: 'center', width: doc.page.width - 100 })
+       .text('DYUTI 2027 National Conference Secretariat  |  Rajagiri College of Social Sciences, Kalamassery, Kochi — 683104', 50, footerY + 12, { align: 'center', width: doc.page.width - 100 })
        .text('dyuti@rajagiri.edu  |  www.rajagiritech.edu.in', 50, footerY + 26, { align: 'center', width: doc.page.width - 100 });
     doc.fontSize(7).fillColor('#475569')
        .text(`Generated: ${new Date().toLocaleString('en-IN')}  |  Reg: ${regId}`, 50, footerY + 40, { align: 'center', width: doc.page.width - 100 });
@@ -181,20 +184,33 @@ export default async function handler(req, res) {
     const pincode         = String(data.pincode || 'N/A').trim();
     const phone           = String(data.phone || data.mobile || 'N/A').trim();
     const email           = String(data.email || '').trim();
-    const foodPref        = String(data.foodPreference || 'veg').toLowerCase();
+    const foodPref        = String(data.foodPreference || data.food_preference || 'veg').toLowerCase();
     const foodLabel       = foodPref === 'non-veg' ? 'Non-Vegetarian' : 'Vegetarian';
-    const requireAccom    = String(data.requireAccommodation || 'no').toLowerCase();
+    const foodDetails     = String(data.foodDetails || data.food_details || '').trim();
+    const requireAccom    = String(data.requireAccommodation || data.require_accommodation || 'no').toLowerCase();
     const accomLabel      = requireAccom === 'yes' ? 'Yes (Moderate Accommodation requested)' : 'No (Arranging own stay)';
-    const isPresenting    = String(data.isPresentingPaper || 'no').toLowerCase();
+    const accommodationNotes = String(data.accommodationNotes || data.accommodation_notes || '').trim();
+    const isPresenting    = String(data.isPresentingPaper || data.is_presenting_paper || 'no').toLowerCase();
     const presentingLabel = isPresenting === 'yes' ? 'Yes (Author / Presenter)' : 'No (Delegate / Attendee)';
-    const paperTitle      = String(data.paperTitle || '').trim();
-    const cmtPaperId      = String(data.cmtPaperId || '').trim();
-    const paperTheme      = String(data.paperTheme || '').trim();
-    const categoryLabel   = String(data.categoryLabel || 'UG / PG Student').trim();
+    const paperTitle      = String(data.paperTitle || data.paper_title || '').trim();
+    const cmtPaperId      = String(data.cmtPaperId || data.cmt_paper_id || '').trim();
+    const paperTheme      = String(data.paperTheme || data.paper_theme || '').trim();
+    const paymentMode     = String(data.paymentMode || data.payment_mode || 'online').toLowerCase();
+    const modeLabel       = paymentMode === 'bank_transfer' ? 'Direct Bank Transfer / Wire' : 'Online Gateway (Vortexx)';
+
+    const rawPart         = String(data.participationType || data.participation_type || 'regular').toLowerCase();
+    let participationLabel = 'Regular Participant';
+    if (['idea_pitch', 'idea pitch', 'ideapitch', 'idea-pitch'].includes(rawPart)) {
+      participationLabel = 'Idea Pitch Participant';
+    } else if (['stall', 'exhibition', 'stall / exhibition', 'stall_participant'].includes(rawPart)) {
+      participationLabel = 'Stall / Exhibition Participant';
+    }
+
+    const categoryLabel   = String(data.categoryLabel || data.category || 'UG / PG Student').trim();
     const amount          = String(data.amount || '750').trim();
     const currency        = String(data.currency || 'INR').trim().toUpperCase();
-    const regId           = String(data.regId || `DYUTI27-ONLINE-${Math.floor(10000 + Math.random() * 90000)}`);
-    const vortexTxId      = String(data.vortex_transaction_id || data.transaction_id || 'N/A');
+    const regId           = String(data.regId || data.registration_id || `DYUTI27-ONLINE-${Math.floor(10000 + Math.random() * 90000)}`);
+    const vortexTxId      = String(data.vortex_transaction_id || data.transaction_id || data.transaction_ref || 'N/A');
     const paymentStatus   = String(data.payment_status || 'SUCCESS').toUpperCase();
     const dateTime        = String(data.date_time || new Date().toISOString().replace('T', ' ').substring(0, 19));
 
@@ -205,10 +221,10 @@ export default async function handler(req, res) {
     let pdfSavePath = null;
     try {
       pdfBuffer = await generateRegistrationPdf({
-        regId, vortexTxId, amount, currency, paymentStatus, dateTime,
+        regId, vortexTxId, amount, currency, paymentStatus, dateTime, paymentMode,
         title, fullName, designation, gender, organization, discipline,
         email, phone, address, pincode,
-        categoryLabel, foodLabel, accomLabel, presentingLabel,
+        categoryLabel, participationLabel, foodLabel, foodDetails, accomLabel, accommodationNotes, presentingLabel,
         paperTitle, cmtPaperId, paperTheme
       });
 
@@ -230,35 +246,41 @@ export default async function handler(req, res) {
 
     // ── Send email via Gmail SMTP (Nodemailer) ────────────────────────────────
     const to = 'dyuti@rajagiri.edu';
-    const subject = `DYUTI 2027 Registration Confirmed: ${title} ${fullName} [${regId}]`;
+    const subject = `DYUTI National Conference 2027 — Registration Confirmed: ${title} ${fullName} [${regId}]`;
 
     const textBody = [
       '====================================================',
-      'DYUTI 2027 - REGISTRATION & PAYMENT CONFIRMED',
+      'DYUTI NATIONAL CONFERENCE 2027 - REGISTRATION & PAYMENT CONFIRMED',
       '====================================================',
       `Registration ID:        ${regId}`,
-      `Vortexx Transaction ID: ${vortexTxId}`,
+      `Transaction Ref / ID:   ${vortexTxId}`,
       `Amount:                 ${currency} ${amount}`,
       `Payment Status:         ${paymentStatus}`,
+      `Payment Mode:           ${modeLabel}`,
       `Date/Time:              ${dateTime}`,
       '',
       'PARTICIPANT DETAILS',
       `Name:            ${title} ${fullName}`,
       `Designation:     ${designation}`,
+      `Gender:          ${gender}`,
       `Organization:    ${organization}`,
+      `Discipline:      ${discipline}`,
       `Email:           ${email}`,
       `Phone:           ${phone}`,
       `Address:         ${address}, PIN: ${pincode}`,
       '',
-      'LOGISTICS',
+      'LOGISTICS & PREFERENCES',
       `Category:        ${categoryLabel}`,
-      `Food:            ${foodLabel}`,
-      `Accommodation:   ${accomLabel}`,
+      `Purpose:         ${participationLabel}`,
+      `Food:            ${foodLabel}${foodDetails ? ` (${foodDetails})` : ''}`,
+      `Accommodation:   ${accomLabel}${accommodationNotes ? ` (${accommodationNotes})` : ''}`,
       `Paper Presenter: ${presentingLabel}`,
+      cmtPaperId ? `CMT Paper ID:    ${cmtPaperId}` : '',
       paperTitle ? `Paper Title:     ${paperTitle}` : '',
+      paperTheme ? `Theme Track:     ${paperTheme}` : '',
       '',
       '--',
-      'DYUTI 2027 Secretariat | dyuti@rajagiri.edu'
+      'DYUTI National Conference 2027 Secretariat | dyuti@rajagiri.edu'
     ].filter(Boolean).join('\n');
 
     let emailSent = false;

@@ -437,8 +437,8 @@ function initRegistrationForm() {
     },
     stall: {
       label: 'Stall / Exhibition Participant',
-      fee: '₹ 750',
-      amount: 750,
+      fee: '₹ 1,000',
+      amount: 1000,
       desc: 'Exhibition & Sustainable Product Stalls'
     }
   };
@@ -628,6 +628,7 @@ function initRegistrationForm() {
           amount: returnAmount || savedReg?.amount || '750',
           currency: 'INR',
           payment_status: 'SUCCESS',
+          payment_mode: savedReg?.paymentMode || savedReg?.payment_mode || 'online',
           date_time: new Date().toISOString().replace('T', ' ').substring(0, 19),
           title: savedReg?.title || '',
           name: savedReg?.name || savedReg?.full_name || '',
@@ -641,8 +642,13 @@ function initRegistrationForm() {
           phone: savedReg?.phone || '',
           email: savedReg?.email || '',
           foodPreference: savedReg?.foodPreference || savedReg?.food_preference || 'veg',
+          foodDetails: savedReg?.foodDetails || savedReg?.food_details || '',
           requireAccommodation: savedReg?.requireAccommodation || savedReg?.require_accommodation || 'no',
+          accommodationNotes: savedReg?.accommodationNotes || savedReg?.accommodation_notes || '',
           isPresentingPaper: savedReg?.isPresentingPaper || savedReg?.is_presenting_paper || 'no',
+          paperTitle: savedReg?.paperTitle || savedReg?.paper_title || '',
+          cmtPaperId: savedReg?.cmtPaperId || savedReg?.cmt_paper_id || '',
+          paperTheme: savedReg?.paperTheme || savedReg?.paper_theme || '',
           participationType: savedReg?.participationType || savedReg?.participation_type || 'regular',
           categoryLabel: savedReg?.categoryLabel || savedReg?.registration_category || 'UG / PG Student'
         };
@@ -658,8 +664,22 @@ function initRegistrationForm() {
               notificationData.email = notificationData.email || r.email || '';
               notificationData.phone = notificationData.phone || r.phone || '';
               notificationData.organization = notificationData.organization || r.organization || '';
+              notificationData.designation = notificationData.designation || r.designation || '';
+              notificationData.gender = notificationData.gender || r.gender || '';
+              notificationData.discipline = notificationData.discipline || r.discipline || '';
+              notificationData.address = notificationData.address || r.address || '';
+              notificationData.pincode = notificationData.pincode || r.pincode || '';
               notificationData.participationType = notificationData.participationType || r.participation_type || 'regular';
               notificationData.categoryLabel = notificationData.categoryLabel || r.registration_category || 'UG / PG Student';
+              notificationData.payment_mode = notificationData.payment_mode || r.payment_mode || 'online';
+              notificationData.foodPreference = notificationData.foodPreference || r.food_preference || 'veg';
+              notificationData.foodDetails = notificationData.foodDetails || r.food_details || '';
+              notificationData.requireAccommodation = notificationData.requireAccommodation || r.require_accommodation || 'no';
+              notificationData.accommodationNotes = notificationData.accommodationNotes || r.accommodation_notes || '';
+              notificationData.isPresentingPaper = notificationData.isPresentingPaper || r.is_presenting_paper || 'no';
+              notificationData.paperTitle = notificationData.paperTitle || r.paper_title || '';
+              notificationData.cmtPaperId = notificationData.cmtPaperId || r.cmt_paper_id || '';
+              notificationData.paperTheme = notificationData.paperTheme || r.paper_theme || '';
             }
             dispatchApi('send_registration_notification.php', notificationData).catch(() => {});
             dispatchApi('save_registration.php', notificationData).catch(() => {});
@@ -1119,33 +1139,41 @@ function initRegistrationForm() {
         if (matchingRecords.length > 0) {
           const confirmed = matchingRecords.find(r => ['success', 'captured', 'paid', 'confirmed'].includes((r.payment_status || '').toLowerCase()));
           const pending = matchingRecords.find(r => (r.payment_status || '').toLowerCase() === 'pending');
+          const matchedRec = confirmed || pending || matchingRecords[0];
 
-          if (confirmed) {
-            // Confirmed payment: this email is officially registered and must not register again
-            isEmailDuplicate = true;
-            duplicateRecordInfo = confirmed;
+          isEmailDuplicate = true;
+          duplicateRecordInfo = matchedRec;
 
-            if (duplicateEmailDisplay) duplicateEmailDisplay.textContent = email;
-            if (duplicateStatusBadgeText) {
-              duplicateStatusBadgeText.textContent = 'Payment Completed (Confirmed)';
-            }
-            if (emailDuplicateAlert) emailDuplicateAlert.classList.remove('hidden');
-            if (emailInput) {
-              emailInput.classList.add('border-amber-500', 'bg-amber-50/20', 'focus:border-amber-600', 'focus:ring-amber-500/20');
-            }
-            return true;
-          } else if (pending) {
-            // An incomplete / pending registration exists - do NOT block the user from proceeding!
-            // Allow them to proceed with a new registration or retry in Status tab
-            isEmailDuplicate = false;
-            duplicateRecordInfo = null;
+          const isConfirmed = !!confirmed;
 
-            if (emailDuplicateAlert) emailDuplicateAlert.classList.add('hidden');
-            if (emailInput) {
-              emailInput.classList.remove('border-amber-500', 'bg-amber-50/20', 'focus:border-amber-600', 'focus:ring-amber-500/20');
-            }
-            return false;
+          if (duplicateEmailDisplay) duplicateEmailDisplay.textContent = email;
+          if (duplicateStatusBadgeText) {
+            duplicateStatusBadgeText.textContent = isConfirmed
+              ? 'Payment Completed (Confirmed)'
+              : 'Already Registered • Payment Pending';
           }
+
+          const dupDesc = emailDuplicateAlert?.querySelector('p');
+          if (dupDesc) {
+            if (isConfirmed) {
+              dupDesc.innerHTML = `A registration is already on file for <strong class="font-mono text-amber-950 font-bold">${escapeHtml(email)}</strong> (Application ID: <strong class="font-mono text-amber-950">${escapeHtml(matchedRec.registration_id)}</strong>) with confirmed payment. Duplicate entries are not permitted. Please check your registration details and download your slip in the Status section.`;
+            } else {
+              dupDesc.innerHTML = `You have already registered with email <strong class="font-mono text-amber-950 font-bold">${escapeHtml(email)}</strong> (Application ID: <strong class="font-mono text-amber-950">${escapeHtml(matchedRec.registration_id)}</strong>), and your payment is currently <strong>Pending</strong>. Duplicate entries are not permitted. Please go to the Status section to view your application and click <strong>Retry Payment</strong> to complete your registration.`;
+            }
+          }
+
+          const btnGotoStatusLabel = btnGotoStatusFromDuplicate?.querySelector('span');
+          if (btnGotoStatusLabel) {
+            btnGotoStatusLabel.textContent = isConfirmed
+              ? 'Check Your Registration Details in Status'
+              : 'Go to Status & Retry Payment';
+          }
+
+          if (emailDuplicateAlert) emailDuplicateAlert.classList.remove('hidden');
+          if (emailInput) {
+            emailInput.classList.add('border-amber-500', 'bg-amber-50/20', 'focus:border-amber-600', 'focus:ring-amber-500/20');
+          }
+          return true;
         }
       }
 
@@ -1182,8 +1210,9 @@ function initRegistrationForm() {
   if (btnGotoStatusFromDuplicate) {
     btnGotoStatusFromDuplicate.addEventListener('click', () => {
       const email = emailInput?.value.trim() || '';
+      const targetQuery = duplicateRecordInfo?.registration_id || email;
       if (typeof window.dyutiSwitchToStatus === 'function') {
-        window.dyutiSwitchToStatus(email);
+        window.dyutiSwitchToStatus(targetQuery);
       } else {
         window.location.hash = '#status';
       }
@@ -1639,8 +1668,9 @@ function initRegistrationForm() {
       const phone = document.getElementById('reg-phone')?.value.trim() || '';
 
       if (isEmailDuplicate) {
+        const dupId = duplicateRecordInfo?.registration_id ? ` (Application ID: ${duplicateRecordInfo.registration_id})` : '';
         if (reviewErrorMsg) {
-          reviewErrorMsg.textContent = `The email "${email}" is already registered. Duplicate entries are not permitted. Please check your registration details in the Status section.`;
+          reviewErrorMsg.textContent = `The email "${email}" is already registered${dupId}. Duplicate entries are not permitted. Please check your registration details in the Status section.`;
         }
         if (reviewErrorBox) {
           reviewErrorBox.classList.remove('hidden');
@@ -1721,8 +1751,13 @@ function initRegistrationForm() {
         phone,
         email,
         requireAccommodation,
+        accommodationNotes: document.getElementById('reg-accom-notes')?.value?.trim() || '',
         foodPreference,
+        foodDetails: document.getElementById('reg-food-details')?.value?.trim() || '',
         isPresentingPaper,
+        paperTitle: document.getElementById('reg-paper-title')?.value?.trim() || '',
+        cmtPaperId: document.getElementById('reg-cmt-paper-id')?.value?.trim() || '',
+        paperTheme: document.getElementById('reg-paper-theme')?.value?.trim() || '',
         participationType,
         participation_type: participationType,
         categoryKey: currentCategoryKey,
@@ -1730,6 +1765,7 @@ function initRegistrationForm() {
         amount: (isTestRegistrationPage || window.__DYUTI_TEST_MODE__ === true) ? 1 : selectedCat.amount,
         feeString: (isTestRegistrationPage || window.__DYUTI_TEST_MODE__ === true) ? '₹ 1' : selectedCat.fee,
         paymentMode: currentPaymentMode,
+        payment_mode: currentPaymentMode,
         paymentStatus: 'pending'
       };
 
@@ -1750,19 +1786,34 @@ function initRegistrationForm() {
 
       // Pre-save registration to SQL database as a brand new row (never replaces existing entries)
       try {
-        await dispatchApi('save_registration.php', {
+        const preSaveRes = await dispatchApi('save_registration.php', {
           ...registrationState,
           action: 'new_registration',
           payment_status: 'pending',
           payment_mode: currentPaymentMode
         });
+        if (preSaveRes && (preSaveRes.already_registered || preSaveRes.status === 'error')) {
+          resetSubmitButtonState();
+          if (reviewErrorMsg) {
+            reviewErrorMsg.textContent = preSaveRes.message || `The email "${email}" is already registered. Duplicate entries are not permitted. Please check your status.`;
+          }
+          if (reviewErrorBox) {
+            reviewErrorBox.classList.remove('hidden');
+            reviewErrorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+          return;
+        }
       } catch (e) {
         console.warn('Pre-save registration error:', e);
       }
 
       // Online payment via Vortexx Payment Gateway
       if (currentPaymentMode === 'online') {
-        const orderData = getOrderPayload();
+        const orderData = {
+          ...getOrderPayload(),
+          registration_id: generatedId,
+          order_id: generatedId
+        };
         const currentHash = orderData.email + '|' + orderData.mobile + '|' + orderData.amount;
 
         // INSTANT REDIRECTION: If preloaded URL matches current amount, redirect immediately
