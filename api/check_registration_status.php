@@ -36,17 +36,18 @@ if (empty($input)) {
 $appId = trim(val($input, 'registration_id', val($input, 'app_id', val($input, 'application_id', ''))));
 $phone = trim(val($input, 'phone', val($input, 'mobile', '')));
 $email = trim(val($input, 'email', ''));
+$txnRef = trim(val($input, 'transaction_ref', val($input, 'transactionRef', val($input, 'vortex_transaction_id', val($input, 'payment_order_id', val($input, 'order_id', ''))))));
 $query = trim(val($input, 'query', val($input, 'q', val($input, 'search', val($input, 'term', '')))));
 
 if (empty($query)) {
-    $query = !empty($appId) ? $appId : (!empty($phone) ? $phone : $email);
+    $query = !empty($appId) ? $appId : (!empty($phone) ? $phone : (!empty($email) ? $email : $txnRef));
 }
 
-if (empty($query) && empty($appId) && empty($phone) && empty($email)) {
+if (empty($query) && empty($appId) && empty($phone) && empty($email) && empty($txnRef)) {
     http_response_code(400);
     echo json_encode(array(
         'status' => 'error',
-        'message' => 'Please enter your Application ID or Contact / Mobile Number to check status.'
+        'message' => 'Please enter your Application ID, Transaction ID, Contact Number, or Email to check status.'
     ));
     exit;
 }
@@ -161,6 +162,7 @@ try {
         // Phone numbers must have at least 7 digits to prevent false substring collisions
         $hasPhone = (!empty($phoneLast7) && strlen($phoneLast7) >= 7) ? 1 : 0;
         $hasEmail = (!empty($rawEmail)) ? 1 : 0;
+        $hasTxn   = (!empty($txnRef)) ? 1 : 0;
         $hasQuery = (!empty($cleanQuery)) ? 1 : 0;
         $hasBoth  = ($hasApp && $hasPhone) ? 1 : 0;
 
@@ -227,8 +229,17 @@ try {
                     registration_id = :q_raw
                     OR LOWER(registration_id) = LOWER(:q_raw)
                     OR registration_id LIKE :q_like
+                    OR payment_order_id = :q_raw
+                    OR transaction_ref = :q_raw
+                    OR razorpay_payment_id = :q_raw
                     OR (:is_q_email = 1 AND LOWER(email) = LOWER(:q_raw))
                     OR (:has_q_phone = 1 AND ({$phoneNormalizeExpr} = :q_last10))
+                ))
+                -- E. Match by Payment Order ID or Transaction Reference
+                OR (:has_txn = 1 AND (
+                    payment_order_id = :txn_raw
+                    OR transaction_ref = :txn_raw
+                    OR razorpay_payment_id = :txn_raw
                 ))
             ORDER BY 
                 -- Prioritize records matching both Application ID and Phone Number
@@ -257,6 +268,9 @@ try {
             ':phone_raw'         => $rawPhone,
             ':phone_last10'      => $phoneLast10,
             ':phone_last7_like'  => '%' . $phoneLast7,
+
+            ':has_txn'           => $hasTxn,
+            ':txn_raw'           => $txnRef,
 
             ':has_query'         => $hasQuery,
             ':q_raw'             => $cleanQuery,

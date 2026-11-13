@@ -74,6 +74,22 @@ export function saveLocalRegistration(record) {
       }
     }
 
+    // Strict check: If this is a payment confirmation/update, do NOT insert a blank record if existing record is not found
+    const isPaymentUpdate = (record.action === 'confirm_payment' || record.action === 'update_payment');
+    if (isPaymentUpdate && existingIdx === -1) {
+      return { error: true, message: 'No matching registration found to update payment status.' };
+    }
+
+    // Strict validation for new records: Full name and email or phone are required
+    if (existingIdx === -1) {
+      const name = (record.full_name || record.name || '').trim();
+      const em = (record.email || '').trim();
+      const ph = (record.phone || '').trim();
+      if (!name || (!em && !ph)) {
+        return { error: true, message: 'Registration rejected: Name, email, and phone cannot be blank.' };
+      }
+    }
+
     const now = new Date().toISOString();
     const normalized = {
       ...record,

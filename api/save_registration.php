@@ -124,14 +124,20 @@ try {
     // 1. PAYMENT STATUS UPDATE (Confirm payment / Mark failed on existing registration)
     // ONLY executed when updating payment for an existing record.
     // NEVER overwrites delegate particulars (name, email, phone, organization, etc.).
-    if ($existingRow && $isPaymentUpdate) {
-        // Double check: if email is provided in payload and does not match existing record,
-        // do not touch that other person's record!
-        $existingEmail = strtolower(trim($existingRow['email']));
-        if (!empty($email) && !empty($existingEmail) && $existingEmail !== $email) {
-            // Email mismatch: stale ID from another user was submitted
-            $existingRow = null;
-        } else {
+    if ($isPaymentUpdate) {
+        if ($existingRow) {
+            // Double check: if email is provided in payload and does not match existing record,
+            // do not touch that other person's record!
+            $existingEmail = strtolower(trim($existingRow['email']));
+            if (!empty($email) && !empty($existingEmail) && $existingEmail !== $email) {
+                http_response_code(400);
+                echo json_encode(array(
+                    'status' => 'error',
+                    'message' => 'Email mismatch during payment confirmation. Existing record was not modified.'
+                ));
+                exit;
+            }
+
             // Safe in-place payment update ONLY (touching only payment metadata)
             $updateStmt = $pdo->prepare("
                 UPDATE registrations SET
@@ -156,6 +162,15 @@ try {
                 'message' => 'Payment status successfully updated in database.',
                 'registration_id' => $existingRow['registration_id'],
                 'payment_status' => $paymentStatus
+            ));
+            exit;
+        } else {
+            // Payment update requested, but no existing record matched!
+            // CRITICAL SAFEGUARD: NEVER insert a new blank registration row for a payment update!
+            http_response_code(404);
+            echo json_encode(array(
+                'status' => 'error',
+                'message' => 'Payment update failed: No matching registration record found in database for registration_id="' . htmlspecialchars($inputRegId) . '" or transaction_ref="' . htmlspecialchars($txnRef) . '". Blank registration was rejected.'
             ));
             exit;
         }
@@ -194,6 +209,39 @@ try {
     // 3. NEW REGISTRATION INSERTION
     // Every new registration form submission MUST ALWAYS INSERT A NEW ROW.
     // It must NEVER replace, update, or overwrite any existing participant's data.
+
+    // MANDATORY VALIDATION: A new participant registration MUST have valid particulars.
+    // Blank or partial registrations without name, valid email, and phone are strictly forbidden!
+    $cleanName  = trim(val($data, 'name', val($data, 'full_name', '')));
+    $cleanEmail = strtolower(trim($email));
+    $cleanPhone = preg_replace('/\D/', '', $phone);
+
+    if (empty($cleanName) || strlen($cleanName) < 2) {
+        http_response_code(400);
+        echo json_encode(array(
+            'status' => 'error',
+            'message' => 'Registration rejected: Full Name is mandatory and cannot be blank.'
+        ));
+        exit;
+    }
+
+    if (empty($cleanEmail) || !filter_var($cleanEmail, FILTER_VALIDATE_EMAIL)) {
+        http_response_code(400);
+        echo json_encode(array(
+            'status' => 'error',
+            'message' => 'Registration rejected: A valid email address is mandatory.'
+        ));
+        exit;
+    }
+
+    if (empty($cleanPhone) || strlen($cleanPhone) < 7) {
+        http_response_code(400);
+        echo json_encode(array(
+            'status' => 'error',
+            'message' => 'Registration rejected: A valid contact/phone number (at least 7 digits) is mandatory.'
+        ));
+        exit;
+    }
 
     // Guarantee that $targetRegId is 100% unique and does not exist in registrations table
     $defaultPrefix = $paymentMode === 'bank_transfer' ? 'DYUTI27-REG-' : 'DYUTI27-ONLINE-';
@@ -238,7 +286,7 @@ try {
     );
     $category = isset($catMap[$rawCat]) ? $catMap[$rawCat] : $rawCat;
 
-    $defaultFee = ($participationType === 'stall' || $rawCat === 'stall' || $category === 'Stall / Exhibition Participant' || $rawCat === 'professional' || $category === 'Professionals / Academicians') ? 1000.00 : 750.00;
+    $defaultFee = ($participationType === 'stall' || $rawCat === 'stall' || $category === 'Stall / Exhibition Participant' || $rawCat === 'professional' || $category === 'Professionals / Academicians' || $rawCat === 'scholar' || $category === 'M.Phil / Research Scholars') ? 1000.00 : 750.00;
     $feeAmount = (float)val($data, 'amount', val($data, 'fee_amount', $defaultFee));
 
     $insertStmt = $pdo->prepare("
@@ -262,7 +310,7 @@ try {
     $insertStmt->execute(array(
         ':reg_id'              => $targetRegId,
         ':title'               => val($data, 'title', 'Dr.'),
-        ':name'                => val($data, 'name', val($data, 'full_name', '')),
+        ':name'                => $cleanName,
         ':designation'         => val($data, 'designation', ''),
         ':gender'              => val($data, 'gender', ''),
         ':org'                 => val($data, 'organization', ''),
@@ -270,7 +318,7 @@ try {
         ':address'             => val($data, 'address', ''),
         ':pincode'             => val($data, 'pincode', ''),
         ':phone'               => $phone,
-        ':email'               => $email,
+        ':email'               => $cleanEmail,
         ':food_pref'           => val($data, 'foodPreference', val($data, 'food_preference', 'veg')),
         ':food_details'        => val($data, 'foodDetails', val($data, 'food_details', null)),
         ':accommodation'       => strtolower(val($data, 'requireAccommodation', val($data, 'require_accommodation', 'no'))) === 'yes' ? 'yes' : 'no',

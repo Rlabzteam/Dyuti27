@@ -171,6 +171,10 @@ $isAllowedHost = empty($redirectHost) ||
                  in_array($redirectHost, $allowedHosts) ||
                  (is_string($redirectHost) && (strpos($redirectHost, 'cpanel') !== false || strpos($redirectHost, 'dyuti') !== false));
 $redirectUrl = $isAllowedHost ? $rawRedirect : 'https://dyuti.in/rcss/registration.html';
+if (!empty($currentRegId)) {
+    $sep = (strpos($redirectUrl, '?') !== false) ? '&' : '?';
+    $redirectUrl .= $sep . 'reg_id=' . urlencode($currentRegId);
+}
 $currency = !empty($input['currency']) ? strtoupper(trim($input['currency'])) : "INR";
 
 // Validate amount against allowed registration fee tiers (including multiples of ₹750 for stalls, and ₹1 for live testing)

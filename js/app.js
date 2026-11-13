@@ -425,8 +425,8 @@ function initRegistrationForm() {
     },
     scholar: {
       label: 'M.Phil / Research Scholars',
-      fee: '₹ 750',
-      amount: 750,
+      fee: '₹ 1,000',
+      amount: 1000,
       desc: 'Full-time & PhD Research Scholars'
     },
     professional: {
@@ -596,17 +596,24 @@ function initRegistrationForm() {
     let savedReg = null;
     try {
       savedReg = JSON.parse(sessionStorage.getItem('dyuti_pending_registration') || '{}');
-      if (!savedReg || !savedReg.regId) {
+      if (!savedReg || (!savedReg.regId && !savedReg.registration_id)) {
         const localReg = JSON.parse(localStorage.getItem('dyuti_pending_registration') || '{}');
         if (localReg && (localReg.regId || localReg.registration_id)) {
           savedReg = localReg;
+        }
+      }
+      if (!savedReg || (!savedReg.regId && !savedReg.registration_id)) {
+        const lastData = JSON.parse(localStorage.getItem('dyuti_last_reg_data') || '{}');
+        if (lastData && (lastData.regId || lastData.registration_id)) {
+          savedReg = lastData;
         }
       }
     } catch (e) {
       console.warn('Could not read pending registration:', e);
     }
 
-    const activeRegId = savedReg?.regId || savedReg?.registration_id || localStorage.getItem('dyuti_retry_reg_id') || localStorage.getItem('dyuti_last_reg_id') || `DYUTI27-ONLINE-${vortexTxId.slice(-6).toUpperCase()}`;
+    const urlRegId = urlParams.get('reg_id') || urlParams.get('registration_id');
+    let activeRegId = urlRegId || savedReg?.regId || savedReg?.registration_id || localStorage.getItem('dyuti_retry_reg_id') || localStorage.getItem('dyuti_last_reg_id') || '';
 
     if (String(statusCode) === '200') {
       // Clear cooloff on verified success
@@ -653,11 +660,19 @@ function initRegistrationForm() {
           categoryLabel: savedReg?.categoryLabel || savedReg?.registration_category || 'UG / PG Student'
         };
 
-        // If email or name is missing, attempt to fetch delegate details from database
+        // If email or name is missing, attempt to fetch delegate details from database using transaction ref or regId
         if (!notificationData.email || !notificationData.name) {
-          dispatchApi('check_registration_status.php', { registration_id: activeRegId }).then(chk => {
+          const lookupParams = {
+            registration_id: activeRegId,
+            query: vortexTxId,
+            transaction_ref: vortexTxId
+          };
+          dispatchApi('check_registration_status.php', lookupParams).then(chk => {
             if (chk && chk.records && chk.records[0]) {
               const r = chk.records[0];
+              activeRegId = r.registration_id || activeRegId;
+              notificationData.regId = activeRegId;
+              notificationData.registration_id = activeRegId;
               notificationData.title = notificationData.title || r.title || 'Dr.';
               notificationData.name = notificationData.name || r.full_name || 'Participant';
               notificationData.full_name = notificationData.full_name || r.full_name || 'Participant';
@@ -680,11 +695,19 @@ function initRegistrationForm() {
               notificationData.paperTitle = notificationData.paperTitle || r.paper_title || '';
               notificationData.cmtPaperId = notificationData.cmtPaperId || r.cmt_paper_id || '';
               notificationData.paperTheme = notificationData.paperTheme || r.paper_theme || '';
+
+              if (succGreeting) succGreeting.textContent = `Thank You, ${r.title || 'Dr.'} ${r.full_name || 'Participant'}!`;
+              if (succRegId) succRegId.textContent = activeRegId;
+              if (succCategory) succCategory.textContent = r.registration_category || notificationData.categoryLabel;
             }
-            dispatchApi('send_registration_notification.php', notificationData).catch(() => {});
+            if (notificationData.email && notificationData.name) {
+              dispatchApi('send_registration_notification.php', notificationData).catch(() => {});
+            }
             dispatchApi('save_registration.php', notificationData).catch(() => {});
           }).catch(() => {
-            dispatchApi('send_registration_notification.php', notificationData).catch(() => {});
+            if (notificationData.email && notificationData.name) {
+              dispatchApi('send_registration_notification.php', notificationData).catch(() => {});
+            }
             dispatchApi('save_registration.php', notificationData).catch(() => {});
           });
         } else {
@@ -697,7 +720,7 @@ function initRegistrationForm() {
 
         // Save for quick 1-click status checking
         try {
-          localStorage.setItem('dyuti_last_reg_id', activeRegId);
+          if (activeRegId) localStorage.setItem('dyuti_last_reg_id', activeRegId);
           if (notificationData.email) localStorage.setItem('dyuti_last_reg_email', notificationData.email);
         } catch (e) {}
       }
@@ -719,7 +742,7 @@ function initRegistrationForm() {
       if (succBadge) succBadge.textContent = 'Payment Verified & Registration Confirmed';
 
       const succRegId = document.getElementById('success-reg-id');
-      if (succRegId) succRegId.textContent = savedReg?.regId || `DYUTI27-ONLINE-${vortexTxId.slice(-6).toUpperCase()}`;
+      if (succRegId) succRegId.textContent = activeRegId || savedReg?.regId || (vortexTxId ? `DYUTI27-ONLINE-${vortexTxId.slice(-6).toUpperCase()}` : 'CONFIRMED');
 
       const succOrderBox = document.getElementById('success-gateway-order');
       const succOrderId = document.getElementById('success-gateway-order-id');
@@ -1604,6 +1627,13 @@ function initRegistrationForm() {
     // Only preload if we have valid email and mobile
     if (!orderData.email || !orderData.mobile) return;
 
+    if (!window.__DYUTI_PENDING_REG_ID__) {
+      const randomCode = Math.floor(100000 + Math.random() * 900000);
+      window.__DYUTI_PENDING_REG_ID__ = `DYUTI27-ONLINE-${randomCode}`;
+    }
+    orderData.registration_id = window.__DYUTI_PENDING_REG_ID__;
+    orderData.order_id = window.__DYUTI_PENDING_REG_ID__;
+
     const hash = orderData.email + '|' + orderData.mobile + '|' + orderData.amount;
     // Only skip if we already have a successful URL cached for the same data
     if (preloadedPayment.hash === hash && preloadedPayment.url) {
@@ -1732,8 +1762,9 @@ function initRegistrationForm() {
       // NEVER overwrite, replace, or reuse another person's registration row
       const randomCode = Math.floor(100000 + Math.random() * 900000);
       const generatedId = (currentPaymentMode === 'online')
-        ? `DYUTI27-ONLINE-${randomCode}`
+        ? (window.__DYUTI_PENDING_REG_ID__ || `DYUTI27-ONLINE-${randomCode}`)
         : `DYUTI27-REG-${randomCode}`;
+      window.__DYUTI_PENDING_REG_ID__ = generatedId;
 
       // Save registration state in sessionStorage before redirect
       const registrationState = {
@@ -1771,10 +1802,12 @@ function initRegistrationForm() {
 
       try {
         sessionStorage.setItem('dyuti_pending_registration', JSON.stringify(registrationState));
+        localStorage.setItem('dyuti_pending_registration', JSON.stringify(registrationState));
         localStorage.setItem('dyuti_last_reg_id', generatedId);
         localStorage.setItem('dyuti_last_reg_email', email);
         localStorage.setItem('dyuti_last_reg_phone', phone);
         localStorage.setItem('dyuti_last_reg_data', JSON.stringify(registrationState));
+        if (email) localStorage.setItem('dyuti_reg_' + email.toLowerCase(), JSON.stringify(registrationState));
 
         const history = JSON.parse(localStorage.getItem('dyuti_registrations_history') || '[]');
         const filtered = history.filter(h => (h.regId !== generatedId && h.registration_id !== generatedId));

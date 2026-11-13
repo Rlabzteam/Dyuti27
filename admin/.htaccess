@@ -1,0 +1,17 @@
+# Apache / cPanel Security Configuration for DYUTI 2027 Admin Portal
+Options -Indexes
+
+# Prevent access to lock, log, env, or json files
+<FilesMatch "\.(json|lock|log|env|bak|sql)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "DENY"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
