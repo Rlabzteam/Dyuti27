@@ -1,7 +1,8 @@
 <?php
-header('Access-Control-Allow-Origin: https://dyuti.in');
+$origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '*';
+header("Access-Control-Allow-Origin: $origin");
 header('Access-Control-Allow-Methods: POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type, Accept, X-Razorpay-Signature');
+header('Access-Control-Allow-Headers: Content-Type, Accept, X-Razorpay-Signature, X-Vortex-Signature');
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -58,22 +59,24 @@ if (!function_exists('val')) {
     }
 }
 
-// Extract payload fields
-$registrationId = val($payload, 'registration_id', val($payload, 'order_id', null));
-$paymentOrderId = val($payload, 'payment_order_id', val($payload, 'order_id', null));
+// Extract payload fields across Vortex and Razorpay formats
+$registrationId    = val($payload, 'registration_id', val($payload, 'reg_id', val($payload, 'order_id', null)));
+$paymentOrderId    = val($payload, 'payment_order_id', val($payload, 'vortex_transaction_id', val($payload, 'transaction_id', val($payload, 'txId', val($payload, 'order_id', null)))));
+$vortexTxnId       = val($payload, 'vortex_transaction_id', val($payload, 'transaction_ref', val($payload, 'transaction_id', val($payload, 'txId', null))));
 $razorpayPaymentId = val($payload, 'razorpay_payment_id', val($payload, 'payment_id', null));
-$razorpayOrderId = val($payload, 'razorpay_order_id', null);
+$razorpayOrderId   = val($payload, 'razorpay_order_id', null);
 $razorpaySignature = val($payload, 'razorpay_signature', null);
-$paymentStatus = val($payload, 'payment_status', val($payload, 'status', 'pending'));
-$eventType = val($payload, 'event', 'payment.update');
-$amount = isset($payload['amount']) ? (float)$payload['amount'] : null;
-$currency = val($payload, 'currency', 'INR');
-$clientIp = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
+$paymentStatus     = val($payload, 'payment_status', val($payload, 'status', 'pending'));
+$eventType         = val($payload, 'event', 'payment.update');
+$amount            = isset($payload['amount']) ? (float)$payload['amount'] : null;
+$currency          = val($payload, 'currency', 'INR');
+$customerEmail     = strtolower(trim(val($payload, 'email', val($payload, 'customer_email', ''))));
+$clientIp          = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
 
 // Normalize status values
-if (in_array(strtolower($paymentStatus), ['success', 'captured', 'paid'])) {
+if (in_array(strtolower($paymentStatus), ['success', 'captured', 'paid', 'confirmed'])) {
     $normalizedStatus = 'success';
-} elseif (in_array(strtolower($paymentStatus), ['failed', 'failure', 'error'])) {
+} elseif (in_array(strtolower($paymentStatus), ['failed', 'failure', 'error', 'cancelled'])) {
     $normalizedStatus = 'failed';
 } else {
     $normalizedStatus = 'pending';
@@ -92,7 +95,7 @@ if ($pdo) {
             ':reg_id'       => $registrationId,
             ':event_type'   => $eventType,
             ':order_id'     => $paymentOrderId,
-            ':payment_id'   => $razorpayPaymentId,
+            ':payment_id'   => $razorpayPaymentId ?: $vortexTxnId,
             ':status'       => $normalizedStatus,
             ':amount'       => $amount,
             ':currency'     => $currency,
@@ -100,8 +103,8 @@ if ($pdo) {
             ':ip'           => $clientIp
         ]);
 
-        // 2. If registration_id exists in registrations table, update its payment status and payment IDs
-        if ($registrationId) {
+        // 2. If registration matches by registration_id, payment_order_id, transaction_ref, or pending email, update status
+        if ($registrationId || $paymentOrderId || $vortexTxnId || !empty($customerEmail)) {
             $updateStmt = $pdo->prepare("
                 UPDATE registrations 
                 SET 
@@ -110,9 +113,13 @@ if ($pdo) {
                     razorpay_payment_id = COALESCE(:pay_id, razorpay_payment_id),
                     razorpay_order_id = COALESCE(:rzp_order_id, razorpay_order_id),
                     razorpay_signature = COALESCE(:sig, razorpay_signature),
+                    transaction_ref = COALESCE(:txn_ref, transaction_ref),
                     gateway_response = :raw_response,
                     updated_at = NOW()
-                WHERE registration_id = :reg_id OR payment_order_id = :order_id_lookup
+                WHERE (:reg_id IS NOT NULL AND registration_id = :reg_id)
+                   OR (:order_id_lookup IS NOT NULL AND payment_order_id = :order_id_lookup)
+                   OR (:txn_lookup IS NOT NULL AND (transaction_ref = :txn_lookup OR payment_order_id = :txn_lookup))
+                   OR (:email_lookup IS NOT NULL AND LOWER(email) = :email_lookup AND payment_status = 'pending')
             ");
             $updateStmt->execute([
                 ':status'          => $normalizedStatus,
@@ -120,23 +127,37 @@ if ($pdo) {
                 ':pay_id'          => $razorpayPaymentId,
                 ':rzp_order_id'    => $razorpayOrderId,
                 ':sig'             => $razorpaySignature,
+                ':txn_ref'         => $vortexTxnId,
                 ':raw_response'    => $rawInput,
                 ':reg_id'          => $registrationId,
-                ':order_id_lookup' => $paymentOrderId
+                ':order_id_lookup' => $paymentOrderId,
+                ':txn_lookup'      => $vortexTxnId,
+                ':email_lookup'    => !empty($customerEmail) ? $customerEmail : null
             ]);
         }
 
         // 3. If payment is NOW success and email not yet sent, dispatch notification email
-        if ($normalizedStatus === 'success' && $registrationId) {
+        if ($normalizedStatus === 'success' && ($registrationId || $paymentOrderId || $vortexTxnId || !empty($customerEmail))) {
             try {
                 $regRow = $pdo->prepare("
                     SELECT * FROM registrations
-                    WHERE (registration_id = :reg_id OR payment_order_id = :order_id)
+                    WHERE (
+                        (:reg_id IS NOT NULL AND registration_id = :reg_id)
+                        OR (:order_id IS NOT NULL AND payment_order_id = :order_id)
+                        OR (:txn_lookup IS NOT NULL AND (transaction_ref = :txn_lookup OR payment_order_id = :txn_lookup))
+                        OR (:email IS NOT NULL AND LOWER(email) = :email AND updated_at > DATE_SUB(NOW(), INTERVAL 2 HOUR))
+                    )
                     AND email_sent = 0
+                    ORDER BY id DESC
                     LIMIT 1
                 ");
-                $regRow->execute([':reg_id' => $registrationId, ':order_id' => $paymentOrderId]);
-                $reg = $regRow->fetch();
+                $regRow->execute([
+                    ':reg_id'     => $registrationId,
+                    ':order_id'   => $paymentOrderId,
+                    ':txn_lookup' => $vortexTxnId,
+                    ':email'      => !empty($customerEmail) ? $customerEmail : null
+                ]);
+                $reg = $regRow->fetch(PDO::FETCH_ASSOC);
 
                 if ($reg) {
                     // Build minimal HTML email body for webhook-triggered send

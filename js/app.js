@@ -377,12 +377,12 @@ function initRegistrationForm() {
 
   // Check if current page is the 1-Rupee Test Registration Page
   const isTestRegistrationPage = window.location.pathname.toLowerCase().includes('test_registration') ||
-                                 window.location.href.toLowerCase().includes('test_registration') ||
-                                 window.__DYUTI_TEST_MODE__ === true ||
-                                 document.getElementById('test-gateway-banner') !== null ||
-                                 document.querySelector('[data-fee="1"]') !== null ||
-                                 document.title.toLowerCase().includes('1-rupee') ||
-                                 document.title.toLowerCase().includes('test');
+    window.location.href.toLowerCase().includes('test_registration') ||
+    window.__DYUTI_TEST_MODE__ === true ||
+    document.getElementById('test-gateway-banner') !== null ||
+    document.querySelector('[data-fee="1"]') !== null ||
+    document.title.toLowerCase().includes('1-rupee') ||
+    document.title.toLowerCase().includes('test');
   window.isTestRegistrationPage = isTestRegistrationPage;
 
   if (isTestRegistrationPage) {
@@ -458,7 +458,7 @@ function initRegistrationForm() {
         return data;
       }
       localStorage.removeItem('dyuti_cooloff_data');
-    } catch (e) {}
+    } catch (e) { }
     return null;
   }
 
@@ -489,7 +489,7 @@ function initRegistrationForm() {
     };
     try {
       localStorage.setItem('dyuti_cooloff_data', JSON.stringify(data));
-    } catch (e) {}
+    } catch (e) { }
     renderCooloffUI();
   }
 
@@ -526,7 +526,7 @@ function initRegistrationForm() {
       if (remainingMs <= 0) {
         clearInterval(cooloffTimerInterval);
         cooloffTimerInterval = null;
-        try { localStorage.removeItem('dyuti_cooloff_data'); } catch (e) {}
+        try { localStorage.removeItem('dyuti_cooloff_data'); } catch (e) { }
 
         if (cooloffBanner) {
           cooloffBanner.className = 'mb-8 max-w-4xl mx-auto p-5 sm:p-6 rounded-2xl border-2 border-emerald-300 bg-emerald-50 text-emerald-950 shadow-md animate-fadeIn flex items-center gap-3.5';
@@ -619,7 +619,7 @@ function initRegistrationForm() {
       // Clear cooloff on verified success
       try {
         localStorage.removeItem('dyuti_cooloff_data');
-      } catch (e) {}
+      } catch (e) { }
 
       // Dispatch official registration and payment notification to dyuti@rajagiri.edu
       const notificationKey = 'dyuti_notified_' + vortexTxId;
@@ -696,19 +696,22 @@ function initRegistrationForm() {
               notificationData.cmtPaperId = notificationData.cmtPaperId || r.cmt_paper_id || '';
               notificationData.paperTheme = notificationData.paperTheme || r.paper_theme || '';
 
-              if (succGreeting) succGreeting.textContent = `Thank You, ${r.title || 'Dr.'} ${r.full_name || 'Participant'}!`;
-              if (succRegId) succRegId.textContent = activeRegId;
-              if (succCategory) succCategory.textContent = r.registration_category || notificationData.categoryLabel;
+              const sGreeting = document.getElementById('success-greeting');
+              if (sGreeting) sGreeting.textContent = `Thank You, ${r.title || 'Dr.'} ${r.full_name || 'Participant'}!`;
+              const sRegId = document.getElementById('success-reg-id');
+              if (sRegId) sRegId.textContent = activeRegId;
+              const sCategory = document.getElementById('success-category');
+              if (sCategory) sCategory.textContent = r.registration_category || notificationData.categoryLabel;
             }
             if (notificationData.email && notificationData.name) {
-              dispatchApi('send_registration_notification.php', notificationData).catch(() => {});
+              dispatchApi('send_registration_notification.php', notificationData).catch(() => { });
             }
-            dispatchApi('save_registration.php', notificationData).catch(() => {});
+            dispatchApi('save_registration.php', notificationData).catch(() => { });
           }).catch(() => {
             if (notificationData.email && notificationData.name) {
-              dispatchApi('send_registration_notification.php', notificationData).catch(() => {});
+              dispatchApi('send_registration_notification.php', notificationData).catch(() => { });
             }
-            dispatchApi('save_registration.php', notificationData).catch(() => {});
+            dispatchApi('save_registration.php', notificationData).catch(() => { });
           });
         } else {
           // Send confirmation email with PDF receipt to dyuti@rajagiri.edu and delegate
@@ -722,7 +725,7 @@ function initRegistrationForm() {
         try {
           if (activeRegId) localStorage.setItem('dyuti_last_reg_id', activeRegId);
           if (notificationData.email) localStorage.setItem('dyuti_last_reg_email', notificationData.email);
-        } catch (e) {}
+        } catch (e) { }
       }
 
       // 1. SUCCESS: Show confirmation banner and activate Step 3 Confirmed Screen
@@ -734,51 +737,20 @@ function initRegistrationForm() {
         returnBanner.classList.remove('hidden');
       }
 
-      // Populate Step 3 Success View
-      const succGreeting = document.getElementById('success-greeting');
-      if (succGreeting) succGreeting.textContent = `Thank You, ${savedReg?.title || 'Dr.'} ${savedReg?.name || 'Participant'}!`;
-
-      const succBadge = document.getElementById('success-status-badge');
-      if (succBadge) succBadge.textContent = 'Payment Verified & Registration Confirmed';
-
-      const succRegId = document.getElementById('success-reg-id');
-      if (succRegId) succRegId.textContent = activeRegId || savedReg?.regId || (vortexTxId ? `DYUTI27-ONLINE-${vortexTxId.slice(-6).toUpperCase()}` : 'CONFIRMED');
-
-      const succOrderBox = document.getElementById('success-gateway-order');
-      const succOrderId = document.getElementById('success-gateway-order-id');
-      if (succOrderBox && succOrderId) {
-        succOrderId.textContent = vortexTxId;
-        succOrderBox.classList.remove('hidden');
-      }
-
-      const succCategory = document.getElementById('success-category');
-      if (succCategory) succCategory.textContent = savedReg?.categoryLabel || 'UG / PG Student';
-
-      const succPart = document.getElementById('success-participation');
-      if (succPart) {
-        const pType = savedReg?.participationType || savedReg?.participation_type || 'regular';
-        succPart.textContent = pType === 'idea_pitch' ? 'Idea Pitch Participant' : (pType === 'stall' ? 'Stall / Exhibition Participant' : 'Regular Participant');
-      }
-
-      const succAmount = document.getElementById('success-amount');
-      if (succAmount) succAmount.textContent = returnAmount ? `₹ ${parseFloat(returnAmount).toLocaleString()}` : `₹ ${savedReg?.amount || '750'}`;
-
-      const succPayStatus = document.getElementById('success-payment-status');
-      if (succPayStatus) succPayStatus.textContent = 'Completed via Online Gateway';
-
-      const succOrg = document.getElementById('success-org');
-      if (succOrg && savedReg?.organization) succOrg.textContent = savedReg.organization;
-
-      const succPhone = document.getElementById('success-phone');
-      if (succPhone && savedReg?.phone) succPhone.textContent = savedReg.phone;
-
-      const succEmail = document.getElementById('success-email');
-      if (succEmail && savedReg?.email) succEmail.textContent = savedReg.email;
-
-      const succAccom = document.getElementById('success-accom');
-      if (succAccom && savedReg?.requireAccommodation) {
-        succAccom.textContent = savedReg.requireAccommodation === 'yes' ? 'Requested' : 'Self-arranged';
-      }
+      // Populate Step 3 Success View & Printable Receipt
+      populateSuccessReceipt({
+        ...(savedReg || {}),
+        title: savedReg?.title || 'Dr.',
+        full_name: savedReg?.name || savedReg?.full_name || 'Participant',
+        registration_id: activeRegId || savedReg?.regId || (vortexTxId ? `DYUTI27-ONLINE-${vortexTxId.slice(-6).toUpperCase()}` : 'CONFIRMED'),
+        transaction_ref: vortexTxId,
+        payment_order_id: vortexTxId,
+        fee_amount: returnAmount || savedReg?.amount || '750',
+        amount: returnAmount || savedReg?.amount || '750',
+        payment_status: 'success',
+        payment_mode: 'online',
+        created_at: new Date().toISOString()
+      });
 
       setStep('success');
 
@@ -804,7 +776,7 @@ function initRegistrationForm() {
         ...(savedReg || {}),
         payment_status: 'failed',
         transaction_ref: vortexTxId || null
-      }).catch(() => {});
+      }).catch(() => { });
 
       // Activate 15-minute cool-off
       startCooloffPeriod(15 * 60, emailForCooloff, phoneForCooloff, vortexTxId);
@@ -1041,7 +1013,146 @@ function initRegistrationForm() {
     }
   }
 
+  function populateSuccessReceipt(data) {
+    if (!data) return;
+
+    const title = data.title || 'Dr.';
+    const name = data.full_name || data.name || 'Participant';
+    const regId = data.registration_id || data.regId || data.reg_id || 'CONFIRMED';
+    const status = (data.payment_status || 'confirmed').toLowerCase();
+    const isPaid = ['success', 'paid', 'captured', 'confirmed'].includes(status);
+    const txnRef = data.transaction_ref || data.razorpay_payment_id || data.payment_order_id || data.vortex_transaction_id || data.order_id || (isPaid ? 'ONLINE-VERIFIED' : 'PENDING');
+    const mode = (data.payment_mode || data.paymentMode || 'online').toLowerCase();
+    const modeLabel = mode === 'bank_transfer' ? 'Direct Bank Wire (NEFT/RTGS)' : 'Online Payment Gateway';
+
+    const rawFee = data.fee_amount || data.amount || '750';
+    const formattedAmount = isNaN(rawFee) ? rawFee : `₹ ${parseFloat(rawFee).toLocaleString()}`;
+
+    // 1. Header & Greeting
+    const succGreeting = document.getElementById('success-greeting');
+    if (succGreeting) succGreeting.textContent = `Thank You, ${title} ${name}!`;
+
+    const succBadge = document.getElementById('success-status-badge');
+    if (succBadge) {
+      if (isPaid) {
+        succBadge.className = 'inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-emerald-50 border-2 border-emerald-400 text-emerald-900 font-mono text-xs font-black uppercase tracking-wider';
+        succBadge.innerHTML = '&#x2714; Payment Verified &amp; Registration Confirmed';
+      } else {
+        succBadge.className = 'inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-amber-50 border-2 border-amber-400 text-amber-900 font-mono text-xs font-black uppercase tracking-wider';
+        succBadge.innerHTML = '&#x26A0; Registration Recorded (Payment Pending)';
+      }
+    }
+
+    const succDate = document.getElementById('success-datetime');
+    if (succDate) {
+      succDate.textContent = 'Date: ' + (data.created_at ? new Date(data.created_at).toLocaleString() : new Date().toLocaleString());
+    }
+
+    // 2. Reference IDs
+    const succRegId = document.getElementById('success-reg-id');
+    if (succRegId) succRegId.textContent = regId;
+
+    const succOrderId = document.getElementById('success-gateway-order-id');
+    if (succOrderId) succOrderId.textContent = txnRef;
+
+    // 3. Section 1: Payment Details
+    const succAmount = document.getElementById('success-amount');
+    if (succAmount) succAmount.textContent = formattedAmount;
+
+    const succPayStatus = document.getElementById('success-payment-status');
+    if (succPayStatus) {
+      succPayStatus.textContent = isPaid ? 'CONFIRMED / PAID' : (status === 'failed' ? 'PAYMENT FAILED' : 'PENDING VERIFICATION');
+      succPayStatus.className = isPaid ? 'text-emerald-700 font-bold' : (status === 'failed' ? 'text-rose-600 font-bold' : 'text-amber-700 font-bold');
+    }
+
+    const succPayMode = document.getElementById('success-payment-mode');
+    if (succPayMode) succPayMode.textContent = modeLabel;
+
+    // 4. Section 2: Delegate Information
+    const succName = document.getElementById('success-name');
+    if (succName) succName.textContent = `${title} ${name}`;
+
+    const succDesig = document.getElementById('success-designation');
+    if (succDesig) succDesig.textContent = data.designation || 'Delegate';
+
+    const succGender = document.getElementById('success-gender');
+    if (succGender) succGender.textContent = data.gender || 'Not Specified';
+
+    const succOrg = document.getElementById('success-org');
+    if (succOrg) succOrg.textContent = data.organization || 'Independent Participant';
+
+    const succDiscip = document.getElementById('success-discipline');
+    if (succDiscip) succDiscip.textContent = data.discipline || 'Social Work / General';
+
+    // 5. Section 3: Contact Coordinates
+    const succEmail = document.getElementById('success-email');
+    if (succEmail) succEmail.textContent = data.email || 'N/A';
+
+    const succPhone = document.getElementById('success-phone');
+    if (succPhone) succPhone.textContent = data.phone || data.mobile || 'N/A';
+
+    const succAddr = document.getElementById('success-address');
+    if (succAddr) succAddr.textContent = data.address || 'Provided at Venue';
+
+    const succPin = document.getElementById('success-pincode');
+    if (succPin) succPin.textContent = data.pincode || '000000';
+
+    // 6. Section 4: Participation & Logistics
+    const succCategory = document.getElementById('success-category');
+    if (succCategory) {
+      succCategory.textContent = data.registration_category || data.categoryLabel || data.category || 'UG / PG Student';
+    }
+
+    const succPart = document.getElementById('success-participation');
+    if (succPart) {
+      const pType = (data.participation_type || data.participationType || 'regular').toLowerCase();
+      succPart.textContent = pType === 'idea_pitch' ? 'Idea Pitch Participant' : (pType === 'stall' ? 'Stall / Exhibition Participant' : 'Regular Participant');
+    }
+
+    const succFood = document.getElementById('success-food');
+    if (succFood) {
+      const fPref = (data.food_preference || data.foodPreference || 'veg').toLowerCase();
+      const fDet = data.food_details || data.foodDetails || '';
+      succFood.textContent = (fPref === 'non-veg' ? 'Non-Vegetarian' : 'Vegetarian') + (fDet ? ` (${fDet})` : '');
+    }
+
+    const succAccom = document.getElementById('success-accom');
+    if (succAccom) {
+      const reqAcc = (data.require_accommodation || data.requireAccommodation || 'no').toLowerCase();
+      const accNotes = data.accommodation_notes || data.accommodationNotes || '';
+      succAccom.textContent = (reqAcc === 'yes' ? 'Requested (Moderate Accommodation)' : 'Self-arranged') + (accNotes ? ` (${accNotes})` : '');
+    }
+
+    const succPaper = document.getElementById('success-paper');
+    const succPaperBox = document.getElementById('success-paper-details-box');
+    const isPresenting = (data.is_presenting_paper || data.isPresentingPaper || 'no').toLowerCase() === 'yes';
+
+    if (succPaper) {
+      succPaper.textContent = isPresenting ? 'Author / Paper Presenter' : 'Delegate Attendee (No Paper)';
+    }
+
+    if (succPaperBox) {
+      if (isPresenting && (data.paper_title || data.cmt_paper_id || data.paper_theme)) {
+        succPaperBox.classList.remove('hidden');
+        const cmtIdEl = document.getElementById('success-cmt-id');
+        if (cmtIdEl) cmtIdEl.textContent = data.cmt_paper_id || data.cmtPaperId || 'N/A';
+
+        const themeEl = document.getElementById('success-paper-theme');
+        if (themeEl) themeEl.textContent = data.paper_theme || data.paperTheme || 'General Theme';
+
+        const titleEl = document.getElementById('success-paper-title');
+        if (titleEl) titleEl.textContent = data.paper_title || data.paperTitle || 'Untitled Submission';
+      } else {
+        succPaperBox.classList.add('hidden');
+      }
+    }
+  }
+
+  window.dyutiPopulateReceipt = populateSuccessReceipt;
+  window.dyutiSetStep = setStep;
+
   function setStep(step) {
+    window.dyutiSetStep = setStep;
     // step: 'form' | 'review' | 'success'
     if (step === 'form') {
       if (stepFormView) stepFormView.classList.remove('hidden');
@@ -1152,7 +1263,7 @@ function initRegistrationForm() {
           if (res.status === 404) continue;
           result = await res.json();
           if (result && result.status === 'success') break;
-        } catch (e) {}
+        } catch (e) { }
       }
 
       if (result && result.found && Array.isArray(result.records) && result.records.length > 0) {
@@ -1476,10 +1587,10 @@ function initRegistrationForm() {
     const returnUrl = window.location.origin + window.location.pathname;
 
     const isTest = isTestRegistrationPage ||
-                   window.__DYUTI_TEST_MODE__ === true ||
-                   window.location.href.toLowerCase().includes('test_registration') ||
-                   document.getElementById('test-gateway-banner') !== null ||
-                   document.querySelector('[data-fee="1"]') !== null;
+      window.__DYUTI_TEST_MODE__ === true ||
+      window.location.href.toLowerCase().includes('test_registration') ||
+      document.getElementById('test-gateway-banner') !== null ||
+      document.querySelector('[data-fee="1"]') !== null;
 
     const amountToSend = isTest ? 1 : ((typeof window.__DYUTI_TEST_AMOUNT__ === 'number' && window.__DYUTI_TEST_AMOUNT__ > 0)
       ? window.__DYUTI_TEST_AMOUNT__
@@ -1756,7 +1867,7 @@ function initRegistrationForm() {
       try {
         sessionStorage.removeItem('dyuti_retry_reg_id');
         delete window.__DYUTI_RETRY_REG_ID__;
-      } catch (e) {}
+      } catch (e) { }
 
       // ALWAYS generate a fresh, guaranteed unique Registration ID for every new form submission
       // NEVER overwrite, replace, or reuse another person's registration row
@@ -1921,7 +2032,7 @@ function initRegistrationForm() {
           ...registrationState,
           payment_status: 'failed',
           error_message: errorMessage || 'Gateway error'
-        }).catch(() => {});
+        }).catch(() => { });
 
         resetSubmitButtonState();
         if (btnConfirmSubmitLabel) {
@@ -1951,55 +2062,43 @@ function initRegistrationForm() {
       dispatchApi('save_registration.php', bankData).catch(e => console.warn('Bank wire DB save error:', e));
       dispatchApi('send_registration_notification.php', bankData).catch(e => console.warn('Bank wire notification error:', e));
 
-      // Populate Step 3 Success View
-      const succGreeting = document.getElementById('success-greeting');
-      if (succGreeting) succGreeting.textContent = `Thank You, ${title} ${name}!`;
-
-      const succBadge = document.getElementById('success-status-badge');
-      if (succBadge) {
-        succBadge.textContent = 'Registration Recorded (Bank Wire Pending Verification)';
-      }
-
-      const succRegId = document.getElementById('success-reg-id');
-      if (succRegId) succRegId.textContent = generatedId;
-
-      const succOrderBox = document.getElementById('success-gateway-order');
-      if (succOrderBox) succOrderBox.classList.add('hidden');
-
-      const succCategory = document.getElementById('success-category');
-      if (succCategory) succCategory.textContent = selectedCat.label;
-
-      const succPart = document.getElementById('success-participation');
-      if (succPart) {
-        succPart.textContent = participationType === 'idea_pitch' ? 'Idea Pitch Participant' : (participationType === 'stall' ? 'Stall / Exhibition Participant' : 'Regular Participant');
-      }
-
-      const succAmount = document.getElementById('success-amount');
-      if (succAmount) succAmount.textContent = selectedCat.fee;
-
-      const succPayStatus = document.getElementById('success-payment-status');
-      if (succPayStatus) {
-        succPayStatus.textContent = 'Direct Bank Wire Transfer';
-      }
-
-      const succOrg = document.getElementById('success-org');
-      if (succOrg) succOrg.textContent = organization;
-
-      const succPhone = document.getElementById('success-phone');
-      if (succPhone) succPhone.textContent = phone;
-
-      const succEmail = document.getElementById('success-email');
-      if (succEmail) succEmail.textContent = email;
-
-      const succAccom = document.getElementById('success-accom');
-      if (succAccom) succAccom.textContent = requireAccommodation === 'yes' ? 'Requested' : 'Self-arranged';
+      // Populate Step 3 Success View & Printable Receipt
+      populateSuccessReceipt({
+        title: title,
+        full_name: name,
+        designation: designation,
+        gender: gender,
+        organization: organization,
+        discipline: discipline,
+        address: address,
+        pincode: pincode,
+        phone: phone,
+        email: email,
+        food_preference: foodPreference,
+        food_details: registrationState?.foodDetails || registrationState?.food_details || '',
+        require_accommodation: requireAccommodation,
+        accommodation_notes: registrationState?.accommodationNotes || registrationState?.accommodation_notes || '',
+        is_presenting_paper: isPresentingPaper,
+        paper_title: registrationState?.paperTitle || registrationState?.paper_title || '',
+        cmt_paper_id: registrationState?.cmtPaperId || registrationState?.cmt_paper_id || '',
+        paper_theme: registrationState?.paperTheme || registrationState?.paper_theme || '',
+        participation_type: participationType,
+        registration_category: selectedCat.label,
+        fee_amount: selectedCat.amount,
+        amount: selectedCat.amount,
+        payment_mode: 'bank_transfer',
+        payment_status: 'pending',
+        registration_id: generatedId,
+        transaction_ref: 'NEFT / Wire Transfer',
+        created_at: new Date().toISOString()
+      });
 
       setStep('success');
 
       try {
         localStorage.setItem('dyuti_last_reg_id', generatedId);
         localStorage.setItem('dyuti_last_reg_email', email);
-      } catch (e) {}
+      } catch (e) { }
     });
   }
 
@@ -2100,7 +2199,7 @@ function initRegistrationStatusTracker() {
     }
   }
 
-  window.dyutiToggleStatusView = function(targetMode) {
+  window.dyutiToggleStatusView = function (targetMode) {
     if (typeof targetMode === 'string') {
       switchMode(targetMode);
     } else {
@@ -2110,14 +2209,14 @@ function initRegistrationStatusTracker() {
   };
 
   if (btnPortalCheckStatus) {
-    btnPortalCheckStatus.onclick = function(e) {
+    btnPortalCheckStatus.onclick = function (e) {
       if (e) e.preventDefault();
       window.dyutiToggleStatusView();
     };
   }
 
   if (btnStatusReturnToForm) {
-    btnStatusReturnToForm.onclick = function(e) {
+    btnStatusReturnToForm.onclick = function (e) {
       if (e) e.preventDefault();
       window.dyutiToggleStatusView('register');
     };
@@ -2144,7 +2243,7 @@ function initRegistrationStatusTracker() {
   }
 
   // Globally exposed status switcher for 1-click status checking from anywhere
-  window.dyutiSwitchToStatus = function(query) {
+  window.dyutiSwitchToStatus = function (query) {
     switchMode('status');
     if (query) {
       if (statusAppIdInput) statusAppIdInput.value = query;
@@ -2166,7 +2265,7 @@ function initRegistrationStatusTracker() {
         const pending = JSON.parse(sessionStorage.getItem('dyuti_pending_registration') || '{}');
         recentId = pending?.regId || '';
       }
-    } catch (e) {}
+    } catch (e) { }
 
     if (recentId) {
       recentChipText.textContent = recentId;
@@ -2207,7 +2306,7 @@ function initRegistrationStatusTracker() {
       try {
         const savedReg = JSON.parse(sessionStorage.getItem('dyuti_pending_registration') || localStorage.getItem('dyuti_pending_registration') || '{}');
         returnRegId = savedReg.regId || savedReg.registration_id || localStorage.getItem('dyuti_last_reg_id') || '';
-      } catch (e) {}
+      } catch (e) { }
 
       if (returnRegId) {
         switchMode('status');
@@ -2305,7 +2404,7 @@ function initRegistrationStatusTracker() {
             body: JSON.stringify(payload)
           });
           if (res.status === 404) continue;
-          
+
           let parsedData = null;
           try {
             parsedData = await res.json();
@@ -2343,7 +2442,7 @@ function initRegistrationStatusTracker() {
             sessionStorage.removeItem('dyuti_retry_reg_id');
             if (statusRecentWrapper) statusRecentWrapper.classList.add('hidden');
           }
-        } catch (e) {}
+        } catch (e) { }
       }
 
     } catch (err) {
@@ -2401,7 +2500,7 @@ function initRegistrationStatusTracker() {
     // 1. If payment is success/confirmed: DO NOT show pending status! Show ONLY the confirmed record.
     // 2. If payment is pending: show that pending status only (latest active attempt).
     const confirmed = records.filter(r => ['success', 'confirmed', 'paid', 'captured'].includes(String(r.payment_status || '').toLowerCase()));
-    const pending   = records.filter(r => String(r.payment_status || '').toLowerCase() === 'pending');
+    const pending = records.filter(r => String(r.payment_status || '').toLowerCase() === 'pending');
 
     let displayRecords = records;
     if (confirmed.length > 0) {
@@ -2568,10 +2667,10 @@ function initRegistrationStatusTracker() {
         <!-- Card Action Buttons -->
         <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-200 no-print">
           <div class="flex items-center gap-2">
-            ${isSuccess ? `
+            ${(isSuccess || rec.payment_mode === 'bank_transfer') ? `
               <button type="button" class="btn-card-print inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#071A33] text-white font-sans font-bold text-xs sm:text-sm hover:bg-[#0c274c] transition-colors cursor-pointer shadow-sm">
                 <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-                <span>Print Official Slip</span>
+                <span>Print / Download Slip</span>
               </button>
             ` : ''}
 
@@ -2602,11 +2701,29 @@ function initRegistrationStatusTracker() {
         });
       }
 
-      // Print slip handler
+      // Print slip handler: populates the official conference receipt and opens browser print
       const printBtn = card.querySelector('.btn-card-print');
       if (printBtn) {
         printBtn.addEventListener('click', () => {
-          window.print();
+          if (typeof window.dyutiPopulateReceipt === 'function') {
+            window.dyutiPopulateReceipt(rec);
+          }
+          if (typeof window.dyutiSetStep === 'function') {
+            window.dyutiSetStep('success');
+          }
+          const statusView = document.getElementById('reg-status-view');
+          if (statusView) statusView.classList.add('hidden');
+          const succView = document.getElementById('reg-step-success');
+          if (succView) succView.classList.remove('hidden');
+          const formView = document.getElementById('reg-step-form');
+          if (formView) formView.classList.add('hidden');
+          const revView = document.getElementById('reg-step-review');
+          if (revView) revView.classList.add('hidden');
+
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          setTimeout(() => {
+            window.print();
+          }, 350);
         });
       }
 
@@ -2615,10 +2732,10 @@ function initRegistrationStatusTracker() {
       if (retryBtn) {
         retryBtn.addEventListener('click', async () => {
           const isTest = (typeof window.__DYUTI_TEST_MODE__ !== 'undefined' && window.__DYUTI_TEST_MODE__ === true) ||
-                         window.location.pathname.toLowerCase().includes('test_registration') ||
-                         window.location.href.toLowerCase().includes('test_registration') ||
-                         document.getElementById('test-gateway-banner') !== null ||
-                         document.querySelector('[data-fee="1"]') !== null;
+            window.location.pathname.toLowerCase().includes('test_registration') ||
+            window.location.href.toLowerCase().includes('test_registration') ||
+            document.getElementById('test-gateway-banner') !== null ||
+            document.querySelector('[data-fee="1"]') !== null;
 
           const fee = isTest ? 1 : (parseFloat(rec.fee_amount) || 750);
 
@@ -2693,7 +2810,7 @@ function initRegistrationStatusTracker() {
             'api/create_payment_order.php',
             '/rcss/api/create_payment_order.php',
             '/api/create_payment_order.php'
-          ].filter(Boolean).filter(function(v, i, a) { return a.indexOf(v) === i; });
+          ].filter(Boolean).filter(function (v, i, a) { return a.indexOf(v) === i; });
 
           let retryPaymentUrl = null;
           let retryPaymentError = null;
@@ -2703,7 +2820,7 @@ function initRegistrationStatusTracker() {
             const retryEndpoint = retryEndpoints[epIdx];
             try {
               const retryCtrl = new AbortController();
-              const retryTId = setTimeout(function() { retryCtrl.abort(); }, 12000);
+              const retryTId = setTimeout(function () { retryCtrl.abort(); }, 12000);
 
               const retryFetchRes = await fetch(retryEndpoint, {
                 method: 'POST',
@@ -2716,7 +2833,7 @@ function initRegistrationStatusTracker() {
               if (retryFetchRes.status === 404) continue; // Wrong endpoint, try next
 
               // Parse response text, then JSON — guard against PHP warnings in output
-              const retryRawText = await retryFetchRes.text().catch(function() { return ''; });
+              const retryRawText = await retryFetchRes.text().catch(function () { return ''; });
               let retryData = null;
               try {
                 // Strip any PHP warning/notice text before the first '{' character

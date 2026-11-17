@@ -7463,38 +7463,112 @@
 
  /* Clean Print Receipt Rules */
  @media print {
+   @page {
+     size: A4 portrait;
+     margin: 8mm 10mm;
+   }
+
+   html,
+   body {
+     background: #ffffff !important;
+     color: #0f172a !important;
+     margin: 0 !important;
+     padding: 0 !important;
+     width: 100% !important;
+     min-height: 0 !important;
+     font-size: 11px !important;
+     line-height: 1.3 !important;
+     -webkit-print-color-adjust: exact !important;
+     print-color-adjust: exact !important;
+   }
 
    header,
    footer,
+   nav,
    #attached-marquee-bar,
    .step-indicator-wrapper,
    #reg-step-form,
    #reg-step-review,
+   #reg-status-view,
+   #mode-toggle-container,
+   #payment-return-banner,
+   #cooloff-alert-banner,
    .no-print,
-   button {
+   button,
+   a {
      display: none !important;
    }
 
-   body {
-     background: #ffffff !important;
-     color: #000000 !important;
+   body > *:not(main) {
+     display: none !important;
+   }
+
+   main {
+     margin: 0 !important;
+     padding: 0 !important;
+   }
+
+   main > div {
+     padding: 0 !important;
+     margin: 0 !important;
+     background: transparent !important;
+     min-height: 0 !important;
+   }
+
+   main > div > div {
+     max-width: 100% !important;
+     padding: 0 !important;
+     margin: 0 !important;
+   }
+
+   /* Hide all siblings of reg-step-success */
+   main > div > div > *:not(#reg-step-success) {
+     display: none !important;
    }
 
    #reg-step-success {
      display: block !important;
-     position: relative !important;
+     position: static !important;
      width: 100% !important;
      max-width: 100% !important;
-     margin: 0 !important;
+     margin: 0 auto !important;
      padding: 0 !important;
      box-shadow: none !important;
      border: none !important;
+     animation: none !important;
+     page-break-inside: avoid !important;
+     break-inside: avoid !important;
    }
 
-   #reg-step-success>div {
-     border: 1px solid #cbd5e1 !important;
+   #reg-step-success > div.print-receipt-card {
+     border: 2px solid #071A33 !important;
      box-shadow: none !important;
-     padding: 24px !important;
+     padding: 16px 20px !important;
+     border-radius: 8px !important;
+     background: #ffffff !important;
+     margin: 0 !important;
+     page-break-inside: avoid !important;
+     break-inside: avoid !important;
+   }
+
+   #reg-step-success .print-grid-2 {
+     display: grid !important;
+     grid-template-columns: 1fr 1fr !important;
+     gap: 6px 12px !important;
+   }
+
+   #reg-step-success .print-grid-3 {
+     display: grid !important;
+     grid-template-columns: 1fr 1fr 1fr !important;
+     gap: 6px 12px !important;
+   }
+
+   #reg-step-success .print-col-span-2 {
+     grid-column: span 2 / span 2 !important;
+   }
+
+   #reg-step-success .print-col-span-3 {
+     grid-column: span 3 / span 3 !important;
    }
  }
 
