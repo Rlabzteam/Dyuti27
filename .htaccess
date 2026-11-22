@@ -31,6 +31,8 @@
     RewriteRule ^api/migrate_email_sent(\.php)?$ - [F,L,NC]
     RewriteRule ^api/create_payment_order/?$ api/create_payment_order.php [L,QSA]
     RewriteRule ^api/save_registration/?$ api/save_registration.php [L,QSA]
+    RewriteRule ^api/check_registration_status/?$ api/check_registration_status.php [L,QSA]
+    RewriteRule ^api/check_email/?$ api/check_email.php [L,QSA]
     RewriteRule ^api/send_registration_notification/?$ api/send_registration_notification.php [L,QSA]
     RewriteRule ^api/send_contact/?$ api/send_contact.php [L,QSA]
 

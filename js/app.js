@@ -1035,7 +1035,9 @@ function initRegistrationForm() {
     const mode = (data.payment_mode || data.paymentMode || 'online').toLowerCase();
     const modeLabel = mode === 'bank_transfer' ? 'Direct Bank Wire (NEFT/RTGS)' : 'Online Payment Gateway';
 
-    const rawFee = data.fee_amount || data.amount || '750';
+    const catStr = String(data.registration_category || '').toLowerCase();
+    const defaultFallbackFee = (catStr.includes('scholar') || catStr.includes('stall') || catStr.includes('faculty') || catStr.includes('corporate')) ? '1000' : '750';
+    const rawFee = data.fee_amount || data.amount || defaultFallbackFee;
     const formattedAmount = isNaN(rawFee) ? rawFee : `₹ ${parseFloat(rawFee).toLocaleString()}`;
 
     // 1. Header & Greeting
@@ -2337,6 +2339,22 @@ function initRegistrationStatusTracker() {
     }
   });
 
+  let isStatusSearching = false;
+
+  if (statusAppIdInput) {
+    statusAppIdInput.addEventListener('input', () => {
+      if (statusError) statusError.classList.add('hidden');
+      if (statusNotFound) statusNotFound.classList.add('hidden');
+    });
+  }
+
+  if (statusPhoneInput) {
+    statusPhoneInput.addEventListener('input', () => {
+      if (statusError) statusError.classList.add('hidden');
+      if (statusNotFound) statusNotFound.classList.add('hidden');
+    });
+  }
+
   if (statusForm) {
     statusForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -2346,12 +2364,17 @@ function initRegistrationStatusTracker() {
 
   if (statusSubmitBtn) {
     statusSubmitBtn.addEventListener('click', (e) => {
-      // In case form submission is prevented or button is clicked directly
-      triggerStatusSearch();
+      // Form submit event handles submission; only trigger if not inside a submitting form
+      if (!isStatusSearching) {
+        e.preventDefault();
+        triggerStatusSearch();
+      }
     });
   }
 
   function triggerStatusSearch() {
+    if (isStatusSearching) return;
+
     const appId = statusAppIdInput ? statusAppIdInput.value.trim() : '';
     const phone = statusPhoneInput ? statusPhoneInput.value.trim() : '';
     const legacyQ = statusInput ? statusInput.value.trim() : '';
@@ -2359,7 +2382,12 @@ function initRegistrationStatusTracker() {
 
     if (!query) {
       if (statusError) {
-        statusError.textContent = 'Please enter your Application ID or registered Mobile Number.';
+        statusError.innerHTML = `
+          <div class="flex items-center justify-center gap-2">
+            <svg class="w-4 h-4 text-red-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <span>Please enter your Application ID or registered Mobile Number / Email.</span>
+          </div>
+        `;
         statusError.classList.remove('hidden');
         statusError.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
@@ -2369,16 +2397,29 @@ function initRegistrationStatusTracker() {
   }
 
   async function performStatusLookup(param) {
+    if (isStatusSearching) return;
+    isStatusSearching = true;
+
     const appId = (typeof param === 'object' && param.appId) ? param.appId.trim() : (statusAppIdInput ? statusAppIdInput.value.trim() : '');
     const phone = (typeof param === 'object' && param.phone) ? param.phone.trim() : (statusPhoneInput ? statusPhoneInput.value.trim() : '');
     const rawQuery = typeof param === 'string'
       ? param.trim()
       : ((param && param.query) || appId || phone || (statusInput ? statusInput.value.trim() : '')).trim();
 
+    let phoneVal = phone;
+    let emailVal = '';
+    if (phone.includes('@')) {
+      emailVal = phone;
+      phoneVal = '';
+    } else if (rawQuery.includes('@')) {
+      emailVal = rawQuery;
+    }
+
     const payload = {
       query: rawQuery,
       registration_id: appId,
-      phone: phone
+      phone: phoneVal,
+      email: emailVal
     };
 
     const displayTerm = [appId, phone].filter(Boolean).join(' / ') || rawQuery || 'Provided details';
@@ -2400,8 +2441,10 @@ function initRegistrationStatusTracker() {
     try {
       const candidates = [
         'api/check_registration_status.php',
-        '/api/check_registration_status.php',
         '/rcss/api/check_registration_status.php',
+        '../api/check_registration_status.php',
+        '/api/check_registration_status.php',
+        'https://dyuti.in/rcss/api/check_registration_status.php',
         'api/check_registration_status',
         '/api/check_registration_status'
       ];
@@ -2420,18 +2463,16 @@ function initRegistrationStatusTracker() {
           try {
             parsedData = await res.json();
           } catch (jsonErr) {
-            // Not valid JSON (e.g. 500 error page)
+            // Not valid JSON (e.g. 500 error page or HTML 404)
           }
 
-          if (parsedData) {
+          if (parsedData && parsedData.status === 'success') {
             apiResponse = parsedData;
-            if (apiResponse.status === 'success') {
-              break;
-            } else if (apiResponse.message) {
-              serverErrorMessage = apiResponse.message;
-            }
+            break;
+          } else if (parsedData && parsedData.message) {
+            serverErrorMessage = parsedData.message;
           } else if (!res.ok) {
-            serverErrorMessage = `Database API returned HTTP ${res.status}. Please make sure the updated api/check_registration_status.php is uploaded to cPanel.`;
+            serverErrorMessage = `Database API returned HTTP ${res.status}.`;
           }
         } catch (err) {
           // Network error or endpoint unreachable
@@ -2459,6 +2500,7 @@ function initRegistrationStatusTracker() {
     } catch (err) {
       console.warn('Status lookup error:', err);
     } finally {
+      isStatusSearching = false;
       if (statusLoading) statusLoading.classList.add('hidden');
       if (statusSubmitBtn) {
         statusSubmitBtn.disabled = false;
@@ -2596,7 +2638,9 @@ function initRegistrationStatusTracker() {
         `;
       }
 
-      const formattedFee = rec.fee_amount ? `₹ ${parseFloat(rec.fee_amount).toLocaleString()}` : '₹ 750';
+      const catLower = String(rec.registration_category || '').toLowerCase();
+      const defaultFee = (catLower.includes('scholar') || catLower.includes('stall') || catLower.includes('faculty') || catLower.includes('corporate')) ? '₹ 1,000' : '₹ 750';
+      const formattedFee = rec.fee_amount ? `₹ ${parseFloat(rec.fee_amount).toLocaleString()}` : defaultFee;
       const createdDate = rec.created_at ? new Date(rec.created_at).toLocaleString() : 'Recent';
 
       card.innerHTML = `
@@ -2676,19 +2720,22 @@ function initRegistrationStatusTracker() {
         </div>
 
         <!-- Card Action Buttons -->
-        <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-200 no-print">
-          <div class="flex items-center gap-2">
-            ${(isSuccess || rec.payment_mode === 'bank_transfer') ? `
-              <button type="button" class="btn-card-print inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#071A33] text-white font-sans font-bold text-xs sm:text-sm hover:bg-[#0c274c] transition-colors cursor-pointer shadow-sm">
-                <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-                <span>Print / Download Slip</span>
-              </button>
-            ` : ''}
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200 no-print">
+          <div class="flex flex-wrap items-center gap-2.5">
+            <button type="button" class="btn-card-print inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#071A33] text-white font-sans font-bold text-xs sm:text-sm hover:bg-[#0c274c] transition-all cursor-pointer shadow-md hover:scale-[1.02] active:scale-98">
+              <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Download / Print Slip</span>
+            </button>
+
+            <button type="button" class="btn-card-view-slip inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-sans font-extrabold text-xs sm:text-sm transition-all cursor-pointer shadow-sm hover:scale-[1.02] active:scale-98">
+              <svg class="w-4 h-4 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              <span>View Official Slip</span>
+            </button>
 
             ${(!isSuccess && rec.payment_mode !== 'bank_transfer') ? `
-              <button type="button" class="btn-card-retry inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-amber-400 text-slate-950 font-sans font-black text-xs sm:text-sm hover:bg-amber-300 transition-colors cursor-pointer shadow-sm">
+              <button type="button" class="btn-card-retry inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-red-600 text-white font-sans font-bold text-xs sm:text-sm hover:bg-red-700 transition-colors cursor-pointer shadow-sm">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                <span>Retry Payment</span>
+                <span>Complete / Retry Payment</span>
               </button>
             ` : ''}
           </div>
@@ -2712,7 +2759,7 @@ function initRegistrationStatusTracker() {
         });
       }
 
-      // Print slip handler: populates the official conference receipt and opens browser print
+      // Print/Download slip handler: populates the official conference receipt and opens browser print/PDF
       const printBtn = card.querySelector('.btn-card-print');
       if (printBtn) {
         printBtn.addEventListener('click', () => {
@@ -2735,6 +2782,29 @@ function initRegistrationStatusTracker() {
           setTimeout(() => {
             window.print();
           }, 350);
+        });
+      }
+
+      // View slip handler: populates the official conference receipt in on-screen view mode
+      const viewSlipBtn = card.querySelector('.btn-card-view-slip');
+      if (viewSlipBtn) {
+        viewSlipBtn.addEventListener('click', () => {
+          if (typeof window.dyutiPopulateReceipt === 'function') {
+            window.dyutiPopulateReceipt(rec);
+          }
+          if (typeof window.dyutiSetStep === 'function') {
+            window.dyutiSetStep('success');
+          }
+          const statusView = document.getElementById('reg-status-view');
+          if (statusView) statusView.classList.add('hidden');
+          const succView = document.getElementById('reg-step-success');
+          if (succView) succView.classList.remove('hidden');
+          const formView = document.getElementById('reg-step-form');
+          if (formView) formView.classList.add('hidden');
+          const revView = document.getElementById('reg-step-review');
+          if (revView) revView.classList.add('hidden');
+
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       }
 
