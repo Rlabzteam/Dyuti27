@@ -1355,636 +1355,354 @@
         </div>
 
         <!-- ── STEP 3: REGISTRATION SUCCESS SCREEN & OFFICIAL PRINTABLE RECEIPT ── -->
-        <div id="reg-step-success" class="hidden max-w-4xl mx-auto space-y-8 animate-fadeIn">
-          <div id="reg-step-success" class="hidden max-w-4xl mx-auto space-y-6 animate-fadeIn">
-            <div
-              class="rounded-2xl sm:rounded-[32px] p-5 sm:p-10 lg:p-12 bg-white border-2 border-slate-300 shadow-xl text-slate-900 text-left relative overflow-hidden print-receipt-card">
-              class="rounded-2xl p-5 sm:p-8 bg-white border-2 border-[#071A33] shadow-xl text-slate-900 text-left
-              relative overflow-hidden print-receipt-card">
+        <div id="reg-step-success" class="hidden max-w-4xl mx-auto space-y-6 animate-fadeIn">
+          <div
+            class="rounded-2xl p-5 sm:p-8 bg-white border-2 border-[#071A33] shadow-xl text-slate-900 text-left relative overflow-hidden print-receipt-card">
 
-              <!-- Formal Conference Printable Header -->
-              <div
-                class="border-b-2 border-[#071A33] pb-5 mb-6 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div class="space-y-1">
-                  <div class="text-[#071A33] font-serif font-black text-xl sm:text-2xl uppercase tracking-wider">
-                    DYUTI National Conference 2027
-                    <!-- Official Institutional Header -->
-                    <div class="border-b-2 border-[#071A33] pb-4 mb-4 flex items-center justify-between gap-4">
-                      <div class="flex items-center gap-3">
-                        <img src="images/rcss_green_logo.png" alt="RCSS"
-                          class="h-12 w-auto object-contain hidden sm:block" />
-                        <div class="space-y-0.5">
-                          <div
-                            class="text-[#071A33] font-serif font-black text-base sm:text-lg uppercase tracking-wider leading-tight">
-                            Rajagiri College of Social Sciences (Autonomous)
-                          </div>
-                          <div class="text-xs sm:text-sm font-bold text-slate-800 leading-tight">
-                            DYUTI National Conference 2027 &bull; Social Work for Sustainable Development
-                          </div>
-                          <div class="text-[11px] text-slate-500 font-medium">
-                            Kalamassery, Kochi - 683104, Kerala, India | NAAC Accredited A++
-                          </div>
-                        </div>
-                        <div class="text-xs sm:text-sm font-semibold text-slate-700">
-                          Social Work for Sustainable Development
-                        </div>
-                        <div class="text-[11px] sm:text-xs text-slate-500 font-medium">
-                          Rajagiri College of Social Sciences (Autonomous), Kalamassery, Kochi - 683104, Kerala
-                        </div>
-                      </div>
-                      <div class="text-center sm:text-right shrink-0">
-                        <div class="text-right shrink-0">
-                          <span id="success-status-badge"
-                            class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-emerald-50 border-2 border-emerald-400 text-emerald-900 font-mono text-xs font-black uppercase tracking-wider">
-                            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border-2
-                            border-emerald-500 text-emerald-900 font-mono text-[11px] font-black uppercase
-                            tracking-wider">
-                            &#x2714; Payment Confirmed
-                          </span>
-                          <div class="text-[11px] text-slate-500 font-mono mt-1" id="success-datetime">
-                            <div class="text-[10px] text-slate-500 font-mono mt-1" id="success-datetime">
-                              Date: —
-                            </div>
-                          </div>
-                        </div>
+            <!-- Official Institutional Header -->
+            <div class="border-b-2 border-[#071A33] pb-4 mb-4 flex items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <img src="images/rcss_green_logo.png" alt="RCSS" class="h-12 w-auto object-contain hidden sm:block" />
+                <div class="space-y-0.5">
+                  <div class="text-[#071A33] font-serif font-black text-base sm:text-lg uppercase tracking-wider leading-tight">
+                    Rajagiri College of Social Sciences (Autonomous)
+                  </div>
+                  <div class="text-xs sm:text-sm font-bold text-slate-800 leading-tight">
+                    DYUTI National Conference 2027 &bull; Social Work for Sustainable Development
+                  </div>
+                  <div class="text-[11px] text-slate-500 font-medium">
+                    Kalamassery, Kochi - 683104, Kerala, India | NAAC Accredited A++
+                  </div>
+                </div>
+              </div>
+              <div class="text-right shrink-0">
+                <span id="success-status-badge"
+                  class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border-2 border-emerald-500 text-emerald-900 font-mono text-[11px] font-black uppercase tracking-wider">
+                  &#x2714; Payment Confirmed
+                </span>
+                <div class="text-[10px] text-slate-500 font-mono mt-1" id="success-datetime">
+                  Date: —
+                </div>
+              </div>
+            </div>
 
-                        <div class="text-center mb-6">
-                          <h2 class="text-lg sm:text-xl font-heading font-black text-[#071A33] uppercase tracking-wide">
-                            Delegate Registration &amp; Official Payment Receipt
-                            <!-- Title & Greeting -->
-                            <div class="text-center mb-4">
-                              <h2
-                                class="text-base sm:text-lg font-heading font-black text-[#071A33] uppercase tracking-wider m-0">
-                                Official Delegate Registration Slip &amp; Payment Receipt
-                              </h2>
-                              <p id="success-greeting" class="text-sm sm:text-base text-slate-700 font-medium mt-1">
-                              <p id="success-greeting"
-                                class="text-xs sm:text-sm text-slate-700 font-semibold mt-0.5 m-0">
-                                Thank You, Delegate!
-                              </p>
-                            </div>
+            <!-- Title & Greeting -->
+            <div class="text-center mb-4">
+              <h2 class="text-base sm:text-lg font-heading font-black text-[#071A33] uppercase tracking-wider m-0">
+                Official Delegate Registration Slip &amp; Payment Receipt
+              </h2>
+              <p id="success-greeting" class="text-xs sm:text-sm text-slate-700 font-semibold mt-0.5 m-0">
+                Thank You, Delegate!
+              </p>
+            </div>
 
-                            <!-- Prominent Reference Bar: Registration ID & Transaction Ref -->
-                            <div
-                              class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 p-4 rounded-xl bg-slate-50 border border-slate-300 text-center sm:text-left">
-                              <!-- Prominent Reference Strip -->
-                              <div
-                                class="print-grid-2 grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4 p-3 rounded-lg bg-slate-50 border border-slate-300">
-                                <div>
-                                  <span
-                                    class="text-[11px] uppercase font-mono font-bold text-slate-500 block">Registration
-                                    Reference
-                                    ID</span>
-                                  <strong id="success-reg-id"
-                                    class="font-mono text-lg sm:text-2xl font-black text-[#071A33] tracking-wide block break-all">DYUTI27-ONLINE-000000</strong>
-                                  <span
-                                    class="text-[10px] uppercase font-mono font-bold text-slate-500 block leading-tight">Registration
-                                    Reference ID</span>
-                                  <strong id="success-reg-id"
-                                    class="font-mono text-base sm:text-lg font-black text-[#071A33] tracking-wide block break-all">DYUTI27-ONLINE-000000</strong>
-                                </div>
-                                <div>
-                                  <span class="text-[11px] uppercase font-mono font-bold text-slate-500 block">Payment /
-                                    Transaction
-                                    ID</span>
-                                  <strong id="success-gateway-order-id"
-                                    class="font-mono text-base sm:text-xl font-bold text-emerald-800 block break-all">ONLINE-TXN-PENDING</strong>
-                                  <span
-                                    class="text-[10px] uppercase font-mono font-bold text-slate-500 block leading-tight">Payment
-                                    / Transaction ID</span>
-                                  <strong id="success-gateway-order-id"
-                                    class="font-mono text-sm sm:text-base font-bold text-emerald-800 block break-all">ONLINE-TXN-PENDING</strong>
-                                </div>
-                              </div>
+            <!-- Prominent Reference Strip -->
+            <div class="print-grid-2 grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4 p-3 rounded-lg bg-slate-50 border border-slate-300">
+              <div>
+                <span class="text-[10px] uppercase font-mono font-bold text-slate-500 block leading-tight">Registration Reference ID</span>
+                <strong id="success-reg-id" class="font-mono text-base sm:text-lg font-black text-[#071A33] tracking-wide block break-all">DYUTI27-ONLINE-000000</strong>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-mono font-bold text-slate-500 block leading-tight">Payment / Transaction ID</span>
+                <strong id="success-gateway-order-id" class="font-mono text-sm sm:text-base font-bold text-emerald-800 block break-all">ONLINE-TXN-PENDING</strong>
+              </div>
+            </div>
 
-                              <!-- 4 Structured Sections in Clean Grid -->
-                              <div class="space-y-5 text-xs sm:text-sm">
-                                <!-- 4 Structured Sections -->
-                                <div class="space-y-3.5 text-xs">
+            <!-- 4 Structured Sections -->
+            <div class="space-y-3.5 text-xs">
 
-                                  <!-- Section 1: Payment & Transaction Particulars -->
-                                  <div class="border border-slate-200 rounded-xl p-4 bg-white">
-                                    <div
-                                      class="text-xs font-bold uppercase tracking-wider text-[#071A33] border-b border-slate-200 pb-2 mb-3 flex items-center justify-between">
-                                      <span>1. Payment &amp; Fee Details</span>
-                                      <span class="text-[11px] font-mono text-slate-500 font-normal">Official
-                                        E-Receipt</span>
-                                      <!-- Section 1: Payment & Fee Details -->
-                                      <div class="border border-slate-200 rounded-lg p-3 bg-white">
-                                        <div
-                                          class="text-[11px] font-bold uppercase tracking-wider text-[#071A33] border-b border-slate-200 pb-1.5 mb-2 flex items-center justify-between">
-                                          <span>1. Payment &amp; Fee Particulars</span>
-                                          <span class="text-[10px] font-mono text-slate-500 font-normal">Official
-                                            E-Receipt</span>
-                                        </div>
-                                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                          <div class="print-grid-3 grid grid-cols-1 sm:grid-cols-3 gap-2">
-                                            <div>
-                                              <span class="text-slate-500 block text-[11px]">Fee Amount Paid:</span>
-                                              <strong id="success-amount"
-                                                class="text-base sm:text-lg font-black text-slate-950 font-mono">₹
-                                                1</strong>
-                                              <span class="text-slate-500 block text-[10px]">Fee Amount Paid:</span>
-                                              <strong id="success-amount"
-                                                class="text-sm sm:text-base font-black text-slate-950 font-mono">₹
-                                                1</strong>
-                                            </div>
-                                            <div>
-                                              <span class="text-slate-500 block text-[11px]">Payment Status:</span>
-                                              <span class="text-slate-500 block text-[10px]">Payment Status:</span>
-                                              <strong id="success-payment-status"
-                                                class="text-emerald-700 font-bold">Confirmed / Paid</strong>
-                                            </div>
-                                            <div>
-                                              <span class="text-slate-500 block text-[11px]">Payment Mode:</span>
-                                              <span class="text-slate-500 block text-[10px]">Payment Mode:</span>
-                                              <strong id="success-payment-mode" class="text-slate-900 font-bold">Online
-                                                Payment Gateway</strong>
-                                            </div>
-                                          </div>
-                                        </div>
+              <!-- Section 1: Payment & Fee Details -->
+              <div class="border border-slate-200 rounded-lg p-3 bg-white">
+                <div class="text-[11px] font-bold uppercase tracking-wider text-[#071A33] border-b border-slate-200 pb-1.5 mb-2 flex items-center justify-between">
+                  <span>1. Payment &amp; Fee Particulars</span>
+                  <span class="text-[10px] font-mono text-slate-500 font-normal">Official E-Receipt</span>
+                </div>
+                <div class="print-grid-3 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <div>
+                    <span class="text-slate-500 block text-[10px]">Fee Amount Paid:</span>
+                    <strong id="success-amount" class="text-sm sm:text-base font-black text-slate-950 font-mono">₹ 1</strong>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 block text-[10px]">Payment Status:</span>
+                    <strong id="success-payment-status" class="text-emerald-700 font-bold">Confirmed / Paid</strong>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 block text-[10px]">Payment Mode:</span>
+                    <strong id="success-payment-mode" class="text-slate-900 font-bold">Online Payment Gateway</strong>
+                  </div>
+                </div>
+              </div>
 
-                                        <!-- Section 2: Delegate Information -->
-                                        <div class="border border-slate-200 rounded-xl p-4 bg-white">
-                                          <div
-                                            class="text-xs font-bold uppercase tracking-wider text-[#071A33] border-b border-slate-200 pb-2 mb-3">
-                                            <!-- Section 2: Delegate Particulars -->
-                                            <div class="border border-slate-200 rounded-lg p-3 bg-white">
-                                              <div
-                                                class="text-[11px] font-bold uppercase tracking-wider text-[#071A33] border-b border-slate-200 pb-1.5 mb-2">
-                                                2. Delegate Particulars
-                                              </div>
-                                              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                                <div class="print-grid-3 grid grid-cols-1 sm:grid-cols-3 gap-2">
-                                                  <div>
-                                                    <span class="text-slate-500 block text-[11px]">Full Name:</span>
-                                                    <span class="text-slate-500 block text-[10px]">Full Name:</span>
-                                                    <strong id="success-name" class="text-slate-950 font-bold">Dr.
-                                                      Participant Name</strong>
-                                                  </div>
-                                                  <div>
-                                                    <span class="text-slate-500 block text-[11px]">Designation:</span>
-                                                    <span class="text-slate-500 block text-[10px]">Designation:</span>
-                                                    <strong id="success-designation"
-                                                      class="text-slate-900 font-bold">Delegate</strong>
-                                                  </div>
-                                                  <div>
-                                                    <span class="text-slate-500 block text-[11px]">Gender:</span>
-                                                    <span class="text-slate-500 block text-[10px]">Gender:</span>
-                                                    <strong id="success-gender" class="text-slate-900 font-bold">Not
-                                                      Specified</strong>
-                                                  </div>
-                                                  <div class="sm:col-span-2">
-                                                    <span class="text-slate-500 block text-[11px]">Institution /
-                                                      Organization:</span>
-                                                    <div class="print-col-span-2 sm:col-span-2">
-                                                      <span class="text-slate-500 block text-[10px]">Institution /
-                                                        Organization:</span>
-                                                      <strong id="success-org"
-                                                        class="text-slate-950 font-bold break-words">Rajagiri College of
-                                                        Social
-                                                        Sciences</strong>
-                                                    </div>
-                                                    <div>
-                                                      <span class="text-slate-500 block text-[11px]">Discipline /
-                                                        Department:</span>
-                                                      <span class="text-slate-500 block text-[10px]">Discipline /
-                                                        Department:</span>
-                                                      <strong id="success-discipline"
-                                                        class="text-slate-900 font-bold">Social Work</strong>
-                                                    </div>
-                                                  </div>
-                                                </div>
+              <!-- Section 2: Delegate Particulars -->
+              <div class="border border-slate-200 rounded-lg p-3 bg-white">
+                <div class="text-[11px] font-bold uppercase tracking-wider text-[#071A33] border-b border-slate-200 pb-1.5 mb-2">
+                  2. Delegate Particulars
+                </div>
+                <div class="print-grid-3 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <div>
+                    <span class="text-slate-500 block text-[10px]">Full Name:</span>
+                    <strong id="success-name" class="text-slate-950 font-bold">Dr. Participant Name</strong>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 block text-[10px]">Designation:</span>
+                    <strong id="success-designation" class="text-slate-900 font-bold">Delegate</strong>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 block text-[10px]">Gender:</span>
+                    <strong id="success-gender" class="text-slate-900 font-bold">Not Specified</strong>
+                  </div>
+                  <div class="print-col-span-2 sm:col-span-2">
+                    <span class="text-slate-500 block text-[10px]">Institution / Organization:</span>
+                    <strong id="success-org" class="text-slate-950 font-bold break-words">Rajagiri College of Social
+                      Sciences</strong>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 block text-[10px]">Discipline / Department:</span>
+                    <strong id="success-discipline" class="text-slate-900 font-bold">Social Work</strong>
+                  </div>
+                </div>
+              </div>
 
-                                                <!-- Section 3: Contact Coordinates -->
-                                                <div class="border border-slate-200 rounded-xl p-4 bg-white">
-                                                  <div
-                                                    class="text-xs font-bold uppercase tracking-wider text-[#071A33] border-b border-slate-200 pb-2 mb-3">
-                                                    <div class="border border-slate-200 rounded-lg p-3 bg-white">
-                                                      <div
-                                                        class="text-[11px] font-bold uppercase tracking-wider text-[#071A33] border-b border-slate-200 pb-1.5 mb-2">
-                                                        3. Contact &amp; Address Coordinates
-                                                      </div>
-                                                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                                        <div class="print-grid-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                                          <div>
-                                                            <span class="text-slate-500 block text-[11px]">Email
-                                                              Address:</span>
-                                                            <strong id="success-email"
-                                                              class="text-slate-950 font-mono font-bold break-all">delegate@university.edu</strong>
-                                                          </div>
-                                                          <div>
-                                                            <span class="text-slate-500 block text-[11px]">Contact /
-                                                              Phone Number:</span>
-                                                            <strong id="success-phone"
-                                                              class="text-slate-950 font-mono font-bold">+91 98765
-                                                              43210</strong>
-                                                          </div>
-                                                          <div class="sm:col-span-2">
-                                                            <div class="print-col-span-2 sm:col-span-2">
-                                                              <span class="text-slate-500 block text-[11px]">Postal
-                                                                Address &amp; PIN:</span>
-                                                              <span id="success-address"
-                                                                class="text-slate-900 font-medium">Provided at
-                                                                Venue</span>, PIN: <strong id="success-pincode"
-                                                                class="font-mono font-bold">000000</strong>
-                                                            </div>
-                                                          </div>
-                                                        </div>
+              <!-- Section 3: Contact Coordinates -->
+              <div class="border border-slate-200 rounded-lg p-3 bg-white">
+                <div class="text-[11px] font-bold uppercase tracking-wider text-[#071A33] border-b border-slate-200 pb-1.5 mb-2">
+                  3. Contact &amp; Address Coordinates
+                </div>
+                <div class="print-grid-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div>
+                    <span class="text-slate-500 block text-[11px]">Email Address:</span>
+                    <strong id="success-email"
+                      class="text-slate-950 font-mono font-bold break-all">delegate@university.edu</strong>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 block text-[11px]">Contact / Phone Number:</span>
+                    <strong id="success-phone" class="text-slate-950 font-mono font-bold">+91 98765 43210</strong>
+                  </div>
+                  <div class="print-col-span-2 sm:col-span-2">
+                    <span class="text-slate-500 block text-[11px]">Postal Address &amp; PIN:</span>
+                    <span id="success-address" class="text-slate-900 font-medium">Provided at Venue</span>, PIN: <strong
+                      id="success-pincode" class="font-mono font-bold">000000</strong>
+                  </div>
+                </div>
+              </div>
 
-                                                        <!-- Section 4: Participation & Logistics -->
-                                                        <div class="border border-slate-200 rounded-xl p-4 bg-white">
-                                                          <div
-                                                            class="text-xs font-bold uppercase tracking-wider text-[#071A33] border-b border-slate-200 pb-2 mb-3">
-                                                            <div
-                                                              class="border border-slate-200 rounded-lg p-3 bg-white">
-                                                              <div
-                                                                class="text-[11px] font-bold uppercase tracking-wider text-[#071A33] border-b border-slate-200 pb-1.5 mb-2">
-                                                                4. Participation &amp; Conference Logistics
-                                                              </div>
-                                                              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                                                <div
-                                                                  class="print-grid-3 grid grid-cols-1 sm:grid-cols-3 gap-2">
-                                                                  <div>
-                                                                    <span
-                                                                      class="text-slate-500 block text-[11px]">Registration
-                                                                      Category:</span>
-                                                                    <span
-                                                                      class="text-slate-500 block text-[10px]">Registration
-                                                                      Category:</span>
-                                                                    <strong id="success-category"
-                                                                      class="text-slate-950 font-bold">UG / PG
-                                                                      Student</strong>
-                                                                  </div>
-                                                                  <div>
-                                                                    <span
-                                                                      class="text-slate-500 block text-[11px]">Purpose
-                                                                      of Participation:</span>
-                                                                    <span
-                                                                      class="text-slate-500 block text-[10px]">Purpose
-                                                                      of Participation:</span>
-                                                                    <strong id="success-participation"
-                                                                      class="text-slate-950 font-bold">Regular
-                                                                      Participant</strong>
-                                                                  </div>
-                                                                  <div>
-                                                                    <span class="text-slate-500 block text-[11px]">Food
-                                                                      Preference:</span>
-                                                                    <span class="text-slate-500 block text-[10px]">Food
-                                                                      Preference:</span>
-                                                                    <strong id="success-food"
-                                                                      class="text-slate-900 font-bold">Vegetarian</strong>
-                                                                  </div>
-                                                                  <div>
-                                                                    <span
-                                                                      class="text-slate-500 block text-[11px]">Accommodation
-                                                                      Request:</span>
-                                                                    <span
-                                                                      class="text-slate-500 block text-[10px]">Accommodation
-                                                                      Request:</span>
-                                                                    <strong id="success-accom"
-                                                                      class="text-slate-900 font-bold">Self-arranged</strong>
-                                                                  </div>
-                                                                  <div class="sm:col-span-2">
-                                                                    <span class="text-slate-500 block text-[11px]">Paper
-                                                                      Presentation:</span>
-                                                                    <div class="print-col-span-2 sm:col-span-2">
-                                                                      <span
-                                                                        class="text-slate-500 block text-[10px]">Paper
-                                                                        Presentation:</span>
-                                                                      <strong id="success-paper"
-                                                                        class="text-slate-900 font-bold">Delegate
-                                                                        Attendee (No Paper)</strong>
-                                                                    </div>
-                                                                  </div>
+              <!-- Section 4: Participation & Logistics -->
+              <div class="border border-slate-200 rounded-lg p-3 bg-white">
+                <div class="text-[11px] font-bold uppercase tracking-wider text-[#071A33] border-b border-slate-200 pb-1.5 mb-2">
+                  4. Participation &amp; Conference Logistics
+                </div>
+                <div class="print-grid-3 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <div>
+                    <span class="text-slate-500 block text-[10px]">Registration Category:</span>
+                    <strong id="success-category" class="text-slate-950 font-bold">UG / PG Student</strong>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 block text-[10px]">Purpose of Participation:</span>
+                    <strong id="success-participation" class="text-slate-950 font-bold">Regular Participant</strong>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 block text-[10px]">Food Preference:</span>
+                    <strong id="success-food" class="text-slate-900 font-bold">Vegetarian</strong>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 block text-[10px]">Accommodation Request:</span>
+                    <strong id="success-accom" class="text-slate-900 font-bold">Self-arranged</strong>
+                  </div>
+                  <div class="print-col-span-2 sm:col-span-2">
+                    <span class="text-slate-500 block text-[10px]">Paper Presentation:</span>
+                    <strong id="success-paper" class="text-slate-900 font-bold">Delegate Attendee (No Paper)</strong>
+                  </div>
+                </div>
 
-                                                                  <!-- Paper details row if applicable -->
-                                                                  <div id="success-paper-details-box"
-                                                                    class="hidden mt-3 pt-3 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                                                                    <div><span class="text-slate-500">CMT Paper
-                                                                        ID:</span> <strong id="success-cmt-id"
-                                                                        class="font-mono text-slate-950 font-bold">—</strong>
-                                                                    </div>
-                                                                    <div><span class="text-slate-500">Sub-Theme
-                                                                        Track:</span> <strong id="success-paper-theme"
-                                                                        class="text-slate-950 font-bold">—</strong>
-                                                                    </div>
-                                                                    <div class="sm:col-span-2"><span
-                                                                        class="text-slate-500">Paper Title:</span>
-                                                                      <strong id="success-paper-title"
-                                                                        class="text-slate-950 font-bold">—</strong>
-                                                                    </div>
-                                                                    <div id="success-paper-details-box"
-                                                                      class="hidden mt-2 pt-2 border-t border-slate-200 print-grid-2 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                                                                      <div><span class="text-slate-500">CMT Paper
-                                                                          ID:</span> <strong id="success-cmt-id"
-                                                                          class="font-mono text-slate-950 font-bold">—</strong>
-                                                                      </div>
-                                                                      <div><span class="text-slate-500">Sub-Theme
-                                                                          Track:</span> <strong id="success-paper-theme"
-                                                                          class="text-slate-950 font-bold">—</strong>
-                                                                      </div>
-                                                                      <div class="print-col-span-2 sm:col-span-2"><span
-                                                                          class="text-slate-500">Paper Title:</span>
-                                                                        <strong id="success-paper-title"
-                                                                          class="text-slate-950 font-bold">—</strong>
-                                                                      </div>
-                                                                    </div>
-                                                                  </div>
+                <!-- Paper details row if applicable -->
+                <div id="success-paper-details-box" class="hidden mt-2 pt-2 border-t border-slate-200 print-grid-2 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                  <div><span class="text-slate-500">CMT Paper ID:</span> <strong id="success-cmt-id" class="font-mono text-slate-950 font-bold">—</strong></div>
+                  <div><span class="text-slate-500">Sub-Theme Track:</span> <strong id="success-paper-theme" class="text-slate-950 font-bold">—</strong></div>
+                  <div class="print-col-span-2 sm:col-span-2"><span class="text-slate-500">Paper Title:</span> <strong id="success-paper-title" class="text-slate-950 font-bold">—</strong></div>
+                </div>
+              </div>
 
-                                                                </div>
+            </div>
 
-                                                                <!-- Verification & Institutional Footer -->
-                                                                <div
-                                                                  class="mt-6 pt-4 border-t border-slate-200 text-center text-xs text-slate-500 space-y-1">
-                                                                  <div
-                                                                    class="mt-4 pt-3 border-t border-slate-200 text-center text-xs text-slate-500 space-y-0.5">
-                                                                    <p class="font-medium text-slate-700 m-0">
-                                                                      This document serves as your official delegate
-                                                                      registration receipt and admission pass for DYUTI
-                                                                      National Conference 2027.
-                                                                    </p>
-                                                                    <p class="text-[11px] text-slate-500 m-0">
-                                                                    <p class="text-[10px] text-slate-500 m-0">
-                                                                      Secretariat: <a href="mailto:dyuti@rajagiri.edu"
-                                                                        class="text-[#071A33] font-bold underline">dyuti@rajagiri.edu</a>
-                                                                      | Web: <a href="https://dyuti.in"
-                                                                        class="text-[#071A33] font-bold underline">https://dyuti.in</a>
-                                                                      | Kalamassery, Kochi - 683104
-                                                                    </p>
-                                                                  </div>
+            <!-- Verification & Institutional Footer -->
+            <div class="mt-4 pt-3 border-t border-slate-200 text-center text-xs text-slate-500 space-y-0.5">
+              <p class="font-medium text-slate-700 m-0">
+                This document serves as your official delegate registration receipt and admission pass for DYUTI
+                National Conference 2027.
+              </p>
+              <p class="text-[10px] text-slate-500 m-0">
+                Secretariat: <a href="mailto:dyuti@rajagiri.edu"
+                  class="text-[#071A33] font-bold underline">dyuti@rajagiri.edu</a> | Web: <a href="https://dyuti.in"
+                  class="text-[#071A33] font-bold underline">https://dyuti.in</a> | Kalamassery, Kochi - 683104
+              </p>
+            </div>
 
-                                                                  <!-- Action Buttons (Hidden on print) -->
-                                                                  <div
-                                                                    class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-8 relative z-10 no-print">
-                                                                    <div
-                                                                      class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-6 relative z-10 no-print">
-                                                                      <button id="btn-print-receipt" type="button"
-                                                                        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#071A33] hover:bg-[#0c274c] text-white font-sans font-bold text-sm sm:text-base tracking-wide transition-all shadow-lg active:scale-95 cursor-pointer">
-                                                                        <svg class="w-5 h-5 text-amber-400" fill="none"
-                                                                          stroke="currentColor" viewBox="0 0 24 24">
-                                                                          <path stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-                                                                        </svg>
-                                                                        <span>Print Official Slip / Receipt</span>
-                                                                      </button>
+            <!-- Action Buttons (Hidden on print) -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-6 relative z-10 no-print">
+              <button id="btn-print-receipt" type="button"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#071A33] hover:bg-[#0c274c] text-white font-sans font-bold text-sm sm:text-base tracking-wide transition-all shadow-lg active:scale-95 cursor-pointer">
+                <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                </svg>
+                <span>Print Official Slip / Receipt</span>
+              </button>
 
-                                                                      <button id="btn-success-check-status"
-                                                                        type="button"
-                                                                        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border-2 border-[#071A33] text-[#071A33] hover:bg-slate-100 font-bold font-sans text-sm sm:text-base transition-colors cursor-pointer">
-                                                                        <svg class="w-4 h-4 text-[#071A33]" fill="none"
-                                                                          stroke="currentColor" viewBox="0 0 24 24">
-                                                                          <path stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                                        </svg>
-                                                                        <span>Check Live Status</span>
-                                                                      </button>
+              <button id="btn-success-check-status" type="button"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border-2 border-[#071A33] text-[#071A33] hover:bg-slate-100 font-bold font-sans text-sm sm:text-base transition-colors cursor-pointer">
+                <svg class="w-4 h-4 text-[#071A33]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Check Live Status</span>
+              </button>
 
-                                                                      <a href="index.html"
-                                                                        class="w-full sm:w-auto inline-flex items-center justify-center border-2 border-slate-300 text-slate-900 hover:bg-slate-100 font-bold px-6 py-3.5 rounded-full font-sans text-sm sm:text-base transition-colors text-center">
-                                                                        Return to Homepage
-                                                                      </a>
-                                                                    </div>
+              <a href="index.html"
+                class="w-full sm:w-auto inline-flex items-center justify-center border-2 border-slate-300 text-slate-900 hover:bg-slate-100 font-bold px-6 py-3.5 rounded-full font-sans text-sm sm:text-base transition-colors text-center">
+                Return to Homepage
+              </a>
+            </div>
 
-                                                                  </div>
-                                                                </div>
-                                                                </svg>
-                                                                <span>Check Live Status</span>
-                                                                </button>
+          </div>
+        </div>
 
-                                                                <a href="index.html"
-                                                                  class="w-full sm:w-auto inline-flex items-center justify-center border-2 border-slate-300 text-slate-900 hover:bg-slate-100 font-bold px-6 py-3 rounded-full font-sans text-sm sm:text-base transition-colors text-center">
-                                                                  Return to Homepage
-                                                                </a>
-                                                              </div>
+        <!-- Status Search Input Form -->
+        <form id="status-lookup-form" class="max-w-2xl mx-auto space-y-4" novalidate>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-left">
+            <!-- Field 1: Application ID / Registration ID -->
+            <div class="space-y-1.5 flex flex-col justify-between">
+              <label for="status-app-id-input"
+                class="flex items-center justify-between gap-1.5 text-xs sm:text-sm font-bold text-slate-800 font-sans min-h-[24px]">
+                <span>Application ID</span>
+                <span class="text-[11px] sm:text-xs text-slate-500 font-normal truncate">(Optional if phone is
+                  provided)</span>
+              </label>
+              <div class="relative flex items-center">
+                <div class="absolute pointer-events-none text-slate-400"
+                  style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 10;">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <rect x="3" y="4" width="18" height="16" rx="3" stroke-width="2"></rect>
+                    <circle cx="9" cy="10" r="2.5" stroke-width="2"></circle>
+                    <line x1="15" y1="9" x2="18" y2="9" stroke-linecap="round"></line>
+                    <line x1="15" y1="13" x2="18" y2="13" stroke-linecap="round"></line>
+                    <path d="M6 17c0-1.657 1.343-3 3-3s3 1.343 3 3" stroke-linecap="round"></path>
+                  </svg>
+                </div>
+                <input type="text" id="status-app-id-input"
+                  style="padding-left: 52px !important; padding-right: 16px !important;"
+                  placeholder="Enter Application ID"
+                  class="w-full h-12 sm:h-13 pl-11 pr-4 rounded-xl bg-slate-50 border-2 border-slate-300 text-slate-950 font-mono text-xs sm:text-sm font-bold focus:outline-none focus:bg-white focus:border-[#071A33] focus:ring-4 focus:ring-slate-900/10 transition-all shadow-inner placeholder:font-sans placeholder:font-normal placeholder:text-slate-400">
+              </div>
+            </div>
 
-                                                            </div>
-                                                          </div>
+            <!-- Field 2: Registered Mobile Number -->
+            <div class="space-y-1.5 flex flex-col justify-between">
+              <label for="status-phone-input"
+                class="flex items-center justify-between gap-1.5 text-xs sm:text-sm font-bold text-slate-800 font-sans min-h-[24px]">
+                <span>Registered Mobile Number</span>
+                <span class="text-[11px] sm:text-xs text-emerald-700 font-semibold truncate">(Finds your Application
+                  ID)</span>
+              </label>
+              <div class="relative flex items-center">
+                <div class="absolute pointer-events-none text-slate-400"
+                  style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 10;">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <input type="text" id="status-phone-input"
+                  style="padding-left: 52px !important; padding-right: 16px !important;"
+                  placeholder="Enter Mobile Number or Email"
+                  class="w-full h-12 sm:h-13 pl-11 pr-4 rounded-xl bg-slate-50 border-2 border-slate-300 text-slate-950 font-mono text-xs sm:text-sm font-bold focus:outline-none focus:bg-white focus:border-[#071A33] focus:ring-4 focus:ring-slate-900/10 transition-all shadow-inner placeholder:font-sans placeholder:font-normal placeholder:text-slate-400">
+              </div>
+            </div>
+          </div>
 
-                                                          <!-- ── CHECK REGISTRATION STATUS VIEW ── -->
-                                                          <div id="reg-status-view"
-                                                            class="hidden max-w-4xl mx-auto space-y-8 animate-fadeIn">
-                                                            <div
-                                                              class="rounded-2xl sm:rounded-[36px] p-5 sm:p-10 lg:p-12 bg-white border border-slate-200 shadow-xl relative overflow-hidden text-slate-900">
+          <!-- Quick Recent Chip button (Placed directly under inputs for immediate accessibility) -->
+          <div id="status-recent-chip-wrapper"
+            class="hidden flex flex-wrap items-center justify-center gap-2 pt-1 pb-1 text-xs font-sans text-slate-600">
+            <span class="inline-flex items-center gap-1.5 text-slate-500 font-medium">
+              <svg class="w-3.5 h-3.5 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Recent registration on this device:
+            </span>
+            <button type="button" id="btn-status-recent-chip"
+              class="font-mono font-bold text-[#071A33] bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-950 px-3 py-1 rounded-full transition-colors cursor-pointer flex items-center gap-1.5 shadow-2xs">
+              <span id="recent-chip-text"></span>
+              <svg class="w-3 h-3 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </button>
+          </div>
 
-                                                              <!-- Section Header inside Status View -->
-                                                              <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-                                                                <div
-                                                                  class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-blue-50 border-2 border-blue-200 flex items-center justify-center mx-auto mb-4 shadow-sm">
-                                                                  <svg class="w-7 h-7 sm:w-8 sm:h-8 text-[#071A33]"
-                                                                    fill="none" stroke="currentColor"
-                                                                    viewBox="0 0 24 24">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                                      stroke-width="2"
-                                                                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                                                  </svg>
-                                                                </div>
-                                                                <h2
-                                                                  class="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#071A33] mb-2 sm:mb-3">
-                                                                  Check Registration Status
-                                                                </h2>
-                                                                <p
-                                                                  class="text-xs sm:text-base text-slate-650 font-sans leading-relaxed font-normal">
-                                                                  Verify your delegate enrollment, fee payment status,
-                                                                  and conference check-in credentials.
-                                                                  Enter your registered <strong>Email Address</strong>,
-                                                                  <strong>Registration ID</strong> (e.g. <span
-                                                                    class="font-mono text-slate-800 font-bold">DYUTI27-ONLINE-...</span>),
-                                                                  or <strong>Contact Number</strong>.
-                                                                </p>
-                                                              </div>
+          <!-- Action Buttons -->
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+            <button type="button" id="btn-status-return-to-form" onclick="dyutiToggleStatusView('register')"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-950 px-4 py-2.5 rounded-full hover:bg-slate-100 transition-colors cursor-pointer">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              <span>Return to Registration Form</span>
+            </button>
 
-                                                              <!-- Status Search Input Form -->
-                                                              <form id="status-lookup-form"
-                                                                class="max-w-2xl mx-auto space-y-4" novalidate>
-                                                                <div
-                                                                  class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-left">
-                                                                  <!-- Field 1: Application ID / Registration ID -->
-                                                                  <div
-                                                                    class="space-y-1.5 flex flex-col justify-between">
-                                                                    <label for="status-app-id-input"
-                                                                      class="flex items-center justify-between gap-1.5 text-xs sm:text-sm font-bold text-slate-800 font-sans min-h-[24px]">
-                                                                      <span>Application ID</span>
-                                                                      <span
-                                                                        class="text-[11px] sm:text-xs text-slate-500 font-normal truncate">(Optional
-                                                                        if phone is
-                                                                        provided)</span>
-                                                                    </label>
-                                                                    <div class="relative flex items-center">
-                                                                      <div
-                                                                        class="absolute pointer-events-none text-slate-400"
-                                                                        style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 10;">
-                                                                        <svg class="w-5 h-5" fill="none"
-                                                                          stroke="currentColor" stroke-width="2"
-                                                                          viewBox="0 0 24 24">
-                                                                          <rect x="3" y="4" width="18" height="16"
-                                                                            rx="3" stroke-width="2"></rect>
-                                                                          <circle cx="9" cy="10" r="2.5"
-                                                                            stroke-width="2"></circle>
-                                                                          <line x1="15" y1="9" x2="18" y2="9"
-                                                                            stroke-linecap="round"></line>
-                                                                          <line x1="15" y1="13" x2="18" y2="13"
-                                                                            stroke-linecap="round"></line>
-                                                                          <path
-                                                                            d="M6 17c0-1.657 1.343-3 3-3s3 1.343 3 3"
-                                                                            stroke-linecap="round"></path>
-                                                                        </svg>
-                                                                      </div>
-                                                                      <input type="text" id="status-app-id-input"
-                                                                        style="padding-left: 52px !important; padding-right: 16px !important;"
-                                                                        placeholder="Enter Application ID"
-                                                                        class="w-full h-12 sm:h-13 pl-11 pr-4 rounded-xl bg-slate-50 border-2 border-slate-300 text-slate-950 font-mono text-xs sm:text-sm font-bold focus:outline-none focus:bg-white focus:border-[#071A33] focus:ring-4 focus:ring-slate-900/10 transition-all shadow-inner placeholder:font-sans placeholder:font-normal placeholder:text-slate-400">
-                                                                    </div>
-                                                                  </div>
+            <button type="submit" id="btn-submit-status-search"
+              class="w-full sm:w-auto h-12 sm:h-13 px-8 rounded-full bg-[#071A33] hover:bg-[#0c274c] text-white font-sans font-bold text-sm sm:text-base tracking-wide transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer shrink-0">
+              <span id="btn-status-search-label">View Current Status</span>
+              <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </div>
 
-                                                                  <!-- Field 2: Registered Mobile Number -->
-                                                                  <div
-                                                                    class="space-y-1.5 flex flex-col justify-between">
-                                                                    <label for="status-phone-input"
-                                                                      class="flex items-center justify-between gap-1.5 text-xs sm:text-sm font-bold text-slate-800 font-sans min-h-[24px]">
-                                                                      <span>Registered Mobile Number</span>
-                                                                      <span
-                                                                        class="text-[11px] sm:text-xs text-emerald-700 font-semibold truncate">(Finds
-                                                                        your Application
-                                                                        ID)</span>
-                                                                    </label>
-                                                                    <div class="relative flex items-center">
-                                                                      <div
-                                                                        class="absolute pointer-events-none text-slate-400"
-                                                                        style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 10;">
-                                                                        <svg class="w-5 h-5" fill="none"
-                                                                          stroke="currentColor" stroke-width="2"
-                                                                          viewBox="0 0 24 24">
-                                                                          <path stroke-linecap="round"
-                                                                            stroke-linejoin="round"
-                                                                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                                                        </svg>
-                                                                      </div>
-                                                                      <input type="text" id="status-phone-input"
-                                                                        style="padding-left: 52px !important; padding-right: 16px !important;"
-                                                                        placeholder="Enter Mobile Number or Email"
-                                                                        class="w-full h-12 sm:h-13 pl-11 pr-4 rounded-xl bg-slate-50 border-2 border-slate-300 text-slate-950 font-mono text-xs sm:text-sm font-bold focus:outline-none focus:bg-white focus:border-[#071A33] focus:ring-4 focus:ring-slate-900/10 transition-all shadow-inner placeholder:font-sans placeholder:font-normal placeholder:text-slate-400">
-                                                                    </div>
-                                                                  </div>
-                                                                </div>
+          <div id="status-search-error"
+            class="hidden p-3.5 rounded-xl bg-red-50 border-2 border-red-300 text-red-900 text-xs sm:text-sm font-bold text-center animate-fadeIn">
+          </div>
+        </form>
 
-                                                                <!-- Quick Recent Chip button (Placed directly under inputs for immediate accessibility) -->
-                                                                <div id="status-recent-chip-wrapper"
-                                                                  class="hidden flex flex-wrap items-center justify-center gap-2 pt-1 pb-1 text-xs font-sans text-slate-600">
-                                                                  <span
-                                                                    class="inline-flex items-center gap-1.5 text-slate-500 font-medium">
-                                                                    <svg class="w-3.5 h-3.5 text-amber-500 shrink-0"
-                                                                      fill="none" stroke="currentColor"
-                                                                      viewBox="0 0 24 24">
-                                                                      <path stroke-linecap="round"
-                                                                        stroke-linejoin="round" stroke-width="2"
-                                                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                                    </svg>
-                                                                    Recent registration on this device:
-                                                                  </span>
-                                                                  <button type="button" id="btn-status-recent-chip"
-                                                                    class="font-mono font-bold text-[#071A33] bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-950 px-3 py-1 rounded-full transition-colors cursor-pointer flex items-center gap-1.5 shadow-2xs">
-                                                                    <span id="recent-chip-text"></span>
-                                                                    <svg class="w-3 h-3 text-amber-600" fill="none"
-                                                                      stroke="currentColor" viewBox="0 0 24 24">
-                                                                      <path stroke-linecap="round"
-                                                                        stroke-linejoin="round" stroke-width="2"
-                                                                        d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                                                    </svg>
-                                                                  </button>
-                                                                </div>
+        <!-- Loading Spinner State -->
+        <div id="status-loading-spinner" class="hidden py-12 text-center space-y-3">
+          <svg class="animate-spin h-8 w-8 text-[#071A33] mx-auto" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+            </path>
+          </svg>
+          <p class="text-sm font-sans font-bold text-slate-700">Verifying registration database...</p>
+        </div>
 
-                                                                <!-- Action Buttons -->
-                                                                <div
-                                                                  class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
-                                                                  <button type="button" id="btn-status-return-to-form"
-                                                                    onclick="dyutiToggleStatusView('register')"
-                                                                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-950 px-4 py-2.5 rounded-full hover:bg-slate-100 transition-colors cursor-pointer">
-                                                                    <svg class="w-4 h-4" fill="none"
-                                                                      stroke="currentColor" viewBox="0 0 24 24">
-                                                                      <path stroke-linecap="round"
-                                                                        stroke-linejoin="round" stroke-width="2"
-                                                                        d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                                                                    </svg>
-                                                                    <span>Return to Registration Form</span>
-                                                                  </button>
+        <!-- Not Found State -->
+        <div id="status-not-found" class="hidden py-8 px-4 text-center max-w-md mx-auto space-y-3.5 animate-fadeIn">
+          <div
+            class="w-12 h-12 rounded-full bg-amber-50 border-2 border-amber-300 flex items-center justify-center mx-auto text-amber-600 font-black text-xl">
+            ?
+          </div>
+          <h4 class="font-heading font-extrabold text-lg text-slate-900 m-0">No Registration Found</h4>
+          <p id="status-not-found-msg" class="text-xs sm:text-sm font-sans text-slate-650 leading-relaxed m-0">
+            We could not find any active delegate registration matching the search term. Please verify the email or ID
+            entered.
+          </p>
+          <div class="pt-2">
+            <button type="button" id="btn-status-switch-to-register"
+              class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#071A33] text-white font-sans font-bold text-xs sm:text-sm hover:bg-[#0c274c] transition-colors cursor-pointer shadow-md">
+              <span>Start New Registration</span>
+              <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </div>
+        </div>
 
-                                                                  <button type="submit" id="btn-submit-status-search"
-                                                                    class="w-full sm:w-auto h-12 sm:h-13 px-8 rounded-full bg-[#071A33] hover:bg-[#0c274c] text-white font-sans font-bold text-sm sm:text-base tracking-wide transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer shrink-0">
-                                                                    <span id="btn-status-search-label">View Current
-                                                                      Status</span>
-                                                                    <svg class="w-4 h-4 text-amber-400" fill="none"
-                                                                      stroke="currentColor" viewBox="0 0 24 24">
-                                                                      <path stroke-linecap="round"
-                                                                        stroke-linejoin="round" stroke-width="2"
-                                                                        d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                                                    </svg>
-                                                                  </button>
-                                                                </div>
+        <!-- Status Results Container -->
+        <div id="status-results-container" class="space-y-6 pt-6"></div>
 
-                                                                <div id="status-search-error"
-                                                                  class="hidden p-3.5 rounded-xl bg-red-50 border-2 border-red-300 text-red-900 text-xs sm:text-sm font-bold text-center animate-fadeIn">
-                                                                </div>
-                                                              </form>
+      </div>
+    </div>
 
-                                                              <!-- Loading Spinner State -->
-                                                              <div id="status-loading-spinner"
-                                                                class="hidden py-12 text-center space-y-3">
-                                                                <svg class="animate-spin h-8 w-8 text-[#071A33] mx-auto"
-                                                                  fill="none" viewBox="0 0 24 24">
-                                                                  <circle class="opacity-25" cx="12" cy="12" r="10"
-                                                                    stroke="currentColor" stroke-width="4"></circle>
-                                                                  <path class="opacity-75" fill="currentColor"
-                                                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                                                  </path>
-                                                                </svg>
-                                                                <p class="text-sm font-sans font-bold text-slate-700">
-                                                                  Verifying registration database...</p>
-                                                              </div>
-
-                                                              <!-- Not Found State -->
-                                                              <div id="status-not-found"
-                                                                class="hidden py-8 px-4 text-center max-w-md mx-auto space-y-3.5 animate-fadeIn">
-                                                                <div
-                                                                  class="w-12 h-12 rounded-full bg-amber-50 border-2 border-amber-300 flex items-center justify-center mx-auto text-amber-600 font-black text-xl">
-                                                                  ?
-                                                                </div>
-                                                                <h4
-                                                                  class="font-heading font-extrabold text-lg text-slate-900 m-0">
-                                                                  No Registration Found</h4>
-                                                                <p id="status-not-found-msg"
-                                                                  class="text-xs sm:text-sm font-sans text-slate-650 leading-relaxed m-0">
-                                                                  We could not find any active delegate registration
-                                                                  matching the search term. Please verify the email or
-                                                                  ID
-                                                                  entered.
-                                                                </p>
-                                                                <div class="pt-2">
-                                                                  <button type="button"
-                                                                    id="btn-status-switch-to-register"
-                                                                    class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#071A33] text-white font-sans font-bold text-xs sm:text-sm hover:bg-[#0c274c] transition-colors cursor-pointer shadow-md">
-                                                                    <span>Start New Registration</span>
-                                                                    <svg class="w-3.5 h-3.5 text-amber-400" fill="none"
-                                                                      stroke="currentColor" viewBox="0 0 24 24">
-                                                                      <path stroke-linecap="round"
-                                                                        stroke-linejoin="round" stroke-width="2"
-                                                                        d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                                                    </svg>
-                                                                  </button>
-                                                                </div>
-                                                              </div>
-
-                                                              <!-- Status Results Container -->
-                                                              <div id="status-results-container" class="space-y-6 pt-6">
-                                                              </div>
-
-                                                            </div>
-                                                          </div>
-
-                                                        </div>
-                                                      </div>
+      </div>
+    </div>
   </main>
 
   <footer class="relative w-full bg-[#030C22] text-white" aria-label="Footer Navigation and Secretariat Contacts">
@@ -2126,7 +1844,7 @@
     window.__DYUTI_TEST_MODE__ = true;
     window.__DYUTI_TEST_AMOUNT__ = 1;
   </script>
-  <script src="js/app.js?v=gateway_v24_status_ancestor_unhide"></script>
+  <script src="js/app.js?v=gateway_v25_perfect_status_and_price"></script>
   <script>
     // Bulletproof runtime guard for 1-Rupee Test Registration
     (function () {

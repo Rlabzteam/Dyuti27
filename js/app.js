@@ -2153,18 +2153,6 @@ function initRegistrationStatusTracker() {
 
   if (!statusView) return;
 
-  // ── Fix: #reg-status-view may be nested inside a hidden parent (#reg-step-success).
-  // Relocate it to be a direct sibling of #reg-step-form at the top-level step container.
-  // This runs once on page load; after relocation the toggle works without ancestor issues.
-  (function relocateStatusView() {
-    const targetParent = stepFormView
-      ? stepFormView.parentElement
-      : (stepIndicator ? stepIndicator.parentElement : null);
-    if (!targetParent) return;
-    if (statusView.parentElement === targetParent) return; // already in correct place
-    targetParent.appendChild(statusView);
-  })();
-
   function switchMode(mode) {
     if (mode === 'register') {
       if (modeTabRegister && modeTabStatus) {
@@ -2214,12 +2202,6 @@ function initRegistrationStatusTracker() {
       if (stepReviewView) stepReviewView.classList.add('hidden');
       if (stepSuccessView) stepSuccessView.classList.add('hidden');
       statusView.classList.remove('hidden');
-      // Ensure all ancestor elements are also visible (failsafe for deep nesting)
-      let ancestor = statusView.parentElement;
-      while (ancestor && ancestor !== document.body) {
-        if (ancestor.classList.contains('hidden')) ancestor.classList.remove('hidden');
-        ancestor = ancestor.parentElement;
-      }
       statusView.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
       updateRecentChip();
