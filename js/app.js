@@ -963,6 +963,16 @@ function initRegistrationForm() {
     });
   });
 
+  // ── Init: sync UI to whichever category radio is currently checked on load ──
+  // This ensures button labels (e.g. "Review & Pay ₹ 1,000") and card styles
+  // reflect the actual selected category on first load AND after browser
+  // form-state restoration (which caused the ₹750 / ₹1000 mismatch on refresh).
+  (function initCategoryOnLoad() {
+    const checkedRadio = form.querySelector('input[name="registrationCategory"]:checked');
+    const initKey = checkedRadio ? checkedRadio.value : 'student';
+    selectCategory(initKey);
+  })();
+
   // 3. Payment Mode Cards click handler
   paymentCards.forEach(card => {
     card.addEventListener('click', () => {
