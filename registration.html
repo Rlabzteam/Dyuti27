@@ -28,6 +28,19 @@
   <link rel="preload" as="image" href="https://dyuti.in/assets/images/dyutilogoog.jpg">
 
   <script>
+    // Automatic fallback if root js/app.js returns 404 on custom host/cPanel paths
+    window.addEventListener('error', function (e) {
+      if (e.target && e.target.tagName === 'SCRIPT' && e.target.src && e.target.src.indexOf('js/app.js') !== -1) {
+        if (!window.__dyuti_fallback_loaded__) {
+          window.__dyuti_fallback_loaded__ = true;
+          console.warn('[Dyuti] Injecting fallback /rcss/js/app.js...');
+          var s = document.createElement('script');
+          s.src = '/rcss/js/app.js?v=gateway_v29_tdz_fix';
+          document.body.appendChild(s);
+        }
+      }
+    }, true);
+
     window.dyutiToggleStatusView = function (targetMode) {
       var statusView = document.getElementById('reg-status-view');
       var stepFormView = document.getElementById('reg-step-form');
@@ -1545,7 +1558,7 @@
         </div>
 
         <!-- Status Search Input Form -->
-        <form id="status-lookup-form" class="max-w-2xl mx-auto space-y-6" novalidate>
+        <form id="status-lookup-form" onsubmit="event.preventDefault(); window.dyutiSubmitStatusSearch && window.dyutiSubmitStatusSearch(); return false;" class="max-w-2xl mx-auto space-y-6" novalidate>
           
           <!-- Two Balanced Distinct Search Option Cards -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left items-stretch">
@@ -1652,7 +1665,7 @@
               <span>Return to Registration Form</span>
             </button>
 
-            <button type="submit" id="btn-submit-status-search"
+            <button type="button" id="btn-submit-status-search" onclick="event.preventDefault(); window.dyutiSubmitStatusSearch && window.dyutiSubmitStatusSearch();"
               class="w-full sm:w-auto h-12 sm:h-13 px-8 rounded-full bg-[#071A33] hover:bg-[#0c274c] text-white font-sans font-bold text-sm sm:text-base tracking-wide transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer shrink-0 hover:scale-[1.02] active:scale-98">
               <span id="btn-status-search-label">View Current Status</span>
               <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1844,7 +1857,7 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="js/app.js?v=gateway_v28_status_slip_download"></script>
+  <script src="js/app.js?v=gateway_v29_tdz_fix"></script>
 </body>
 
 </html>

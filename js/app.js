@@ -446,6 +446,14 @@ function initRegistrationForm() {
   let currentCategoryKey = 'student';
   let currentPaymentMode = 'online';
 
+  // Background Preloading & Instant Gateway Execution State (declared early to prevent TDZ ReferenceError)
+  let preloadedPayment = {
+    hash: '',
+    promise: null,
+    url: null,
+    errorMessage: null
+  };
+
   // ── Cool-Off Period Controller (15 Minutes on Failure) ──
   let cooloffTimerInterval = null;
 
@@ -944,9 +952,7 @@ function initRegistrationForm() {
     }
 
     updateButtonLabels();
-    if (typeof preloadedPayment !== 'undefined') {
-      preloadedPayment = { hash: '', promise: null, url: null, errorMessage: null };
-    }
+    preloadedPayment = { hash: '', promise: null, url: null, errorMessage: null };
   }
 
   categoryCards.forEach(card => {
@@ -1582,8 +1588,8 @@ function initRegistrationForm() {
     }
   });
 
-  // Background Preloading & Instant Gateway Execution State
-  let preloadedPayment = {
+  // Background Preloading & Instant Gateway Execution State (reset)
+  preloadedPayment = {
     hash: '',
     promise: null,
     url: null,
@@ -2371,6 +2377,8 @@ function initRegistrationStatusTracker() {
       }
     });
   }
+
+  window.dyutiSubmitStatusSearch = triggerStatusSearch;
 
   function triggerStatusSearch() {
     if (isStatusSearching) return;
