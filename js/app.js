@@ -2153,6 +2153,16 @@ function initRegistrationStatusTracker() {
 
   if (!statusView) return;
 
+  // ── Fix: #reg-status-view is wrongly nested inside #reg-step-success (which
+  // is hidden). Move it to be a direct sibling of the step containers so it can
+  // be shown/hidden independently of the success step's visibility. ──
+  const stepContainer = stepFormView
+    ? stepFormView.parentElement
+    : (stepIndicator ? stepIndicator.parentElement : null);
+  if (stepContainer && statusView.parentElement !== stepContainer) {
+    stepContainer.appendChild(statusView);
+  }
+
   function switchMode(mode) {
     if (mode === 'register') {
       if (modeTabRegister && modeTabStatus) {
