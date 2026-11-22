@@ -35,6 +35,8 @@
       var stepSuccessView = document.getElementById('reg-step-success');
       var stepIndicator = document.getElementById('portal-step-indicator');
       var btnPortal = document.getElementById('btn-portal-check-status');
+      var tabReg = document.getElementById('mode-tab-register');
+      var tabStatus = document.getElementById('mode-tab-status');
       if (!statusView) return;
 
       var isStatusOpen = !statusView.classList.contains('hidden');
@@ -47,6 +49,10 @@
         if (stepSuccessView) stepSuccessView.classList.add('hidden');
         statusView.classList.remove('hidden');
 
+        if (tabReg && tabStatus) {
+          tabStatus.className = 'flex-1 py-2.5 sm:py-3 px-4 rounded-full font-sans text-xs sm:text-sm font-extrabold transition-all duration-200 flex items-center justify-center gap-2 bg-[#071A33] text-white shadow-md cursor-pointer';
+          tabReg.className = 'flex-1 py-2.5 sm:py-3 px-4 rounded-full font-sans text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-950 hover:bg-white/70 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer';
+        }
         if (btnPortal) {
           btnPortal.innerHTML = '<svg class="w-4 h-4 text-slate-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg><span>Return to Registration Form</span>';
         }
@@ -60,6 +66,10 @@
         statusView.classList.add('hidden');
         if (stepFormView) stepFormView.classList.remove('hidden');
 
+        if (tabReg && tabStatus) {
+          tabReg.className = 'flex-1 py-2.5 sm:py-3 px-4 rounded-full font-sans text-xs sm:text-sm font-extrabold transition-all duration-200 flex items-center justify-center gap-2 bg-[#071A33] text-white shadow-md cursor-pointer';
+          tabStatus.className = 'flex-1 py-2.5 sm:py-3 px-4 rounded-full font-sans text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-950 hover:bg-white/70 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer';
+        }
         if (btnPortal) {
           btnPortal.innerHTML = '<svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><span>Already Registered? Check Your Status</span><span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-black bg-amber-200 text-amber-950 ml-1">Track Live</span>';
         }
@@ -387,18 +397,23 @@
           </p>
         </div>
 
-        <!-- ── SINGLE ACCESSIBLE CHECK STATUS TRIGGER BUTTON ── -->
-        <div class="max-w-md mx-auto mb-8 sm:mb-10 text-center px-2 no-print">
-          <button id="btn-portal-check-status" type="button" onclick="dyutiToggleStatusView()"
-            class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-slate-100 hover:bg-white text-[#071A33] font-sans font-extrabold text-xs sm:text-sm tracking-wide border-2 border-slate-300 hover:border-[#071A33] shadow-xs hover:shadow-md transition-all duration-200 hover:scale-[1.02] active:scale-98 cursor-pointer">
-            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <!-- ── PORTAL MODE SWITCHER TABS ── -->
+        <div class="max-w-md mx-auto mb-8 sm:mb-10 p-1.5 rounded-full bg-slate-200/90 border border-slate-300 shadow-xs flex items-center gap-1.5 no-print">
+          <button id="mode-tab-register" type="button" onclick="dyutiToggleStatusView('register')"
+            class="flex-1 py-2.5 sm:py-3 px-4 rounded-full font-sans text-xs sm:text-sm font-extrabold transition-all duration-200 flex items-center justify-center gap-2 bg-[#071A33] text-white shadow-md cursor-pointer">
+            <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
             </svg>
-            <span id="btn-portal-check-status-label">Already Registered? Check Your Status</span>
-            <span
-              class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-black bg-amber-200 text-amber-950 ml-1">
-              Track Live
+            <span>Registration Form</span>
+          </button>
+          <button id="mode-tab-status" type="button" onclick="dyutiToggleStatusView('status')"
+            class="flex-1 py-2.5 sm:py-3 px-4 rounded-full font-sans text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-950 hover:bg-white/70 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
+            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Check Status</span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-black bg-amber-200 text-amber-950 ml-0.5">
+              Live
             </span>
           </button>
         </div>
@@ -1507,66 +1522,106 @@
       <div
         class="rounded-2xl sm:rounded-[36px] p-5 sm:p-10 lg:p-12 bg-white border border-slate-200 shadow-xl relative overflow-hidden text-slate-900">
 
+        <!-- Top Ambient Gradient Accent Line -->
+        <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#071A33] via-amber-400 to-[#071A33]"></div>
+
         <!-- Section Header inside Status View -->
         <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-          <div
-            class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-blue-50 border-2 border-blue-200 flex items-center justify-center mx-auto mb-4 shadow-sm">
-            <svg class="w-7 h-7 sm:w-8 sm:h-8 text-[#071A33]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#071A33] text-amber-400 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-slate-900/10">
+            <svg class="w-7 h-7 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
+          </div>
+          <span class="text-xs font-mono font-bold tracking-widest uppercase text-slate-500 block mb-1.5">
+            Delegate Portal &bull; Verification
+          </span>
+          <h2 class="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#071A33] mb-2 sm:mb-3">
+            Check Registration Status
+          </h2>
+          <p class="text-xs sm:text-base text-slate-600 font-sans leading-relaxed font-normal">
+            Verify your delegate enrollment, fee payment status, and conference credentials. Search using either option below.
+          </p>
+        </div>
+
         <!-- Status Search Input Form -->
-        <form id="status-lookup-form" class="max-w-2xl mx-auto space-y-4" novalidate>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-left">
-            <!-- Field 1: Application ID / Registration ID -->
-            <div class="space-y-1.5 flex flex-col justify-between">
-              <label for="status-app-id-input"
-                class="flex items-center justify-between gap-1.5 text-xs sm:text-sm font-bold text-slate-800 font-sans min-h-[24px]">
-                <span>Application ID</span>
-                <span class="text-[11px] sm:text-xs text-slate-500 font-normal truncate">(Optional if phone is
-                  provided)</span>
-              </label>
+        <form id="status-lookup-form" class="max-w-2xl mx-auto space-y-6" novalidate>
+          
+          <!-- Two Balanced Distinct Search Option Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left items-stretch">
+            
+            <!-- Option Card 1: Application ID -->
+            <div class="p-4 sm:p-5 rounded-2xl bg-slate-50/90 border-2 border-slate-200/90 hover:border-slate-300 transition-all flex flex-col justify-between space-y-3">
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-xs font-mono font-black uppercase tracking-wider text-[#071A33] flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
+                    </svg>
+                    Option A
+                  </span>
+                  <span class="text-[10px] font-sans font-semibold text-slate-500 bg-white px-2 py-0.5 rounded-full border border-slate-200">
+                    Exact Match
+                  </span>
+                </div>
+                <label for="status-app-id-input" class="block text-xs sm:text-sm font-bold text-slate-900 font-sans mb-1">
+                  Application / Registration ID
+                </label>
+                <p class="text-[11px] text-slate-500 font-sans leading-tight mb-3">
+                  Found on your registration confirmation email or payment slip.
+                </p>
+              </div>
               <div class="relative flex items-center">
-                <div class="absolute pointer-events-none text-slate-400"
-                  style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 10;">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <rect x="3" y="4" width="18" height="16" rx="3" stroke-width="2"></rect>
-                    <circle cx="9" cy="10" r="2.5" stroke-width="2"></circle>
-                    <line x1="15" y1="9" x2="18" y2="9" stroke-linecap="round"></line>
-                    <line x1="15" y1="13" x2="18" y2="13" stroke-linecap="round"></line>
-                    <path d="M6 17c0-1.657 1.343-3 3-3s3 1.343 3 3" stroke-linecap="round"></path>
+                <div class="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
                   </svg>
                 </div>
                 <input type="text" id="status-app-id-input"
-                  style="padding-left: 52px !important; padding-right: 16px !important;"
-                  placeholder="Enter Application ID"
-                  class="w-full h-12 sm:h-13 pl-11 pr-4 rounded-xl bg-slate-50 border-2 border-slate-300 text-slate-950 font-mono text-xs sm:text-sm font-bold focus:outline-none focus:bg-white focus:border-[#071A33] focus:ring-4 focus:ring-slate-900/10 transition-all shadow-inner placeholder:font-sans placeholder:font-normal placeholder:text-slate-400">
+                  placeholder="e.g. DYUTI27-ONLINE-..."
+                  class="w-full h-11 sm:h-12 pl-10 pr-3 rounded-xl bg-white border-2 border-slate-300 text-slate-950 font-mono text-xs sm:text-sm font-bold focus:outline-none focus:border-[#071A33] focus:ring-4 focus:ring-slate-900/10 transition-all shadow-inner placeholder:font-mono placeholder:font-normal placeholder:text-slate-400">
               </div>
             </div>
 
-            <!-- Field 2: Registered Mobile Number -->
-            <div class="space-y-1.5 flex flex-col justify-between">
-              <label for="status-phone-input"
-                class="flex items-center justify-between gap-1.5 text-xs sm:text-sm font-bold text-slate-800 font-sans min-h-[24px]">
-                <span>Registered Mobile Number</span>
-                <span class="text-[11px] sm:text-xs text-emerald-700 font-semibold truncate">(Finds your Application
-                  ID)</span>
-              </label>
+            <!-- Option Card 2: Registered Mobile Number or Email -->
+            <div class="p-4 sm:p-5 rounded-2xl bg-slate-50/90 border-2 border-slate-200/90 hover:border-slate-300 transition-all flex flex-col justify-between space-y-3">
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-xs font-mono font-black uppercase tracking-wider text-emerald-700 flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    Option B
+                  </span>
+                  <span class="text-[10px] font-sans font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                    Quick Lookup
+                  </span>
+                </div>
+                <label for="status-phone-input" class="block text-xs sm:text-sm font-bold text-slate-900 font-sans mb-1">
+                  Mobile Number or Email
+                </label>
+                <p class="text-[11px] text-slate-500 font-sans leading-tight mb-3">
+                  Retrieves your application records registered with your contact info.
+                </p>
+              </div>
               <div class="relative flex items-center">
-                <div class="absolute pointer-events-none text-slate-400"
-                  style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 10;">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                <div class="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                   </svg>
                 </div>
                 <input type="text" id="status-phone-input"
-                  style="padding-left: 52px !important; padding-right: 16px !important;"
-                  placeholder="Enter Mobile Number or Email"
-                  class="w-full h-12 sm:h-13 pl-11 pr-4 rounded-xl bg-slate-50 border-2 border-slate-300 text-slate-950 font-mono text-xs sm:text-sm font-bold focus:outline-none focus:bg-white focus:border-[#071A33] focus:ring-4 focus:ring-slate-900/10 transition-all shadow-inner placeholder:font-sans placeholder:font-normal placeholder:text-slate-400">
+                  placeholder="e.g. 9876543210 or your email"
+                  class="w-full h-11 sm:h-12 pl-10 pr-3 rounded-xl bg-white border-2 border-slate-300 text-slate-950 font-sans text-xs sm:text-sm font-bold focus:outline-none focus:border-[#071A33] focus:ring-4 focus:ring-slate-900/10 transition-all shadow-inner placeholder:font-sans placeholder:font-normal placeholder:text-slate-400">
               </div>
             </div>
+
           </div>
+
+          <!-- Quick Helper Info -->
+          <p class="text-xs text-slate-500 font-sans text-center m-0">
+            Tip: You only need to provide <strong>either</strong> your Application ID <strong>or</strong> your Registered Phone/Email to find your records.
+          </p>
 
           <!-- Quick Recent Chip button (Placed directly under inputs for immediate accessibility) -->
           <div id="status-recent-chip-wrapper"
@@ -1598,7 +1653,7 @@
             </button>
 
             <button type="submit" id="btn-submit-status-search"
-              class="w-full sm:w-auto h-12 sm:h-13 px-8 rounded-full bg-[#071A33] hover:bg-[#0c274c] text-white font-sans font-bold text-sm sm:text-base tracking-wide transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer shrink-0">
+              class="w-full sm:w-auto h-12 sm:h-13 px-8 rounded-full bg-[#071A33] hover:bg-[#0c274c] text-white font-sans font-bold text-sm sm:text-base tracking-wide transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer shrink-0 hover:scale-[1.02] active:scale-98">
               <span id="btn-status-search-label">View Current Status</span>
               <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -1789,7 +1844,7 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="js/app.js?v=gateway_v25_perfect_status_and_price"></script>
+  <script src="js/app.js?v=gateway_v27_polished_status_ui"></script>
 </body>
 
 </html>
