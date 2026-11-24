@@ -660,7 +660,7 @@ $exportUrl = 'export.php?' . $exportQuery;
                   <td class="py-3 px-3 text-blue-300 max-w-[180px] truncate" title="<?php echo htmlspecialchars($reg['email']); ?>"><?php echo htmlspecialchars($reg['email']); ?></td>
                   <td class="py-3 px-3 text-white max-w-[160px] truncate" title="<?php echo htmlspecialchars($reg['registration_category']); ?>"><?php echo htmlspecialchars($reg['registration_category']); ?></td>
                   <td class="py-3 px-3 whitespace-nowrap">
-                    <?php $pt = strtolower(trim($reg['participation_type'] ?? 'regular')); ?>
+                    <?php $pt = strtolower(trim(adminVal($reg, 'participation_type', 'regular'))); ?>
                     <?php if ($pt === 'paper_presentation' || $pt === 'paper'): ?>
                       <span class="px-2 py-0.5 rounded-full bg-purple-950/80 text-purple-300 border border-purple-800 font-bold">Paper</span>
                     <?php elseif ($pt === 'stall' || $pt === 'exhibition'): ?>
@@ -685,12 +685,12 @@ $exportUrl = 'export.php?' . $exportQuery;
                       </span>
                     <?php endif; ?>
                   </td>
-                  <td class="py-3 px-3 text-slate-300 whitespace-nowrap uppercase"><?php echo htmlspecialchars($reg['payment_mode'] ?: '—'); ?></td>
-                  <td class="py-3 px-3 font-mono text-emerald-400 max-w-[150px] truncate" title="<?php echo htmlspecialchars($reg['transaction_ref'] ?: 'N/A'); ?>"><?php echo htmlspecialchars($reg['transaction_ref'] ?: '—'); ?></td>
-                  <td class="py-3 px-3 font-mono text-slate-400 max-w-[150px] truncate" title="<?php echo htmlspecialchars($reg['payment_order_id'] ?: 'N/A'); ?>"><?php echo htmlspecialchars($reg['payment_order_id'] ?: '—'); ?></td>
-                  <td class="py-3 px-3 text-slate-300 whitespace-nowrap uppercase"><?php echo htmlspecialchars($reg['food_preference'] ?: '—'); ?></td>
+                  <td class="py-3 px-3 text-slate-300 whitespace-nowrap uppercase"><?php echo htmlspecialchars(adminVal($reg, 'payment_mode', '—')); ?></td>
+                  <td class="py-3 px-3 font-mono text-emerald-400 max-w-[150px] truncate" title="<?php echo htmlspecialchars(adminVal($reg, 'transaction_ref', 'N/A')); ?>"><?php echo htmlspecialchars(adminVal($reg, 'transaction_ref', '—')); ?></td>
+                  <td class="py-3 px-3 font-mono text-slate-400 max-w-[150px] truncate" title="<?php echo htmlspecialchars(adminVal($reg, 'payment_order_id', 'N/A')); ?>"><?php echo htmlspecialchars(adminVal($reg, 'payment_order_id', '—')); ?></td>
+                  <td class="py-3 px-3 text-slate-300 whitespace-nowrap uppercase"><?php echo htmlspecialchars(adminVal($reg, 'food_preference', '—')); ?></td>
                   <td class="py-3 px-3 whitespace-nowrap">
-                    <?php $acc = strtoupper(trim($reg['require_accommodation'] ?? 'NO')); ?>
+                    <?php $acc = strtoupper(trim(adminVal($reg, 'require_accommodation', 'NO'))); ?>
                     <?php if ($acc === 'YES'): ?>
                       <span class="px-2 py-0.5 rounded-full bg-sky-950/80 text-sky-300 border border-sky-800 font-bold">Yes</span>
                     <?php else: ?>
@@ -698,16 +698,16 @@ $exportUrl = 'export.php?' . $exportQuery;
                     <?php endif; ?>
                   </td>
                   <td class="py-3 px-3 whitespace-nowrap">
-                    <?php $isPaper = strtoupper(trim($reg['is_presenting_paper'] ?? 'NO')); ?>
+                    <?php $isPaper = strtoupper(trim(adminVal($reg, 'is_presenting_paper', 'NO'))); ?>
                     <?php if ($isPaper === 'YES'): ?>
                       <span class="px-2 py-0.5 rounded-full bg-violet-950/80 text-violet-300 border border-violet-800 font-bold">Yes</span>
                     <?php else: ?>
                       <span class="text-slate-500">No</span>
                     <?php endif; ?>
                   </td>
-                  <td class="py-3 px-3 font-mono text-slate-300 whitespace-nowrap"><?php echo htmlspecialchars($reg['cmt_paper_id'] ?? '—'); ?></td>
-                  <td class="py-3 px-3 text-slate-300 max-w-[160px] truncate" title="<?php echo htmlspecialchars($reg['paper_theme'] ?? ''); ?>"><?php echo htmlspecialchars($reg['paper_theme'] ?? '—'); ?></td>
-                  <td class="py-3 px-3 text-slate-300 max-w-[180px] truncate" title="<?php echo htmlspecialchars($reg['paper_title'] ?? ''); ?>"><?php echo htmlspecialchars($reg['paper_title'] ?? '—'); ?></td>
+                  <td class="py-3 px-3 font-mono text-slate-300 whitespace-nowrap"><?php echo htmlspecialchars(adminVal($reg, 'cmt_paper_id', '—')); ?></td>
+                  <td class="py-3 px-3 text-slate-300 max-w-[160px] truncate" title="<?php echo htmlspecialchars(adminVal($reg, 'paper_theme', '')); ?>"><?php echo htmlspecialchars(adminVal($reg, 'paper_theme', '—')); ?></td>
+                  <td class="py-3 px-3 text-slate-300 max-w-[180px] truncate" title="<?php echo htmlspecialchars(adminVal($reg, 'paper_title', '')); ?>"><?php echo htmlspecialchars(adminVal($reg, 'paper_title', '—')); ?></td>
                   <td class="py-3 px-3 text-center whitespace-nowrap">
                     <button type="button"
                             onclick='openDetailModal(<?php echo $regJson; ?>)'
