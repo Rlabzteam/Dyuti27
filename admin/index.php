@@ -592,23 +592,40 @@ $exportUrl = 'export.php?' . $exportQuery;
       <div class="overflow-x-auto">
         <table class="w-full text-left text-xs border-collapse">
           <thead>
-            <tr class="bg-slate-950/70 border-b border-slate-800 text-slate-400 uppercase tracking-wider font-bold">
-              <th class="py-3 px-4">#</th>
-              <th class="py-3 px-4">Application ID</th>
-              <th class="py-3 px-4">Date / Time</th>
-              <th class="py-3 px-4">Delegate Name</th>
-              <th class="py-3 px-4">Contact</th>
-              <th class="py-3 px-4">Category &amp; Org</th>
-              <th class="py-3 px-4">Fee (₹)</th>
-              <th class="py-3 px-4">Payment Status</th>
-              <th class="py-3 px-4">Transaction Ref</th>
-              <th class="py-3 px-4 text-center">Action</th>
+            <tr class="bg-slate-950/70 border-b border-slate-800 text-slate-400 uppercase tracking-wider font-bold text-[10px]">
+              <th class="py-3 px-3 whitespace-nowrap">#</th>
+              <th class="py-3 px-3 whitespace-nowrap">App ID</th>
+              <th class="py-3 px-3 whitespace-nowrap">Registered</th>
+              <th class="py-3 px-3 whitespace-nowrap">Title</th>
+              <th class="py-3 px-3 whitespace-nowrap">Full Name</th>
+              <th class="py-3 px-3 whitespace-nowrap">Designation</th>
+              <th class="py-3 px-3 whitespace-nowrap">Gender</th>
+              <th class="py-3 px-3 whitespace-nowrap">Organization</th>
+              <th class="py-3 px-3 whitespace-nowrap">Discipline</th>
+              <th class="py-3 px-3 whitespace-nowrap">Address</th>
+              <th class="py-3 px-3 whitespace-nowrap">Pincode</th>
+              <th class="py-3 px-3 whitespace-nowrap">Phone</th>
+              <th class="py-3 px-3 whitespace-nowrap">Email</th>
+              <th class="py-3 px-3 whitespace-nowrap">Category</th>
+              <th class="py-3 px-3 whitespace-nowrap">Participation</th>
+              <th class="py-3 px-3 whitespace-nowrap">Fee (₹)</th>
+              <th class="py-3 px-3 whitespace-nowrap">Payment Status</th>
+              <th class="py-3 px-3 whitespace-nowrap">Payment Mode</th>
+              <th class="py-3 px-3 whitespace-nowrap">Transaction Ref</th>
+              <th class="py-3 px-3 whitespace-nowrap">Order ID</th>
+              <th class="py-3 px-3 whitespace-nowrap">Food Pref</th>
+              <th class="py-3 px-3 whitespace-nowrap">Accommodation</th>
+              <th class="py-3 px-3 whitespace-nowrap">Presenting Paper</th>
+              <th class="py-3 px-3 whitespace-nowrap">CMT Paper ID</th>
+              <th class="py-3 px-3 whitespace-nowrap">Paper Theme</th>
+              <th class="py-3 px-3 whitespace-nowrap">Paper Title</th>
+              <th class="py-3 px-3 whitespace-nowrap text-center">Action</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-800/70 font-medium">
             <?php if (empty($registrations)): ?>
               <tr>
-                <td colspan="10" class="py-12 text-center text-slate-400">
+                <td colspan="27" class="py-12 text-center text-slate-400">
                   <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-slate-800 mb-3 text-slate-500">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
@@ -627,51 +644,74 @@ $exportUrl = 'export.php?' . $exportQuery;
                 
                 $regJson = htmlspecialchars(json_encode($reg), ENT_QUOTES, 'UTF-8');
               ?>
-                <tr class="hover:bg-slate-800/40 transition-colors">
-                  <td class="py-3.5 px-4 text-slate-500"><?php echo htmlspecialchars($reg['id']); ?></td>
-                  <td class="py-3.5 px-4 font-mono font-bold text-white tracking-tight">
-                    <?php echo htmlspecialchars($reg['registration_id']); ?>
+                <tr class="hover:bg-slate-800/40 transition-colors text-[11px]">
+                  <td class="py-3 px-3 text-slate-500 whitespace-nowrap"><?php echo htmlspecialchars($reg['id']); ?></td>
+                  <td class="py-3 px-3 font-mono font-bold text-amber-300 whitespace-nowrap"><?php echo htmlspecialchars($reg['registration_id']); ?></td>
+                  <td class="py-3 px-3 text-slate-400 whitespace-nowrap"><?php echo htmlspecialchars(substr($reg['created_at'], 0, 16)); ?></td>
+                  <td class="py-3 px-3 text-slate-300 whitespace-nowrap"><?php echo htmlspecialchars($reg['title'] ?: ''); ?></td>
+                  <td class="py-3 px-3 font-bold text-white whitespace-nowrap"><?php echo htmlspecialchars($reg['full_name']); ?></td>
+                  <td class="py-3 px-3 text-slate-300 whitespace-nowrap"><?php echo htmlspecialchars($reg['designation'] ?: '—'); ?></td>
+                  <td class="py-3 px-3 text-slate-300 whitespace-nowrap"><?php echo htmlspecialchars($reg['gender'] ?: '—'); ?></td>
+                  <td class="py-3 px-3 text-slate-300 max-w-[160px] truncate" title="<?php echo htmlspecialchars($reg['organization'] ?: ''); ?>"><?php echo htmlspecialchars($reg['organization'] ?: '—'); ?></td>
+                  <td class="py-3 px-3 text-slate-300 max-w-[140px] truncate" title="<?php echo htmlspecialchars($reg['discipline'] ?: ''); ?>"><?php echo htmlspecialchars($reg['discipline'] ?: '—'); ?></td>
+                  <td class="py-3 px-3 text-slate-400 max-w-[160px] truncate" title="<?php echo htmlspecialchars($reg['address'] ?: ''); ?>"><?php echo htmlspecialchars($reg['address'] ?: '—'); ?></td>
+                  <td class="py-3 px-3 text-slate-300 font-mono whitespace-nowrap"><?php echo htmlspecialchars($reg['pincode'] ?: '—'); ?></td>
+                  <td class="py-3 px-3 text-blue-300 font-mono whitespace-nowrap"><?php echo htmlspecialchars($reg['phone']); ?></td>
+                  <td class="py-3 px-3 text-blue-300 max-w-[180px] truncate" title="<?php echo htmlspecialchars($reg['email']); ?>"><?php echo htmlspecialchars($reg['email']); ?></td>
+                  <td class="py-3 px-3 text-white max-w-[160px] truncate" title="<?php echo htmlspecialchars($reg['registration_category']); ?>"><?php echo htmlspecialchars($reg['registration_category']); ?></td>
+                  <td class="py-3 px-3 whitespace-nowrap">
+                    <?php $pt = strtolower(trim($reg['participation_type'] ?? 'regular')); ?>
+                    <?php if ($pt === 'paper_presentation' || $pt === 'paper'): ?>
+                      <span class="px-2 py-0.5 rounded-full bg-purple-950/80 text-purple-300 border border-purple-800 font-bold">Paper</span>
+                    <?php elseif ($pt === 'stall' || $pt === 'exhibition'): ?>
+                      <span class="px-2 py-0.5 rounded-full bg-blue-950/80 text-blue-300 border border-blue-800 font-bold">Stall</span>
+                    <?php else: ?>
+                      <span class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700 font-bold">Regular</span>
+                    <?php endif; ?>
                   </td>
-                  <td class="py-3.5 px-4 text-slate-400 whitespace-nowrap">
-                    <?php echo htmlspecialchars(substr($reg['created_at'], 0, 16)); ?>
-                  </td>
-                  <td class="py-3.5 px-4">
-                    <div class="font-bold text-white"><?php echo htmlspecialchars($reg['title'] . ' ' . $reg['full_name']); ?></div>
-                    <div class="text-[11px] text-slate-400 truncate max-w-xs"><?php echo htmlspecialchars($reg['designation'] ?: 'Participant'); ?></div>
-                  </td>
-                  <td class="py-3.5 px-4">
-                    <div class="text-slate-300 truncate max-w-xs"><?php echo htmlspecialchars($reg['email']); ?></div>
-                    <div class="text-slate-400 font-mono text-[11px]"><?php echo htmlspecialchars($reg['phone']); ?></div>
-                  </td>
-                  <td class="py-3.5 px-4">
-                    <div class="text-white font-medium truncate max-w-xs"><?php echo htmlspecialchars($reg['registration_category']); ?></div>
-                    <div class="text-[11px] text-slate-400 truncate max-w-xs"><?php echo htmlspecialchars($reg['organization'] ?: '—'); ?></div>
-                  </td>
-                  <td class="py-3.5 px-4 font-mono font-bold text-white">
-                    ₹ <?php echo number_format((float)$reg['fee_amount'], 2); ?>
-                  </td>
-                  <td class="py-3.5 px-4">
+                  <td class="py-3 px-3 font-mono font-bold text-white whitespace-nowrap">₹ <?php echo number_format((float)$reg['fee_amount'], 2); ?></td>
+                  <td class="py-3 px-3 whitespace-nowrap">
                     <?php if ($isPaid): ?>
-                      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-800">
+                      <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-800">
                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Confirmed
                       </span>
                     <?php elseif ($isPending): ?>
-                      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-950/80 text-amber-300 border border-amber-800">
+                      <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-950/80 text-amber-300 border border-amber-800">
                         <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Pending
                       </span>
                     <?php else: ?>
-                      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-950/80 text-rose-300 border border-rose-800">
+                      <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-950/80 text-rose-300 border border-rose-800">
                         <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span> Failed
                       </span>
                     <?php endif; ?>
                   </td>
-                  <td class="py-3.5 px-4 font-mono text-[11px] text-slate-400 truncate max-w-xs" title="<?php echo htmlspecialchars($reg['transaction_ref'] ?: 'N/A'); ?>">
-                    <?php echo htmlspecialchars($reg['transaction_ref'] ?: '—'); ?>
+                  <td class="py-3 px-3 text-slate-300 whitespace-nowrap uppercase"><?php echo htmlspecialchars($reg['payment_mode'] ?: '—'); ?></td>
+                  <td class="py-3 px-3 font-mono text-emerald-400 max-w-[150px] truncate" title="<?php echo htmlspecialchars($reg['transaction_ref'] ?: 'N/A'); ?>"><?php echo htmlspecialchars($reg['transaction_ref'] ?: '—'); ?></td>
+                  <td class="py-3 px-3 font-mono text-slate-400 max-w-[150px] truncate" title="<?php echo htmlspecialchars($reg['payment_order_id'] ?: 'N/A'); ?>"><?php echo htmlspecialchars($reg['payment_order_id'] ?: '—'); ?></td>
+                  <td class="py-3 px-3 text-slate-300 whitespace-nowrap uppercase"><?php echo htmlspecialchars($reg['food_preference'] ?: '—'); ?></td>
+                  <td class="py-3 px-3 whitespace-nowrap">
+                    <?php $acc = strtoupper(trim($reg['require_accommodation'] ?? 'NO')); ?>
+                    <?php if ($acc === 'YES'): ?>
+                      <span class="px-2 py-0.5 rounded-full bg-sky-950/80 text-sky-300 border border-sky-800 font-bold">Yes</span>
+                    <?php else: ?>
+                      <span class="text-slate-500">No</span>
+                    <?php endif; ?>
                   </td>
-                  <td class="py-3.5 px-4 text-center">
+                  <td class="py-3 px-3 whitespace-nowrap">
+                    <?php $isPaper = strtoupper(trim($reg['is_presenting_paper'] ?? 'NO')); ?>
+                    <?php if ($isPaper === 'YES'): ?>
+                      <span class="px-2 py-0.5 rounded-full bg-violet-950/80 text-violet-300 border border-violet-800 font-bold">Yes</span>
+                    <?php else: ?>
+                      <span class="text-slate-500">No</span>
+                    <?php endif; ?>
+                  </td>
+                  <td class="py-3 px-3 font-mono text-slate-300 whitespace-nowrap"><?php echo htmlspecialchars($reg['cmt_paper_id'] ?? '—'); ?></td>
+                  <td class="py-3 px-3 text-slate-300 max-w-[160px] truncate" title="<?php echo htmlspecialchars($reg['paper_theme'] ?? ''); ?>"><?php echo htmlspecialchars($reg['paper_theme'] ?? '—'); ?></td>
+                  <td class="py-3 px-3 text-slate-300 max-w-[180px] truncate" title="<?php echo htmlspecialchars($reg['paper_title'] ?? ''); ?>"><?php echo htmlspecialchars($reg['paper_title'] ?? '—'); ?></td>
+                  <td class="py-3 px-3 text-center whitespace-nowrap">
                     <button type="button"
                             onclick='openDetailModal(<?php echo $regJson; ?>)'
-                            class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 text-xs font-semibold transition-all">
+                            class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-amber-500 hover:text-slate-900 text-slate-200 border border-slate-700 text-xs font-semibold transition-all">
                       View
                     </button>
                   </td>
