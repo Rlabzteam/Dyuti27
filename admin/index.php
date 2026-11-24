@@ -5,9 +5,9 @@
  * Strictly 100% compatible with PHP 5.6, 7.x, and 8.x
  */
 
-// Temporary error display for diagnostics
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+// Suppress raw error leakage in production
+ini_set('display_errors', 0);
+error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
 
 // Security Headers
 header('X-Content-Type-Options: nosniff');
