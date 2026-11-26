@@ -4,6 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>DYUTI 2027 — Registration</title>
   <link rel="icon" type="image/png" href="images/28_years_internationalisation.png">
   <meta name="description"
@@ -20,7 +23,7 @@
     rel="stylesheet">
 
   <!-- Production Tailwind & Custom CSS -->
-  <link rel="stylesheet" href="css/style.css?v=1788798343521">
+  <link rel="stylesheet" href="css/style.css?v=1788798343522">
   <!-- Preload Header & Brand Logos for Zero-Flash Switching -->
   <link rel="preload" as="image" href="images/rcss_green_logo.png">
   <link rel="preload" as="image" href="images/dyuti27_theme_header.png">
@@ -28,6 +31,13 @@
   <link rel="preload" as="image" href="https://dyuti.in/assets/images/dyutilogoog.jpg">
 
   <script>
+    // Reload if restored from browser back-forward cache (bfcache) so deployed updates always appear immediately
+    window.addEventListener('pageshow', function (e) {
+      if (e.persisted) {
+        window.location.reload();
+      }
+    });
+
     // Automatic fallback if root js/app.js returns 404 on custom host/cPanel paths
     window.addEventListener('error', function (e) {
       if (e.target && e.target.tagName === 'SCRIPT' && e.target.src && e.target.src.indexOf('js/app.js') !== -1) {
@@ -35,7 +45,7 @@
           window.__dyuti_fallback_loaded__ = true;
           console.warn('[Dyuti] Injecting fallback /rcss/js/app.js...');
           var s = document.createElement('script');
-          s.src = '/rcss/js/app.js?v=v33_alert_visible';
+          s.src = '/rcss/js/app.js?v=v34_nocache';
           document.body.appendChild(s);
         }
       }
@@ -1857,7 +1867,7 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="js/app.js?v=v33_alert_visible"></script>
+  <script src="js/app.js?v=v34_nocache"></script>
 </body>
 
 </html>

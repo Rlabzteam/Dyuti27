@@ -3315,9 +3315,10 @@ function prefetchPage(url) {
   try {
     const parsed = new URL(url, window.location.origin);
     const key = parsed.pathname.split('/').pop() || 'index.html';
+    if (normalizePageName(parsed.pathname) === 'registration') return;
     if (pageCache.has(key) || parsed.origin !== window.location.origin) return;
 
-    fetch(parsed.pathname)
+    fetch(parsed.pathname, { cache: 'no-cache' })
       .then(res => {
         if (res.ok) return res.text();
         throw new Error('Network error');
@@ -3335,7 +3336,6 @@ function prefetchKnownPages() {
     'rajagiri.html',
     'call-for-papers.html',
     'our-team.html',
-    'registration.html',
     'accommodation.html',
     'attractions.html',
     'travel.html',
@@ -3365,8 +3365,8 @@ function getValidInternalLink(target) {
   const href = link.getAttribute('href');
   if (!href) return null;
 
-  // Skip external links, new tabs, special protocols
-  if (link.target === '_blank' || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) {
+  // Skip external links, new tabs, special protocols, or direct-navigation links
+  if (link.target === '_blank' || link.hasAttribute('data-direct-nav') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) {
     return null;
   }
 
@@ -3378,6 +3378,12 @@ function getValidInternalLink(target) {
   try {
     const url = new URL(link.href, window.location.origin);
     if (url.origin !== window.location.origin) return null;
+
+    // Always perform a direct fresh browser navigation for the registration page
+    // so deployed updates and head/form scripts always take effect immediately without refresh.
+    if (normalizePageName(url.pathname) === 'registration') {
+      return null;
+    }
 
     // Check if it is a downloadable file
     if (/\.(pdf|zip|jpg|jpeg|png|svg|webp|gif|mp4)$/i.test(url.pathname)) {
@@ -3457,7 +3463,7 @@ async function fetchPageHTML(url) {
     return pageCache.get(key);
   }
 
-  const response = await fetch(parsed.pathname);
+  const response = await fetch(parsed.pathname, { cache: 'no-cache' });
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const html = await response.text();
   pageCache.set(key, html);
@@ -3466,6 +3472,9 @@ async function fetchPageHTML(url) {
 
 async function navigateToPage(targetUrl, pushState = true) {
   if (isNavigating) return;
+  if (typeof window.dyutiCloseAwardModal === 'function') {
+    window.dyutiCloseAwardModal();
+  }
   isNavigating = true;
   showProgressBar();
 
