@@ -7920,4 +7920,113 @@
      overflow-wrap: break-word;
      word-break: break-word;
    }
- }
+ }
+
+ /* ── BEST RESEARCH PAPER AWARD POPUP MODAL STYLES ── */
+ #dyuti-award-modal {
+   position: fixed !important;
+   top: 0 !important;
+   left: 0 !important;
+   right: 0 !important;
+   bottom: 0 !important;
+   width: 100vw !important;
+   height: 100vh !important;
+   z-index: 99999 !important;
+   display: flex !important;
+   align-items: center !important;
+   justify-content: center !important;
+   padding: 12px !important;
+   background-color: rgba(2, 6, 23, 0.82) !important;
+   backdrop-filter: blur(8px) !important;
+   -webkit-backdrop-filter: blur(8px) !important;
+   transition: opacity 0.3s ease, visibility 0.3s ease !important;
+ }
+
+ #dyuti-award-modal.opacity-0 {
+   opacity: 0 !important;
+   pointer-events: none !important;
+   visibility: hidden !important;
+ }
+
+ #dyuti-award-modal.opacity-100 {
+   opacity: 1 !important;
+   pointer-events: auto !important;
+   visibility: visible !important;
+ }
+
+ #dyuti-award-modal .dyuti-award-modal-backdrop {
+   position: absolute !important;
+   top: 0 !important;
+   left: 0 !important;
+   right: 0 !important;
+   bottom: 0 !important;
+   width: 100% !important;
+   height: 100% !important;
+   cursor: pointer !important;
+   z-index: 1 !important;
+ }
+
+ #dyuti-award-modal-box {
+   position: relative !important;
+   z-index: 2 !important;
+   width: 100% !important;
+   max-width: min(520px, 92vw) !important;
+   max-height: 92vh !important;
+   display: flex !important;
+   flex-direction: column !important;
+   overflow: hidden !important;
+   border-radius: 20px !important;
+   border: 2px solid #fbbf24 !important;
+   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 35px rgba(251, 191, 36, 0.25) !important;
+   background: linear-gradient(180deg, #071A33 0%, #0a2540 50%, #040e1c 100%) !important;
+   transform: scale(0.96);
+   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+ }
+
+ #dyuti-award-modal.opacity-100 #dyuti-award-modal-box {
+   transform: scale(1) !important;
+ }
+
+ #dyuti-award-modal-box .dyuti-modal-close-btn {
+   position: absolute !important;
+   top: 8px !important;
+   right: 8px !important;
+   z-index: 30 !important;
+ }
+
+ #dyuti-award-modal-box .dyuti-award-modal-img-wrap {
+   flex: 1 1 auto !important;
+   min-height: 0 !important;
+   overflow-y: auto !important;
+   display: flex !important;
+   align-items: center !important;
+   justify-content: center !important;
+   padding: 8px 12px !important;
+   background: rgba(2, 6, 23, 0.45) !important;
+ }
+
+ #dyuti-award-modal-box img {
+   width: auto !important;
+   height: auto !important;
+   max-width: 100% !important;
+   max-height: calc(92vh - 105px) !important;
+   object-fit: contain !important;
+   display: block !important;
+   margin: 0 auto !important;
+   border-radius: 12px !important;
+ }
+
+ @media (max-width: 639px) {
+   #dyuti-award-modal {
+     padding: 8px !important;
+   }
+   #dyuti-award-modal-box {
+     max-width: 94vw !important;
+     max-height: 90vh !important;
+     border-radius: 16px !important;
+   }
+   #dyuti-award-modal-box img {
+     max-height: calc(90vh - 100px) !important;
+   }
+ }
+

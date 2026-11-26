@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initRegistrationStatusTracker();
   initContactForm();
   initSmoothPageNavigation();
+  initAwardPopup();
 });
 
 /* ── 1. NAVBAR SCROLL & FLOATING CONTROLLER ── */
@@ -3693,4 +3694,61 @@ window.addEventListener('error', function (e) {
     }
   }
 }, true);
+
+/* ── 12. BEST RESEARCH PAPER AWARD POPUP CONTROLLER ── */
+function initAwardPopup() {
+  const modal = document.getElementById('dyuti-award-modal');
+  if (!modal) return;
+  const modalBox = document.getElementById('dyuti-award-modal-box');
+
+  window.dyutiOpenAwardModal = function () {
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    modal.classList.add('opacity-100', 'pointer-events-auto');
+    if (modalBox) {
+      modalBox.classList.remove('scale-95');
+      modalBox.classList.add('scale-100');
+    }
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.dyutiCloseAwardModal = function () {
+    modal.classList.remove('opacity-100', 'pointer-events-auto');
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    if (modalBox) {
+      modalBox.classList.remove('scale-100');
+      modalBox.classList.add('scale-95');
+    }
+    document.body.style.overflow = '';
+    try {
+      sessionStorage.setItem('dyuti_award_modal_dismissed', '1');
+    } catch (e) {}
+  };
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('opacity-100')) {
+      window.dyutiCloseAwardModal();
+    }
+  });
+
+  // Check if force open requested via hash or param, e.g. #award or ?award=1
+  const forceOpen = window.location.hash.toLowerCase().includes('award') ||
+    window.location.search.toLowerCase().includes('award');
+
+  let isDismissed = false;
+  try {
+    isDismissed = sessionStorage.getItem('dyuti_award_modal_dismissed') === '1';
+  } catch (e) {}
+
+  // On call-for-papers.html, the flyer is already prominently featured as a dedicated section,
+  // so auto-open the popup on homepage visits (or when explicitly requested via #award).
+  const isCallForPapers = window.location.pathname.toLowerCase().includes('call-for-papers');
+
+  if (forceOpen || (!isDismissed && !isCallForPapers)) {
+    setTimeout(() => {
+      window.dyutiOpenAwardModal();
+    }, 600);
+  }
+}
+
 
