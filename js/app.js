@@ -118,6 +118,8 @@ let rajagiriSlideTimer = null;
 function initRajagiriSlider() {
   const slides = document.querySelectorAll('.rajagiri-slide-card');
   const dots = document.querySelectorAll('.rajagiri-slide-dot');
+  const prevBtn = document.querySelector('.rajagiri-slide-prev');
+  const nextBtn = document.querySelector('.rajagiri-slide-next');
   if (!slides.length) return;
 
   if (rajagiriSlideTimer) {
@@ -128,7 +130,7 @@ function initRajagiriSlider() {
   let currentSlide = 0;
 
   function showSlide(index) {
-    currentSlide = index;
+    currentSlide = (index + slides.length) % slides.length;
     slides.forEach((slide, i) => {
       if (i === currentSlide) {
         slide.classList.remove('hidden');
@@ -150,9 +152,30 @@ function initRajagiriSlider() {
     });
   }
 
+  function prevSlide() {
+    showSlide(currentSlide - 1);
+  }
+
   function nextSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
-    showSlide(currentSlide);
+    showSlide(currentSlide + 1);
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (rajagiriSlideTimer) clearInterval(rajagiriSlideTimer);
+      prevSlide();
+      rajagiriSlideTimer = setInterval(nextSlide, 4500);
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (rajagiriSlideTimer) clearInterval(rajagiriSlideTimer);
+      nextSlide();
+      rajagiriSlideTimer = setInterval(nextSlide, 4500);
+    });
   }
 
   dots.forEach((dot, idx) => {
